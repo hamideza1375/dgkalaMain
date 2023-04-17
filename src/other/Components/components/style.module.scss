@@ -1,0 +1,14 @@
+.hover {
+    overflow: hidden;
+    opacity: .3;
+}
+
+.hover:hover {
+    overflow: scroll;
+    transform: scale(.3);
+}
+
+.selectNone {
+    -webkit-user-select: none;
+    user-select: none;
+}
