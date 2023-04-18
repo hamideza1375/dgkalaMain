@@ -87,7 +87,7 @@ function CardAddress(p){
       <Column style={{ paddingTop: 15, width: '100%', flexDirection: 'row', justifyContent: 'space-around', }} >
         <Button outline bgcolor={!p.item.queueSend ? 'orange' : 'red'} h={35} fs={12} p={0} onClick={() => { postQueue(p.item._id); }} > {!p.item.queueSend ? 'در صف ارسال ' : 'خروج از صف'}</Button>
         <Button outline bgcolor='green' h={35} fs={12} p={0} onClick={() => { postedOrder(p.item._id) }} >ارسال شد</Button>
-        {p.item.latlng?.lat ? <Button outline bgcolor='blue' h={35} fs={12} p={0} onClick={() => { p.navigation.navigate('ShowLatLngOnMap', { latlng: p.item.latlng }) }} >نمایش</Button> : <></>}
+        {p.item.latlng?.lat ? <Button outline bgcolor='blue' h={35} fs={12} p={0} onClick={() => { p.navigation.navigate('ShowLatLngOnMap', { latlng: JSON.stringify(p.item.latlng) }) }} >نمایش</Button> : <></>}
       </Column>
     </>
   )

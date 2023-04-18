@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Column, Scroll, Button, Icon, P, Press, Py, Row, Card } from '../../other/Components/Html'
+import { FlatList, Column, Button, Icon, P, Press, Py, Row, Card } from '../../other/Components/Html'
 import _useEffect from '../../controllers/_initial'
 import spacePrice from '../../other/utils/spacePrice'
 import convertColor from '../../other/utils/convertColor'
@@ -10,9 +10,9 @@ import { localhost } from '../../other/utils/axios/axios'
 const BeforePayment = (p) => {
   return (
     <Column f={1} >
-      <Scroll fg={1} ccStyle={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: 71, backgroundColor: 'silver', flexGrow: 1 }} >
+      <Column fg={1} style={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: 71, backgroundColor: 'silver', flexGrow: 1 }} >
         <BeforePaymentFlatlist {...p} />
-      </Scroll>
+      </Column>
       <BottomTabBeforePayment {...p} />
     </Column>
   )

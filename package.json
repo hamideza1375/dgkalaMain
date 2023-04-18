@@ -29,6 +29,7 @@
     "react-native": "0.71.6",
     "react-native-background-timer": "^2.4.1",
     "react-native-fs": "^2.20.0",
+    "react-native-geolocation-service": "^5.3.1",
     "react-native-get-location": "^2.2.1",
     "react-native-image-picker": "^4.10.2",
     "react-native-linear-gradient": "^2.6.2",

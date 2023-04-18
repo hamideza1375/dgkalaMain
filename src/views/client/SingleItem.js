@@ -71,15 +71,12 @@ const SingleItem = (p) => {
         </Column>
         <Br />
 
-      {/* {p.similar.length? */}
         <Column>
           <Suspense>
             <SliderSimilars {...p} />
           </Suspense>
         </Column>
-      {/* :
-      <></>  
-      } */}
+   
 
         <Column mv={8} >
           <Suspense fallback={<Column w='100%' ai='center' ><Loading /></Column>}>

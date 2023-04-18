@@ -64,7 +64,7 @@ const Location = (p) => {
           const street = one + ' ' + two + ' ' + three
           map.setView({ lat: data[0].latitude, lng: data[0].longitude });
           marker.setLatLng({ lat: data[0].latitude, lng: data[0].longitude })
-          marker.bindPopup(street.trim() ? street : '!پیدا نشد').openPopup()
+          marker.bindPopup(street).openPopup()
           setdisable(false)
         }
         else {

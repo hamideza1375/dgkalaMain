@@ -10,7 +10,7 @@ const ShowLatLngOnMap = (p) => {
   useEffect(() => {
 
     //! map
-    let latlng = p.route.params.latlng
+    let latlng = JSON.parse(p.route.params.latlng)
     let map = L.map('map', { center: latlng, zoom: 17 })
     //! map
 
@@ -33,7 +33,6 @@ const ShowLatLngOnMap = (p) => {
     var circle1 = L.circle(mark2, 5).addTo(map);
     var circle2 = L.circle(mark2, 60).addTo(map);
     //! circle2
-
 
 
     //! onload

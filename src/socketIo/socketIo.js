@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, FlatList } from 'react-native'
+import { View, FlatList, Platform } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import { Badge, Container2, P, Press, Row, Span } from '../other/Components/Html';
 import InputBottom from './components/InputBottom';
@@ -225,7 +225,7 @@ const SocketIo = (p) => {
                     style={{ marginVertical: 10, marginRight: 'auto', marginLeft: 'auto', width: '70%', height: 40, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 8, backgroundColor: 'white', borderWidth: 1, borderColor: 'silver', borderRadius: 4 }} >
                     <P>کاربر:  </P>
                     <P mt={2}
-                      style={{ fontSize: 12, cursor: ((tokenValue.current.isAdmin) && (item.to === '1')) ? 'pointer' : '' }}>{item.userId}</P>
+                      style={[{ fontSize: 12 },Platform.OS === 'web' ?{cursor: ((tokenValue.current.isAdmin) && (item.to === '1')) ? 'pointer' : ''}:{}]}>{item.userId}</P>
                     {item.badgeActive ? <Badge right={0} color={'green'} />:<></>}
                   </Press>
                   :
