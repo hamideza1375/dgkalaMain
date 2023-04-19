@@ -1,16 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Platform } from 'react-native';
 import _Video from "react-native-video";
+import _useEffect from '../../../controllers/_initial';
 
 const Video = (props) => {
+
+  const [paused, setpaused] = useState(false)
+  const [muted, setmuted] = useState(true)
+
+  const onLoad = () => {
+    setpaused(false)
+    setmuted(true)
+    setTimeout(() => {
+      setpaused(true)
+      setmuted(false)
+    }, 200);
+  }
+
+
   return (
     <_Video
-    muted={false}
-    repeat={false}
-    resizeMode={"cover"}
-    rate={1.0}
-    controls
-    {...props}
-    style={[{ width:'100%',height:'100%', backgroundColor:'silver' },props.style]}
+      onLoad={Platform.OS === 'android' ?onLoad:()=>{}}
+      paused={Platform.OS === 'android' ? paused : true}
+      muted={Platform.OS === 'android' ? muted : false}
+      repeat={false}
+      resizeMode={"stretch"}
+      rate={1.0}
+      controls={Platform.OS === 'android' ? false : true}
+      {...props}
+      style={[{ width: '100%', height: '100%', backgroundColor: 'silver' }, props.style]}
     />
   )
 }

@@ -15,10 +15,10 @@ export default function Modal({ style, children, setshow, show, onClick, onHidde
     <Pressable onPress={Platform.OS === 'web' ? onClick : () => { }} style={{ height: 0 }}>
       <_Modal onDismiss={onHidden} supportedOrientations={['portrait', 'landscape']}
         animationType="fade" transparent={true} visible={show}>
-        <ScrollView onTouchMove={Platform.OS !== 'web' ? onClick : () => { }} contentContainerStyle={[styles.centeredView, { backgroundColor: '#6669' }]}>
+        <ScrollView onTouchMove={Platform.OS !== 'web' ? onClick : () => { }} contentContainerStyle={[styles.centeredView, { backgroundColor: '#6669'}]}>
           <View style={[styles.modalView, style]}>
               <Icon onPress={() => setshow(false)} name={"highlight-remove"} size={22} color="#f55" style={{ position: 'absolute', left: 9, top: 9, zIndex: 111 }} />
-            <Scroll w='100%' fg={1}>
+            <Scroll w='100%' h='100%' fg={1} ccStyle={style}>
               {children}
             </Scroll>
           </View>

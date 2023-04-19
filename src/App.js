@@ -108,7 +108,6 @@ const Mobile = () => {
   _client.removeAsyncStorage()
 
 
-
   return (
     <>
       {allState.init.splash ?
@@ -118,7 +117,7 @@ const Mobile = () => {
           <Button outline mb={1} onClick={() => { reload() }} >بارگذاری مجدد</Button>
         </Column>
         :
-        <Column h={height} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
+        <Column h={height} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
           <contextStates.Provider value={{ ...allState.init, toast }}>
             <ToastProvider {...allState.init} />
             <Dropdown root {...allState.init}><Column>{allState.init.dropdownValue}</Column></Dropdown>

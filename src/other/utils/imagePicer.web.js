@@ -37,6 +37,21 @@ export const imagePicker = (mediaType='photo') => new Promise(async (resolve, re
     }
   }
  
+
+  if(mediaType === 'audio'){ 
+    input.setAttribute('accept','audio/*')
+    input.click()
+    const interval = setInterval(sum,1000)
+    function sum(){
+       if(input.files[0]) {
+         resolve(input.files[0])
+         clearInterval(interval)
+         root.removeChild(input)
+       }
+     }
+   }
+
+
  
   if(mediaType === 'mixin'){ 
    input.click()

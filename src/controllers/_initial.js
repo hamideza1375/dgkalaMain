@@ -17,7 +17,7 @@ import { idValidator } from '../other/utils/idValidator';
 var _show = false
 export const _initController = (p) => {
   const [show, setshow] = useState(false)
- const net = new online()
+  const net = new online()
 
   useEffect(() => {
     var toastOK = (data) => { typeof data !== 'string' ? p.toast.success('موفق آمیز', '√', 2500) : p.toast.success('موفق آمیز', data, 3500); p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }
@@ -88,21 +88,23 @@ export const _initController = (p) => {
 }
 
 
-export function allChildren({client, user, admin}) {  
-  const _client =  ({ navigation, route }) => new clientController({ ...client, navigation, route })
-  const _user =  ({ navigation, route }) => new userController({ ...user, navigation, route })
-  const _admin =  ({ navigation, route }) => new adminController({ ...admin, navigation, route })
-  const clientReducer = (props) => ({_client: _client(props)})
+export function allChildren({ client, user, admin }) {
+  const _client = ({ navigation, route }) => new clientController({ ...client, navigation, route })
+  const _user = ({ navigation, route }) => new userController({ ...user, navigation, route })
+  const _admin = ({ navigation, route }) => new adminController({ ...admin, navigation, route })
+  const clientReducer = (props) => ({ _client: _client(props) })
   const userReducer = (props) => ({ _user: _user(props) })
   const adminReducer = (props) => ({ _admin: _admin(props) })
   this.clientChildren = (Component, key) => ({
     children: (props) => {
+      _useEffect(() => { client.setshownDropdown(false); }, [])
       useEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
       return <Layout _key={key} {...props} {...client}>{client.showActivity && <Loading setshowActivity={client.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...client} {...clientReducer(props)} /></Layout>
     }
   })
   this.userChildren = (Component, key) => ({
     children: (props) => {
+      _useEffect(() => { user.setshownDropdown(false); }, [])
       useEffect(() => {
         AsyncStorage.getItem("token").then((token) => {
           const _user = token ? jwtDecode(token) : {}
@@ -117,6 +119,7 @@ export function allChildren({client, user, admin}) {
   })
   this.adminChildren = (Component, key) => ({
     children: (props) => {
+      _useEffect(() => { admin.setshownDropdown(false); }, [])
       useEffect(() => {
         AsyncStorage.getItem("token").then((token) => {
           const user = token ? jwtDecode(token) : {}
@@ -143,7 +146,7 @@ export function allChildren({client, user, admin}) {
 
 
 // export function allController(p) {
-  
+
 //   const _client =  ({ navigation, route }) => new clientController({ ...p, navigation, route })
 //   const _user =  ({ navigation, route }) => new userController({ ...p, navigation, route })
 //   const _admin =  ({ navigation, route }) => new adminController({ ...p, navigation, route })

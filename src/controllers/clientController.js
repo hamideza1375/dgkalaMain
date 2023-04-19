@@ -330,11 +330,12 @@ export function clientController(p) {
     const navigation = useNavigation()
     useEffect(() => {
       setTimeout(async () => {
+        const getTime = await AsyncStorage.getItem('socketDate')
         const socketTocken = await AsyncStorage.getItem('socketTocken')
         const { data } = await getSocketIoSeenUser(socketTocken)
         let newNotification = await AsyncStorage.getItem('msgNotification')
         if (data)
-          if (data.message && !p.tokenValue.isAdmin && newNotification !== data.message) {
+          if (data.message && !p.tokenValue.isAdmin && newNotification !== data.message && data.getTime > JSON.parse(getTime)) {
             create('جواب پیام شما', truncate(data.message, 30, false), require('../other/assets/images/logo.png'),
               () => {
                 window.focus();

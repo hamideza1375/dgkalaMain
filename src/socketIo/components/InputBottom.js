@@ -1,48 +1,125 @@
-import { View } from "react-native";
-import { Input } from "../../other/Components/Html";
+import { Platform } from "react-native";
+import { Column, Dropdown, Icon, Input, M_icon, Row } from "../../other/Components/Html";
+import { axios, localhost } from "../../other/utils/axios/axios";
+import { imagePicker } from "../../other/utils/imagePicer";
 
-export default function InputBottom(props) {
+export default function InputBottom(p) {
+
+  const imageChat = (data) => axios.postData(`${localhost}/imageChat`, data)
+  const videoChat = (data) => axios.postData(`${localhost}/videoChat`, data)
+  const audioChat = (data) => axios.postData(`${localhost}/audioChat`, data)
+
+
+  const sendMessage = (type, fileName) => {
+    if (type === 'image') {
+      p.socket.current.emit("pvChat", {
+        userId: p.tokenSocket.current,
+        to: p.to,
+        isAdmin: p.tokenValue.current.isAdmin,
+        uri: fileName,
+        type: 'image'
+      });
+    }
+    else if (type === 'video') {
+      p.socket.current.emit("pvChat", {
+        userId: p.tokenSocket.current,
+        to: p.to,
+        isAdmin: p.tokenValue.current.isAdmin,
+        uri: fileName,
+        type: 'video'
+      });
+    }
+    else if (type === 'audio') {
+      p.socket.current.emit("pvChat", {
+        userId: p.tokenSocket.current,
+        to: p.to,
+        isAdmin: p.tokenValue.current.isAdmin,
+        uri: fileName,
+        type: 'audio'
+      });
+    }
+  }
+
+
+  const _imagePicker = () => {
+    imagePicker().then(async (res) => {
+      let uriParts = res.name.split('.');
+      let fileType = uriParts[uriParts.length - 1];
+      const imageName = `${(new Date().getTime() + Math.random() * 10000).toString()}.${fileType}`;
+      console.log(res);
+      await imageChat({ uri: res, imageName })
+      sendMessage('image', imageName);
+      p.setshownDropdown(false);
+    })
+  }
+
+
+  const _videoPicker = () => {
+    imagePicker('video').then(async (res) => {
+      let uriParts = res.name.split('.');
+      let fileType = uriParts[uriParts.length - 1];
+      const videoName = `${(new Date().getTime() + Math.random() * 10000).toString()}.${fileType}`;
+      await videoChat({ uri: res, videoName })
+      sendMessage('video', videoName);
+      p.setshownDropdown(false);
+    })
+  }
+
+
+  const _audioPicker = () => {
+    imagePicker('audio').then(async (res) => {
+      let uriParts = res.name.split('.');
+      let fileType = uriParts[uriParts.length - 1];
+      const audioName = `${(new Date().getTime() + Math.random() * 10000).toString()}.${fileType}`;
+      await audioChat({ uri: res, audioName })
+      sendMessage('audio', audioName);
+      p.setshownDropdown(false);
+    })
+  }
+
+
+
   return (
-    <View style={{
-      paddingTop: 10,
+    <Column jc='center' ai='center' style={{
       borderRadius: 5,
       minWidth: '100%',
       height: '20%',
-      minHeight: 80,
-      maxHeight: 80,
+      minHeight: 70,
+      maxHeight: 70,
       alignSelf: 'center',
       backgroundColor: '#aac'
-    }}>
-      <View style={{
-        borderRadius: 5,
-        width: '91%',
-        alignSelf: 'center'
-      }}>
-        <View style={{
-          minWidth: '100%'
-        }}>
-          <View style={{
-            top: 9,
-            width: 26,
-            height: 30,
-            zIndex: 111,
-            alignSelf: 'flex-end',
-            marginLeft: '16%'
-          }}>
-            {/* <Icon name='paperclip' size={27} color='#7777' onPress={props._imagePicker} /> */}
-          </View>
-          <Input fg={0} multiline maxLength={1000} style={{
-            height: 55,
-            position: 'absolute',
-            width: '100%'
-          }} iconSize={24} styleIcon={{
-            transform: [{
-              rotate: '-125deg'
-            }]
-          }}
-            /* onSubmitEditing={() => { props.handlePvChat(); props.setpvMessage('') }} */ value={props.pvMessage} onChange={(e) => props.setpvMessage(e.nativeEvent.text)}
-            iconPress={() => { props.handlePvChat(); props.setpvMessage('') }} icon="paper-plane" iconColor="#38a" color="#25a" placeholder="ارسال پیام" />
-        </View>
-      </View>
-    </View>);
+    }} >
+      <Column w='95%' >
+        <Column col1={{ left: 75 }} style={{ position: 'absolute', left: 90, zIndex: 111, }}>
+          <Column w={30} h={50} jc='center' ai='center'  >
+            <Dropdown top={35} value={
+              <Row border={3} >
+                <Column w={60} ai='center' >
+                  <Icon name={'image'} size={20} color={'#777'} onClick={_imagePicker} />
+                </Column>
+                <Column w={60} ai='center' >
+                  <Icon name={'video'} size={20} color={'#777'} onClick={_videoPicker} />
+                </Column>
+
+                {Platform.OS === 'web' ?
+                  <Column w={60} ai='center' >
+                    <M_icon name={'audiotrack'} size={20} color={'#777'} onClick={_audioPicker} />
+                  </Column>
+                  :
+                  <></>
+                }
+
+              </Row>
+            } />
+            <Icon name={'paperclip'} size={20} color={'#777'} style={{ position: 'absolute', zIndex: -1 }} />
+          </Column>
+        </Column>
+        <Input multiline maxLength={1000} min={99} style={{ minHeight: 50 }} iconSize={24}
+          value={p.pvMessage} onChange={(e) => p.setpvMessage(e.nativeEvent.text)}
+          iconPress={() => { p.handlePvChat(); p.setpvMessage('') }} icon="paper-plane" iconColor="#38a" color="#25a" placeholder="ارسال پیام"
+
+        />
+      </Column>
+    </Column>
+  )
 }

@@ -22,7 +22,7 @@ const TopTab = ({ group, children, name, style, bgcolor = '#fff', color = "#aaa"
           </View>
         ))}
       </Div>
-      <View style={{ height: '92%' }} >
+      <View style={{ height: '92%', flex:1 }} >
         {children}
       </View>
     </View>
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   sidebar: {
-    height: '8%',
-    minHeight: 38,
+    minHeight: 48,
+    height:48,
     flexDirection: 'row',
     justifyContent: 'space-between',
     // alignItems: 'center',
@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
     zIndex: 100
   },
   routeView: {
+    minHeight: 42,
+    height:42,
     alignItems: 'center',
     flex: 1,
     backgroundColor: 'transparent',
