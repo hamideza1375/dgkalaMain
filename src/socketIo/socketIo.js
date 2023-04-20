@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, FlatList, Platform } from 'react-native'
+import { View, FlatList, Platform, Animated } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
-import { Badge, Column, Container2, Img, Modal, P, Press, Row, Span } from '../other/Components/Html';
+import { Badge, Column, Img, Modal, P, Press, Row } from '../other/Components/Html';
 import Video from '../other/Components/other/Video';
 import Audio from '../other/Components/other/Audio';
 import InputBottom from './components/InputBottom';
@@ -13,11 +13,11 @@ import moment from 'moment-jalaali';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import _useEffect from '../controllers/_initial';
 import { Keyboard } from 'react-native';
-import Frame from '../other/Components/other/Frame';
 let adminId
 
 const SocketIo = (p) => {
 
+  const [typing, settyping] = useState('')
   const [videoUri, setvideoUri] = useState('')
   const [imageUrl, setimageUrl] = useState('')
   const [showVideo, setshowVideo] = useState(false)
@@ -31,6 +31,29 @@ const SocketIo = (p) => {
 
   const tokenValue = useRef({})
   const tokenSocket = useRef()
+  const socketTocken = useRef()
+
+
+
+  const opacityAnimated = useRef(new Animated.Value(0)).current;
+
+  const hidden = () => {
+    Animated.timing(opacityAnimated, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: false
+    }).start();
+  };
+
+  const shown = () => {
+    Animated.timing(opacityAnimated, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: false
+    }).start();
+  };
+
+
 
   const socket = useRef(SocketIOClient.connect(localhost, {
     transports: ["websocket"],
@@ -55,6 +78,12 @@ const SocketIo = (p) => {
 
 
   useFocusEffect(useCallback(() => {
+
+    AsyncStorage.getItem('socketTocken').then((_socketTocken) => {
+      socketTocken.current = _socketTocken
+    })
+
+
     AsyncStorage.getItem('token').then((token) => {
       if (token) {
         tokenValue.current = jwt_decode(token)
@@ -75,7 +104,7 @@ const SocketIo = (p) => {
 
     socket.current.on("mongoMsg", async (messages) => {
       if (!localstoragetrue) {
-        messages && setPvChatMessage([...messages, { userId: tokenSocket.current, message: 'چطوری میتوانم کمکتان کنم؟', _id: 'a1' }])
+        messages && setPvChatMessage([...messages, { userId: tokenSocket.current, message: 'چطوری میتونم کمکتون کنم؟', _id: 'a1' }])
 
         if (messages && tokenValue.current.isAdmin) {
           let titleMessage = []
@@ -107,7 +136,7 @@ const SocketIo = (p) => {
 
 
     socket.current.on("pvChat", async (msg) => {
-       setPvChatMessage(messages => [msg,...messages])
+      setPvChatMessage(messages => [msg, ...messages])
       const messages = [...pvChatMessage, msg]
 
       if (messages && tokenValue.current.isAdmin) {
@@ -137,13 +166,41 @@ const SocketIo = (p) => {
             })
           }
         }
-      } 
+      }
       else {
         const socketTocken = await AsyncStorage.getItem('socketTocken')
         !p.socketIoSeen && AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
         if (socketTocken === msg.to) { p.setsocketIoSeen(true) }
       }
     });
+
+
+
+    socket.current.on("typing", async (data) => {
+      if (tokenValue.current.isAdmin) {
+        AsyncStorage.getItem('room').then((room) => {
+          if (((data.to === '1') && (tokenValue.current.isAdmin) && (room === data.socketTocken))) {
+            if (data.etar) {
+              settyping("•••")
+              shown()
+              setTimeout(() => { hidden() }, 300);
+            }
+            if (data.etar === "") { settyping('') }
+          }
+        })
+      }
+      else
+        if ((data.to === socketTocken.current)) {
+          if (data.etar) {
+            settyping("•••")
+            shown()
+            setTimeout(() => { hidden() }, 300);
+          }
+          if (data.etar === "") { settyping('') }
+        }
+    });
+
+
 
     return () => {
       setPvChatMessage([])
@@ -152,8 +209,6 @@ const SocketIo = (p) => {
       socket.current.emit("delRemove")
     }
   }, []));
-
-
 
 
   useFocusEffect(useCallback(() => {
@@ -184,6 +239,10 @@ const SocketIo = (p) => {
   };
 
 
+  const handleKeypress = async (e) => {
+    socket.current.emit("typing", { to, socketTocken: socketTocken.current, etar: e.nativeEvent?.text })
+  };
+
 
   _useEffect(() => {
     try {
@@ -199,8 +258,15 @@ const SocketIo = (p) => {
   }, [])
 
 
+
+
+
   return (
     <Column f={1} >
+
+      <Animated.View style={{ position: 'absolute', alignSelf: 'center', top: 5, zIndex: 10000, opacity: opacityAnimated, height: 30 }} >
+        <P fs={25} h={30} pos='absolute' z={11111111} >{typing}</P>
+      </Animated.View>
 
       <View onLayout={() => { if (!tokenValue.current.isAdmin) { setto('1') } }} style={{ flex: 1 }} >
         {!tokenValue.current.isAdmin
@@ -211,7 +277,7 @@ const SocketIo = (p) => {
             data={pvChatMessage}
             renderItem={({ item, index }) => (
               ((item.userId == tokenSocket.current) || (adminId === socket.current.id) || (item.to === tokenSocket.current)) ?
-                <Span key={index} style={{ opacity: (pvChatMessage.find(pv => (pv._id !== 'a1') && (pv.userId == tokenSocket.current)) && item._id === 'a1') ? 0 : 1, marginVertical: 10, marginHorizontal: 2, width: '70%', minHeight: 45, justifyContent: 'center', paddingHorizontal: 8, backgroundColor: item.to === to ? '#f8f8f8' : '#fff', borderWidth: 1, alignSelf: (item.to === to || item._id === 'a1') ? 'flex-start' : 'flex-end', borderRadius: 10, borderColor: '#ddd' }} >
+                <Column key={index} style={{ opacity: (pvChatMessage.find(pv => (pv._id !== 'a1') && (pv.userId == tokenSocket.current)) && item._id === 'a1') ? 0 : 1, marginVertical: 10, marginHorizontal: 2, width: '70%', minHeight: 45, justifyContent: 'center', paddingHorizontal: 8, backgroundColor: item.to === to ? '#f8f8f8' : '#fff', borderWidth: 1, alignSelf: (item.to === to || item._id === 'a1') ? 'flex-start' : 'flex-end', borderRadius: 10, borderColor: '#ddd' }} >
                   <Row fd='row-reverse' jc='flex-end' pt={3}>
                     {(pvChatMessage.find(pv => (pv._id !== 'a1' && (pv.userId == tokenSocket.current))) && (item.userId === tokenSocket.current)) && <P ta='right' style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >شما</P>}
                     {(pvChatMessage.find(pv => (pv._id !== 'a1') && (pv.userId == tokenSocket.current))) && <P ta='right' mr={20} style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >{moment(item.date).format('jM/jD hh:mm')}</P>}
@@ -239,7 +305,7 @@ const SocketIo = (p) => {
                         </Column>
                   }
                   {(pvChatMessage.length - 1 === index && item._id === 'a1') && <Badge bgcolor={'#0d8'} right={2} />}
-                </Span>
+                </Column>
                 :
                 <></>
             )}
@@ -255,6 +321,7 @@ const SocketIo = (p) => {
                     <Press fd='row'
                       onClick={() => {
                         if ((tokenValue.current.isAdmin) && (item.to === '1')) {
+                          AsyncStorage.setItem('room', item.userId).then(() => { })
                           setto(item.userId); setuserId(item.userId);
                           AsyncStorage.setItem(item.userId, JSON.stringify(item)).then(() => {
                             settitleMessage(titleMsg => {
@@ -284,7 +351,7 @@ const SocketIo = (p) => {
                   data={pvChatMessage}
                   renderItem={({ item, index }) => (
                     ((item.userId === userId) || (item.to === to)) ?
-                      <Span key={index} style={{ marginVertical: 10, marginHorizontal: 2, width: '70%', minHeight: 45, justifyContent: 'center', paddingHorizontal: 8, backgroundColor: item.to === to ? '#f8f8f8' : '#fff', borderWidth: 1, alignSelf: item.to !== to ? 'flex-end' : 'flex-start', borderRadius: 10, borderColor: '#ddd' }} >
+                      <Column key={index} style={{ marginVertical: 10, marginHorizontal: 2, width: '70%', minHeight: 45, justifyContent: 'center', paddingHorizontal: 8, backgroundColor: item.to === to ? '#f8f8f8' : '#fff', borderWidth: 1, alignSelf: item.to !== to ? 'flex-end' : 'flex-start', borderRadius: 10, borderColor: '#ddd' }} >
                         <Row fd='row-reverse' jc='flex-end' pt={3}>
                           <P mr={20} style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >{moment(item.date).format('jM/jD hh:mm')}</P>
                           {item.userId === tokenSocket.current ?
@@ -315,22 +382,22 @@ const SocketIo = (p) => {
                                 <Audio source={{ uri: `${localhost}/upload/socket/${item.uri}` }} style={{ width: '90%', alignItems: 'center' }} />
                               </Column>
                         }
-                      </Span>
+                      </Column>
                       :
                       <></>
                   )}
                 />
-                <Span mt='auto' >
-                  <InputBottom handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to}  ></InputBottom>
-                </Span>
+                <Column mt='auto' >
+                  <InputBottom handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to}  ></InputBottom>
+                </Column>
               </View>
             }
           </>
         }
         {(!tokenValue.current.isAdmin) ?
-          <Span mt='auto' >
-            <InputBottom handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to} ></InputBottom>
-          </Span>
+          <Column mt='auto' >
+            <InputBottom handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to} ></InputBottom>
+          </Column>
           :
           <></>
         }

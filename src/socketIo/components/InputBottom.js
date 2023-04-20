@@ -46,7 +46,6 @@ export default function InputBottom(p) {
       let uriParts = res.name.split('.');
       let fileType = uriParts[uriParts.length - 1];
       const imageName = `${(new Date().getTime() + Math.random() * 10000).toString()}.${fileType}`;
-      console.log(res);
       await imageChat({ uri: res, imageName })
       sendMessage('image', imageName);
       p.setshownDropdown(false);
@@ -115,7 +114,7 @@ export default function InputBottom(p) {
           </Column>
         </Column>
         <Input multiline maxLength={1000} min={99} style={{ minHeight: 50 }} iconSize={24}
-          value={p.pvMessage} onChange={(e) => p.setpvMessage(e.nativeEvent.text)}
+          value={p.pvMessage} onChange={(e) =>{ p.setpvMessage(e.nativeEvent.text); p.handleKeypress(e, p.to)}}
           iconPress={() => { p.handlePvChat(); p.setpvMessage('') }} icon="paper-plane" iconColor="#38a" color="#25a" placeholder="ارسال پیام"
 
         />
