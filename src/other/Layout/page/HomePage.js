@@ -11,11 +11,11 @@ const HomePage = (p) => {
   return (
     <>
       <SearchBar icon={'bars'} drawer={<HomeDrawer {...p} />} showDrawer={show} setshowDrawer={setshow}
-        home newSearchArray={p.newSearchHomeArray} bgcolor='#ee4499fa'
+        home newSearchArray={p.newSearchHomeArray} bgcolor='#e833a8ee'
          src={p.logoUrl}
         iconPress={() => { setshow(!show) }} array={p.allProduct} setarray={p.setallProduct} >
 
-        <BottomTab productBasket={p.productBasket} socketIoSeen={p.socketIoSeen} name={'Home'} title={'پروفایل'} group={p.bottom} bgcolor='#ee4499fa' color='white' activeColor='#a05' style={{ overflow: 'hidden', boxShadow: '1px -2px 8px #1188', borderTopWidth: 1, borderColor: 'red' }} >
+        <BottomTab productBasket={p.productBasket} socketIoSeen={p.socketIoSeen} name={'Home'} title={'پروفایل'} group={p.bottom} bgcolor='#e833a8ee' color='white' activeColor='#a05' style={{ overflow: 'hidden', boxShadow: '1px -2px 8px #1188', borderTopWidth: 1, borderColor: 'red' }} >
           {p.children}
         </BottomTab>
       </SearchBar>

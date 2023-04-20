@@ -1,13 +1,15 @@
 import React from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { Div, Py } from '../Html';
 
 const TopTab = ({ group, children, name, style, bgcolor = '#fff', color = "#aaa", activeColor = "#7aeb" }) => {
   const navigation = useNavigation()
+  const height = Dimensions.get('window').height
+
 
   return (
-    <View style={styles.container} >
+    <View style={[styles.container,{maxHeight:height}]} >
       <Div id="top-tab" style={[styles.sidebar, { backgroundColor: bgcolor }, style]} >
         {group.map((item, key) => (
           <View key={key} style={styles.routeView} >

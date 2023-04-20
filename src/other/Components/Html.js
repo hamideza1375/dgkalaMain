@@ -415,14 +415,26 @@ export const Init = React.forwardRef((props, ref) => {
 // export const Input = (props) => <Component {...props} Component={_Input} />
 
 
-export const Container = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={Platform.OS === 'web' ? s.ContainerWeb : s.Container} {...props} Component={View} />
-export const ContainerFix = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={Platform.OS === 'web' ? s.ContainerWeb : s.Container} {...props} Component={View} />
-
-export const Container2 = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={Platform.OS === 'web' ? s.ContainerWeb2 : s.Container} {...props} Component={View} />
-export const ContainerNavigation = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={Platform.OS === 'web' ? s.ContainerWeb2 : s.Container} {...props} Component={View} />
-
-export const ContainerTab = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={s.Container} {...props} Component={View} />
-
+export const Container = (props) => {
+  const height = Dimensions.get('window').height
+return <Component onStartShouldSetResponder={props.onClick} initalClass={s.Container} {...props} maxh={height} Component={View} />
+}
+export const ContainerFix = (props) => {
+  const height = Dimensions.get('window').height
+return <Component onStartShouldSetResponder={props.onClick} initalClass={Platform.OS === 'web' ? s.ContainerWeb : s.Container} {...props} maxh={height} Component={View} />
+}
+export const Container2 = (props) =>{
+  const height = Dimensions.get('window').height
+ return <Component onStartShouldSetResponder={props.onClick} initalClass={Platform.OS === 'web' ? s.ContainerWeb2 : s.Container} {...props} maxh={height} Component={View} />
+ }
+export const ContainerNavigation = (props) => {
+  const height = Dimensions.get('window').height
+return <Component onStartShouldSetResponder={props.onClick} initalClass={Platform.OS === 'web' ? s.ContainerNavigation : s.Container} {...props} maxh={height} Component={View} />
+}
+export const ContainerTab = (props) => {
+  const height = Dimensions.get('window').height
+return <Component onStartShouldSetResponder={props.onClick} initalClass={s.Container} {...props} maxh={height} Component={View} />
+}
 export const Div = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={s.div} {...props} Component={View} />
 
 export const Row = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={s.row} {...props} Component={View} />
@@ -495,9 +507,11 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
             {...props}
             data={data}
             renderItem={({ item, index }) =>
+            <>
               <View style={{ position: 'absolute', height: 0, width: 0 }} ref={() => setindex(index)} ></View>
-              &&
-              renderItem({ item, index })
+              
+              {renderItem({ item, index })}
+              </>
             }
             flatlist={true}
             keyExtractor={keyExtractor ? keyExtractor : (item, index) => item._id}

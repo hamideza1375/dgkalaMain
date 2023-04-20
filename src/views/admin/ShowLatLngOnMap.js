@@ -6,7 +6,8 @@ import Geolocation from 'react-native-geolocation-service';
 import GetLocation from 'react-native-get-location';
 import Frame from '../../other/Components/other/Frame'
 import { localhost } from '../../other/utils/axios/axios'
-import { Button, Column } from '../../other/Components/Html'
+import { Button, Column, P, Press } from '../../other/Components/Html'
+import Linking from '../../other/utils/linking';
 
 
 const Location = (p) => {
@@ -18,7 +19,6 @@ const Location = (p) => {
       settoken(token)
     })
   }, [])
-
 
 
   return (
@@ -80,7 +80,9 @@ const Location = (p) => {
   </html>
 
       `}} />
-        {/* <button style={{display:'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#fff', padding: '1px 1px 2px', borderRadius: '4px', zIndex: 10000, position: 'absolute',  bottom:4, right: 4, fontSize: 20, height: 35, width: 37, borderWidth: 0, boxShadow: '.2px 1.5px 4px #333d' }}><a href={`geo:${p.route.params.latlng.lat},${p.route.params.latlng.lng}`} style={{ fontWeight:'bolder',fontSize:22, padding: 0, margin: 0, marginTop: -2 }}>↝</a></button> */}
+      <Press onClick={()=>{ Linking(`geo:${JSON.parse(p.route.params.latlng).lat},${JSON.parse(p.route.params.latlng).lng}`)}} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 3, zIndex: 10000, position: 'absolute', bottom: 10, right: 7, height: 35, width: 37, borderWidth: 1, borderColor: '#aaa', backgroundColor: '#fff' }}>
+        <P fs={30} mt={-12} color={'#555'} >↝</P>
+      </Press>
 
     </Column>
   )

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, TextInput } from 'react-native';
+import { Dimensions, StyleSheet, TextInput } from 'react-native';
 import { A_icon, Column, ContainerFix, ContainerTab, Drawer2, Dropdown2, Icon, Img, Input, M_icon, P, Press, Py, Row, Span } from '../Html'
 import { context } from '../../../context/_context'
 import { useNavigation } from '@react-navigation/native';
@@ -52,22 +52,23 @@ function SearchInput({ table, iconBack, children, drawer, showDrawer, setshowDra
     setarray(f)
   }
 
+  const height = Dimensions.get('window').height
 
 
   return (
 
-    <ContainerFix>
+    <ContainerFix maxh={height}>
 
 
       <Span bgcolor={bgcolor} h={53} w={'100%'} as='center' z={10000000}>
         <Span bgcolor={bgcolor} style={[styles.containHead]}>
           {(src) && <Press onClick={() => navigation.navigate('Home')} mr={7} ><Img bgcolor='transparent' w={55} h={54} mt={-1} br={4} src={src} /></Press>}
-          {icon && icon !== 'arrow-left' ? <Icon size={24} style={[styles.iconHome, { marginTop: 3 }]} name={icon} onPress={() => { iconPress() }} />
+          {icon && icon !== 'arrow-left' ? <Icon size={24} style={[styles.iconHome, { marginTop: 3 }]} name={icon} onPress={() => { iconPress(); p.setshownDropdown(false) }} />
             :
             navigation.canGoBack() ? <Icon size={24} style={[styles.iconHome, { marginTop: 3 }]} name={icon} onPress={() => { navigation.goBack() }} /> : <></>
           }
-          {m_icon && <M_icon size={24} style={[styles.iconHome, { marginTop: 3 }]} name={m_icon} onPress={() => { iconPress() }} />}
-          {a_icon && <A_icon size={24} style={[styles.iconHome, { marginTop: 4 }]} name={a_icon} onPress={() => { iconPress() }} />}
+          {m_icon && <M_icon size={24} style={[styles.iconHome, { marginTop: 3 }]} name={m_icon} onPress={() => { iconPress(); p.setshownDropdown(false) }} />}
+          {a_icon && <A_icon size={24} style={[styles.iconHome, { marginTop: 4 }]} name={a_icon} onPress={() => { iconPress(); p.setshownDropdown(false) }} />}
           {row && <Span mr={10} ml={5} >{row}</Span>}
 
 

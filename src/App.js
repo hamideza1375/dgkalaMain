@@ -86,8 +86,8 @@ const Mobile = () => {
 
   useEffect(() => { setTimeout(() => { allState.init.setSplash(false); allState.init.setshowActivity(false) }, 5000) }, [])
 
-  useEffect(() => { setTimeout(()=>{if ( (Platform.OS !== 'web') && (!I18nManager.isRTL)) {BackHandler.exitApp()}},3000)}, [])
-  
+  useEffect(() => { setTimeout(() => { if ((Platform.OS !== 'web') && (!I18nManager.isRTL)) { BackHandler.exitApp() } }, 3000) }, [])
+
   let icon = Platform.OS === 'ios' ? { headerLeft: header } : {}
   const allState = states()
   const toast = new Toast(allState.client)
@@ -110,17 +110,18 @@ const Mobile = () => {
 
   return (
     <>
-      {allState.init.splash ?
-        <Column f={1} >
-          <ToastProvider {...allState.init} />
-          <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
-          <Button outline mb={1} onClick={() => { reload() }} >بارگذاری مجدد</Button>
-        </Column>
-        :
-        <Column h={height} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
-          <contextStates.Provider value={{ ...allState.init, toast }}>
+      <contextStates.Provider value={{ ...allState.init, toast }}>
+        <Dropdown root {...allState.init}><Column>{allState.init.dropdownValue}</Column></Dropdown>
+
+        {allState.init.splash ?
+          <Column f={1} maxh={allState.init.height} >
             <ToastProvider {...allState.init} />
-            <Dropdown root {...allState.init}><Column>{allState.init.dropdownValue}</Column></Dropdown>
+            <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
+            <Button outline mb={1} onClick={() => { reload() }} >بارگذاری مجدد</Button>
+          </Column>
+          :
+          <Column h={height} maxh={allState.init.height} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
+            <ToastProvider {...allState.init} />
             <Init ref={(e) => allState.init.set$(e)} id={'s'} />
             <Tab.Navigator screenOptions={() => { return { headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon } }} >
               <Tab.Group>
@@ -129,7 +130,7 @@ const Mobile = () => {
                 <Tab.Screen initialParams={{ key: 'client' }} name="ChildOffers" options={{ title: 'تخفیف ها', headerShown: false }} {...clientChildren(ChildOffers, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="ChildPopulars" options={{ title: 'محبوب ها', headerShown: false }} {...clientChildren(ChildPopulars, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SingleItem" options={({ route }) => ({ title: route.params.title, headerShown: false })} {...clientChildren(SingleItem, '1')} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="BeforePayment" options={{ title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ddd' }, headerTitleStyle: { color: 'black', fontFamily: 'B Baran Regular', fontWeight: 'bold', fontSize:14 } }} {...clientChildren(BeforePayment)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="BeforePayment" options={{ title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ddd' }, headerTitleStyle: { color: 'black', fontFamily: 'B Baran Regular', fontWeight: 'bold', fontSize: 14 } }} {...clientChildren(BeforePayment)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="Map" options={{ title: 'نقشه', headerShown: Platform.OS !== 'ios' ? false : true }} {...clientChildren(Map)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressForm" options={{ title: 'فرم خرید', headerShown: Platform.OS !== 'ios' ? false : true }} {...clientChildren(SetAddressForm)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressInTehran" options={{ title: 'فرم خرید', headerShown: Platform.OS !== 'ios' ? false : true }} {...clientChildren(SetAddressInTehran)} />
@@ -186,9 +187,9 @@ const Mobile = () => {
 
               <Tab.Screen name="NotFound" options={{ title: '404', headerShown: false }} {...clientChildren(_404)} />
             </Tab.Navigator >
-          </contextStates.Provider>
-        </Column>
-      }
+          </Column>
+        }
+      </contextStates.Provider>
     </>
   )
 }
@@ -329,7 +330,7 @@ else {
   App = () => {
     return (
       <NavigationContainer linking={linking} >
-        <Column flex={1} style={{ minHeight: '100vh', overflow: 'hidden', }} dir='rtl' >
+        <Column flex={1} style={{ minHeight: '100vh', maxHeight: '100vh', overflow: 'hidden', }} dir='rtl' >
           <Mobile />
         </Column>
       </NavigationContainer>

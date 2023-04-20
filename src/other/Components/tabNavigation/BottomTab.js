@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { View, StyleSheet, Keyboard, Platform } from 'react-native'
+import { View, StyleSheet, Keyboard, Platform, Dimensions } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Badge, Press, Py } from '../Html';
@@ -19,9 +19,11 @@ const BottomTab = ({ productBasket, group, children, name, style, bgcolor = '#ff
     }
   }, []))
 
+  const height = Dimensions.get('window').height
+
 
   return (
-    <View style={styles.container} >
+    <View style={[styles.container,{maxHeight:height}]} >
       <View style={{ flex: 1, maxHeight: '94%' }} >
         {children}
       </View>

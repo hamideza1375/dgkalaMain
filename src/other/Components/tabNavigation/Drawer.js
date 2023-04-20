@@ -4,6 +4,7 @@ import { Dimensions, View, Text, StyleSheet, Animated, Pressable, Platform, Scro
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import { Column, ContainerTab, Drawer2, Py, Row } from '../Html';
 const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height
 
 const Drawer = ({ color = '#222', group, children, name, title, bgcolor = '#fff', style, icon, iconRight, Header, drawer=true, drawer2 }) => {
   const fadeAnim = useRef(new Animated.Value(-width * 2)).current;
@@ -11,6 +12,8 @@ const Drawer = ({ color = '#222', group, children, name, title, bgcolor = '#fff'
   const navigation = useNavigation()
   const [show, setshow] = useState(false)
   const [showDrawer2, setshowDrawer2] = useState(true)
+
+
 
   const open = () => {
     setTimeout(() => {
@@ -42,7 +45,7 @@ const Drawer = ({ color = '#222', group, children, name, title, bgcolor = '#fff'
 
 
   return (
-    <View style={[styles.container, { height: Platform.OS !== 'web' ? '99.7%' : '99.7vh', overflow: 'hidden' }]} >
+    <View style={[styles.container, { height: Platform.OS !== 'web' ? '99.7%' : '99.7vh', overflow: 'hidden', maxHeight:height }]} >
       <View style={[styles.sidebar, { zIndex: show ? -1 : 15, backgroundColor: bgcolor }, Header ? { paddingRight: 0 } : {}, style]} >
         {!Header ?
           <><View style={styles.TextHeader}>{iconRight && <Icon name={iconRight.name} onPress={iconRight.onClick} size={25} color={color} />}</View>

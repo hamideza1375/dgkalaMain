@@ -1,5 +1,5 @@
 import { Platform } from "react-native";
-import { Column, Dropdown, Icon, Input, M_icon, Row } from "../../other/Components/Html";
+import { Column, Dropdown, Icon, Input, M_icon, Press, Row } from "../../other/Components/Html";
 import { axios, localhost } from "../../other/utils/axios/axios";
 import { imagePicker } from "../../other/utils/imagePicer";
 
@@ -92,25 +92,25 @@ export default function InputBottom(p) {
         <Column col1={{ left: 75 }} style={{ position: 'absolute', left: 90, zIndex: 111, }}>
           <Column w={30} h={50} jc='center' ai='center'  >
             <Dropdown top={35} value={
-              <Row border={3} >
-                <Column w={60} ai='center' >
-                  <Icon name={'image'} size={20} color={'#777'} onClick={_imagePicker} />
-                </Column>
-                <Column w={60} ai='center' >
-                  <Icon name={'video'} size={20} color={'#777'} onClick={_videoPicker} />
-                </Column>
+              <Press onClick={()=>{}} fd='row' h={60} jc='center' ai='center' border={3} >
+                <Press h={'100%'} border={[1,'silver']} onClick={_imagePicker}  w={60} jc='center' ai='center' >
+                  <Icon name={'image'} size={25} color={'#777'} />
+                </Press>
+                <Press h={'100%'} border={[1,'silver']} onClick={_videoPicker} w={60} jc='center' ai='center' >
+                  <Icon name={'video'} size={25} color={'#777'} />
+                </Press>
 
                 {Platform.OS === 'web' ?
-                  <Column w={60} ai='center' >
-                    <M_icon name={'audiotrack'} size={20} color={'#777'} onClick={_audioPicker} />
-                  </Column>
+                  <Press h={'100%'} border={[1,'silver']} onClick={_audioPicker} w={60} jc='center' ai='center' >
+                    <M_icon name={'audiotrack'} size={25} color={'#777'} />
+                  </Press>
                   :
                   <></>
                 }
 
-              </Row>
+              </Press>
             } />
-            <Icon name={'paperclip'} size={20} color={'#777'} style={{ position: 'absolute', zIndex: -1 }} />
+            <Icon name={'paperclip'} size={20} color={'#999'} style={{ position: 'absolute', zIndex: -1 }} />
           </Column>
         </Column>
         <Input multiline maxLength={1000} min={99} style={{ minHeight: 50 }} iconSize={24}

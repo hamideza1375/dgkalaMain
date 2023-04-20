@@ -62,16 +62,13 @@ export const _initController = (p) => {
         if (user.exp < Date.now() / 1000) {
           await AsyncStorage.removeItem("token");
         }
-      }
-
-      AsyncStorage.getItem("token").then((token) => {
-        if (token) {
+        else{
           const user = jwtDecode(token);
           p.settokenValue(user);
           if (token) Axios.defaults.headers.common["Authorization"] = token;
         }
-      })
-    })()
+      }
+      })()
 
   }, [])
 
@@ -79,11 +76,6 @@ export const _initController = (p) => {
   useEffect(() => { p.$input.set('a', 'a') }, [])
   useEffect(() => { show === true && setTimeout(() => { p.setSplash(false); p.setshowActivity(false) }, 200) }, [show])
   Dimensions.addEventListener('change', ({ window: { width, height } }) => { p.setwidth(width); p.setheight(height) })
-
-
-
-
-
 
 }
 
@@ -108,6 +100,7 @@ export function allChildren({ client, user, admin }) {
       useEffect(() => {
         AsyncStorage.getItem("token").then((token) => {
           const _user = token ? jwtDecode(token) : {}
+          if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('Login')
           user.settokenValue(_user);
           if (props.route.params?.active === 'no' && (_user?.fullname)) return props.navigation.replace('Home')
           if (!props.route.params?.active && (!_user?.fullname)) return props.navigation.replace('Home')
@@ -123,6 +116,7 @@ export function allChildren({ client, user, admin }) {
       useEffect(() => {
         AsyncStorage.getItem("token").then((token) => {
           const user = token ? jwtDecode(token) : {}
+          if (!token) return props.navigation.replace('Login')
           admin.settokenValue(user);
           if (!user?.isAdmin) return props.navigation.replace('Home')
         })
