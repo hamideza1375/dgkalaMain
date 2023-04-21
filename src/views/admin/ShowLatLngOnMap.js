@@ -1,12 +1,9 @@
 
 import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { PermissionsAndroid, Platform, View } from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
-import GetLocation from 'react-native-get-location';
 import Frame from '../../other/Components/other/Frame'
 import { localhost } from '../../other/utils/axios/axios'
-import { Button, Column, P, Press } from '../../other/Components/Html'
+import { Column, P, Press } from '../../other/Components/Html'
 import Linking from '../../other/utils/linking';
 
 
@@ -48,7 +45,7 @@ const Location = (p) => {
    //! map
    const latlng = ${p.route.params.latlng}
       map = L.map('map', { center: latlng, zoom: 17, })
-    var myIcon = L.icon({ iconUrl: '${localhost}/images/mark.png', iconSize: [38, 95], iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowSize: [68, 95], shadowAnchor: [22, 94], });
+    var myIcon = L.icon({ iconUrl: '${localhost}/leaflet/mark.png', iconSize: [38, 95], iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowSize: [68, 95], shadowAnchor: [22, 94], });
     let markerOption = { draggable: false, icon: myIcon }
     let marker = L.marker(latlng, markerOption).addTo(map)
     var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');

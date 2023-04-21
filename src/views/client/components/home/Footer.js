@@ -1,6 +1,7 @@
 import React from 'react'
 import share from '../../../../other/utils/share'
 import { Icon, Img, Py, Column } from '../../../../other/Components/Html'
+import { localhost } from '../../../../other/utils/axios/axios'
 
 const Footer = () => {
   return (
@@ -11,14 +12,14 @@ const Footer = () => {
             <Py color='#fb0' >مجوز ها</Py>
           </Column>
           <Column w={70} h={70} mr={7} mt={12} border={[1, 'white']} >
-            <Img f={1} src={require('../../../../other/assets/images/etemadElectronic.png')} />
+            <Img f={1} src={{uri:`${localhost}/images/etemadElectronic.png`}} />
           </Column>
         </Column>
         <Column border={[0, 'white']} mt={10} btw={1} w={'95%'} pb={4} pt={8} mr={9} >
           <Py color='#fff' >درباره ی ما</Py>
         </Column>
       </Column>
-
+      
       <Column minw={125} fd='row' jc='flex-end'>
         <Column  p={10} pr={0} ai='center'>
           <Icon name='instagram' color='#a22' size={30} />

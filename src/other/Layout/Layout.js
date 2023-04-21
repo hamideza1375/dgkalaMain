@@ -41,7 +41,7 @@ export const Layout = (p) => {
       <SafeAreaView />
       <View style={{ flex: 1, overflow: 'hidden' }}>
         {
-          p.route.params.active === 'no' && (
+          p.route.params?.active === 'no' && (
           <TopTab name={p.route.name} group={topUser} >{p.children}</TopTab>)
           ||
           p.route.name === 'Home' &&
@@ -62,10 +62,10 @@ export const Layout = (p) => {
           p.route.name === 'SingleItem' &&
           <SingleItemPage {...p} bottom={bottom} />
           ||
-          (p.route.params.key === 'admin') && (!p.route.params.set) && (p.route.name !== 'Address') && (p.route.name !== 'Sellers') &&
+          (p.route.params?.key === 'admin') && (!p.route.params?.set) && (p.route.name !== 'Address') && (p.route.name !== 'Sellers') &&
           <PanelAdminPage {...p} bottom={bottom} />
           ||
-          (p.route.params.key === 'user') && (!p.route.params.view) && (p.route.name !== 'SellerPanel') && (!p.route.params.active) &&
+          (p.route.params?.key === 'user') && (!p.route.params?.view) && (p.route.name !== 'SellerPanel') && (!p.route.params?.active) &&
           <ProfilePage {...p} bottom={bottom} />
           ||
           p.route.name === 'Sellers' &&

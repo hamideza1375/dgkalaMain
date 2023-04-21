@@ -20,7 +20,7 @@ const ListUnAvailableTable = (p) => {
       header={['موجودیت', 'عنوان']}
       body={['فعال', 'title']}
       btn1='#999'
-      btn1onClick={() => changeAvailable(listUnAvailabeTable[0]._id)}
+      btn1onClick={() => listUnAvailabeTable[0]?._id && changeAvailable(listUnAvailabeTable[0]._id)}
       btn1Opacity
       object={p.listUnAvailabe}
       setobject={setlistUnAvailabeTable}

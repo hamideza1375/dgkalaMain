@@ -37,11 +37,11 @@ function CategoryTable (p) {
       header={['حذف', 'ویرایش', ' نمایش محصولات', 'عنوان']}
       body={['❌', '📝', 'نمایش', 'title']}
       btn1={'#d00'}
-      btn1onClick={() => { deleteCategory(categoryTable[0]._id) }}
+      btn1onClick={() => { categoryTable[0]?._id && deleteCategory(categoryTable[0]._id) }}
       btn2={'orange'}
-      btn2onClick={() => { p.navigation.navigate('EditCategory', { title: categoryTable[0].title, id: categoryTable[0]._id }) }}
+      btn2onClick={() => { categoryTable[0]?._id && p.navigation.navigate('EditCategory', { title: categoryTable[0].title, id: categoryTable[0]._id }) }}
       btn3={'#09f'}
-      btn3onClick={() => { p.navigation.navigate('Sellers', { title: categoryTable[0].title, id: categoryTable[0]._id }) }}
+      btn3onClick={() => {categoryTable[0]?._id && p.navigation.navigate('Sellers', { title: categoryTable[0].title, id: categoryTable[0]._id }) }}
       object={p.category}
       setobject={setcategoryTable}
     />

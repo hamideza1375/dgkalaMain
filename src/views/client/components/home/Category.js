@@ -14,11 +14,11 @@ const Category = (p) => {
       </Column>
 
       {p.category && <ScrollSlider
-        h={180} ccStyle={{ height: 180, justifyContent: 'center' , alignSelf: 'center',}}
-        style={Platform.OS !== 'web' ? { paddingRight: 290 } : { paddingRight: 10, }}
+        h={180} 
+        ccStyle={{ height: 180, justifyContent: 'center' , alignSelf: 'center'}}
         data={p.category}
         renderItem={({ item, index }) => (
-          <Column w={105} h={115} as='center' >
+          <Column w={105} h={115} as='center' fg={1} >
             <Column w={90} h={95} as='center'>
               <LinearGradient nativeStart={{ x: 1.5, y: 1.5 }} webStart={{ x: 7 }} colors={['#f5f', '#505', '#f5f']} style={{ borderRadius: 100, width: 90, height: 90, maxHeight: 90, justifyContent: 'center', alignItems: 'center' }} >
                 <Column w={84} h={84} style={{ borderRadius: 100, backgroundColor: 'white', position: 'absolute' }} >

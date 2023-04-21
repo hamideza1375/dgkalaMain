@@ -869,6 +869,7 @@ const scrollCount = useRef(0)
               newObj={newObj.input3}
               yub={inpt3}
               styles={styles}
+              keyboardType='numeric'
             />
           }
 
@@ -886,6 +887,7 @@ const scrollCount = useRef(0)
               newObj={newObj.input4}
               yub={inpt4}
               styles={styles}
+              keyboardType='numeric'
             />
           }
 
@@ -904,6 +906,7 @@ const scrollCount = useRef(0)
               newObj={newObj.input5}
               yub={inpt5}
               styles={styles}
+              keyboardType='numeric'
             />
           }
 
@@ -922,6 +925,7 @@ const scrollCount = useRef(0)
               newObj={newObj.input6}
               yub={inpt6}
               styles={styles}
+              keyboardType='numeric'
             />
           }
 
@@ -939,6 +943,7 @@ const scrollCount = useRef(0)
               newObj={newObj.input7}
               yub={inpt7}
               styles={styles}
+              keyboardType='numeric'
             />
           }
 
@@ -974,6 +979,7 @@ const scrollCount = useRef(0)
               newObj={newObj.input9}
               yub={inpt9}
               styles={styles}
+              keyboardType='numeric'
             />
           }
 
@@ -1008,6 +1014,7 @@ const scrollCount = useRef(0)
               newObj={newObj.input11}
               yub={inpt11}
               styles={styles}
+              keyboardType='numeric'
             />
           }
 

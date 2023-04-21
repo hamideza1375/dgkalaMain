@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card2, Img, P, Span } from '../../../../other/Components/Html'
+import { localhost } from '../../../../other/utils/axios/axios'
 
 const Obligations = (p) => {
   return (
@@ -9,7 +10,7 @@ const Obligations = (p) => {
       <Card2 w='95%'  h={60} border={[0]}
         coulumn1={
           <Span h={'100%'} w={'100%'} jc='center' ai='center' >
-            <Img br={2} bgcolor='white' w={40} h={30} src={require('../../../../other/assets/images/payPostMethod.png')} size={30} />
+            <Img br={2} bgcolor='white' w={40} h={30} src={{uri:`${localhost}/images/payPostMethod.png`}} size={30} />
           </Span>
         }
         coulumn2={
@@ -21,12 +22,11 @@ const Obligations = (p) => {
     </Span>
 
 
-
     <Span w={'25%'} h={60} ai='center' >
       <Card2 w='95%'  h={60} border={[0]}
         coulumn1={
           <Span h={'100%'} w={'100%'} jc='center' ai='center' >
-            <Img br={2} bgcolor='white' w={40} h={30} src={require('../../../../other/assets/images/originalPostMethod.png')} size={30} />
+            <Img br={2} bgcolor='white' w={40} h={30} src={{uri:`${localhost}/images/originalPostMethod.png`}} size={30} />
           </Span>
         }
         coulumn2={
@@ -43,7 +43,7 @@ const Obligations = (p) => {
       <Card2 w='95%'  h={60} border={[0]}
         coulumn1={
           <Span h={'100%'} w={'100%'} jc='center' ai='center' >
-            <Img br={2} bgcolor='white' w={40} h={30} src={require('../../../../other/assets/images/guaranteeIcon.png')} size={30} />
+            <Img br={2} bgcolor='white' w={40} h={30} src={{uri:`${localhost}/images/guaranteeIcon.png`}} size={30} />
           </Span>
         }
         coulumn2={
@@ -55,12 +55,11 @@ const Obligations = (p) => {
     </Span>
 
 
-
     <Span w={'25%'} h={60} ai='center' >
       <Card2 w='95%'  h={60} border={[0]}
         coulumn1={
           <Span h={'100%'} w={'100%'} jc='center' ai='center' >
-            <Img br={2} bgcolor='white' w={40} h={30} src={require('../../../../other/assets/images/7dayPostMethod.png')} size={30} />
+            <Img br={2} bgcolor='white' w={40} h={30} src={{uri:`${localhost}/images/7dayPostMethod.png`}} size={30} />
           </Span>
         }
         coulumn2={

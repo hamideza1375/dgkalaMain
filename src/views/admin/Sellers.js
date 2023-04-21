@@ -19,11 +19,11 @@ const Sellers = (p) => {
           header={['حدف', 'موجودیت', ' نمایش محصولات', 'تلفن', 'نام تجاری']}
           body={['❌', 'فعال', 'نمایش', 'phone', 'brand']}
           btn1={'#f55'}
-          btn1onClick={() => { deleteSeller(_sellerTable[0]._id) }}
+          btn1onClick={() => { _sellerTable[0]?._id && deleteSeller(_sellerTable[0]._id) }}
           btn2={'#1e1'}
-          btn2onClick={() => { setSellerAvailable(_sellerTable[0]._id) }}
+          btn2onClick={() => { _sellerTable[0]?._id &&setSellerAvailable(_sellerTable[0]._id) }}
           btn3={'#09f'}
-          btn3onClick={() => { p.navigation.navigate('TableChildItems', { title: _sellerTable[0].title, id: p.route.params.id, sellerId: _sellerTable[0]._id }) }}
+          btn3onClick={() => { _sellerTable[0]?._id && p.navigation.navigate('TableChildItems', { title: _sellerTable[0].title, id: p.route.params.id, sellerId: _sellerTable[0]._id }) }}
           btn2Opacity
           object={p.sellerTable}
           setobject={_setsellerTable}

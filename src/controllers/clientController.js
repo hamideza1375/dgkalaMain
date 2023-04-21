@@ -403,8 +403,8 @@ export function clientController(p) {
 
     const address = await AsyncStorage.getItem('address')
 
-
-    if (address !== p.address || !address) {
+    if (p.route.name !== 'SetAddressInTehran')
+      if (address !== p.address || !address) {
         _Alert.alert(
           "آدرس جدید در مرورگر ذخیره شود؟",
           "",
@@ -421,7 +421,7 @@ export function clientController(p) {
             }
           ]
         )
-    }
+      }
     p.navigation.replace('FramePayment', { url: data.value })
   }
   //! payment

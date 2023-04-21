@@ -15,7 +15,7 @@ const SellerPanel = (p) => {
         body={['quits', 'sold', 'off', 'title']}
         btn3={'#e63'}
         btn3onClick={() => { }}
-        titleClick={() => { p.navigation.navigate('SingleItem', { id: setsellerItemsTable[0]._id }) }}
+        titleClick={() => {setsellerItemsTable[0]?._id && p.navigation.navigate('SingleItem', { id: setsellerItemsTable[0]._id }) }}
         object={p.sellerItems}
         setobject={setsetsellerItemsTable}
       />

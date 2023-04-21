@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import { Platform } from 'react-native'
-import { A_icon, Card2, Div, Icon, Img, P, ScrollSlider, Span } from '../../../../other/Components/Html'
+import { Div, Img, P, ScrollSlider, Span } from '../../../../other/Components/Html'
 import LinearGradient from '../../../../other/Components/other/LinearGradient'
 import spacePrice from '../../../../other/utils/spacePrice'
 import s from '../../client.module.scss'
 import CardItem from '../CardItem'
+import { localhost } from '../../../../other/utils/axios/axios'
 
 const SliderSimilars = (p) => {
   const [x, setx] = useState(0)
@@ -13,11 +14,11 @@ const SliderSimilars = (p) => {
     <>
       <Span h={330}>
 
-      <Img class={s.o_img} style={{ position: 'absolute', top: 20, left: 2, zIndex: -1, width: 88, height: 88 }} src={require('../../../../other/assets/images/glass2.png')} />
-        <Img class={s.o_img} style={{ position: 'absolute', top: 25, left: 50, zIndex: -1, width: 88, height: 88 }} src={require('../../../../other/assets/images/glass1.png')} />
-        <Img class={s.o_img} style={{ position: 'absolute', top: 235, right: 55, zIndex: -1, width: 88, height: 88 }} src={require('../../../../other/assets/images/glass1.png')} />
-        <Img class={s.o_img} style={{ position: 'absolute', top: 231, zIndex: -1, width: 88, height: 88 }} src={require('../../../../other/assets/images/glass2.png')} />
-        <Img class={s.o_img} style={{ position: 'absolute', top: 240, left: 15, zIndex: -1, width: 88, height: 88 }} src={require('../../../../other/assets/images/glass12.png')} />
+      <Img class={s.o_img} style={{ position: 'absolute', top: 20, left: 2, zIndex: -1, width: 88, height: 88 }} src={{uri:`${localhost}/images/glass2.png`}} />
+        <Img class={s.o_img} style={{ position: 'absolute', top: 25, left: 50, zIndex: -1, width: 88, height: 88 }} src={{uri:`${localhost}/images/glass1.png`}} />
+        <Img class={s.o_img} style={{ position: 'absolute', top: 235, right: 55, zIndex: -1, width: 88, height: 88 }} src={{uri:`${localhost}/images/glass1.png`}} />
+        <Img class={s.o_img} style={{ position: 'absolute', top: 231, zIndex: -1, width: 88, height: 88 }} src={{uri:`${localhost}/images/glass2.png`}} />
+        <Img class={s.o_img} style={{ position: 'absolute', top: 240, left: 15, zIndex: -1, width: 88, height: 88 }} src={{uri:`${localhost}/images/glass12.png`}} />
   
 
         <Span fd='row' ai='center' mt={8}>

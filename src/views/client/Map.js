@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { PermissionsAndroid, Platform, View } from 'react-native';
+import { PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import GetLocation from 'react-native-get-location';
 import Frame from '../../other/Components/other/Frame'
@@ -19,9 +19,6 @@ const Location = (p) => {
       settoken(token)
     })
   }, [])
-
-
-
 
 
 
@@ -114,7 +111,7 @@ const Location = (p) => {
    //! map
     let latlng = { lat: 35.6892523, lng: 51.3896004 },
     map = L.map('map', { center: latlng, zoom: 17, })
-    var myIcon = L.icon({ iconUrl: '${localhost}/images/mark.png', iconSize: [38, 95], iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowSize: [68, 95], shadowAnchor: [22, 94], });
+    var myIcon = L.icon({ iconUrl: '${localhost}/leaflet/mark.png', iconSize: [38, 95], iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowSize: [68, 95], shadowAnchor: [22, 94], });
     let markerOption = { draggable: true, icon: myIcon }
     let marker = L.marker(latlng, markerOption).addTo(map)
     map.on('click', (ev) => { marker.openPopup() })

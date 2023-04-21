@@ -167,7 +167,7 @@ export function adminController(p) {
     p.setinput3('')
     p.setinput4('')
     p.setinput5('')
-    p.setinput6()
+    p.setinput6('')
     p.setinput7('')
     p.setinput8([])
     p.setinput9('')
@@ -184,7 +184,7 @@ export function adminController(p) {
         p.setchildItem(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
         p.setnewSearchArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
-    }, [p.route.params.id])
+    }, [p.route.params.id, p.route.params.sellerId])
   }
 
 
@@ -211,7 +211,7 @@ export function adminController(p) {
     p.setinput3('')
     p.setinput4('')
     p.setinput5('')
-    p.setinput6()
+    p.setinput6('')
     p.setinput7('')
     p.setinput8([])
     p.setinput9('')
@@ -329,7 +329,7 @@ export function adminController(p) {
         p.setinput3('')
         p.setinput4('')
         p.setinput5('')
-        p.setinput6()
+        p.setinput6('')
         p.setinput7('')
         p.setinput8([])
         p.setinput9('')

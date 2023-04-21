@@ -93,8 +93,8 @@ const SocketIo = (p) => {
 
 
   useFocusEffect(useCallback(() => {
-    if (!tokenValue.current.isAdmin) p.setsocketIoSeen(true)
-
+    if (!tokenValue.current.isAdmin) AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
+    
     socket.current.on("online", (users) => {
       const user = users.find((user) => (user.user.isAdmin === 1))
       adminId = user?.socketId
@@ -127,7 +127,7 @@ const SocketIo = (p) => {
           }
         }
         else {
-          !p.socketIoSeen && AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
+          //  AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
         }
       }
     })
@@ -169,7 +169,7 @@ const SocketIo = (p) => {
       }
       else {
         const socketTocken = await AsyncStorage.getItem('socketTocken')
-        !p.socketIoSeen && AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
+        //  AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
         if (socketTocken === msg.to) { p.setsocketIoSeen(true) }
       }
     });
@@ -206,6 +206,7 @@ const SocketIo = (p) => {
       setPvChatMessage([])
       settitleMessage([])
       p.setsocketIoSeen(false)
+      AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
       socket.current.emit("delRemove")
     }
   }, []));
@@ -265,7 +266,7 @@ const SocketIo = (p) => {
     <Column f={1} >
 
       <Animated.View style={{ position: 'absolute', alignSelf: 'center', top: 5, zIndex: 10000, opacity: opacityAnimated, height: 30 }} >
-        <P fs={25} h={30} pos='absolute' z={11111111} >{typing}</P>
+        <P fs={25} h={30} pos='absolute' color='#99f' z={11111111} >{typing}</P>
       </Animated.View>
 
       <View onLayout={() => { if (!tokenValue.current.isAdmin) { setto('1') } }} style={{ flex: 1 }} >

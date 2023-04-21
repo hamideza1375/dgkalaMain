@@ -62,13 +62,13 @@ export const _initController = (p) => {
         if (user.exp < Date.now() / 1000) {
           await AsyncStorage.removeItem("token");
         }
-        else{
+        else {
           const user = jwtDecode(token);
           p.settokenValue(user);
           if (token) Axios.defaults.headers.common["Authorization"] = token;
         }
       }
-      })()
+    })()
 
   }, [])
 
@@ -89,6 +89,7 @@ export function allChildren({ client, user, admin }) {
   const adminReducer = (props) => ({ _admin: _admin(props) })
   this.clientChildren = (Component, key) => ({
     children: (props) => {
+      useEffect(() => {AsyncStorage.getItem("token").then((token) => {if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('Login')})}, [])
       _useEffect(() => { client.setshownDropdown(false); }, [])
       useEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
       return <Layout _key={key} {...props} {...client}>{client.showActivity && <Loading setshowActivity={client.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...client} {...clientReducer(props)} /></Layout>
@@ -100,7 +101,6 @@ export function allChildren({ client, user, admin }) {
       useEffect(() => {
         AsyncStorage.getItem("token").then((token) => {
           const _user = token ? jwtDecode(token) : {}
-          if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('Login')
           user.settokenValue(_user);
           if (props.route.params?.active === 'no' && (_user?.fullname)) return props.navigation.replace('Home')
           if (!props.route.params?.active && (!_user?.fullname)) return props.navigation.replace('Home')
@@ -127,48 +127,5 @@ export function allChildren({ client, user, admin }) {
   })
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// export function allController(p) {
-
-//   const _client =  ({ navigation, route }) => new clientController({ ...p, navigation, route })
-//   const _user =  ({ navigation, route }) => new userController({ ...p, navigation, route })
-//   const _admin =  ({ navigation, route }) => new adminController({ ...p, navigation, route })
-
-//   const reducer = (props) => p.init &&
-//   ({
-//     _client: props.route.params?.key === 'client' ? _client(props) : {},
-//     _user: props.route.params?.key === 'user' ? _user(props) : {},
-//     _admin: props.route.params?.key === 'admin' ? _admin(props) : {},
-//   })
-
-//   this._children = (Component, key) => ({
-//     children: (props) => {
-//       useEffect(() => {
-//         AsyncStorage.getItem("token").then((token) => {
-//           const user = token ? jwtDecode(token) : {}
-//           p.settokenValue(user);
-//           if (props.route.params?.key === 'admin' && (!user?.isAdmin)) return props.navigation.replace('Home')
-//           if (props.route.params?.active === 'no' && (user?.fullname)) return props.navigation.replace('Home')
-//           if (props.route.params?.key === 'user' && !props.route.params?.active && (!user?.fullname)) return props.navigation.replace('Home')
-//         })
-//       }, [])
-
-//       useEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
-
-//       return <Layout _key={key} {...props} {...p}>{p.showActivity && <Loading setshowActivity={p.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...p} {...reducer(props)} /></Layout>
-//     }
-//   })
-// }
 
 export default function _useEffect(call, state) { useFocusEffect(useCallback(() => call(), state)) }
