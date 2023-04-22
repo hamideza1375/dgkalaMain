@@ -20,7 +20,7 @@ const CardItem = ({ onClick, item, spacePrice, h = 240, w , style, sh = { r: 6, 
     <Card2
       onClick={onClick}
       bgcolor={'#fff'} sh={sh}
-      style={[{ minWidth: 161, maxWidth: 500, width: w, borderColor: 'silver',  flexGrow: 1, marginVertical: 15, height: h }, style]}
+      style={[{ minWidth: 155, maxWidth: '98%', width: w, borderColor: 'silver', marginVertical: 15, height: h }, style]}
        src={item.imageUrl && {uri:`${localhost}/upload/childItem/${item.imageUrl}`}}
       coulumn1={<Column mt={8} w={'100%'}><P fs={11} ta='center' as='center' >{item.title}</P></Column>}
       coulumn2={<Column bgcolor='#eee' fd='row' h={35} jc='center' w={'100%'}>

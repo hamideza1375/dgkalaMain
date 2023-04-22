@@ -29,7 +29,15 @@ function FlatlistChild(p){
       column5={4} column6={5}
       data={p.childItem}
       renderItem={({ item, index }) => (
-        <Column /* mh='auto' */ mh={6} minw={165} fg={1} h={260} col2={{ marginHorizontal: 2 }} col1={{ marginHorizontal: 1 }}>
+        <Column 
+        col1={{ marginHorizontal: 1, width:'99%'  }}
+        col2={{ marginHorizontal: 2, width:'48%' }}
+        col3={{ width:'48%' }}
+        col4={{ width:'30%' }}
+        col5={{ width:'22%' }}
+        col6={{ width:'18%' }}
+        mr='auto' ml='auto' h={260} fg={1} maxw={500}
+        >
           <CardItem item={item} spacePrice={spacePrice} onClick={() => { p.navigation.navigate('SingleItem', { id: item._id }) }} />
         </Column>)}
     />

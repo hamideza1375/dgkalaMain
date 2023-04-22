@@ -474,9 +474,9 @@ export const ImgBackground = (props) => <Component source={props.src} {...props}
 
 export const Img = (props) => <ComponentImage style={[props.style]} source={props.src} {...props} Component={Image} />
 
-export const Scroll = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} Component={ScrollView} />
+export const Scroll = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} style={[{flexWrap:'nowrap'}, props.style]} Component={ScrollView} />
 
-export const ScrollHorizontal = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} horizontal={true} Component={ScrollView} />
+export const ScrollHorizontal = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} style={[{flexWrap:'wrap'}, props.style]} horizontal={true} Component={ScrollView} />
 
 export const FlatList = ({ pageLimit, loading = true, column1, column2, column3, column4, column5, column6, renderItem, numColumns, data, keyExtractor, ...props }) => {
 
@@ -505,6 +505,7 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
         <>
           <ComponentForScroll
             {...props}
+            style={[{flexWrap:'nowrap'}, props.style]}
             data={data}
             renderItem={({ item, index }) =>
             <>
@@ -532,7 +533,7 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
         ?
         <>
           <Component
-          style={{paddingBottom:50}}
+          style={[{flexWrap:'nowrap', paddingBottom:50}, props.style]}
             {...props}
             data={current}
             renderItem={({ item, index }) => 
@@ -565,7 +566,7 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
   }
 }
 
-export const FlatListHorizontal = (props) => <ComponentForScroll flatlist={true} {...props} horizontal={true} Component={_FlatList} />
+export const FlatListHorizontal = (props) => <ComponentForScroll flatlist={true} {...props} style={[{flexWrap:'wrap'}, props.style]} horizontal={true} Component={_FlatList} />
 
 export const Vlist = (props) => <VirtualizedList keyExtractor={item => item._id} getItemCount={(data) => data.length} getItem={(data, index) => (data[index])} {...props} />
 
