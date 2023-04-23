@@ -10,5 +10,5 @@ export const timerThreeMinut = async (settwoMinut, call = () => { }) => {
     if ((!minutes && !seconds) || (minutes <= 0 && seconds <= 0)) setTimeout(() => { settwoMinut(0) }, 2000);
     if ((!minutes && !seconds) || (minutes <= 0 && seconds <= 0)) await AsyncStorage.removeItem('localDate')
   })
-  await AsyncStorage.setItem('localDate', JSON.parse(oldDate))
+  await AsyncStorage.setItem('localDate', String(oldDate))
 }

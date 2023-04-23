@@ -19,7 +19,7 @@ export function clientController(p) {
       getSlider().then(({ data }) => {
         data && p.setslider(Object.values(data.value))
       })
-    }, [])
+    }, [p.sliderImage1])
   }
   //! getSlider
 

@@ -114,10 +114,10 @@ const Mobile = () => {
         <Dropdown root {...allState.init}><Column>{allState.init.dropdownValue}</Column></Dropdown>
 
         {allState.init.splash ?
-          <Column f={1} maxh={allState.init.height} >
+          <Column pb={Platform.OS === 'ios' ? 10 : 1 } f={1} maxh={allState.init.height} >
             <ToastProvider {...allState.init} />
             <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
-            <Button outline mb={1} onClick={() => { reload() }} >بارگذاری مجدد</Button>
+            <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button>
           </Column>
           :
           <Column h={height} maxh={allState.init.height} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
@@ -130,7 +130,7 @@ const Mobile = () => {
                 <Tab.Screen initialParams={{ key: 'client' }} name="ChildOffers" options={{ title: 'تخفیف ها', headerShown: false }} {...clientChildren(ChildOffers, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="ChildPopulars" options={{ title: 'محبوب ها', headerShown: false }} {...clientChildren(ChildPopulars, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SingleItem" options={({ route }) => ({ title: route.params.title, headerShown: false })} {...clientChildren(SingleItem, '1')} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="BeforePayment" options={{ title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ddd' }, headerTitleStyle: { color: 'black', fontFamily: 'B Baran Regular', fontWeight: 'bold', fontSize: 14 } }} {...clientChildren(BeforePayment)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="BeforePayment" options={{ title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ddd' }, headerTitleStyle: { color: 'black', fontFamily: Platform.OS === 'web'?'B Baran Regular':'IRANSansWeb', fontWeight: 'bold', fontSize: 14 } }} {...clientChildren(BeforePayment)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="Map" options={{ title: 'نقشه', headerShown: Platform.OS !== 'ios' ? false : true }} {...clientChildren(Map)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressForm" options={{ title: 'فرم خرید', headerShown: Platform.OS !== 'ios' ? false : true }} {...clientChildren(SetAddressForm)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressInTehran" options={{ title: 'فرم خرید', headerShown: Platform.OS !== 'ios' ? false : true }} {...clientChildren(SetAddressInTehran)} />

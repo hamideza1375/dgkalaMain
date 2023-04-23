@@ -47,7 +47,7 @@ function ScrollSlider(p) {
     <Span
       style={{ cursor: 'grab' }}
       class={s.selectNone}
-      // <Span onMouseLeave={() => { if (Platform.OS === 'web') if (navigator.userAgent?.split('(')[1]?.slice(0, 7) === 'Windows') ref.current?.setNativeProps({ style: { overflow: 'hidden' } }); }}
+      // <Span onMouseLeave={() => { if (Platform.OS === 'web') if (navigator?.userAgent?.match('Mobile') !== 'Mobile') ref.current?.setNativeProps({ style: { overflow: 'hidden' } }); }}
       onMouseUp={() => { setscroll2(false); setTimeout(() => { das = [] }, 10); }}
       onMoveShouldSetResponder={() => { setscroll2(false); }}
       onTouchMove={() => { setscroll2(false); }} >
@@ -55,7 +55,7 @@ function ScrollSlider(p) {
         onMoveShouldSetResponder={(e) => {
           setscroll2(!scroll2)
           if (Platform.OS === 'web') {
-            if (navigator.userAgent?.split('(')[1]?.slice(0, 7) === 'Windows') {
+            if (navigator?.userAgent?.match('Mobile') !== 'Mobile') {
               ref.current?.setNativeProps({ style: { overflowX: 'auto' } });
               das.push(e.nativeEvent.pageX)
               ref.current?.scrollToOffset({ animated: true, offset: (scroll) + ((das[0] - das[das.length - 1]) * 1) })
@@ -66,7 +66,7 @@ function ScrollSlider(p) {
         }}
       >
         <FlatList
-          showsHorizontalScrollIndicator={Platform.OS !== 'web' ? false : !navigator.userAgent?.split('(')[1]?.slice(0, 7) === 'Windows' ? true : false}
+          showsHorizontalScrollIndicator={Platform.OS !== 'web' ? false : navigator.userAgent.match('Mobile') ? true : false}
           dir='ltr'
           ref={ref}
           horizontal

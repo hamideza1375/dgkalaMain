@@ -379,7 +379,7 @@ export const _text = React.forwardRef((props, ref) => {
           backgroundColor: bgcolor, borderWidth: border[0], borderColor: border[1],
           height: h, width: w, fontFamily: ff, fontSize: fs, fontWeight: fw, color,
         },
-        native: {
+        android: {
           overflow:'hidden',
           textShadowRadius: tsh.r, textShadowColor: tsh.c, textShadowOffset: tsh.of,
           borderBottomColor: bbc, borderTopColor: btc,
@@ -391,6 +391,23 @@ export const _text = React.forwardRef((props, ref) => {
           textAlign:ta === 'left' ? 'right' :( ta === 'right' ? 'left' : ta) , flexGrow: fg, flex: f,
           alignSelf: as, padding: p, paddingBottom: pb, paddingTop: pt,
           paddingRight: pl, paddingLeft: pr, paddingHorizontal: ph, paddingVertical: pv,
+          marginVertical: mv, margin: m, marginTop: mt, marginBottom: mb,
+          marginLeft: ml, marginRight: mr, marginHorizontal: mh,
+          backgroundColor: bgcolor, borderWidth: border[0], borderColor: border[1],
+          height: h, width: w, fontFamily: ff, fontSize: fs, fontWeight: fw, color,
+        },
+        ios: {
+          overflow:'hidden',
+          textShadowRadius: tsh.r, textShadowColor: tsh.c, textShadowOffset: tsh.of,
+          borderBottomColor: bbc, borderTopColor: btc,
+          borderLeftColor: blc, borderRightColor: brc, borderTopWidth: btw,
+          borderBottomWidth: bbw, borderLeftWidth: blw, borderRightWidth: brw,
+          minWidth: minw, maxWidth: maxw, minHeight: minh, maxHeight: maxh,
+          opacity: opc,
+          position: pos, zIndex: z, top: t, bottom: b, right: r, left: l,
+          textAlign:ta === 'left' ? 'right' :( ta === 'right' ? 'left' : ta), flexGrow: fg, flex: f,
+          alignSelf: as, padding: p, paddingBottom: pb, paddingTop: pt,
+          paddingRight: pr, paddingLeft: pl, paddingHorizontal: ph, paddingVertical: pv,
           marginVertical: mv, margin: m, marginTop: mt, marginBottom: mb,
           marginLeft: ml, marginRight: mr, marginHorizontal: mh,
           backgroundColor: bgcolor, borderWidth: border[0], borderColor: border[1],
@@ -570,29 +587,29 @@ export const FlatListHorizontal = (props) => <ComponentForScroll flatlist={true}
 
 export const Vlist = (props) => <VirtualizedList keyExtractor={item => item._id} getItemCount={(data) => data.length} getItem={(data, index) => (data[index])} {...props} />
 
-export const H1 = (props) => <_text {...props} initalClass={s.h1} />
+export const H1 = (props) => <_text ta='right' {...props} initalClass={s.h1} />
 
-export const H2 = (props) => <_text {...props} initalClass={s.h2} />
+export const H2 = (props) => <_text ta='right' {...props} initalClass={s.h2} />
 
-export const H3 = (props) => <_text {...props} initalClass={s.h3} />
+export const H3 = (props) => <_text ta='right' {...props} initalClass={s.h3} />
 
-export const H4 = (props) => <_text {...props} initalClass={s.h4} />
+export const H4 = (props) => <_text ta='right' {...props} initalClass={s.h4} />
 
-export const H5 = (props) => <_text {...props} initalClass={s.h5} />
+export const H5 = (props) => <_text ta='right' {...props} initalClass={s.h5} />
 
-export const H6 = (props) => <_text {...props} initalClass={s.h6} />
+export const H6 = (props) => <_text ta='right' {...props} initalClass={s.h6} />
 
-export const P = (props) => <_text {...props} initalClass={s.p} />
+export const P = (props) => <_text ta='right' {...props} initalClass={s.p} />
 
-export const Ps = (props) => <_text {...props} initalClass={s.p} />
+export const Ps = (props) => <_text ta='right' {...props} initalClass={s.p} />
 
-export const Pl = (props) => <_text {...props} initalClass={s.p} ff='IRANSansWeb-Light' />
+export const Pl = (props) => <_text ta='right' {...props} initalClass={s.p} ff='IRANSansWeb-Light' />
 
-export const Pfa = (props) => <_text fs={16} fw='bold' {...props} ff='B Baran Regular' />
+export const Pfa = (props) => <_text ta='right' fs={16} fw='bold' {...props} ff={Platform.OS === 'web'?'B Baran Regular':'IRANSansWeb'} />
 
-export const Py = (props) => <_text fw='bold' {...props} ff='Yekan Bakh Regular' />
+export const Py = (props) => <_text ta='right' fw='bold' {...props} ff='Yekan Bakh Regular' />
 
-export const I = (props) => <_text {...props} initalClass={s.i} />
+export const I = (props) => <_text ta='right' {...props} initalClass={s.i} />
 
 export const Br = (props) => <_text {...props} initalClass={s.br} />
 

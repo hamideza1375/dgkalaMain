@@ -15,6 +15,10 @@ style.appendChild(document.createTextNode(iconFontStyles));
 document.head.appendChild(style);
 
 
+if (navigator?.userAgent?.match('iPhone')) {
+        const viewport = document.getElementsByName('viewport')[0];
+        viewport.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0"
+}
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
