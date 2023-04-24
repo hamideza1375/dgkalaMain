@@ -93,7 +93,6 @@ const Mobile = () => {
   const toast = new Toast(allState.client)
   const p = { ...allState.client, ...allState.user, ...allState.admin, toast }
   const { clientChildren, userChildren, adminChildren } = new allChildren({ client: { ...allState.client, toast }, user: { ...allState.user, toast }, admin: { ...allState.admin, toast } })
-  const height = Platform.OS === 'web' ? '100vh' : '100%'
   _initController({ ...allState.init, toast })
 
   const _admin = new adminController({ ...allState.admin, toast })
@@ -120,7 +119,7 @@ const Mobile = () => {
             <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button>
           </Column>
           :
-          <Column h={height} maxh={allState.init.height} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
+          <Column f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
             <ToastProvider {...allState.init} />
             <Init ref={(e) => allState.init.set$(e)} id={'s'} />
             <Tab.Navigator screenOptions={() => { return { headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon } }} >
@@ -328,9 +327,10 @@ if (Platform.OS !== 'web') {
 }
 else {
   App = () => {
+    const allState = states()
     return (
       <NavigationContainer linking={linking} >
-        <Column flex={1} style={{ minHeight: '100vh', maxHeight: '100vh', overflow: 'hidden', }} dir='rtl' >
+        <Column flex={1} style={{ height: '100vh', maxHeight: allState.init.height, overflow: 'hidden', }} dir='rtl' >
           <Mobile />
         </Column>
       </NavigationContainer>

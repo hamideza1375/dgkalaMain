@@ -47,7 +47,6 @@ function ScrollSlider(p) {
     <Span
       style={{ cursor: 'grab' }}
       class={s.selectNone}
-      // <Span onMouseLeave={() => { if (Platform.OS === 'web') if (navigator?.userAgent?.match('Mobile') !== 'Mobile') ref.current?.setNativeProps({ style: { overflow: 'hidden' } }); }}
       onMouseUp={() => { setscroll2(false); setTimeout(() => { das = [] }, 10); }}
       onMoveShouldSetResponder={() => { setscroll2(false); }}
       onTouchMove={() => { setscroll2(false); }} >
@@ -55,7 +54,7 @@ function ScrollSlider(p) {
         onMoveShouldSetResponder={(e) => {
           setscroll2(!scroll2)
           if (Platform.OS === 'web') {
-            if (navigator?.userAgent?.match('Mobile') !== 'Mobile') {
+            if (navigator?.userAgent?.match('Mobile') != 'Mobile') {
               ref.current?.setNativeProps({ style: { overflowX: 'auto' } });
               das.push(e.nativeEvent.pageX)
               ref.current?.scrollToOffset({ animated: true, offset: (scroll) + ((das[0] - das[das.length - 1]) * 1) })
@@ -66,7 +65,7 @@ function ScrollSlider(p) {
         }}
       >
         <FlatList
-          showsHorizontalScrollIndicator={Platform.OS !== 'web' ? false : navigator.userAgent.match('Mobile') ? true : false}
+          showsHorizontalScrollIndicator={false}
           dir='ltr'
           ref={ref}
           horizontal
@@ -81,6 +80,7 @@ function ScrollSlider(p) {
           onScroll={(e) => { setscroll(e.nativeEvent.contentOffset.x) }}
           style={[{ height: h ? h : 150, width: '99%', borderRadius: 5, flexWrap: 'wrap' }, style]}
         />
+        
       </View>
     </Span>
   )

@@ -37,7 +37,7 @@ export const Layout = (p) => {
     ]
 
   return (
-    <View style={{ flex: 1, paddingHorizontal: Platform.OS === 'ios' ? (p.width > p.height ? 40 : 0) : 0, paddingBottom: Platform.OS === 'ios' ? 10 : 0 }} >
+    <View style={{ flex: 1, paddingHorizontal: Platform.OS === 'ios' ? (p.width > p.height ? 40 : 0) : 0, paddingBottom: Platform.OS === 'ios' ? 10 : 0,  backgroundColor:"#d293" }} >
       <SafeAreaView />
       <View style={{ flex: 1, overflow: 'hidden' }}>
         {

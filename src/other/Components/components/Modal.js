@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React  from "react";
 import { Modal as _Modal, Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 import { Scroll } from "../Html";

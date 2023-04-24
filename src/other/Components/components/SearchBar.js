@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, StyleSheet, TextInput } from 'react-native';
-import { A_icon, Column, ContainerFix, ContainerTab, Drawer2, Dropdown2, Icon, Img, Input, M_icon, P, Press, Py, Row, Span } from '../Html'
+import { StyleSheet } from 'react-native';
+import { A_icon, Column, ContainerTab, Drawer2, Dropdown2, Icon, Img, Input, M_icon, P, Press, Py, Span } from '../Html'
 import { context } from '../../../context/_context'
 import { useNavigation } from '@react-navigation/native';
 import { localhost } from '../../utils/axios/axios';
@@ -52,13 +52,10 @@ function SearchInput({ table, iconBack, children, drawer, showDrawer, setshowDra
     setarray(f)
   }
 
-  const height = Dimensions.get('window').height
-
 
   return (
 
-    <ContainerFix maxh={height}>
-
+    <Column f={1} >
 
       <Span bgcolor={bgcolor} h={53} w={'100%'} as='center' z={10000000}>
         <Span bgcolor={bgcolor} style={[styles.containHead]}>
@@ -163,7 +160,7 @@ function SearchInput({ table, iconBack, children, drawer, showDrawer, setshowDra
         </ContainerTab>
       </Column>
 
-    </ContainerFix>
+    </Column>
 
   );
 }
