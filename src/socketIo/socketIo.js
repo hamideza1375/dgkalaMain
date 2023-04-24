@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, FlatList, Platform, Animated } from 'react-native'
+import { View, FlatList, Platform, Animated, SafeAreaView } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import { A_icon, Badge, Column, Img, Modal, P, Press, Row } from '../other/Components/Html';
 import Video from '../other/Components/other/Video';
@@ -265,7 +265,7 @@ const SocketIo = (p) => {
 
   return (
     <Column f={1} >
-
+<SafeAreaView/>
       <Animated.View style={{ position: 'absolute', alignSelf: 'center', top: 5, zIndex: 10000, opacity: opacityAnimated, height: 30 }} >
         <P fs={25} h={30} pos='absolute' color='#99f' z={11111111} >{typing}</P>
       </Animated.View>

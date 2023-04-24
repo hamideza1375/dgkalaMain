@@ -47,12 +47,12 @@ async function download(url, setprogress) {
       toFile: `${RNFS.DownloadDirectoryPath}/${filename}`,
       discretionary: true,
       begin: () => {
-        setprogress(true)
+        setprogress && setprogress(true)
       },
     }).promise
       .then(() => {
         create(filename, '100%', null, filename)
-        setprogress('100%')
+        setprogress && setprogress('100%')
       })
       .catch((err) => create(filename, 'خطا', null, filename))
 }
