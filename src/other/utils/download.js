@@ -2,8 +2,10 @@ import { PermissionsAndroid } from 'react-native';
 import * as RNFS from 'react-native-fs';
 import { create } from './notification'
 
-async function download(url,filename,setprogress) {
-
+async function download(url, setprogress) {
+  let uriParts = url.split('.');
+  let fileType = uriParts[uriParts.length - 1];
+  const filename = `${(new Date().getTime() + Math.random() * 10000).toString()}.${fileType}`;
   let prgs;
   if (Platform.OS === 'android') {
     const permission = await PermissionsAndroid.request(
@@ -27,32 +29,32 @@ async function download(url,filename,setprogress) {
           let progressPercent = (res.bytesWritten / res.contentLength * 100).toString()
           prgs = progressPercent.slice(0, 2)
           if (prgs >= '98') prgs = '100'
-          setprogress(prgs + '%')
+          setprogress && setprogress(prgs + '%')
         },
       }).promise
         .then(() => {
-          create(filename,'100%',null,filename)
-          setprogress('100%')
+          create(filename, '100%', null, filename)
+          setprogress && setprogress('100%')
         })
-        .catch((err) =>create(filename,'خطا',null,filename))
+        .catch((err) => create(filename, 'خطا', null, filename))
     }
   }
 
 
-  else 
-  RNFS.downloadFile({
-    fromUrl: url,
-    toFile: `${RNFS.DownloadDirectoryPath}/${filename}`,
-    discretionary: true,
-    begin: () => {
-      setprogress(true)
-    },
-  }).promise
-    .then(() => {
-      create(filename,'100%',null,filename)
-      setprogress('100%')
-    })
-    .catch((err) =>create(filename,'خطا',null,filename))
+  else
+    RNFS.downloadFile({
+      fromUrl: url,
+      toFile: `${RNFS.DownloadDirectoryPath}/${filename}`,
+      discretionary: true,
+      begin: () => {
+        setprogress(true)
+      },
+    }).promise
+      .then(() => {
+        create(filename, '100%', null, filename)
+        setprogress('100%')
+      })
+      .catch((err) => create(filename, 'خطا', null, filename))
 }
 
 

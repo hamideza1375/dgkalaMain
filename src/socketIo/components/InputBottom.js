@@ -45,7 +45,7 @@ export default function InputBottom(p) {
     imagePicker().then(async (res) => {
       let uriParts = res.name.split('.');
       let fileType = uriParts[uriParts.length - 1];
-      const imageName = `${(new Date().getTime() + Math.random() * 10000).toString()}.${fileType}`;
+      const imageName = `${(new Date().getTime() + Math.random() * 1000000).toString()}.${fileType}`;
       await imageChat({ uri: res, imageName })
       sendMessage('image', imageName);
       p.setshownDropdown(false);
@@ -57,7 +57,7 @@ export default function InputBottom(p) {
     imagePicker('video').then(async (res) => {
       let uriParts = res.name.split('.');
       let fileType = uriParts[uriParts.length - 1];
-      const videoName = `${(new Date().getTime() + Math.random() * 10000).toString()}.${fileType}`;
+      const videoName = `${(new Date().getTime() + Math.random() * 1000000).toString()}.${fileType}`;
       await videoChat({ uri: res, videoName })
       sendMessage('video', videoName);
       p.setshownDropdown(false);
@@ -69,7 +69,7 @@ export default function InputBottom(p) {
     imagePicker('audio').then(async (res) => {
       let uriParts = res.name.split('.');
       let fileType = uriParts[uriParts.length - 1];
-      const audioName = `${(new Date().getTime() + Math.random() * 10000).toString()}.${fileType}`;
+      const audioName = `${(new Date().getTime() + Math.random() * 1000000).toString()}.${fileType}`;
       await audioChat({ uri: res, audioName })
       sendMessage('audio', audioName);
       p.setshownDropdown(false);

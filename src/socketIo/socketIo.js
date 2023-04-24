@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, FlatList, Platform, Animated } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
-import { Badge, Column, Img, Modal, P, Press, Row } from '../other/Components/Html';
+import { A_icon, Badge, Column, Img, Modal, P, Press, Row } from '../other/Components/Html';
 import Video from '../other/Components/other/Video';
 import Audio from '../other/Components/other/Audio';
 import InputBottom from './components/InputBottom';
@@ -13,6 +13,7 @@ import moment from 'moment-jalaali';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import _useEffect from '../controllers/_initial';
 import { Keyboard } from 'react-native';
+import download from '../other/utils/download';
 let adminId
 
 const SocketIo = (p) => {
@@ -94,7 +95,7 @@ const SocketIo = (p) => {
 
   useFocusEffect(useCallback(() => {
     if (!tokenValue.current.isAdmin) AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
-    
+
     socket.current.on("online", (users) => {
       const user = users.find((user) => (user.user.isAdmin === 1))
       adminId = user?.socketId
@@ -411,7 +412,16 @@ const SocketIo = (p) => {
           <></>}
 
         <Modal show={showImage} setshow={setshowImage} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} >
-          {imageUrl ? <Img src={{ uri: imageUrl }} style={{ height: '100%', width: '100%', borderRadius: 4, alignSelf: 'center' }} /> : <></>}
+          {imageUrl ?
+            <>
+              <Press pos='absolute' z={100} t={0} r={-2} bgcolor='#fffa' br={1} h={25} w={20} style={{ transform: [{ scaleX: .9 }, { scaleX: .9 }] }}  >
+                <A_icon name={'ellipsis1'} size={23} style={{ transform: [{ rotate: '90deg' }], position: 'absolute', zIndex: 99999 }}
+                  onClick={() => { download(imageUrl) }}
+                />
+              </Press>
+              <Img src={{ uri: imageUrl }} style={{ height: '100%', width: '100%', borderRadius: 4, alignSelf: 'center' }} />
+            </>
+            : <></>}
         </Modal>
 
       </View>
