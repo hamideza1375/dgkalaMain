@@ -14,6 +14,7 @@ export const create = async (title, body, icon, notificationId, onClick) => {
     android: icon ? {
       channelId,
       // asForegroundService:true,
+      smallIcon: 'ic_small',
       largeIcon: icon,
       style: { type: AndroidStyle.BIGPICTURE, picture: icon },
       pressAction: {

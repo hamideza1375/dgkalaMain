@@ -43,8 +43,6 @@ export function initial() {
   const [$, set$] = useState()
   const [$input] = useState(new Map())
   const refInput = useRef()
-  const [dropdownBottom, setdropdownBottom] = useState(false)
-  const [dropdownRight, setdropdownRight] = useState(false)
   const [clientX, setclientX] = useState(0)
   const [clientY, setclientY] = useState(0)
   const [dropdownValue, setdropdownValue] = useState('')
@@ -80,7 +78,19 @@ export function initial() {
   const [logoUrl, setlogoUrl] = useState(require('../other/assets/images/logo.png'))
   const [changePage, setchangePage] = useState(false)
 
+  const [usersLength, setusersLength] = useState('')
+  const [users7DeyForChart, setusers7DeyForChart] = useState([])
+  const [address7DeyForChart, setaddress7DeyForChart] = useState([])
+  const [address1YearsForChart, setaddress1YearsForChart] = useState([])
+
+  const [changeProduct, setchangeProduct] = useState(false)
+
   this.all = {
+    changeProduct, setchangeProduct,
+    users7DeyForChart, setusers7DeyForChart,
+    usersLength, setusersLength,
+    address7DeyForChart, setaddress7DeyForChart,
+    address1YearsForChart, setaddress1YearsForChart,
     changePage, setchangePage,
     logoUrl, setlogoUrl,
     postPrice, setpostPrice,
@@ -110,8 +120,6 @@ export function initial() {
     offerTime, setofferTime,
     offerValue, setofferValue,
     stateCity, setstateCity,
-    dropdownBottom, setdropdownBottom,
-    dropdownRight, setdropdownRight,
     clientX, setclientX,
     clientY, setclientY,
     dropdownValue, setdropdownValue,

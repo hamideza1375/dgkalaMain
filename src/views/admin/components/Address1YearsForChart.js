@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { Column, Py, Row, YearsChartTotal } from "../../../other/Components/Html";
 
- export default function Address1YearsForChart(p) {
+function Address1YearsForChart(p) {
   return (
     <Column h={235} fg={1} m={4} jc='flex-end' >
     <Row h={20} jc='center' ><Py fs={11} fw='100' >خرید های سال گذشته</Py></Row>
@@ -8,3 +9,5 @@ import { Column, Py, Row, YearsChartTotal } from "../../../other/Components/Html
   </Column>
   )
 }
+
+export default memo(Address1YearsForChart)

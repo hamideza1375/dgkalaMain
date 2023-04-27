@@ -109,15 +109,8 @@ const DaysChartMean = ({ color = '#a5fd', borderColor = '#a5f9', rodColor = '#d5
   useEffect(() => {
     setTimeout(() => {
       setchange(true)
-    }, 700);
+    }, 1000);
   }, [])
-
-  useEffect(() => {
-    setTimeout(() => {
-      setchange(false)
-    }, 1500);
-  }, [])
-
 
   return (
     <>

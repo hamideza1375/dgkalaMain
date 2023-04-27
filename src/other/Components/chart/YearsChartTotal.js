@@ -6,7 +6,7 @@ var
   pushMond = [],
   pushMond2 = []
 
-const YearsChartTotal = ({ color = '#da6500', borderColor = '#da6500', rodColor = '#fb750cbb', rodWidth = 'auto', bgcolor = '#f90c', br = 4, w = '100%', h = '100%', data }) => {
+const YearsChartTotal = ({ chartStatus, setchartStatus, color = '#da6500', borderColor = '#da6500', rodColor = '#fb750cbb', rodWidth = 'auto', bgcolor = '#f90c', br = 4, w = '100%', h = '100%', data }) => {
 
 
   const pushArrayRef = useRef([])
@@ -141,20 +141,14 @@ const YearsChartTotal = ({ color = '#da6500', borderColor = '#da6500', rodColor 
     let sortpushArray = [totalNumbers, totalNumbers2, totalNumbers3, totalNumbers4, totalNumbers5, totalNumbers6, totalNumbers7, totalNumbers8, totalNumbers9, totalNumbers10, totalNumbers11, totalNumbers12].sort((a, b) => a - b)
     setsorteX(sortpushArray)
 
-
   }, [data, change])
 
   useEffect(() => {
     setTimeout(() => {
       setchange(true)
-    }, 700);
+    }, 1000);
   }, [])
 
-  useEffect(() => {
-    setTimeout(() => {
-      setchange(false)
-    }, 1500);
-  }, [])
 
   return (
     <>

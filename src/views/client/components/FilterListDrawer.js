@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useMemo, useState } from 'react'
 import { Column, P, List as _list, Switch, CheckBoxRadius, Scroll, Button } from '../../../other/Components/Html'
 
 const FilterListDrawer = (p) => {
@@ -144,6 +144,11 @@ const FilterListDrawer = (p) => {
 
   const [hidden, sethidden] = useState(false)
 
+  useEffect(() => {
+    return () => {
+      p.refMap.current = new Map()
+    }
+  }, [p.route.params.id])
 
 
   useEffect(() => {
@@ -160,15 +165,15 @@ const FilterListDrawer = (p) => {
       ((batteryFilter) ? (f.battery >= batteryFilter[0] && f.battery <= batteryFilter[1]) : (f.battery)) &&
       ((colorFilter) ? (f.color.find((c) => c.color?.toLowerCase() === colorFilter?.toLowerCase())) : (f.color)) &&
       ((priceFilter) ? (f.price >= priceFilter[0] && f.price <= priceFilter[1]) : (f.price)) &&
-      ((isEnabled === false ) ? (f.title ) : (f.available === 1 && f.available > 0)) 
+      ((isEnabled === false) ? (f.title) : (f.available === 1 && f.available > 0))
     ))
 
     p.setarray(filterArray);
 
-  }, [brandFilter, ramFilter, cameraFilter, storageFilter, displayFilter, cpuCoreFilter, cpuCoreFilter, operatingSystemFilter, operatingSystemFilter, networkFilter, batteryFilter,colorFilter,priceFilter, isEnabled])
-  
+  }, [/* brandFilter, ramFilter, cameraFilter, storageFilter, displayFilter, cpuCoreFilter, cpuCoreFilter, operatingSystemFilter, operatingSystemFilter, networkFilter, batteryFilter,colorFilter,priceFilter, isEnabled */])
 
-  
+
+
 
 
 
@@ -419,7 +424,7 @@ const FilterListDrawer = (p) => {
           </Column>
         </Scroll>
 
-       {/* //! lovercase */}
+        {/* //! lovercase */}
         <Column w={'100%'} ai='center' >
           <Button mt={10} w={'95%'} as='center' outline h={37} bgcolor='#ff77ccee'
             onClick={() => {
@@ -435,7 +440,7 @@ const FilterListDrawer = (p) => {
                 ((batteryFilter) ? (f.battery >= batteryFilter[0] && f.battery <= batteryFilter[1]) : (f.battery)) &&
                 ((colorFilter) ? (f.color.find((c) => c.color?.toLowerCase() === colorFilter?.toLowerCase())) : (f.color)) &&
                 ((priceFilter) ? (f.price >= priceFilter[0] && f.price <= priceFilter[1]) : (f.price)) &&
-                ((isEnabled === false ) ? (f.title ) : (f.available === 1 && f.available > 0)) 
+                ((isEnabled === false) ? (f.title) : (f.available === 1 && f.available > 0))
               ))
               // p.setshowDrawer(false)
               p.setarray(filterArray);

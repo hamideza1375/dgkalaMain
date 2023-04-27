@@ -151,10 +151,10 @@ export function userController(p) {
         p.setfullname(data.fullname)
         p.setphoneOrEmail(data.phoneOrEmail)
       })()
-      return()=>{
-        p.setfullname('')
-        p.setphoneOrEmail('')
-      }
+      // return()=>{
+      //   p.setfullname('')
+      //   p.setphoneOrEmail('')
+      // }
     }, [])
   }
 

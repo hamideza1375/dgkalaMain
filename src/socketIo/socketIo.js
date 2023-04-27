@@ -265,166 +265,182 @@ const SocketIo = (p) => {
 
   return (
     <Column f={1} >
-<SafeAreaView/>
+      <SafeAreaView />
       <Animated.View style={{ position: 'absolute', alignSelf: 'center', top: 5, zIndex: 10000, opacity: opacityAnimated, height: 30 }} >
         <P fs={25} h={30} pos='absolute' color='#99f' z={11111111} >{typing}</P>
       </Animated.View>
 
-      <View onLayout={() => { if (!tokenValue.current.isAdmin) { setto('1') } }} style={{ flex: 1 }} >
-        {!tokenValue.current.isAdmin
-          ?
-          <FlatList
-            inverted
-            keyExtractor={(data, i) => data._id}
-            data={pvChatMessage}
-            renderItem={({ item, index }) => (
-              ((item.userId == tokenSocket.current) || (adminId === socket.current.id) || (item.to === tokenSocket.current)) ?
-                <Column key={index} style={{ opacity: (pvChatMessage.find(pv => (pv._id !== 'a1') && (pv.userId == tokenSocket.current)) && item._id === 'a1') ? 0 : 1, marginVertical: 10, marginHorizontal: 2, width: '70%', minHeight: 45, justifyContent: 'center', paddingHorizontal: 8, backgroundColor: item.to === to ? '#f8f8f8' : '#fff', borderWidth: 1, alignSelf: (item.to === to || item._id === 'a1') ? 'flex-start' : 'flex-end', borderRadius: 10, borderColor: '#ddd' }} >
-                  <Row fd='row-reverse' jc='flex-end' pt={3}>
-                    {(pvChatMessage.find(pv => (pv._id !== 'a1' && (pv.userId == tokenSocket.current))) && (item.userId === tokenSocket.current)) && <P ta='right' style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >شما</P>}
-                    {(pvChatMessage.find(pv => (pv._id !== 'a1') && (pv.userId == tokenSocket.current))) && <P ta='right' mr={20} style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >{moment(item.date).format('jM/jD hh:mm')}</P>}
-                  </Row>
-                  {!item.type ?
-                    <P ta='right' p={3} >{item.message}</P> :
-                    item.type === 'video' ?
-                      <Press onClick={() => {
-                        setvideoUri(`${localhost}/upload/socket/${item.uri}`)
-                        setshowVideo(true)
-                      }}>
-                        <Video source={{ uri: `${localhost}/upload/socket/${item.uri}` }} style={{ height: 200, width: '90%', borderRadius: 4, alignSelf: 'center' }} />
-                      </Press>
-                      :
-                      item.type !== 'audio' ?
+      {(pvChatMessage.length || titleMessage.length) ?
+        <View onLayout={() => { if (!tokenValue.current.isAdmin) { setto('1') } }} style={{ flex: 1 }} >
+          {!tokenValue.current.isAdmin
+            ?
+            <FlatList
+              inverted
+              keyExtractor={(data, i) => data._id}
+              data={pvChatMessage}
+              renderItem={({ item, index }) => (
+                ((item.userId == tokenSocket.current) || (adminId === socket.current.id) || (item.to === tokenSocket.current)) ?
+                  <Column style={{ opacity: (pvChatMessage.find(pv => (pv._id !== 'a1') && (pv.userId == tokenSocket.current)) && item._id === 'a1') ? 0 : 1, marginVertical: 10, marginHorizontal: 2, width: '70%', minHeight: 45, justifyContent: 'center', paddingHorizontal: 8, backgroundColor: item.to === to ? '#f8f8f8' : '#fff', borderWidth: 1, alignSelf: (item.to === to || item._id === 'a1') ? 'flex-start' : 'flex-end', borderRadius: 10, borderColor: '#ddd' }} >
+                    <Row fd='row-reverse' jc='flex-end' pt={3}>
+                      {(pvChatMessage.find(pv => (pv._id !== 'a1' && (pv.userId == tokenSocket.current))) && (item.userId === tokenSocket.current)) && <P ta='right' style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >شما</P>}
+                      {(pvChatMessage.find(pv => (pv._id !== 'a1') && (pv.userId == tokenSocket.current))) && <P ta='right' mr={20} style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >{moment(item.date).format('jM/jD hh:mm')}</P>}
+                    </Row>
+                    {!item.type ?
+                      <P ta='right' p={3} >{item.message}</P> :
+                      item.type === 'video' ?
                         <Press onClick={() => {
-                          setimageUrl(`${localhost}/upload/socket/${item.uri}`)
-                          setshowImage(true)
+                          setvideoUri(`${localhost}/upload/socket/${item.uri}`)
+                          setshowVideo(true)
                         }}>
-                          <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} />
+                          <Video source={{ uri: `${localhost}/upload/socket/${item.uri}` }} style={{ height: 200, width: '90%', borderRadius: 4, alignSelf: 'center' }} />
                         </Press>
                         :
-                        <Column w='100%' h={100} ai='flex-end' jc='center' >
-                          <Audio source={{ uri: `${localhost}/upload/socket/${item.uri}` }} style={{ width: '90%', alignItems: 'center' }} />
-                        </Column>
-                  }
-                  {(pvChatMessage.length - 1 === index && item._id === 'a1') && <Badge bgcolor={'#0d8'} right={2} />}
-                </Column>
-                :
-                <></>
-            )}
-          />
-          :
-          <>
-            {!to ?
-              <FlatList
-                keyExtractor={(data, i) => data._id}
-                data={titleMessage}
-                renderItem={({ item, index }) => (
-                  (item.userId !== tokenSocket.current) ?
-                    <Press fd='row'
-                      onClick={() => {
-                        if ((tokenValue.current.isAdmin) && (item.to === '1')) {
-                          AsyncStorage.setItem('room', item.userId).then(() => { })
-                          setto(item.userId); setuserId(item.userId);
-                          AsyncStorage.setItem(item.userId, JSON.stringify(item)).then(() => {
-                            settitleMessage(titleMsg => {
-                              let filter = titleMsg.filter((m) => (m.userId !== item.userId))
-                              filter.push({ ...item, badgeActive: false })
-                              return filter
-                            })
-                          })
-                        }
-                      }}
-                      key={index}
-                      style={{ marginVertical: 10, marginRight: 'auto', marginLeft: 'auto', width: '70%', height: 40, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 8, backgroundColor: 'white', borderWidth: 1, borderColor: '#ddd', borderRadius: 4 }} >
-                      <P>کاربر:  </P>
-                      <P mt={2}
-                        style={[{ fontSize: 12 }, Platform.OS === 'web' ? { cursor: ((tokenValue.current.isAdmin) && (item.to === '1')) ? 'pointer' : '' } : {}]}>{item.userId}</P>
-                      {item.badgeActive ? <Badge right={0} color={'green'} /> : <></>}
-                    </Press>
+                        item.type !== 'audio' ?
+                          <Press onClick={() => {
+                            setimageUrl(`${localhost}/upload/socket/${item.uri}`)
+                            setshowImage(true)
+                          }}>
+                            <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} />
+                          </Press>
+                          :
+                          <Column w='100%' h={100} ai='flex-end' jc='center' >
+                            <Audio source={{ uri: `${localhost}/upload/socket/${item.uri}` }} style={{ width: '90%', alignItems: 'center' }} />
+                          </Column>
+                    }
+                    {(pvChatMessage.length - 1 === index && item._id === 'a1') && <Badge bgcolor={'#0d8'} right={2} />}
+                  </Column>
+                  :
+                  pvChatMessage.length - 1 === index ?
+                    <Column w='90%' maxw={400} bgcolor='#fff' p={8} >
+                      <P ta='right' p={3} >چطوری میتوانیم کمکتان کنیم؟</P>
+                      <Badge bgcolor={'#0d8'} right={2} />
+                    </Column>
                     :
                     <></>
-                )}
-              />
-              :
-              <View style={{ flex: 1, overflow: 'hidden' }} >
+              )}
+            />
+            :
+            <>
+              {!to ?
                 <FlatList
-                  inverted
-                  keyExtractor={(data) => data._id}
-                  data={pvChatMessage}
+                  keyExtractor={(data, i) => data._id}
+                  data={titleMessage}
                   renderItem={({ item, index }) => (
-                    ((item.userId === userId) || (item.to === to)) ?
-                      <Column key={index} style={{ marginVertical: 10, marginHorizontal: 2, width: '70%', minHeight: 45, justifyContent: 'center', paddingHorizontal: 8, backgroundColor: item.to === to ? '#f8f8f8' : '#fff', borderWidth: 1, alignSelf: item.to !== to ? 'flex-end' : 'flex-start', borderRadius: 10, borderColor: '#ddd' }} >
-                        <Row fd='row-reverse' jc='flex-end' pt={3}>
-                          <P mr={20} style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >{moment(item.date).format('jM/jD hh:mm')}</P>
-                          {item.userId === tokenSocket.current ?
-                            <P style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >شما</P>
-                            :
-                            <></>
+                    (item.userId !== tokenSocket.current) ?
+                      <Press fd='row'
+                        onClick={() => {
+                          if ((tokenValue.current.isAdmin) && (item.to === '1')) {
+                            AsyncStorage.setItem('room', item.userId).then(() => { })
+                            setto(item.userId); setuserId(item.userId);
+                            AsyncStorage.setItem(item.userId, JSON.stringify(item)).then(() => {
+                              settitleMessage(titleMsg => {
+                                let filter = titleMsg.filter((m) => (m.userId !== item.userId))
+                                filter.push({ ...item, badgeActive: false })
+                                return filter
+                              })
+                            })
                           }
-                        </Row>
-                        {!item.type ?
-                          <P ta='right' p={3} >{item.message}</P> :
-                          item.type === 'video' ?
-                            <Press onClick={() => {
-                              setvideoUri(`${localhost}/upload/socket/${item.uri}`)
-                              setshowVideo(true)
-                            }}>
-                              <Video source={{ uri: `${localhost}/upload/socket/${item.uri}` }} style={{ height: 200, width: '90%', borderRadius: 4, alignSelf: 'center' }} />
-                            </Press>
-                            :
-                            item.type !== 'audio' ?
-                              <Press onClick={() => {
-                                setimageUrl(`${localhost}/upload/socket/${item.uri}`)
-                                setshowImage(true)
-                              }}>
-                                <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} />
-                              </Press>
-                              :
-                              <Column w='100%' h={100} ai='flex-end' jc='center' >
-                                <Audio source={{ uri: `${localhost}/upload/socket/${item.uri}` }} style={{ width: '90%', alignItems: 'center' }} />
-                              </Column>
-                        }
-                      </Column>
+                        }}
+                        key={index}
+                        style={{ marginVertical: 10, marginRight: 'auto', marginLeft: 'auto', width: '70%', height: 40, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 8, backgroundColor: 'white', borderWidth: 1, borderColor: '#ddd', borderRadius: 4 }} >
+                        <P>کاربر:  </P>
+                        <P mt={2}
+                          style={[{ fontSize: 12 }, Platform.OS === 'web' ? { cursor: ((tokenValue.current.isAdmin) && (item.to === '1')) ? 'pointer' : '' } : {}]}>{item.userId}</P>
+                        {item.badgeActive ? <Badge right={0} color={'green'} /> : <></>}
+                      </Press>
                       :
                       <></>
                   )}
                 />
-                <Column mt='auto' >
-                  <InputBottom handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to}  ></InputBottom>
-                </Column>
-              </View>
-            }
-          </>
-        }
-        {(!tokenValue.current.isAdmin) ?
-          <Column mt='auto' >
-            <InputBottom handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to} ></InputBottom>
+                :
+                <View style={{ flex: 1, overflow: 'hidden' }} >
+                  <FlatList
+                    inverted
+                    keyExtractor={(data) => data._id}
+                    data={pvChatMessage}
+                    renderItem={({ item, index }) => (
+                      ((item.userId === userId) || (item.to === to)) ?
+                        <Column key={index} style={{ marginVertical: 10, marginHorizontal: 2, width: '70%', minHeight: 45, justifyContent: 'center', paddingHorizontal: 8, backgroundColor: item.to === to ? '#f8f8f8' : '#fff', borderWidth: 1, alignSelf: item.to !== to ? 'flex-end' : 'flex-start', borderRadius: 10, borderColor: '#ddd' }} >
+                          <Row fd='row-reverse' jc='flex-end' pt={3}>
+                            <P mr={20} style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >{moment(item.date).format('jM/jD hh:mm')}</P>
+                            {item.userId === tokenSocket.current ?
+                              <P style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >شما</P>
+                              :
+                              <></>
+                            }
+                          </Row>
+                          {!item.type ?
+                            <P ta='right' p={3} >{item.message}</P> :
+                            item.type === 'video' ?
+                              <Press onClick={() => {
+                                setvideoUri(`${localhost}/upload/socket/${item.uri}`)
+                                setshowVideo(true)
+                              }}>
+                                <Video source={{ uri: `${localhost}/upload/socket/${item.uri}` }} style={{ height: 200, width: '90%', borderRadius: 4, alignSelf: 'center' }} />
+                              </Press>
+                              :
+                              item.type !== 'audio' ?
+                                <Press onClick={() => {
+                                  setimageUrl(`${localhost}/upload/socket/${item.uri}`)
+                                  setshowImage(true)
+                                }}>
+                                  <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} />
+                                </Press>
+                                :
+                                <Column w='100%' h={100} ai='flex-end' jc='center' >
+                                  <Audio source={{ uri: `${localhost}/upload/socket/${item.uri}` }} style={{ width: '90%', alignItems: 'center' }} />
+                                </Column>
+                          }
+                        </Column>
+                        :
+                        <></>
+                    )}
+                  />
+                  <Column mt='auto' >
+                    <InputBottom handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to}  ></InputBottom>
+                  </Column>
+                </View>
+              }
+            </>
+          }
+          {(!tokenValue.current.isAdmin) ?
+            <Column mt='auto' >
+              <InputBottom handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to} ></InputBottom>
+            </Column>
+            :
+            <></>
+          }
+
+          {Platform.OS === 'android' && videoUri ?
+            <Column show={showVideo} setshow={setshowVideo} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} >
+              {videoUri ? <Video source={{ uri: videoUri }} controls paused={false} muted={false} style={{ height: '100%', width: '100%', borderRadius: 4, alignSelf: 'center' }} /> : <></>}
+            </Column>
+            :
+            <></>}
+
+          <Modal show={showImage} setshow={setshowImage} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} >
+            {imageUrl ?
+              <>
+                <Press pos='absolute' z={100} t={0} r={-2} bgcolor='#fffa' br={1} h={25} w={20} style={{ transform: [{ scaleX: .9 }, { scaleX: .9 }] }}  >
+                  <A_icon name={'ellipsis1'} size={23} style={{ transform: [{ rotate: '90deg' }], position: 'absolute', zIndex: 99999 }}
+                    onClick={() => { download(imageUrl) }}
+                  />
+                </Press>
+                <Img src={{ uri: imageUrl }} style={{ height: '100%', width: '100%', borderRadius: 4, alignSelf: 'center' }} />
+              </>
+              : <></>}
+          </Modal>
+
+        </View>
+        :
+        !tokenValue.current.isAdmin ?
+          <Column mt={22} w='90%' maxw={400} bgcolor='#fff' p={10} br={8} >
+            <P ta='right' p={3} >چطوری میتوانیم کمکتان کنیم؟</P>
+            <Badge bgcolor={'#0d8'} right={2} />
           </Column>
           :
           <></>
-        }
-
-        {Platform.OS === 'android' && videoUri ?
-          <Column show={showVideo} setshow={setshowVideo} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} >
-            {videoUri ? <Video source={{ uri: videoUri }} controls paused={false} muted={false} style={{ height: '100%', width: '100%', borderRadius: 4, alignSelf: 'center' }} /> : <></>}
-          </Column>
-          :
-          <></>}
-
-        <Modal show={showImage} setshow={setshowImage} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} >
-          {imageUrl ?
-            <>
-              <Press pos='absolute' z={100} t={0} r={-2} bgcolor='#fffa' br={1} h={25} w={20} style={{ transform: [{ scaleX: .9 }, { scaleX: .9 }] }}  >
-                <A_icon name={'ellipsis1'} size={23} style={{ transform: [{ rotate: '90deg' }], position: 'absolute', zIndex: 99999 }}
-                  onClick={() => { download(imageUrl) }}
-                />
-              </Press>
-              <Img src={{ uri: imageUrl }} style={{ height: '100%', width: '100%', borderRadius: 4, alignSelf: 'center' }} />
-            </>
-            : <></>}
-        </Modal>
-
-      </View>
+      }
     </Column>
   )
 }

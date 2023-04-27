@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, {memo, Suspense, lazy } from 'react'
 import { Scroll, Column } from '../../other/Components/Html'
 
 const Address7DeyForChart = lazy(() => import('./components/Address7DeyForChart'));
@@ -8,9 +8,11 @@ const Address7DeyForProgress = lazy(() => import('./components/Address7DeyForPro
 
 
 const PanelAdmin = (p) => {
+
   p._admin.getAdminTicketSeen()
   p._admin.getSocketIoSeen()
   p._admin.getDataForChart()
+  
   return (
     <Column f={1} fd='row'>
       <Column minw={220} f={3} h='100%' pt={10}>
@@ -20,21 +22,38 @@ const PanelAdmin = (p) => {
             <Scroll ccStyle={{ flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-around' }} >
 
               <Suspense>
-                <Address7DeyForChart {...p} />
+                {p.address7DeyForChart.length
+                  ?
+                  <Address7DeyForChart {...p} />
+                  :
+                  <></>}
               </Suspense>
 
               <Suspense>
-                <Users7DeyForChart {...p} />
+                {(p.users7DeyForChart.length || p.usersLength)
+                  ?
+                  <Users7DeyForChart {...p} />
+                  :
+                  <></>}
               </Suspense>
 
             </Scroll>
 
             <Suspense>
-              <Address7DeyForProgress {...p} />
+              {p.address7DeyForChart.length
+                ?
+                <Address7DeyForProgress {...p} />
+                :
+                <></>
+              }
             </Suspense>
 
             <Suspense>
-              <Address1YearsForChart {...p} />
+              {p.address1YearsForChart.length
+                ?
+                <Address1YearsForChart {...p} />
+                :
+                <></>}
             </Suspense>
 
           </Column>
@@ -45,4 +64,4 @@ const PanelAdmin = (p) => {
   )
 }
 
-export default PanelAdmin
+export default memo(PanelAdmin)

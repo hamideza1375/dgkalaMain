@@ -39,10 +39,10 @@ export function admin() {
     socketIoSeen, setsocketIoSeen,
     allAdmin, setallAdmin,
     adminTicketBox, setadminTicketBox,
-    users7DeyForChart, setusers7DeyForChart,
-    usersLength, setusersLength,
-    address7DeyForChart, setaddress7DeyForChart,
-    address1YearsForChart, setaddress1YearsForChart,
+    // users7DeyForChart, setusers7DeyForChart,
+    // usersLength, setusersLength,
+    // address7DeyForChart, setaddress7DeyForChart,
+    // address1YearsForChart, setaddress1YearsForChart,
     sellerTable, setsellerTable,
   }
 }

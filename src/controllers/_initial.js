@@ -20,7 +20,7 @@ export const _initController = (p) => {
   const net = new online()
 
   useEffect(() => {
-    var toastOK = (data) => { typeof data !== 'string' ? p.toast.success('موفق آمیز', '√', 2500) : p.toast.success('موفق آمیز', data, 3500); p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }
+    var toastOK = (data) => { typeof data !== 'string' ? p.toast.success('موفق آمیز', '√', 2500) : p.toast.success('موفق آمیز', data, 3500); setTimeout(() => {p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('')}, 1000); }
     var toast500 = () => { p.toast.error('خطا ی سرور', 'مشکلی از سمت سرور پیش آمده'); p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }
     var toast400 = (error) => { p.toast.error('خطا', typeof error === 'string' ? error : 'خطایی غیر منتظره رخ داد'); p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }
     var toastNetworkError = () => { p.toast.error('خطا ی شبکه', 'اتصال اینترنتتان را برسی کنید') }
@@ -36,7 +36,7 @@ export const _initController = (p) => {
         return response
       }, function (error) {
         if (_show == false) { _show = true; setshow(true) }
-        if (error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
+        if (net.isConnected !== false && error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
           toastServerError()
           _show = false; setshow(false)
           p.setshowActivity(false)

@@ -144,20 +144,15 @@ const YearsChartMean = ({ color = '#a5fd', borderColor = '#a5f7', rodColor = '#d
     setsorteX(sortpushArray)
 
 
-  }, [data, change])
+  }, [data])
 
 
   useEffect(() => {
     setTimeout(() => {
       setchange(true)
-    }, 700);
+    }, 1000);
   }, [])
 
-  useEffect(() => {
-    setTimeout(() => {
-      setchange(false)
-    }, 1500);
-  }, [])
 
   return (
     <>

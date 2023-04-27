@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { startTransition, useEffect, useState, useTransition } from 'react'
 import { StyleSheet } from 'react-native';
 import { A_icon, Column, ContainerTab, Drawer2, Dropdown2, Icon, Img, Input, M_icon, P, Press, Py, Span } from '../Html'
 import { context } from '../../../context/_context'
@@ -74,9 +74,9 @@ function SearchInput({ table, iconBack, children, drawer, showDrawer, setshowDra
               value={textSearch} onChange={e => {
                 settextSearch(e.nativeEvent.text.toLowerCase());
                 p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } })
-
-                if (e.nativeEvent.text.length < 1 && !home) searcher(e.nativeEvent.text.toLowerCase())
-
+                startTransition(() => {
+                  if (e.nativeEvent.text.length < 1 && !home) searcher(e.nativeEvent.text.toLowerCase())
+                  })
               }}
               onSubmitEditing={!home ? () => { searcher(textSearch.toLowerCase()); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }: ()=>{}}
               iconPress={() => { !home && searcher(textSearch.toLowerCase()) }}

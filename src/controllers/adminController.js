@@ -1,7 +1,7 @@
 import { getSingleItem, getAdminTicketSeen, createSlider, getCategory, changeAvailable, changeMainAdmin, createCategory, createChildItem, createNotification, deleteAddressForOneAdmin, deleteAdmin, deleteAllAddress, deleteCategory, deleteChildItem, deleteMultiProposal, deleteNotification, editCategory, editChildItem, getAllAddress, getAllAdmin, getProposal, listUnAvailable, setAdmin, adminTicketBox, getSocketIoSeen, createSeller, getAllSellers, setSellerAvailable, deleteSeller, getSinleCategory, postedOrder, getAllPaymentSuccessFalseAndTrue, postQueue, getAllAddressForChart, setOffer, getUserForChart, getDataForChart, getChildItems, getChildItemsTable, getPostPrice, sendPostPrice, getQuitsForSeller } from "../services/adminService"
 import _useEffect from "./_initial"
 import _Alert from "../other/utils/alert"
-import { useEffect } from "react"
+import { useEffect, useTransition } from "react"
 import axios from "axios"
 
 
@@ -267,7 +267,7 @@ export function adminController(p) {
 
 
   this.setOffer = async () => {
-    const { data } = await setOffer(p.route.params.id, { offerTime: Number(p.offerTime) , offerValue: Number(p.offerValue) })
+    const { data } = await setOffer(p.route.params.id, { offerTime: Number(p.offerTime), offerValue: Number(p.offerValue) })
 
     p.setchildItem((childItem) => {
       const findIndex = childItem.findIndex(s => s._id === p.route.params.id)
@@ -582,13 +582,17 @@ export function adminController(p) {
 
   //! DataForChart
   this.getDataForChart = async () => {
-    _useEffect(() => {
+    useEffect(() => {
+      !p.usersLength &&
       (async () => {
         const { data } = await getDataForChart()
         p.setaddress7DeyForChart(data.getAddress7DeyForChart)
-        p.setusers7DeyForChart(data.getUsers7DeyForChart)
-        p.setaddress1YearsForChart(data.getAddress1YearsForChart)
-        p.setusersLength(data.getUsersLength)
+        setTimeout(() => {
+          p.setusersLength(data.getUsersLength)
+          p.setusers7DeyForChart(data.getUsers7DeyForChart)
+        }, 1000);
+        setTimeout(() => {p.setaddress1YearsForChart(data.getAddress1YearsForChart)}, 2000);
+
       })()
     }, [])
   }
@@ -608,8 +612,8 @@ export function adminController(p) {
 
 
   //! createSlider
-  this.createSlider = async() => {
-   await createSlider({
+  this.createSlider = async () => {
+    await createSlider({
       image1: p.sliderImage1,
       image2: p.sliderImage2,
       image3: p.sliderImage3,
