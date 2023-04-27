@@ -15,8 +15,6 @@ const Footer = lazy(() => import('./components/home/Footer'));
 
 const SingleItem = (p) => {
   p._client.getSingleItem()
-  p._client.getChildItemComments()
-  p._client.getSimilars()
   p._client.getSingleSavedItems()
   const savedItem = () => p._client.savedItem()
 

@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
-import React, { useCallback, useRef, useState } from 'react'
+import React, { startTransition, useCallback, useRef, useState } from 'react'
 import { FlatList, Platform, View } from 'react-native'
 import s from './style.module.scss';
 import { Span } from '../Html';
@@ -55,9 +55,16 @@ function ScrollSlider(p) {
           setscroll2(!scroll2)
           if (Platform.OS === 'web') {
             if (navigator?.userAgent?.match('Mobile') != 'Mobile') {
-              ref.current?.setNativeProps({ style: { overflowX: 'auto' } });
+              // ref.current?.setNativeProps({ style: { overflowX: 'auto' } });
               das.push(e.nativeEvent.pageX)
-              ref.current?.scrollToOffset({ animated: true, offset: (scroll) + ((das[0] - das[das.length - 1]) * 1) })
+
+              startTransition(() => {
+                setTimeout(() => {
+                  
+                  ref.current?.scrollToOffset({  offset: (scroll) + ((das[0] - das[das.length - 1]) * 2.2) })
+                }, 0);
+                })
+            
             }
           }
           setscroll2(false)

@@ -15,14 +15,10 @@ function Home(p) {
 
   p._client.getSlider()
   p._client.getCategory()
-  p._client.getOffers()
-  p._client.getPopulars()
   p._client.backHandler()
 
 
   useEffect(() => { allProduct().then(({ data }) => { p.setallProduct(data.value); p.setnewSearchHomeArray(data.value) }) }, [])
-
-
 
   return (
     <Column f={1} >
@@ -38,7 +34,7 @@ function Home(p) {
 
         <Column>
           <Suspense fallback={<Column w='100%' ai='center' ><Loading /></Column>}>
-            <SliderOffers {...p} />
+           <SliderOffers {...p} />
           </Suspense>
         </Column>
 

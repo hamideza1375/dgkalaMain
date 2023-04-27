@@ -1,5 +1,5 @@
 import React, {memo, Suspense, lazy } from 'react'
-import { Scroll, Column } from '../../other/Components/Html'
+import { Scroll, Column, Loading } from '../../other/Components/Html'
 
 const Address7DeyForChart = lazy(() => import('./components/Address7DeyForChart'));
 const Users7DeyForChart = lazy(() => import('./components/Users7DeyForChart'));
@@ -26,7 +26,8 @@ const PanelAdmin = (p) => {
                   ?
                   <Address7DeyForChart {...p} />
                   :
-                  <></>}
+                  <Column w='100%' h={100} ><Loading/></Column>
+                  }
               </Suspense>
 
               <Suspense>

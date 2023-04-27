@@ -4,7 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 
 let qq
-const Loading = ({ style, text, h, setshowActivity, time = 4000, scale, androidScale, left, right, top, bottom, pos, ...p }) => {
+const Loading = ({ style, text, h, w, setshowActivity, time = 4000, scale, androidScale, left, right, top, bottom, pos, ...p }) => {
   const [showLoad, setshowLoad] = useState(true)
 
   useFocusEffect(useCallback(() => {
@@ -16,7 +16,7 @@ const Loading = ({ style, text, h, setshowActivity, time = 4000, scale, androidS
 
 
   return (
-    <View height={h} style={[{ minWidth: '99%', maxWidth: '99%', justifyContent: 'center', alignItems: 'center', top: top ? top : 40, left, right, bottom, position: pos, zIndex: 1000, }, style]} >
+    <View style={[{ minWidth: '99%', maxWidth: '99%', justifyContent: 'center', alignItems: 'center', top: top ? top : 40, left, right, bottom, position: pos, zIndex: 1000,height:h, width:w }, style]} >
       <View style={{ marginBottom: 'auto', }} >
         {showLoad ?
           < ActivityIndicator {...p} style={{ transform: [{ scale: scale ? scale : 2 }] }} />

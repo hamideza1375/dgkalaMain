@@ -58,7 +58,7 @@ import AddSeller from "./views/admin/AddSeller";
 import CreateSlider from "./views/admin/CreateSlider";
 import AdminTicketBox from "./views/admin/AdminTicketBox";
 
-import { Button, Dropdown, Img, Init, Column } from "./other/Components/Html";
+import { Button, Dropdown, Img, Init, Column, Press, P } from "./other/Components/Html";
 import _404 from "./other/Components/404/404";
 import ToastProvider, { Toast } from "./other/utils/toast";
 import { header } from "./other/Layout/Layout";
@@ -73,6 +73,7 @@ import { clientController } from "./controllers/clientController";
 import { states, contextStates } from "./context/_context";
 import { initialPropType } from "./context/_initialState";
 import spacePrice from "./other/utils/spacePrice";
+import { ErrorBoundary } from "react-error-boundary";
 
 rtl()
 LogBox.ignoreAllLogs();
@@ -112,7 +113,7 @@ const Mobile = () => {
   return (
     <>
       <contextStates.Provider value={{ ...allState.init, toast }}>
-        <Dropdown root {...allState.init}><Column>{allState.init.dropdownValue}</Column></Dropdown>
+        <Dropdown root {...allState.init}><Press onClick={()=>{}} >{allState.init.dropdownValue}</Press></Dropdown>
          <StatusBar backgroundColor='#d393' />
         {allState.init.splash ?
           <Column pb={Platform.OS === 'ios' ? 10 : 1 } f={1} maxh={allState.init.height} >
@@ -317,9 +318,9 @@ const linking = {
 
 
 
-let App
+let _App
 if (Platform.OS !== 'web') {
-  App = () => {
+  _App = () => {
     return (
       <NavigationContainer>
         <Mobile />
@@ -328,7 +329,7 @@ if (Platform.OS !== 'web') {
   }
 }
 else {
-  App = () => {
+  _App = () => {
     const allState = states()
     return (
       <NavigationContainer linking={linking} >
@@ -339,6 +340,21 @@ else {
     )
   }
 }
+
+
+let App = () => {
+    return (
+      <ErrorBoundary fallback={
+        <Column style={{ width: '70%', marginTop: 20, padding: 12, display: 'flex', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1 }} >
+          <P style={{ fontFamily: 'IRANSansWeb', fontWeight: 'bold' }} >اتفاق غیر منتظره ای رخ داد</P>
+          <Press onClick={reload} style={{ marginTop: 15, width: 95, height: 37, borderWidth: 1, borderRadius: 4, borderColor: '#08e', justifyContent: 'center', alignItems: 'center' }} >
+            <P style={{ fontFamily: 'IRANSansWeb', color: '#08e', fontSize: 12 }} >بارگذاری مجدد</P>
+          </Press>
+        </Column>} >
+        <_App />
+      </ErrorBoundary>
+    )
+  }
 
 export default App;
 

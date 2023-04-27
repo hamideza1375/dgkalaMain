@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 import { Platform } from 'react-native'
 import { Div, Img, P, ScrollSlider, Span } from '../../../../other/Components/Html'
 import LinearGradient from '../../../../other/Components/other/LinearGradient'
@@ -8,8 +8,9 @@ import CardItem from '../CardItem'
 import { localhost } from '../../../../other/utils/axios/axios'
 
 const SliderSimilars = (p) => {
-  const [x, setx] = useState(0)
-  useMemo(() => x * 2, [x])
+
+  p._client.getSimilars()
+
   return (
     <>
       <Span h={330}>
