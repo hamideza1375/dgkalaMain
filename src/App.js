@@ -109,12 +109,11 @@ const Mobile = () => {
 
 
 
-
   return (
     <>
       <contextStates.Provider value={{ ...allState.init, toast }}>
         <Dropdown root {...allState.init}><Press onClick={()=>{}} >{allState.init.dropdownValue}</Press></Dropdown>
-         <StatusBar backgroundColor='#d393' />
+         <StatusBar backgroundColor='#d29' barStyle={"light-content"} />
         {allState.init.splash ?
           <Column pb={Platform.OS === 'ios' ? 10 : 1 } f={1} maxh={allState.init.height} >
             <ToastProvider {...allState.init} />
@@ -333,7 +332,7 @@ else {
     const allState = states()
     return (
       <NavigationContainer linking={linking} >
-        <Column flex={1} style={{ height: '100vh', minHeight: allState.init.height, maxHeight: allState.init.height, overflow: 'hidden', }} dir='rtl' >
+        <Column flex={1} style={{ height: '100vh', minHeight: '100%',width:'100%', maxHeight: allState.init.height, overflow: 'hidden', }} dir='rtl' >
           <Mobile />
         </Column>
       </NavigationContainer>

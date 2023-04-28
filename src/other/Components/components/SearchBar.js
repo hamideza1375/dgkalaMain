@@ -1,5 +1,5 @@
 import React, { startTransition, useEffect, useState, useTransition } from 'react'
-import { StyleSheet } from 'react-native';
+import { Keyboard, StyleSheet } from 'react-native';
 import { A_icon, Column, ContainerTab, Drawer2, Dropdown2, Icon, Img, Input, M_icon, P, Press, Py, Span } from '../Html'
 import { context } from '../../../context/_context'
 import { useNavigation } from '@react-navigation/native';
@@ -71,11 +71,13 @@ function SearchInput({ table, iconBack, children, drawer, showDrawer, setshowDra
 
           {!title ?
             <Input
-              value={textSearch} onChange={e => {
-                settextSearch(e.nativeEvent.text.toLowerCase());
+              value={textSearch} onChangeText={text => {
+                settextSearch(text.toLowerCase());
                 p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } })
                 startTransition(() => {
-                  if (e.nativeEvent.text.length < 1 && !home) searcher(e.nativeEvent.text.toLowerCase())
+                  setTimeout(() => {
+                    if (text?.length < 1 && !home) searcher(text?.toLowerCase())
+                    },100)
                   })
               }}
               onSubmitEditing={!home ? () => { searcher(textSearch.toLowerCase()); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }: ()=>{}}
@@ -96,8 +98,12 @@ function SearchInput({ table, iconBack, children, drawer, showDrawer, setshowDra
                         <Column minw={200} key={index}>
                           {!brand ?
 
-                            ((item.title?.includes(textSearch) && newSearchArray.filter(f => f.title.includes(textSearch)).length <= 10) || (item.phone?.includes(textSearch) && newSearchArray.filter(f => f.phone.includes(textSearch)).length <= 10) ?
-                              <Press ai='center' fd='row' onClick={() => { navigation.navigate('SingleItem', { id: item._id }); settextSearch(''); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }} jc='space-between' style={{ padding: 5, borderBottomWidth: newSearchArray.length -1 !== index?1:0, borderColor: 'silver' }} >
+                            ((item.title?.length && item.title.includes(textSearch) && newSearchArray.filter(f => f.title?.includes(textSearch)).length <= 10) || (item.phone?.includes(textSearch) && newSearchArray.filter(f => f.phone?.includes(textSearch)).length <= 10) ?
+                              <Press ai='center' fd='row' onClick={() => { Keyboard.dismiss();
+                              setTimeout(()=>{
+                                navigation.navigate('SingleItem', { id: item._id })
+                              },100)
+                              ; settextSearch(''); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }} jc='space-between' style={{ padding: 5, borderBottomWidth: newSearchArray.length -1 !== index?1:0, borderColor: 'silver' }} >
                                 <P fs={12} ml={15} >{item.title}</P >
                                 {item.imageUrl1 ? <Img br={4} w={45} h={45} src={{uri:`${localhost}/upload/childItem/${item.imageUrl1}`}} /> : <></>}
                               </Press>
@@ -106,8 +112,12 @@ function SearchInput({ table, iconBack, children, drawer, showDrawer, setshowDra
 
                             :
 
-                            ((item.brand?.includes(textSearch) && newSearchArray.filter(f => f.brand.includes(textSearch)).length <= 10) || (item.phone?.includes(textSearch) && newSearchArray.filter(f => f.phone.includes(textSearch)).length <= 10) ?
-                              <Press ai='center' fd='row' onClick={() => { navigation.navigate('SingleItem', { id: item._id }); settextSearch(''); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }} jc='space-between' style={{ padding: 5, borderBottomWidth: newSearchArray.length -1 !== index?1:0, borderColor: 'silver' }} >
+                            ((item.brand?.length && item.brand.includes(textSearch) && newSearchArray.filter(f => f.brand?.includes(textSearch)).length <= 10) || (item.phone?.includes(textSearch) && newSearchArray.filter(f => f.phone?.includes(textSearch)).length <= 10) ?
+                              <Press ai='center' fd='row' onClick={() => { Keyboard.dismiss();
+                              setTimeout(()=>{
+                                navigation.navigate('SingleItem', { id: item._id })
+                              },100)
+                              ; settextSearch(''); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }} jc='space-between' style={{ padding: 5, borderBottomWidth: newSearchArray.length -1 !== index?1:0, borderColor: 'silver' }} >
                                 <P fs={12} ml={15} >{item.brand}</P >
                                 {item.imageUrl1 ? <Img br={4} w={45} h={45} src={{uri:`${localhost}/upload/childItem/${item.imageUrl1}`}} /> : <></>}
                               </Press>

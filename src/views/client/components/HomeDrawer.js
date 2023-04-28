@@ -4,7 +4,7 @@ import { Scroll, Press, Py, Column, P } from '../../../other/Components/Html'
 const HomeDrawer = (p) => {
   return (
 
-    <Scroll ai='flex-start' m={2} border={[3, '#ee4499fa']} br={6} ccStyle={{ flexGrow: 1, paddingTop:20, height:'100%' }} >
+    <Scroll ai='flex-start' m={2} h='100%' border={[3, '#ee4499fa']} br={6} ccStyle={{ flexGrow: 1, paddingTop:20 }} >
 
 <Py pr={15} >دسته بندی محصولات</Py>
 

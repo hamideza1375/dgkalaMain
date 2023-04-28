@@ -1,9 +1,10 @@
 import { useFocusEffect } from '@react-navigation/native';
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { Animated, Platform, ScrollView, View } from 'react-native';
 import { localhost } from '../../utils/axios/axios';
 import { Img, Column, M_icon, Press, Badge, Row } from '../Html'
 import { Dimensions } from 'react-native';
+import _useEffect from '../../../controllers/_initial';
 
 var count = 0,
   plus = true,
@@ -61,10 +62,11 @@ function Slider({ style, onClick, data }) {
 
 
 
-  useEffect(() => {
+  _useEffect(() => {
+    setshowOpacity(false)
     setTimeout(() => {
       setshowOpacity(true)
-    }, 1000);
+    }, 2000);
   }, [])
 
 
@@ -93,7 +95,7 @@ function Slider({ style, onClick, data }) {
         contentContainerStyle={{ overflow: 'hidden', width, minWidth: width }}
         style={{ height: _height > _width ? 210 : 250, width: width, minWidth: width, alignSelf: 'center', borderRadius: 5, overflow: 'hidden', flexWrap: 'wrap' }} >
         {data.map((image, index) => (
-          ((image) && (badgeActive === index)) ? <View key={index} style={{ width }} ><AnimationImage _width={_width} _height={_height} image={image} width={width} style={!showOpacity ? { opacity: 1 } : {}} /></View> : <View key={index} />
+          ((image) && (badgeActive === index)) ? <View key={index} style={{ width }} ><AnimationImage _width={_width} _height={_height} image={image} width={width} style={[!showOpacity ? { opacity: 1 } : {}]} /></View> : <View key={index} />
         ))
         }
       </ScrollView>

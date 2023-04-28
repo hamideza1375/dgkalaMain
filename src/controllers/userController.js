@@ -382,6 +382,7 @@ export function userController(p) {
         {
           text: "OK", onPress: async () => {
             await removeSavedItem(itemId)
+            p.setsavedItems(svItems=> svItems.filter((item)=>item.itemId !== itemId ))
             p.setbookmark(false)
           }
         }

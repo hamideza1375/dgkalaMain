@@ -1,8 +1,8 @@
-import { useFocusEffect } from '@react-navigation/native';
 import React, { startTransition, useCallback, useRef, useState } from 'react'
-import { FlatList, Platform, View } from 'react-native'
+import { FlatList, Platform } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native';
 import s from './style.module.scss';
-import { Span } from '../Html';
+import { Loading, Column } from '../Html';
 
 
 var das = []
@@ -44,13 +44,13 @@ function ScrollSlider(p) {
 
 
   return (
-    <Span
+    <Column
       style={{ cursor: 'grab' }}
       class={s.selectNone}
       onMouseUp={() => { setscroll2(false); setTimeout(() => { das = [] }, 10); }}
       onMoveShouldSetResponder={() => { setscroll2(false); }}
       onTouchMove={() => { setscroll2(false); }} >
-      <View
+      <Column
         onMoveShouldSetResponder={(e) => {
           setscroll2(!scroll2)
           if (Platform.OS === 'web') {
@@ -60,36 +60,40 @@ function ScrollSlider(p) {
 
               startTransition(() => {
                 setTimeout(() => {
-                  
-                  ref.current?.scrollToOffset({  offset: (scroll) + ((das[0] - das[das.length - 1]) * 2.2) })
+
+                  ref.current?.scrollToOffset({ offset: (scroll) + ((das[0] - das[das.length - 1]) * 2.2) })
                 }, 0);
-                })
-            
+              })
+
             }
           }
           setscroll2(false)
 
         }}
       >
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          dir='ltr'
-          ref={ref}
-          horizontal
-          {...p}
-          renderItem={renderItem}
-          contentContainerStyle={[{ flexGrow: 1, direction: 'rtl' }, ccStyle]}
-          onLayout={(e) => { let int = setInterval(sum, 3000); function sum() { if (scroll2 && !(count.current.count >= data.length)) { open() } else clearInterval(int) } interval.current.interval = int }}
-          // scrollEventThrottle={0}
-          // alwaysBounceHorizontal={false}
-          // alwaysBounceVertical={false}
-          // contentInset={{ left: 0 }}
-          onScroll={(e) => { setscroll(e.nativeEvent.contentOffset.x) }}
-          style={[{ height: h ? h : 150, width: '99%', borderRadius: 5, flexWrap: 'wrap' }, style]}
-        />
-        
-      </View>
-    </Span>
+        {data.length ?
+          <FlatList
+            initialNumToRender={1}
+            showsHorizontalScrollIndicator={false}
+            dir='ltr'
+            ref={ref}
+            horizontal
+            {...p}
+            renderItem={renderItem}
+            contentContainerStyle={[{ flexGrow: 1, direction: 'rtl' }, ccStyle]}
+            onLayout={(e) => { let int = setInterval(sum, 3000); function sum() { if (scroll2 && !(count.current.count >= data.length)) { open() } else clearInterval(int) } interval.current.interval = int }}
+            // scrollEventThrottle={0}
+            // alwaysBounceHorizontal={false}
+            // alwaysBounceVertical={false}
+            // contentInset={{ left: 0 }}
+            onScroll={(e) => { setscroll(e.nativeEvent.contentOffset.x) }}
+            style={[{ height: h ? h : 150, width: '99%', borderRadius: 5, flexWrap: 'wrap' }, style]}
+          />
+          :
+          <Column w='100%' ><Loading /></Column>
+        }
+      </Column>
+    </Column>
   )
 }
 

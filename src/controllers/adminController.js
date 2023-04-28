@@ -583,7 +583,7 @@ export function adminController(p) {
   //! DataForChart
   this.getDataForChart = async () => {
     useEffect(() => {
-      !p.usersLength &&
+      // !p.usersLength &&
       (async () => {
         const { data } = await getDataForChart()
         p.setaddress7DeyForChart(data.getAddress7DeyForChart)

@@ -7,7 +7,7 @@ import { localhost } from '../../../../other/utils/axios/axios'
 const Category = (p) => {
 
   return (
-    <Column >
+    <Column minh={150} >
       <Column fd='row' ai='center' >
         <P mr={15} mt={12} fs={15} mb={-15} color='#444' >دسته ها</P>
         <LinearGradient nativeStart={{ x: 1.5, y: 1.5 }} webStart={{ x: 7 }} colors={['#f5f', '#505']} style={{ width: '50%', height: 1, flexGrow: 1, marginTop: 28, marginHorizontal: 25 }} ></LinearGradient>
