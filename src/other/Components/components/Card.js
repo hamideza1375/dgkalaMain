@@ -343,7 +343,10 @@ function Card({ imgClick, style, header, body, footer, bgcolor = 'white', color,
       (
         !alert ?
           <View
-            onLayout={(e) => setheightLayout(e.nativeEvent.layout.height)}
+            onLayout={(e) => {
+              e.persist && e.persist();
+              setheightLayout(e.nativeEvent.layout.height)
+            }}
 
             {...prop}
             style={[{
@@ -376,7 +379,7 @@ function Card({ imgClick, style, header, body, footer, bgcolor = 'white', color,
               ,
 
             }, style]}>
-            <View style={[{ padding: 12, borderRadius: 3, height: '100%' }]} >
+            <View style={[{ padding: 12, borderRadius: 3, maxHeight:'100%'  }]} >
               {header ?
                 <View style={[{
                   paddingHorizontal: 5, paddingVertical: 12, width: '79%'
@@ -451,10 +454,12 @@ function Card({ imgClick, style, header, body, footer, bgcolor = 'white', color,
                   position: 'absolute',
                   height: 100,
                   justifyContent: 'center',
-                  maxWidth: '20%',
+                  width:imageStyle?.width? imageStyle.width: 75,
+                  // maxWidth: '50%',
+                  // borderWidth:1
                 }, dr === 'ltr' ? { left: 5, paddingLeft: 10 } : { right: 5, paddingRight: 10 }]} >
 
-                <Pressable onPress={imgClick} style={{ width: 75, height: 75, borderRadius: 50, alignSelf: 'center', top: 15, position: 'absolute', cursor: imgClick ? 'pointer' : '' }} >
+                <Pressable onPress={imgClick} style={{ width:imageStyle?.width? imageStyle.width: 75, height:imageStyle?.height? imageStyle.height: 75, borderRadius: 50, alignSelf: 'center', top: 15, position: 'absolute', cursor: imgClick ? 'pointer' : '' }} >
                   <Image source={img} style={[{
                     width: 75, height: 75, borderRadius: 50, alignSelf: 'center', resizeMode: 'stretch',
                   }, imageStyle]}
@@ -464,9 +469,9 @@ function Card({ imgClick, style, header, body, footer, bgcolor = 'white', color,
                 {footer ?
                   <View style={[{
                     top: 58,
-                    paddingRight: 2,
+                    // paddingRight: 2,
                     paddingVertical: 5, width:80
-                  }, dr === 'rtl' ? { alignSelf: 'flex-start' } : { alignSelf: 'flex-end' }]}><P style={{
+                  }, dr === 'rtl' ? { alignSelf: 'flex-end', paddingRight: 2 } : { alignSelf: 'flex-start', paddingLeft: 2 }]}><P style={{
                     textAlign: 'center',
                     color:
                       !color ?
@@ -486,7 +491,7 @@ function Card({ imgClick, style, header, body, footer, bgcolor = 'white', color,
               </View>
 
               {footerRow ?
-               <View style={[{ position: 'absolute', paddingRight: 2, paddingVertical: 5, bottom: 0, width: 70, height: heightLayout - 100 }, dr === 'ltr' ? { left: 5 } : { right: 5 }]} >
+               <View style={[{ position: 'absolute', paddingRight: 2, paddingVertical: 5, bottom: 0, width: 70, height: heightLayout - 100 }, dr === 'ltr' ? { left: 5 } : { right: 5 }, Platform.OS === 'web' ? {bottom:0} : {bottom:1} ]} >
                 {footerRow}
               </View>
             :
@@ -551,7 +556,10 @@ function Card({ imgClick, style, header, body, footer, bgcolor = 'white', color,
 
           (
             <View
-              onLayout={(e) => setheightLayout(e.nativeEvent.layout.height)}
+              onLayout={(e) => {
+                e.persist && e.persist();
+                setheightLayout(e.nativeEvent.layout.height)
+              }}
               {...prop}
               style={[{
                 borderRadius: 5, minHeight: 115, width: '100%', position: 'relative',
@@ -581,7 +589,7 @@ function Card({ imgClick, style, header, body, footer, bgcolor = 'white', color,
                 ,
               }, style]}>
 
-              <View style={{ padding: 12, borderRadius: 3, height: '100%' }} >
+              <View style={{ padding: 12, borderRadius: 3, maxHeight:'100%' }} >
                 {header ?
                   <View style={[{
                     paddingHorizontal: 5, paddingVertical: 12, width: '79%'
@@ -632,10 +640,11 @@ function Card({ imgClick, style, header, body, footer, bgcolor = 'white', color,
                   position: 'absolute',
                   height: 90,
                   justifyContent: 'center',
-                  maxWidth: '20%',
+                  width:imageStyle?.width? imageStyle.width: 75,
+                  // maxWidth: '20%',
                 }, dr === 'ltr' ? { left: 5, paddingLeft: 10 } : { right: 5, paddingRight: 10 }]} >
 
-                  <Pressable onPress={imgClick} style={{ width: 75, height: 75, borderRadius: 50, alignSelf: 'center', top: 15, position: 'absolute', cursor: imgClick ? 'pointer' : '' }} >
+                  <Pressable onPress={imgClick} style={{ width:imageStyle?.width? imageStyle.width: 75, height:imageStyle?.height? imageStyle.height: 75, borderRadius: 50, alignSelf: 'center', top: 15, position: 'absolute', cursor: imgClick ? 'pointer' : '' }} >
                     <Image source={img} style={[{
                       width: 75, height: 75, borderRadius: 50, alignSelf: 'center', resizeMode: 'stretch',
                     }, imageStyle]}
@@ -644,7 +653,8 @@ function Card({ imgClick, style, header, body, footer, bgcolor = 'white', color,
 
                   {footer ?
 
-                    <View style={[{ top: 63, paddingRight: 2, paddingVertical: 5, color, width: 80 }, dr === 'rtl' ? { alignSelf: 'flex-start' } : { alignSelf: 'flex-end' }]}><P style={{
+                    <View style={[{ top: 63, paddingVertical: 5, color, width: 80 },
+                      dr === 'rtl' ? { alignSelf: 'flex-end', paddingRight: 2 } : { alignSelf: 'flex-start', paddingLeft: 2 }]}><P style={{
                       textAlign: 'center',
                       color:
                         !color ?
@@ -665,7 +675,7 @@ function Card({ imgClick, style, header, body, footer, bgcolor = 'white', color,
                 </View>
 
                 {footerRow ?
-                 <View style={[{ position: 'absolute', paddingRight: 2, paddingVertical: 5, bottom: 0, width: 70, height: heightLayout - 100 }, dr === 'ltr' ? { left: 5 } : { right: 5 }]} >
+                 <View style={[{ position: 'absolute', paddingRight: 2, paddingVertical: 5, bottom: 0, width: 70, height: heightLayout - 100 }, dr === 'ltr' ? { left: 5 } : { right: 5 }, Platform.OS === 'web' ? {bottom:0} : {bottom:1}]} >
                   {footerRow}
                 </View>
               :

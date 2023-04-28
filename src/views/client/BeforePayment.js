@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, Column, Button, Icon, P, Press, Py, Row, Card } from '../../other/Components/Html'
+import React, { useState } from 'react'
+import { FlatList, Column, Button, Icon, P, Press, Py, Row, Card, Pfa } from '../../other/Components/Html'
 import _useEffect from '../../controllers/_initial'
 import spacePrice from '../../other/utils/spacePrice'
 import convertColor from '../../other/utils/convertColor'
@@ -31,7 +31,7 @@ const BeforePaymentFlatlist = (p) => {
           keyExtractor={(data, index) => index.toString()}
           data={Object.entries(p.productBasket)}
           renderItem={({ item, index }) => (
-            <Column /* mh='auto' */ mh={6} minw={155} fg={1} h={260} ai='center' col2={{ marginHorizontal: 3 }} col1={{ marginHorizontal: 3 }}>
+            <Column /* mh='auto' */ mh={6} minw={155} fg={1} h={250} ai='center' col2={{ marginHorizontal: 3 }} col1={{ marginHorizontal: 3 }}>
               <BeforePaymentCatd item={item} {...p} />
             </Column>)}
         />
@@ -55,7 +55,7 @@ function BeforePaymentCatd(p) {
       dr='ltr'
       bgcolor='white'
       img={{uri:`${localhost}/upload/childItem/${p.item[1].imageUrl1}`}}
-      imageStyle={{marginRight:-20, height:78,width:78}}
+      imageStyle={{height:78,width:78}}
       headerRow={
         <Column minh='100%' h={25} ai='flex-start' >
           <P onClick={() => p.navigation.navigate('SingleItem', { id: p.item[0] })} >{p.item[1].title}</P>
@@ -68,9 +68,9 @@ function BeforePaymentCatd(p) {
           <Row ai='center' w='100%' jc='space-between'>
             <Row ai='center' ><P fs={13} mv={4}>تعداد: </P><P fs={11} >{p.item[1].number} عدد</P></Row>
           </Row>
-          <Row btw={1} pt={9} mb={-7} ai='center' ><P fs={13} >قیمت کل: </P><P fs={11} color='#0c8'>{spacePrice(p.item[1].price * p.item[1].number)}</P></Row>
+          <Row btw={1} pt={9} mb={-7} ai='center' ><P fs={13} > جمع: </P><P mt={4} fs={11} color='#0c8'>{spacePrice(p.item[1].price * p.item[1].number)}</P></Row>
         </Column>}
-      footerRow={<Press onClick={() => { deleteProduct() }} h='100%' ai='center' jc='flex-end' pb={15}><P color='#c00'>حذف</P></Press>}
+      footerRow={<Press onClick={() => { deleteProduct() }} mt='auto' ai='center' jc='flex-end' pb={15}><P color='#c00'>حذف</P></Press>}
     />
   )
 }
@@ -96,7 +96,7 @@ function BottomTabBeforePayment(p) {
     <Row style={{ position: 'absolute' }} b={0} w='100%' h={70} bgcolor='#ccc' z={3} ph={8} jc='space-between' fg={1} >
       <Column jc='center' ai='flex-start' >
         <P fs={13} mt={3} mr={3} color='#222'>قیمت کل: </P>
-        <P fs={13} mt={3} mr={8} color='#09b'>{spacePrice(totalPrice + p.postPrice)} تومان</P>
+        <Pfa fs={16} mt={3} mr={8} color='#09b'>{spacePrice(totalPrice + p.postPrice)} تومان</Pfa>
       </Column>
       <Column h='100%' fg={1} maxw={'50%'} mh={7} jc='center' >
         <Button onClick={() => Object.values(p.productBasket).length ? p.navigation.navigate('SetAddressForm') : p.toast.warning('خطا', 'هنوز محصولی انتخاب نکرده اید')} >پرداخت</Button>

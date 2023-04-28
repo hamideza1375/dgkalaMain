@@ -20,8 +20,7 @@ const SavedItems = (p) => {
             headerRow={<Py ta='right' onClick={()=>{p.navigation.navigate('SingleItem',{id:item.itemId})}} fs={15}>{item.title}</Py>}
             bodyRow={<M_icon color='#d00' name='delete' size={22} style={{ width:20, textAlign:'center'}} onClick={() => { removeSavedItem(item.itemId) }} />}
             img={{uri:`${localhost}/upload/childItem/${item.imageUrl}`}}
-            imageStyle={{marginRight:-20}}
-            footerRow={<Pfa webStyle={{fontSize:13}} nativeStyle={{fontSize:11}} >{spacePrice(String(item.price).padEnd(4)) + 'تومان'}</Pfa>}
+            footer={<Pfa webStyle={{fontSize:12, marginRight:-5}} nativeStyle={{fontSize:11}} >{spacePrice(String(item.price).padEnd(4)) + ' تومان'}</Pfa>}
             />
         )}
       />

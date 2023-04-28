@@ -1,5 +1,5 @@
 import moment from 'moment-jalaali'
-import React, { useState } from 'react'
+import React from 'react'
 import { A_icon, Badge, Button, Card, Column, FlatList, Icon, M_icon, P, Press, Py, Row } from '../../../../other/Components/Html'
 
 
@@ -130,57 +130,6 @@ const ShowComment = (p) => {
 
         ))}
 
-
-        {/* <FlatList
-          pageLimit={6}
-          data={p.childItemComment}
-          renderItem={({ item, index }) => (
-            <Column w={'98%'} as='center' br={3} mv={8} sh={{ o: 1, r: 8, c: '#ddda' }} >
-              <Card
-                bgcolor='#fff' color='black' dr='rtl' border={[1, '#eeee']} headerRow={
-                  <Column fd='row-reverse' w='100%' >
-                    <Column ><P color='#777' >{moment(item.date).format('jYYYY/jM/jD')}</P></Column>
-                    <Column><P color='#777' > | </P></Column>
-                    <Column><P color='#777' > {item.fiveStar} ستاره </P></Column>
-                    <Column mt={-4} ml={2}>
-                      <Icon name='star' color='orange' size={25} />
-                    </Column>
-
-                    {((item.userphoneOrEmail === p.tokenValue.phoneOrEmail) || (p.tokenValue.isAdmin)) ?
-                      <Row mh={15} >
-                        <A_icon onClick={() => { p.navigation.navigate('EditComment', { id: item._id }) }} name='edit' size={18} color='#777' style={{ marginHorizontal: 5 }} />
-                        <M_icon onClick={() => { deleteComment(item._id) }} name='delete-outline' size={18} color='#777' style={{ marginHorizontal: 5 }} />
-                      </Row>
-                      :
-                      <></>
-                    }
-
-                    <Column ml='auto' >
-                      <Py color='#777' >{item.fullname}</Py>
-                    </Column>
-
-                  </Column>
-                } body={<P>{item.message}</P>} footerRow={
-                  <Column fd='row-reverse' >
-                    <Press onClick={() => { disLike(item._id) }} bgcolor='silver' p={7} pv={4} pl={1} w={38} mh={2} br={5} jc='center' ai='center' fd='row' >
-                      <Badge bgcolor='gray' text={item.disLikeCount} top={10} right={1} h={10} w={15} fs={8} scale={.8} />
-                      <A_icon name='dislike2' size={19} style={{ marginLeft: -5 }} />
-                    </Press>
-                    <Press onClick={() => { like(item._id) }} bgcolor='silver' p={7} pv={4} pl={1} w={38} mh={2} br={5} jc='center' ai='center' fd='row' >
-                      <Badge bgcolor='gray' text={item.likeCount} top={10} right={1} h={10} w={15} fs={8} scale={.8} />
-                      <A_icon name='like2' size={19} style={{ marginLeft: -5 }} />
-                    </Press>
-                    <Press onClick={() => { p.navigation.navigate('CreateComment', { commentId: item._id, userphoneOrEmail: JSON.stringify(Object.values(item.userphoneOrEmail).map((u, i) => (u + i))) }) }} bgcolor='silver' p={7} pv={4} mh={2} br={5} jc='center' ai='center' ><P fs={12} mt={2} >↩</P></Press>
-                  </Column>
-                } />
-
-              <Column w={'100%'} ai='flex-start'>
-                <AnswerComment answer={item.answer} {...p} />
-              </Column>
-
-            </Column>
-          )}
-        /> */}
 
       </Column>
     </>

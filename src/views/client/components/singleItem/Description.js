@@ -84,7 +84,8 @@ const Description = (p) => {
 
   return (
     <Span minw={290} w={'100%'} ai='center' jc='center'>
-      {p.singleItem?.price ? <Card2 h={400} w={'100%'} style={{ borderColor: 'silver', backgroundColor: 'white' }}
+      {p.singleItem?.price ? 
+      <Card2 h={400} w={'100%'} style={{ borderColor: 'silver', backgroundColor: 'white' }}
         coulumn1={
           <Span w={'100%'} f={1} >
 

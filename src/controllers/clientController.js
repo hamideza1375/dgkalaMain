@@ -7,7 +7,7 @@ import _Alert from "../other/utils/alert";
 import backgroundTimer from "../other/utils/backgroundTimer";
 import { create } from "../other/utils/notification";
 import { truncate } from "../other/utils/truncate";
-import { getSingleSavedItems, commentDisLike, commentLike, confirmPayment, createComment, createCommentAnswer, deleteComment, deleteCommentAnswer, disLikeAnswer, editComment, editCommentAnswer, geocode, getCategory, getChildItemComments, getChildItems, getNotification, getOffers, getPopulars, getSendStatus, getSimilars, getSingleComment, getSingleCommentAnswer, getSingleItem, getSlider, getSocketIoSeenUser, likeAnswer, offers, reverse, getSingleSeller } from "../services/clientService";
+import { getSingleSavedItems, commentDisLike, commentLike, confirmPayment, createComment, createCommentAnswer, deleteComment, deleteCommentAnswer, disLikeAnswer, editComment, editCommentAnswer, geocode, getCategory, getChildItemComments, getChildItems, getNotification, getOffers, getPopulars, getSendStatus, getSimilars, getSingleComment, getSingleCommentAnswer, getSingleItem, getSlider, getSocketIoSeenUser, likeAnswer, offers, reverse, getSingleSeller, allProduct } from "../services/clientService";
 import { savedItem } from "../services/userService";
 import _useEffect from "./_initial";
 
@@ -22,6 +22,18 @@ export function clientController(p) {
     }, [p.sliderImage1])
   }
   //! getSlider
+
+
+  //! allProductForSearchBar
+    this.allProductForSearchBar =()=>{
+      useEffect(() => {
+        setTimeout(() => {
+          allProduct().then(({ data }) => { p.setallProduct(data.value); p.setnewSearchHomeArray(data.value) })
+        }, 4000);
+      }, [])
+    }
+  //! allProductForSearchBar
+  
 
 
   //! SendStatusForClientBuy
