@@ -85,8 +85,6 @@ LogBox.ignoreAllLogs();
 const Tab = createNativeStackNavigator()
 const Mobile = () => {
 
-  useEffect(() => { setTimeout(() => { allState.init.setSplash(false); allState.init.setshowActivity(false) }, 5000) }, [])
-
   useEffect(() => { setTimeout(() => { if ((Platform.OS !== 'web') && (!I18nManager.isRTL)) { BackHandler.exitApp() } }, 3000) }, [])
 
   let icon = Platform.OS === 'ios' ? { headerLeft: header } : {}

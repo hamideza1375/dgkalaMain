@@ -28,7 +28,6 @@ export const _initController = (p) => {
 
 
     if (net.isConnected !== false) {
-
       Axios.interceptors.response.use(function (response) {
         p.setshowActivity(false)
         if (_show == false) { _show = true; setshow(true) }
@@ -74,7 +73,7 @@ export const _initController = (p) => {
 
 
   useEffect(() => { p.$input.set('a', 'a') }, [])
-  useEffect(() => { show === true && setTimeout(() => { p.setSplash(false); p.setshowActivity(false) }, 200) }, [show])
+  useEffect(() => { show === true && setTimeout(() => { if(show === true){p.setSplash(false); p.setshowActivity(false)} }, 200) }, [show])
   Dimensions.addEventListener('change', ({ window: { width, height } }) => { p.setwidth(width); p.setheight(height) })
 
 }
