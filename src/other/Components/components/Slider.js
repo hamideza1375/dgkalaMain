@@ -10,7 +10,8 @@ var count = 0,
   plus = true,
   minus,
   interval,
-  width = '100%'
+  width = '100%',
+  moving = true
 
 function Slider({ style, onClick, data }) {
 
@@ -41,6 +42,28 @@ function Slider({ style, onClick, data }) {
   };
 
 
+  const right2 = () => {
+    if (moving) {
+      if (count !== 0) count = count - 1
+      ref.current && ref.current.scrollTo({ x: width * count, y: 0, animated: true });
+      setbadgeActive(count)
+      moving = false
+      setTimeout(() => {
+        moving = true
+      }, 1000);
+    };
+  }
+  const left2 = () => {
+    if (moving) {
+      if (count !== 5) count += 1
+      ref.current && ref.current.scrollTo({ x: width * count, y: 0, animated: true });
+      setbadgeActive(count)
+      moving = false
+      setTimeout(() => {
+        moving = true
+      }, 1000);
+    };
+  }
 
 
   useFocusEffect(useCallback(() => {
@@ -77,6 +100,10 @@ function Slider({ style, onClick, data }) {
 
     <Column style={style} >
 
+      <Column style={{ cursor: 'grab' }} w='10%' h='100%' pos='absolute' l={0} z={100000} onMoveShouldSetResponder={Platform.OS !== 'web' ? left2 : right2} />
+
+      <Column style={{ cursor: 'grab' }} w='10%' h='100%' pos='absolute' r={0} z={100000} onMoveShouldSetResponder={Platform.OS !== 'web' ? right2 : left2} />
+
       <Row w='80%' h='100%' pos='absolute' as='center' jc='space-between' z={100000} >
         <Press w='10%' h='100%' onClick={onClick} />
         <Press w='10%' h='100%' onClick={onClick} />
@@ -99,11 +126,11 @@ function Slider({ style, onClick, data }) {
         ))
         }
       </ScrollView>
-      <Press pl={6} pb={1} opc={.7} style={{ backgroundColor: '#fafafa', borderRadius: 50, justifyContent: 'center', width: 35, height: 35, position: 'absolute', zIndex: 10, alignItems: 'center', left: 10, top: 130, }} >
-        <M_icon onClick={Platform.OS !== 'web' ? left : right} size={20} name="arrow-back-ios" style={{ color: '#222' }} />
+      <Press onClick={Platform.OS !== 'web' ? left : right} pl={6} pb={1} opc={.7} style={{ backgroundColor: '#fafafa', borderRadius: 50, justifyContent: 'center', width: 35, height: 35, position: 'absolute', zIndex: 999999, alignItems: 'center', left: 10, top: 130, }} >
+        <M_icon size={20} name="arrow-back-ios" style={{ color: '#222' }} />
       </Press>
-      <Press pl={2} pb={1} opc={.7} style={{ backgroundColor: '#fafafa', borderRadius: 50, justifyContent: 'center', width: 35, height: 35, position: 'absolute', zIndex: 10, alignItems: 'center', right: 10, top: 130, }} >
-        <M_icon onClick={Platform.OS !== 'web' ? right : left} size={20} name="arrow-forward-ios" style={{ color: '#222' }} />
+      <Press onClick={Platform.OS !== 'web' ? right : left} pl={2} pb={1} opc={.7} style={{ backgroundColor: '#fafafa', borderRadius: 50, justifyContent: 'center', width: 35, height: 35, position: 'absolute', zIndex: 999999, alignItems: 'center', right: 10, top: 130, }} >
+        <M_icon size={20} name="arrow-forward-ios" style={{ color: '#222' }} />
       </Press>
 
       <Row fd='row-reverse' pos='absolute' b={15} w='100%' jc='center' >

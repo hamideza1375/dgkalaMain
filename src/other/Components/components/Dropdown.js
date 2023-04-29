@@ -8,7 +8,6 @@ const Dropdown = ({ top, value, root, children }) => {
   const { setdropdownValue, setclientX, setclientY, clientY, clientX, shownDropdown, setshownDropdown, width, height } = context()
   return (
     <Pressable
-    onTouchStart={()=>setshownDropdown(false)}
     onLayout={(e) => {
       
     if(e){ 
