@@ -300,7 +300,7 @@ const SocketIo = (p) => {
                             setimageUrl(`${localhost}/upload/socket/${item.uri}`)
                             setshowImage(true)
                           }}>
-                            <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} />
+                            <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} style={{resizeMode: 'stretch'}} />
                           </Press>
                           :
                           <Column w='100%' h={100} ai='flex-end' jc='center' >
@@ -384,7 +384,7 @@ const SocketIo = (p) => {
                                   setimageUrl(`${localhost}/upload/socket/${item.uri}`)
                                   setshowImage(true)
                                 }}>
-                                  <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} />
+                                  <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} style={{resizeMode: 'stretch'}} />
                                 </Press>
                                 :
                                 <Column w='100%' h={100} ai='flex-end' jc='center' >
@@ -426,7 +426,7 @@ const SocketIo = (p) => {
                     onClick={() => { download(imageUrl) }}
                   />
                 </Press>
-                <Img src={{ uri: imageUrl }} style={{ height: '100%', width: '100%', borderRadius: 4, alignSelf: 'center' }} />
+                <Img src={{ uri: imageUrl }} style={{ height: '100%', width: '100%', borderRadius: 4, alignSelf: 'center', resizeMode: 'stretch' }} />
               </>
               : <></>}
           </Modal>
