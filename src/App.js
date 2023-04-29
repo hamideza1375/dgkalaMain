@@ -327,10 +327,9 @@ if (Platform.OS !== 'web') {
 }
 else {
   _App = () => {
-    const allState = states()
     return (
       <NavigationContainer linking={linking} >
-        <Column flex={1} style={{ height: '100vh', minHeight: '100%',width:'100%', maxHeight: allState.init.height, overflow: 'hidden', }} dir='rtl' >
+        <Column style={{ width:'100%', overflow: 'hidden', flex:1 }} dir='rtl' >
           <Mobile />
         </Column>
       </NavigationContainer>
