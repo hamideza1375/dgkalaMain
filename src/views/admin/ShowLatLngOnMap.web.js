@@ -15,7 +15,7 @@ const ShowLatLngOnMap = (p) => {
     //! map
 
     //! marker
-    var myIcon = L.icon({ iconUrl: `${localhost}/lefleat/mark.png`, iconSize: [38, 95], iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowSize: [68, 95], shadowAnchor: [22, 94], });
+    var myIcon = L.icon({ iconUrl: `${localhost}/leaflet/mark.png`, iconSize: [38, 95], iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowSize: [68, 95], shadowAnchor: [22, 94], });
     let markerOption = { draggable: false, icon: myIcon }
     let marker = L.marker(latlng, markerOption).addTo(map)
     //! marker
@@ -90,7 +90,7 @@ const ShowLatLngOnMap = (p) => {
   }, [])
 
   return (
-      <div style={{ width: '100%', height: '100vh', position:'relative' }}>
+      <div style={{ width: '100%', height: '100%', position:'relative' }}>
         <button id='btnGetLocation' style={{ opacity: .9, display: !showGetLocate ? 'flex' : 'none', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#ccc', padding: '1px 1px 2px', borderRadius: '4px', zIndex: 10000, position: 'absolute', top: 20, right: 10, fontSize: 20, height: 32, maxHeight: 35, width: 28, borderWidth: 0, boxShadow: '.2px 1.5px 4px #333d' }}><p style={{ transform: 'rotate(-65deg)', padding: 0, margin: 0, marginTop: -2 }}>⌲</p></button>
         <button id='btnGetLocation2' style={{ opacity: 1, display: showGetLocate ? 'flex' : 'none', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#fff', padding: '1px 1px 2px', borderRadius: '4px', zIndex: 10000, position: 'absolute', top: 20, right: 10, fontSize: 20, height: 32, maxHeight: 35, width: 28, borderWidth: 0, boxShadow: '.2px 1.5px 4px #333d' }}><p style={{ transform: 'rotate(-65deg)', padding: 0, margin: 0, marginTop: -2 }}>⌲</p></button>
         <button style={{display:'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', background: '#fff', padding: '1px 1px 2px', borderRadius: '4px', zIndex: 10000, position: 'absolute',  bottom:4, right: 4, fontSize: 20, height: 35, width: 37, borderWidth: 0, boxShadow: '.2px 1.5px 4px #333d' }}><a href={`geo:${JSON.parse(p.route.params.latlng).lat},${JSON.parse(p.route.params.latlng).lng}`} style={{ fontWeight:'bolder',fontSize:22, padding: 0, margin: 0, marginTop: -2 }}>↝</a></button>

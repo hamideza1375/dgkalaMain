@@ -126,7 +126,7 @@ const Location = (p) => {
         </form>
       </div>
 
-      <div id="map" style={{ width: '100%', height: 'calc(99vh)', position: 'fixed', bottom: 0, left: 0 }}></div>
+      <div id="map" style={{ width: '100%', height: '100%', position: 'fixed', bottom: 0, left: 0 }}></div>
 
       <div id='bottomDiv' style={{ display: 'flex', flexDirection: 'row', visibility: 'visible', zIndex: 10000, position: 'fixed', bottom: 0, width: '100%', height: 42, background: '#fff', padding: '6px 5px 0px', boxSizing: 'border-box' }}>
         <button disabled={disable} id='btnPayment' onClick={() => p.navigation.replace('SetAddressInTehran')} style={{ display: 'block', border: '1px solid #07f', background: "#fff", color: '#07f', height: '30px', width: '90%', margin: '0 auto', fontSize: '16px', borderRadius: '5px', cursor: !disable ? 'pointer' : '' }} >تایید</button>
