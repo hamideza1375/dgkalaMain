@@ -1,6 +1,32 @@
 const version = 6;
 const preCacheName = `static-${version}`;
-const preCache = ['/index.html', '/', '/static/js/main.aeb95984.js'];
+const preCache = [
+  '/index.html',
+  '/',
+  '/css/font.css',
+  
+  '/static/js/main.e089b3ce.js',
+  '/static/css/main.07888fbc.css',
+
+  // '/fonts/AntDesign.ttf',
+  // '/fonts/B Baran Regular.ttf',
+  // '/fonts/FontAwesome5_Brands.ttf',
+  // '/fonts/FontAwesome5_Regular.ttf',
+  // '/fonts/FontAwesome5_Solid.ttf',
+  // '/fonts/IRANSansWeb_Bold.ttf',
+  // '/fonts/IRANSansWeb_Light.ttf',
+  // '/fonts/IRANSansWeb.ttf',
+  // '/fonts/MaterialIcons.ttf',
+  // '/fonts/Yekan Bakh Regular.ttf',
+
+  '/logo.png',
+  '/64x64.png',
+  '/192x192.png',
+  '/512x512.png',
+
+  '/app.js',
+  '/manifest.json',
+];
 
 self.addEventListener('install', (ev) => {
   //installed

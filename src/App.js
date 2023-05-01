@@ -76,6 +76,7 @@ import spacePrice from "./other/utils/spacePrice";
 import { ErrorBoundary } from "react-error-boundary";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import online from "./other/utils/online";
+import { localhost } from "./other/utils/axios/axios";
 
 rtl()
 LogBox.ignoreAllLogs();
@@ -253,10 +254,10 @@ initialPropType(SendPostPrice)
 
 
 const linking = {
-  // prefixes: ['http://localhost:3000/home?key=client'],
+  // prefixes: ['localhost:3000://', 'http://localhost:3000'],
   config: {
     screens: {
-      Home: '/home',
+      Home: '/:key',
       ChildItems: '/childitems/:id',
       ChildOffers: '/childoffers',
       ChildPopulars: '/childpopulars',
@@ -330,7 +331,6 @@ if (Platform.OS !== 'web') {
 else {
 
   _App = () => {
-
 
     useEffect(() => {
       window.addEventListener('beforeinstallprompt', (ev) => {

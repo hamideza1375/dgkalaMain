@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Dimensions } from "react-native";
+import { Dimensions, Platform } from "react-native";
 import PropTypes from 'prop-types';
 
 export function initial() {
@@ -92,7 +92,7 @@ export function initial() {
     address7DeyForChart, setaddress7DeyForChart,
     address1YearsForChart, setaddress1YearsForChart,
     changePage, setchangePage,
-    logoUrl, setlogoUrl,
+    logoUrl: Platform.OS === 'web' ? '/logo.png' : require('../other/assets/images/logo.png'), setlogoUrl,
     postPrice, setpostPrice,
     latlng, setlatlng,
     state, setstate, City, setCity,
@@ -171,7 +171,7 @@ export function initial() {
 
 export const initialPropType = (component) => {
   component.propTypes = {
-    changePage:PropTypes.bool,
+    changePage: PropTypes.bool,
     postPrice: PropTypes.number,
     latlng: PropTypes.object,
     state: PropTypes.string,
@@ -186,7 +186,7 @@ export const initialPropType = (component) => {
     sliderImage4: PropTypes.object,
     sliderImage5: PropTypes.object,
     sliderImage6: PropTypes.object,
-    input1:PropTypes.string, // phone
+    input1: PropTypes.string, // phone
     input2: PropTypes.string, // brand
     input3: PropTypes.string, // ram
     input4: PropTypes.string, // cpuCore
