@@ -253,7 +253,7 @@ initialPropType(SendPostPrice)
 
 
 const linking = {
-  // prefixes: ['localhost:3000://', 'http://localhost:3000'],
+  // prefixes: ['http://localhost:3000/home?key=client'],
   config: {
     screens: {
       Home: '/home',
@@ -340,7 +340,7 @@ else {
     }, [])
     const installStatus = async () => {
       let cancelInstalled = await AsyncStorage.getItem('cancelInstalled')
-      if (cancelInstalled < 2 && deferredInstall) {
+      if (cancelInstalled < 1 && deferredInstall) {
         deferredInstall.prompt();
         deferredInstall.userChoice.then(async (choice) => {
           if (choice.outcome == 'accepted') { console.log('installed'); }

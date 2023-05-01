@@ -14,6 +14,7 @@ function Home(p) {
   p._client.backHandler()
   p._client.allProductForSearchBar()
 
+
   return (
     <Column f={1} >
       

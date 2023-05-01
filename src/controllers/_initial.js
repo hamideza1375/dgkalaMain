@@ -73,7 +73,8 @@ export const _initController = (p) => {
 
 
   useEffect(() => { p.$input.set('a', 'a') }, [])
-  useEffect(() => { show === true && setTimeout(() => { if(show === true){p.setSplash(false); p.setshowActivity(false)} }, 200) }, [show])
+  useEffect(() => { setTimeout(() => {{p.setSplash(false); p.setshowActivity(false)} }, 200) }, [show])
+  // useEffect(() => { show === true && setTimeout(() => { if(show === true){p.setSplash(false); p.setshowActivity(false)} }, 200) }, [show])
   Dimensions.addEventListener('change', ({ window: { width, height } }) => { p.setwidth(width); p.setheight(height) })
 
 }

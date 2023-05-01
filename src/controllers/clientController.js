@@ -67,12 +67,12 @@ export function clientController(p) {
   this.getChildItems = () => {
     useEffect(() => {
       (async () => {
-        const { data } = await getChildItems(p.route.params.id)
+        const { data } = await getChildItems(p.route.params?.id)
         if (!data?.value) return
         p.setchildItem(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
         p.setnewSearchArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
-    }, [p.route.params.id])
+    }, [p.route.params?.id])
   }
 
 
@@ -84,7 +84,7 @@ export function clientController(p) {
         p.setoffers(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
         p.setnewSearchOffershArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
-    }, [p.route.params.id])
+    }, [p.route.params?.id])
   }
 
 
@@ -96,14 +96,14 @@ export function clientController(p) {
         p.setpopulars(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
         p.setnewSearchPopularsArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
-    }, [p.route.params.id])
+    }, [p.route.params?.id])
   }
 
 
   this.getSimilars = () => {
     useEffect(() => {
       (async () => {
-        const { data } = await getSimilars(p.route.params.id)
+        const { data } = await getSimilars(p.route.params?.id)
         if (!data?.value) return
         p.setsimilar(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
       })()
@@ -116,7 +116,7 @@ export function clientController(p) {
   this.getSingleItem = () => {
     _useEffect(() => {
       (async () => {
-        const { data } = await getSingleItem(p.route.params.id)
+        const { data } = await getSingleItem(p.route.params?.id)
         if (!data?.value) return
         p.setsingleItem(data.value)
       })()
@@ -128,7 +128,7 @@ export function clientController(p) {
 
   //! comment
   this.createComment = async () => {
-    const { data } = await createComment(p.route.params.id, { message: p.message, fiveStar: p.fiveStar })
+    const { data } = await createComment(p.route.params?.id, { message: p.message, fiveStar: p.fiveStar })
     p.setchildItemComment(comment => {
       const _comment = [...comment]
       _comment.push(data.value);
@@ -157,7 +157,7 @@ export function clientController(p) {
 
   this.getChildItemComments = async () => {
     useEffect(() => {
-      getChildItemComments(p.route.params.id).then(({ data }) => {
+      getChildItemComments(p.route.params?.id).then(({ data }) => {
         p.setchildItemComment(data.value)
       })
       return () => p.setchildItemComment([])
@@ -168,13 +168,13 @@ export function clientController(p) {
   this.getSingleComment = async () => {
     _useEffect(() => {
       if (!p.route.params.commentId) {
-        getSingleComment(p.route.params.id).then(({ data }) => {
+        getSingleComment(p.route.params?.id).then(({ data }) => {
           if (!data?.value) return
           p.setmessage(data.value.message);
           p.setfiveStar(data.value.fiveStar);
         })
       } else {
-        getSingleCommentAnswer(p.route.params.id, p.route.params.commentId).then(({ data }) => {
+        getSingleCommentAnswer(p.route.params?.id, p.route.params.commentId).then(({ data }) => {
           if (!data?.value) return
           p.setmessage(data.value.message);
           p.setfiveStar(data.value.fiveStar);
@@ -189,11 +189,11 @@ export function clientController(p) {
 
 
   this.editComment = async () => {
-    const { data } = await editComment(p.route.params.id, { message: p.message, fiveStar: p.fiveStar })
+    const { data } = await editComment(p.route.params?.id, { message: p.message, fiveStar: p.fiveStar })
     p.childItemComment.length && p.setchildItemComment(comment => {
       try {
         const _comment = [...comment]
-        const findIndex = _comment.findIndex(c => c._id === p.route.params.id)
+        const findIndex = _comment.findIndex(c => c._id === p.route.params?.id)
         _comment[findIndex].message = data.value.message
         _comment[findIndex].fiveStar = data.value.fiveStar
         return _comment
@@ -206,10 +206,10 @@ export function clientController(p) {
 
 
   this.editCommentAnswer = async () => {
-    await editCommentAnswer(p.route.params.id, p.route.params.commentId, { message: p.message })
+    await editCommentAnswer(p.route.params?.id, p.route.params.commentId, { message: p.message })
     p.childItemComment.length && p.setchildItemComment(comment => {
       const _comment = [...comment]
-      const index = _comment.findIndex((c) => c._id === p.route.params.id)
+      const index = _comment.findIndex((c) => c._id === p.route.params?.id)
       const answer = _comment[index].answer
       const answerIndex = answer.findIndex((a) => (a._id === p.route.params.commentId))
       answer[answerIndex].message = p.message
@@ -392,7 +392,7 @@ export function clientController(p) {
   //!SavedItem
   this.getSingleSavedItems = () => {
     _useEffect(() => {
-      getSingleSavedItems(p.route.params.id).then(({ data }) => { p.setbookmark(data.value) })
+      getSingleSavedItems(p.route.params?.id).then(({ data }) => { p.setbookmark(data.value) })
       return () => p.setbookmark(false)
     }, [p.route.params])
   }
@@ -443,7 +443,7 @@ export function clientController(p) {
     _useEffect(() => {
       p.singleItem.title && p.setcolor((color) => {
         const c = { ...color }
-        c[p.route.params.id] = color[p.route.params.id] ? color[p.route.params.id] : p.singleItem.color.find(c => c.value > 0).color
+        c[p.route.params?.id] = color[p.route.params?.id] ? color[p.route.params?.id] : p.singleItem.color.find(c => c.value > 0).color
         return c
       })
     }, [p.singleItem])
@@ -472,7 +472,7 @@ export function clientController(p) {
 
 
   this.savedItem = async () => {
-    const { data } = await savedItem(p.route.params.id)
+    const { data } = await savedItem(p.route.params?.id)
     p.setbookmark(data.value)
   }
 
