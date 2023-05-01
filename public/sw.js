@@ -1,6 +1,6 @@
 const version = 6;
 const preCacheName = `static-${version}`;
-const preCache = ['/index.html', '/'];
+const preCache = ['/index.html', '/', '/static/js/main.aeb95984.js', '/media/logo.18974f15ded44566f065.png'];
 // const preCache = ['static/js/main.chunk.js','static/js/0.chunk.js','static/js/bundle.chunk.js','/index.html', '/'];
 
 self.addEventListener('install', (ev) => {
