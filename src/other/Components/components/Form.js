@@ -799,7 +799,7 @@ const scrollCount = useRef(0)
               textId='inputCodeId'
               plackTextTop={plackTextTop}
               textContentType="oneTimeCode"
-              autoComplete={'one-time-code'}
+              autoComplete="one-time-code"
               autoFocus={$codeAutoFocus}
               m_icon="perm-phone-msg"
               iconSize={25}
@@ -813,7 +813,7 @@ const scrollCount = useRef(0)
               newObj={newObj.code}
               yub={cod}
               styles={styles}
-              keyboardType="numeric"
+              keyboardType="number-pad"
             />
           }
 

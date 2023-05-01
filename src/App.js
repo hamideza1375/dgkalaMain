@@ -74,6 +74,7 @@ import { states, contextStates } from "./context/_context";
 import { initialPropType } from "./context/_initialState";
 import spacePrice from "./other/utils/spacePrice";
 import { ErrorBoundary } from "react-error-boundary";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 rtl()
 LogBox.ignoreAllLogs();
@@ -110,10 +111,10 @@ const Mobile = () => {
   return (
     <>
       <contextStates.Provider value={{ ...allState.init, toast }}>
-        <Dropdown root {...allState.init}><Press onClick={()=>{}} >{allState.init.dropdownValue}</Press></Dropdown>
-         <StatusBar backgroundColor='#d29' barStyle={"light-content"} />
+        <Dropdown root {...allState.init}><Press onClick={() => { }} >{allState.init.dropdownValue}</Press></Dropdown>
+        <StatusBar backgroundColor='#d29' barStyle={"light-content"} />
         {allState.init.splash ?
-          <Column pb={Platform.OS === 'ios' ? 10 : 1 } f={1} maxh={allState.init.height} >
+          <Column pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
             <ToastProvider {...allState.init} />
             <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
             <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button>
@@ -129,10 +130,10 @@ const Mobile = () => {
                 <Tab.Screen initialParams={{ key: 'client' }} name="ChildOffers" options={{ title: 'تخفیف ها', headerShown: false }} {...clientChildren(ChildOffers, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="ChildPopulars" options={{ title: 'محبوب ها', headerShown: false }} {...clientChildren(ChildPopulars, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SingleItem" options={({ route }) => ({ title: route.params.title, headerShown: false })} {...clientChildren(SingleItem, '1')} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="BeforePayment" options={{ title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ddd' }, headerTitleStyle: { color: 'black', fontFamily: Platform.OS === 'ios'?'B Baran':'B Baran Regular', fontSize: 17 } }} {...clientChildren(BeforePayment)} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="Map" options={{ title: 'نقشه', headerShown:  true }} {...clientChildren(Map)} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressForm" options={{ title: 'فرم خرید', headerShown:  true }} {...clientChildren(SetAddressForm)} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressInTehran" options={{ title: 'فرم خرید', headerShown:  true }} {...clientChildren(SetAddressInTehran)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="BeforePayment" options={{ title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ddd' }, headerTitleStyle: { color: 'black', fontFamily: Platform.OS === 'ios' ? 'B Baran' : 'B Baran Regular', fontSize: 17 } }} {...clientChildren(BeforePayment)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="Map" options={{ title: 'نقشه', headerShown: true }} {...clientChildren(Map)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressForm" options={{ title: 'فرم خرید', headerShown: true }} {...clientChildren(SetAddressForm)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressInTehran" options={{ title: 'فرم خرید', headerShown: true }} {...clientChildren(SetAddressInTehran)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="CreateComment" options={{ title: 'ارسال نظر' }} {...clientChildren(CreateComment)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="EditComment" options={{ title: 'ویرایش نظر' }} {...clientChildren(EditComment)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SocketIo" options={{ title: 'پرسش سوالات', headerShown: true }} {...clientChildren(SocketIo)} />
@@ -314,7 +315,7 @@ const linking = {
 };
 
 
-
+let deferredInstall
 let _App
 if (Platform.OS !== 'web') {
   _App = () => {
@@ -326,10 +327,30 @@ if (Platform.OS !== 'web') {
   }
 }
 else {
+
   _App = () => {
+
+
+    useEffect(() => {
+      window.addEventListener('beforeinstallprompt', (ev) => {
+        ev.preventDefault();
+        deferredInstall = ev;
+      })
+    }, [])
+    const installStatus = async () => {
+      let cancelInstalled = await AsyncStorage.getItem('cancelInstalled')
+      if (cancelInstalled < 2 && deferredInstall) {
+        deferredInstall.prompt();
+        deferredInstall.userChoice.then(async (choice) => {
+          if (choice.outcome == 'accepted') { console.log('installed'); }
+          else { await AsyncStorage.setItem('cancelInstalled', String(Number(cancelInstalled) + 1)); console.log(12345); }
+        });
+      }
+    }
+
     return (
       <NavigationContainer linking={linking} >
-        <Column style={{ width:'100%', overflow: 'hidden', flex:1 }} dir='rtl' >
+        <Column onClick={installStatus} style={{ width: '100%', overflow: 'hidden', flex: 1 }} dir='rtl' >
           <Mobile />
         </Column>
       </NavigationContainer>
@@ -339,18 +360,18 @@ else {
 
 
 let App = () => {
-    return (
-      <ErrorBoundary fallback={
-        <Column style={{ width: '70%', marginTop: 20, padding: 12, display: 'flex', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1 }} >
-          <P style={{ fontFamily: 'IRANSansWeb', fontWeight: 'bold' }} >اتفاق غیر منتظره ای رخ داد</P>
-          <Press onClick={reload} style={{ marginTop: 15, width: 95, height: 37, borderWidth: 1, borderRadius: 4, borderColor: '#08e', justifyContent: 'center', alignItems: 'center' }} >
-            <P style={{ fontFamily: 'IRANSansWeb', color: '#08e', fontSize: 12 }} >بارگذاری مجدد</P>
-          </Press>
-        </Column>} >
-        <_App />
-      </ErrorBoundary>
-    )
-  }
+  return (
+    <ErrorBoundary fallback={
+      <Column style={{ width: '70%', marginTop: 20, padding: 12, display: 'flex', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1 }} >
+        <P style={{ fontFamily: 'IRANSansWeb', fontWeight: 'bold' }} >اتفاق غیر منتظره ای رخ داد</P>
+        <Press onClick={reload} style={{ marginTop: 15, width: 95, height: 37, borderWidth: 1, borderRadius: 4, borderColor: '#08e', justifyContent: 'center', alignItems: 'center' }} >
+          <P style={{ fontFamily: 'IRANSansWeb', color: '#08e', fontSize: 12 }} >بارگذاری مجدد</P>
+        </Press>
+      </Column>} >
+      <_App />
+    </ErrorBoundary>
+  )
+}
 
 export default App;
 
