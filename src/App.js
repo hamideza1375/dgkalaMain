@@ -75,11 +75,10 @@ import { initialPropType } from "./context/_initialState";
 import spacePrice from "./other/utils/spacePrice";
 import { ErrorBoundary } from "react-error-boundary";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import online from "./other/utils/online";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 rtl()
 LogBox.ignoreAllLogs();
-
 
 
 
@@ -360,7 +359,7 @@ else {
 
 let App = () => {
 
-  const net = new online()
+  const netInfo = useNetInfo()
 
   return (
     <ErrorBoundary fallback={
@@ -369,7 +368,7 @@ let App = () => {
         <Press onClick={reload} style={{ marginTop: 15, width: 95, height: 37, borderWidth: 1, borderRadius: 4, borderColor: '#08e', justifyContent: 'center', alignItems: 'center' }} >
           <P style={{ fontFamily: 'IRANSansWeb', color: '#08e', fontSize: 12 }} >بارگذاری مجدد</P>
         </Press>
-        {net.isConnected === false ? <P fs={13} mt={12} color='red' style={{ fontFamily: 'IRANSansWeb' }} >اتصال اینترنتتان را چک کنید</P> : <></> }
+        {netInfo.isConnected === false ? <P fs={13} mt={12} color='red' style={{ fontFamily: 'IRANSansWeb' }} >اتصال اینترنتتان را چک کنید</P> : <></> }
       </Column>} >
       <_App />
     </ErrorBoundary>

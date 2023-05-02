@@ -10,84 +10,101 @@ import { clientController } from "./clientController";
 import { userController } from "./userController";
 import { Layout } from "../other/Layout/Layout";
 import { Loading } from '../other/Components/Html';
-import online from '../other/utils/online';
 import { idValidator } from '../other/utils/idValidator';
+import { useNetInfo } from "@react-native-community/netinfo";
 
 
 var _show = false,
-serverOff = false
+  serverOff = false
 export const _initController = (p) => {
   const [show, setshow] = useState(false)
-  const net = new online()
+  const netInfo = useNetInfo()
 
   const [change, setchange] = useState(false)
+  const [change2, setchange2] = useState(false)
+  var toastNetworkError = () => { p.toast.error('خطا ی شبکه', 'اتصال اینترنتتان را برسی کنید') }
 
   useEffect(() => {
-    var toastOK = (data) => { typeof data !== 'string' ? p.toast.success('موفق آمیز', '√', 2500) : p.toast.success('موفق آمیز', data, 3500); setTimeout(() => {p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('')}, 1000); }
+    var toastOK = (data) => { typeof data !== 'string' ? p.toast.success('موفق آمیز', '√', 2500) : p.toast.success('موفق آمیز', data, 3500); setTimeout(() => { p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }, 1000); }
     var toast500 = () => { p.toast.error('خطا ی سرور', 'مشکلی از سمت سرور پیش آمده'); p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }
     var toast400 = (error) => { p.toast.error('خطا', typeof error === 'string' ? error : 'خطایی غیر منتظره رخ داد'); p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }
     var toastNetworkError = () => { p.toast.error('خطا ی شبکه', 'اتصال اینترنتتان را برسی کنید') }
     var toastServerError = () => { p.toast.warning('سرور در حال تعمیر', 'لطفا چند دقیقه دیگر امتحان کنید') }
 
-    setTimeout(() => {setchange(true)}, 100);
-    
-    if(change){
-      if (net.isConnected !== false) {
-      console.log(net.isConnected )
-      Axios.interceptors.response.use(function (response) {
-        p.setshowActivity(false)
-        if (_show == false) { _show = true; setshow(true) }
-        if (response.config.method !== 'get' && response.data?.message && (response.status === 200 || response.status === 201 || response.status === 'ok' || response.status === 'OK')) toastOK(response.data.message)
-        return response
-      }, function (error) {
-        if (_show == false) { _show = true; setshow(true) }
-        if ( error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
-          if(!serverOff){
-          toastNetworkError()
-          setTimeout(() => {toastServerError()}, 1);
-          serverOff = true
-        }
-        _show = false; setshow(false)
-          p.setshowActivity(false)
-        }
-        else if (error?.response?.status) {
-          p.setshowActivity(false)
-          if (error.response.status > 400 && error.response.status <= 500) { toast500(); p.setshowActivity(false) };
-          if (error.response.status === 400 && error.response.data) { toast400(error.response.data) };
-        } return Promise.reject(error);
-      });
+    setTimeout(() => { setchange(true) }, 100);
 
-    (async () => {
-      const token = await AsyncStorage.getItem("token");
-      if (token) {
-        const user = jwtDecode(token)
-        if (user.exp < Date.now() / 1000) {
-          await AsyncStorage.removeItem("token");
-        }
-        else {
-          const user = jwtDecode(token);
-          p.settokenValue(user);
-          if (token) Axios.defaults.headers.common["Authorization"] = token;
-        }
+    if (change) {
+      if (netInfo.isConnected !== false) {
+        Axios.interceptors.response.use(function (response) {
+          p.setshowActivity(false)
+          if (_show == false) { _show = true; setshow(true) }
+          if (response.config.method !== 'get' && response.data?.message && (response.status === 200 || response.status === 201 || response.status === 'ok' || response.status === 'OK')) toastOK(response.data.message)
+          return response
+        }, function (error) {
+          if (_show == false) { _show = true; setshow(true) }
+          // if (error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
+            if (error['request']?.status === 0) {
+              p.setSplash(true)
+            if (!serverOff) {
+              toastServerError()
+              serverOff = true
+            }
+            _show = false; setshow(false)
+            p.setshowActivity(false)
+          }
+          else if (error?.response?.status) {
+            p.setshowActivity(false)
+            if (error.response.status > 400 && error.response.status <= 500) { toast500(); p.setshowActivity(false) };
+            if (error.response.status === 400 && error.response.data) { toast400(error.response.data) };
+          } return Promise.reject(error);
+        });
+
+        (async () => {
+          const token = await AsyncStorage.getItem("token");
+          if (token) {
+            const user = jwtDecode(token)
+            if (user.exp < Date.now() / 1000) {
+              await AsyncStorage.removeItem("token");
+            }
+            else {
+              const user = jwtDecode(token);
+              p.settokenValue(user);
+              if (token) Axios.defaults.headers.common["Authorization"] = token;
+            }
+          }
+        })()
+
       }
-    })()
 
-
-  }
-  else {
-    p.setshowActivity(false)
-    toastNetworkError()
-  }
-
-}
+    }
 
   }, [change])
 
 
+
   useEffect(() => { p.$input.set('a', 'a') }, [])
   // useEffect(() => { setTimeout(() => {{p.setSplash(false); p.setshowActivity(false)} }, 200) }, [show])
-  useEffect(() => { show === true && setTimeout(() => { if(show === true){p.setSplash(false); p.setshowActivity(false)} }, 200) }, [show])
+  useEffect(() => {
+    show === true && setTimeout(() => { if (show === true) { p.setSplash(false); p.setshowActivity(false) } }, 200)
+    show === false && p.setSplash(true);
+  }, [show])
   Dimensions.addEventListener('change', ({ window: { width, height } }) => { p.setwidth(width); p.setheight(height) })
+
+  useEffect(() => {
+    setTimeout(() => { setchange2(true) }, 200);
+    if ( change2)
+      if (netInfo.isConnected !== true) {
+        p.setSplash(true);
+        if (!serverOff) {
+          toastNetworkError()
+          serverOff = true
+        }
+      }
+      else {
+        p.setSplash(false);
+      }
+  }, [netInfo, change2])
+
 
 }
 
@@ -101,7 +118,7 @@ export function allChildren({ client, user, admin }) {
   const adminReducer = (props) => ({ _admin: _admin(props) })
   this.clientChildren = (Component, key) => ({
     children: (props) => {
-      useEffect(() => {AsyncStorage.getItem("token").then((token) => {if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('Login')})}, [])
+      useEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('Login') }) }, [])
       _useEffect(() => { client.setshownDropdown(false); }, [])
       useEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
       return <Layout _key={key} {...props} {...client}>{client.showActivity && <Loading setshowActivity={client.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...client} {...clientReducer(props)} /></Layout>
