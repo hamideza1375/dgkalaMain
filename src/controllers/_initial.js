@@ -98,6 +98,9 @@ export const _initController = (p) => {
         if (!serverOff) {
           toastNetworkError()
           serverOff = true
+          setTimeout(() => {
+            serverOff = false
+          }, 2000);
         }
       }
       else {
