@@ -19,6 +19,8 @@ export const _initController = (p) => {
   const [show, setshow] = useState(false)
   const net = new online()
 
+  const [change, setchange] = useState(false)
+
   useEffect(() => {
     var toastOK = (data) => { typeof data !== 'string' ? p.toast.success('موفق آمیز', '√', 2500) : p.toast.success('موفق آمیز', data, 3500); setTimeout(() => {p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('')}, 1000); }
     var toast500 = () => { p.toast.error('خطا ی سرور', 'مشکلی از سمت سرور پیش آمده'); p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }
@@ -26,6 +28,11 @@ export const _initController = (p) => {
     var toastNetworkError = () => { p.toast.error('خطا ی شبکه', 'اتصال اینترنتتان را برسی کنید') }
     var toastServerError = () => { p.toast.warning('سرور در حال تعمیر', 'لطفا چند دقیقه دیگر امتحان کنید') }
 
+    setTimeout(() => {setchange(true)}, 100);
+    
+    if(change){
+
+      console.log('net.isConnected', net.isConnected);
 
     if (net.isConnected !== false) {
       Axios.interceptors.response.use(function (response) {
@@ -47,13 +54,6 @@ export const _initController = (p) => {
         } return Promise.reject(error);
       });
 
-    }
-    else {
-      p.setshowActivity(false)
-      toastNetworkError()
-    }
-
-
     (async () => {
       const token = await AsyncStorage.getItem("token");
       if (token) {
@@ -69,7 +69,16 @@ export const _initController = (p) => {
       }
     })()
 
-  }, [])
+
+  }
+  else {
+    p.setshowActivity(false)
+    toastNetworkError()
+  }
+
+}
+
+  }, [change])
 
 
   useEffect(() => { p.$input.set('a', 'a') }, [])

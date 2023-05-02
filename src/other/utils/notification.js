@@ -21,7 +21,7 @@ export const create = async (title, body, icon, notificationId, onClick) => {
         id: 'default',
       },
     } :
-      { channelId },
+      { channelId, smallIcon: 'ic_small' },
     ios: icon ? {
       categoryId: "reminder",
       attachments: [{ url: icon }]
@@ -31,8 +31,6 @@ export const create = async (title, body, icon, notificationId, onClick) => {
         categoryId: "reminder",
 
       },
-    // onClick: (onClick) ? onClick() : () => { }
-
   });
   return notification;
 }

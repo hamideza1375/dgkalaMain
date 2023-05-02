@@ -76,7 +76,6 @@ import spacePrice from "./other/utils/spacePrice";
 import { ErrorBoundary } from "react-error-boundary";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import online from "./other/utils/online";
-import { localhost } from "./other/utils/axios/axios";
 
 rtl()
 LogBox.ignoreAllLogs();
@@ -84,11 +83,10 @@ LogBox.ignoreAllLogs();
 
 
 
-
 const Tab = createNativeStackNavigator()
 const Mobile = () => {
 
-  useEffect(() => { setTimeout(() => { if ((Platform.OS !== 'web') && (!I18nManager.isRTL)) { BackHandler.exitApp() } }, 3000) }, [])
+  useEffect(() => { setTimeout(() => { if ((Platform.OS !== 'web') && (!I18nManager.isRTL)) { reload() } }, 3000) }, [])
 
   let icon = Platform.OS === 'ios' ? { headerLeft: header } : {}
   const allState = states()
@@ -351,7 +349,7 @@ else {
 
     return (
       <NavigationContainer linking={linking} >
-        <Column onClick={installStatus} style={{ width: '100%', overflow: 'hidden', flex: 1 }} dir='rtl' >
+        <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', overflow: 'hidden', flex: 1 }} dir='rtl' >
           <Mobile />
         </Column>
       </NavigationContainer>
