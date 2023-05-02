@@ -14,7 +14,8 @@ import online from '../other/utils/online';
 import { idValidator } from '../other/utils/idValidator';
 
 
-var _show = false
+var _show = false,
+serverOff = false
 export const _initController = (p) => {
   const [show, setshow] = useState(false)
   const net = new online()
@@ -31,10 +32,8 @@ export const _initController = (p) => {
     setTimeout(() => {setchange(true)}, 100);
     
     if(change){
-
-      console.log('net.isConnected', net.isConnected);
-
-    if (net.isConnected !== false) {
+      if (net.isConnected !== false) {
+      console.log(net.isConnected )
       Axios.interceptors.response.use(function (response) {
         p.setshowActivity(false)
         if (_show == false) { _show = true; setshow(true) }
@@ -42,9 +41,13 @@ export const _initController = (p) => {
         return response
       }, function (error) {
         if (_show == false) { _show = true; setshow(true) }
-        if (net.isConnected !== false && error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
-          toastServerError()
-          _show = false; setshow(false)
+        if ( error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
+          if(!serverOff){
+          toastNetworkError()
+          setTimeout(() => {toastServerError()}, 1);
+          serverOff = true
+        }
+        _show = false; setshow(false)
           p.setshowActivity(false)
         }
         else if (error?.response?.status) {
