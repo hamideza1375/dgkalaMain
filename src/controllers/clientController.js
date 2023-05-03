@@ -413,7 +413,7 @@ export function clientController(p) {
       description: p.description
     })
 
-    const address = await AsyncStorage.getItem('address')
+    const address = await AsyncStorage.getItem('_address')
 
     if (p.route.name !== 'SetAddressInTehran')
       if (address !== p.address || !address) {
@@ -425,7 +425,7 @@ export function clientController(p) {
             {
               text: 'OK', onPress: () => {
                 AsyncStorage.setItem('postalCode', p.postalCode).then(() => { })
-                AsyncStorage.setItem('address', p.address).then(() => { })
+                AsyncStorage.setItem('_address', p.address).then(() => { })
                 AsyncStorage.setItem('state', p.state).then(() => { })
                 AsyncStorage.setItem('City', p.City).then(() => { })
 

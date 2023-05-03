@@ -41,13 +41,16 @@ export const _initController = (p) => {
           if (response.config.method !== 'get' && response.data?.message && (response.status === 200 || response.status === 201 || response.status === 'ok' || response.status === 'OK')) toastOK(response.data.message)
           return response
         }, function (error) {
-          if (_show == false) { _show = true; setshow(true) }
+          if (_show == false && error['request']?.status !== 0) { _show = true; setshow(true) }
           // if (error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
             if (error['request']?.status === 0) {
               p.setSplash(true)
             if (!serverOff) {
               toastServerError()
               serverOff = true
+              setTimeout(() => {
+                serverOff = false
+              }, 2000);
             }
             _show = false; setshow(false)
             p.setshowActivity(false)

@@ -116,7 +116,7 @@ const Mobile = () => {
           <Column pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
             <ToastProvider {...allState.init} />
             <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
-            <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button>
+            {/* <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button> */}
           </Column>
           :
           <Column f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
