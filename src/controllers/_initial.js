@@ -44,13 +44,13 @@ export const _initController = (p) => {
           if (_show == false && error['request']?.status !== 0) { _show = true; setshow(true) }
           // if (error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
             if (error['request']?.status === 0) {
+              if (!serverOff) {
               p.setSplash(true)
-            if (!serverOff) {
               toastServerError()
               serverOff = true
               setTimeout(() => {
                 serverOff = false
-              }, 4000);
+              }, 2000);
             }
             _show = false; setshow(false)
             p.setshowActivity(false)
