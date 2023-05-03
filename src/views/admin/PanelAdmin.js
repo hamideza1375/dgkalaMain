@@ -26,7 +26,7 @@ const PanelAdmin = (p) => {
                   ?
                   <Address7DeyForChart {...p} />
                   :
-                  <Column w='100%' h={100} ><Loading/></Column>
+                  <Column w='100%' fg={1} h={70} ><Loading/></Column>
                   }
               </Suspense>
 
@@ -35,7 +35,7 @@ const PanelAdmin = (p) => {
                   ?
                   <Users7DeyForChart {...p} />
                   :
-                  <></>}
+                  <Column w='100%' fg={1} h={70} ></Column>}
               </Suspense>
 
             </Scroll>
@@ -45,7 +45,7 @@ const PanelAdmin = (p) => {
                 ?
                 <Address7DeyForProgress {...p} />
                 :
-                <></>
+                <Column w='100%' fg={1} h={70} ></Column>
               }
             </Suspense>
 
@@ -54,7 +54,7 @@ const PanelAdmin = (p) => {
                 ?
                 <Address1YearsForChart {...p} />
                 :
-                <></>}
+                <Column w='100%' fg={1} h={100} ></Column>}
             </Suspense>
 
           </Column>

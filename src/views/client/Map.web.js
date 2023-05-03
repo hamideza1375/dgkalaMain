@@ -28,7 +28,7 @@ const Location = (p) => {
   useEffect(() => {
     setTimeout(() => {
       setchange(!change)
-    }, 300);
+    }, 400);
   }, [])
 
 

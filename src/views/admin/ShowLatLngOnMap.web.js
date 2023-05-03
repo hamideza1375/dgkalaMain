@@ -27,7 +27,7 @@ const ShowLatLngOnMap = (p) => {
   useEffect(() => {
     setTimeout(() => {
       setchange(!change)
-    }, 300);
+    }, 400);
   }, [])
 
   return (

@@ -10,10 +10,12 @@ import { localhost } from '../../other/utils/axios/axios'
 const BeforePayment = (p) => {
   return (
     <Column f={1} >
-      <Column fg={1} style={{ flexDirection: 'row', flexWrap: 'wrap', paddingBottom: 71, backgroundColor: 'silver', flexGrow: 1 }} >
+      <Column f={1} style={{  paddingBottom: 71, backgroundColor: 'silver' }} >
         <BeforePaymentFlatlist {...p} />
       </Column>
+      <Column maxh={70} >
       <BottomTabBeforePayment {...p} />
+      </Column>
     </Column>
   )
 }

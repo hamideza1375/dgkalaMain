@@ -1,5 +1,5 @@
 import React from 'react'
-import { P, Row, Card2, Column, Icon, M_icon, Py } from '../../other/Components/Html'
+import { P, Row, Card2, Column, Icon, M_icon, Py, Scroll } from '../../other/Components/Html'
 import { localhost } from '../../other/utils/axios/axios'
 const Profile = (p) => {
   p._user.getImageProfile()
@@ -8,7 +8,7 @@ const Profile = (p) => {
 
   return (
     <Column f={1} bgcolor='#f8f8f8'>
-      <Column as='center' ai='center' bgcolor='#fff' w={320} h={400} minw={320} br={5} mt={5} >
+      <Scroll as='flex-end' ai='center' bgcolor='#fff' w={320} h={400} minw={320} br={5} mt={5} >
       <Column  w={290} h={350}>
         <Column pv={11} mt={10} ><Py>مشخصات حساب کاربری شما</Py></Column>
         <Card2 bgcolor={'#fff'} onClick={sendImageProfile} 
@@ -42,7 +42,7 @@ const Profile = (p) => {
           }
         />
       </Column>
-      </Column>
+      </Scroll>
     </Column >
   )
 }
