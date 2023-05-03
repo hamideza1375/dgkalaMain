@@ -50,7 +50,7 @@ export const _initController = (p) => {
               serverOff = true
               setTimeout(() => {
                 serverOff = false
-              }, 2000);
+              }, 4000);
             }
             _show = false; setshow(false)
             p.setshowActivity(false)
