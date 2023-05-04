@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import jwtDecode from "jwt-decode";
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import { BackHandler, Platform, ToastAndroid } from "react-native";
 import _Alert from "../other/utils/alert";
 import backgroundTimer from "../other/utils/backgroundTimer";
@@ -25,15 +25,15 @@ export function clientController(p) {
 
 
   //! allProductForSearchBar
-    this.allProductForSearchBar =()=>{
-      useEffect(() => {
-        setTimeout(() => {
-          allProduct().then(({ data }) => { p.setallProduct(data.value); p.setnewSearchHomeArray(data.value) })
-        }, 4000);
-      }, [])
-    }
+  this.allProductForSearchBar = () => {
+    useEffect(() => {
+      setTimeout(() => {
+        allProduct().then(({ data }) => { p.setallProduct(data.value); p.setnewSearchHomeArray(data.value) })
+      }, 4000);
+    }, [])
+  }
   //! allProductForSearchBar
-  
+
 
 
   //! SendStatusForClientBuy
@@ -51,16 +51,71 @@ export function clientController(p) {
   }
   //! SendStatusForClientBuy
 
+
   //! Category
-  this.getCategory = () => {
-    useEffect(() => {
-      (async () => {
-        const { data } = await getCategory()
-        if (!data?.value) return
-        p.setcategory(data.value)
-      })()
-    }, [])
+  const reducerGetCategory = (state, action) => {
+    switch (action.type) {
+      case "GETCATEGORY":
+        return action.payload
+      default:
+        return state;
+    }
+  };
+
+  const [state, dispatch] = useReducer(reducerGetCategory, []);
+
+  const actionGetCategory = async () => {
+    const { data } = await getCategory()
+    if (!data?.value) return
+    dispatch({ type: "GETCATEGORY", payload: data.value })
   }
+
+
+  this.getCategory = () => {
+    useEffect(() => { 
+      actionGetCategory()
+      p.setcategory(state) 
+    }, [state])
+  }
+
+  //!
+
+  // const reducerCategory = (state, action) => {
+  //   switch (action.type) {
+  //     case "GETCATEGORY":
+  //       return action.payload
+  //     default:
+  //       return state;
+  //   }
+  // };
+
+  // const actionCategory = async (dispatch) => {
+  //   const { data } = await getCategory()
+  //   if (!data?.value) return
+  //   dispatch({ type: "GETCATEGORY", payload: data.value })
+  // }
+
+  // const [state, dispatch] = useReducer(reducerCategory, []);
+
+  // this.getCategory = () => {
+  //   useEffect(() => {
+  //     actionCategory(dispatch)
+  //   }, []);
+
+  //   useEffect(() => { p.setcategory(state) }, [state])
+  // }
+
+  //!
+
+  // this.getCategory = () => {
+  // useEffect(() => {
+  //   (async () => {
+  //     const { data } = await getCategory()
+  //     if (!data?.value) return
+  //     p.setcategory(data.value)
+  //   })()
+  // }, [])
+  // }
   //! Category
 
   //! product
