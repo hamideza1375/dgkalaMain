@@ -88,7 +88,7 @@ const Location = (p) => {
   </head>
  <body>
   <div style="display: flex; justify-content: flex-start; height: 100%; overflow:hidden ">
-    <form id="formSearch" onsubmit="submited(event)" style="width:250px;margin: 3px 2px 0 0; display:flex;flex-direction: row; position: absolute; align-items: flex-end; ">
+    <form id="formSearch" style="width:250px;margin: 3px 2px 0 0; display:flex;flex-direction: row; position: absolute; align-items: flex-end; ">
      <input id='inputSearch' onchange="serchInput(event.target.value)" type="text" placeholder="مناطق تهران را جستجو کنید" style="padding-right:5px;text-align: right;border-radius: 1px;border: 1px solid rgb(150, 146, 146);display:block;flex-grow: 1;height: 30.5px;position:relative;z-index:1000"; />
      <i id="searching" style="border-radius: 1px;padding: 2px 5px 0px;border: 1px solid rgb(150, 146, 146); background-color: #fff;font-size: 19px;display:block;height: 30px;width: 37px;position:relative;z-index:1000;box-sizing:border-box">
      <span style=" display: flex; align-items: center; transform: rotate(-45deg); margin-top: 7px; margin-left: -2px"} >
@@ -191,7 +191,7 @@ const Location = (p) => {
 
       `}} />
       <Column bgcolor='white' >
-        <Button onClick={() => p.navigation.replace('SetAddressInTehran')} outline >تایید</Button>
+        <Button onClick={() => p.navigation.navigate('SetAddressInTehran')} outline >تایید</Button>
       </Column>
 
     </Column>

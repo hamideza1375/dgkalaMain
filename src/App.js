@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Platform, LogBox, I18nManager, BackHandler, StatusBar } from "react-native";
@@ -105,6 +105,13 @@ const Mobile = () => {
   _client.seenAndSendNotificationForSocketIo()
   _client.removeAsyncStorage()
 
+  const [show, setshow] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setshow(true)
+    }, 500);
+  }, [])
 
 
   return (
@@ -116,7 +123,7 @@ const Mobile = () => {
           <Column pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
             <ToastProvider {...allState.init} />
             <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
-            {/* <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button> */}
+            {show ? <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button> : <></>}
           </Column>
           :
           <Column f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
@@ -368,7 +375,7 @@ let App = () => {
         <Press onClick={reload} style={{ marginTop: 15, width: 95, height: 37, borderWidth: 1, borderRadius: 4, borderColor: '#08e', justifyContent: 'center', alignItems: 'center' }} >
           <P style={{ fontFamily: 'IRANSansWeb', color: '#08e', fontSize: 12 }} >بارگذاری مجدد</P>
         </Press>
-        {netInfo.isConnected === false ? <P fs={13} mt={12} color='red' style={{ fontFamily: 'IRANSansWeb' }} >اتصال اینترنتتان را چک کنید</P> : <></> }
+        {netInfo.isConnected === false ? <P fs={13} mt={12} color='red' style={{ fontFamily: 'IRANSansWeb' }} >اتصال اینترنتتان را چک کنید</P> : <></>}
       </Column>} >
       <_App />
     </ErrorBoundary>

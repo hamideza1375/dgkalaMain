@@ -1,7 +1,7 @@
 import { getSingleItem, getAdminTicketSeen, createSlider, getCategory, changeAvailable, changeMainAdmin, createCategory, createChildItem, createNotification, deleteAddressForOneAdmin, deleteAdmin, deleteAllAddress, deleteCategory, deleteChildItem, deleteMultiProposal, deleteNotification, editCategory, editChildItem, getAllAddress, getAllAdmin, getProposal, listUnAvailable, setAdmin, adminTicketBox, getSocketIoSeen, createSeller, getAllSellers, setSellerAvailable, deleteSeller, getSinleCategory, postedOrder, getAllPaymentSuccessFalseAndTrue, postQueue, getAllAddressForChart, setOffer, getUserForChart, getDataForChart, getChildItems, getChildItemsTable, getPostPrice, sendPostPrice, getQuitsForSeller } from "../services/adminService"
 import _useEffect from "./_initial"
 import _Alert from "../other/utils/alert"
-import { useEffect, useTransition } from "react"
+import { useEffect } from "react"
 import axios from "axios"
 
 

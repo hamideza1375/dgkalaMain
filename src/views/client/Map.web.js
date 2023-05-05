@@ -1,35 +1,31 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { axios, localhost } from '../../other/utils/axios/axios'
+import L from 'leaflet'
+import'leaflet/dist/leaflet.css'
 
-const Location = (p) => {
+const Map = (p) => {
 
   const [disable, setdisable] = useState(true)
-  const [change, setchange] = useState(true)
 
 
-  useLayoutEffect(() => {
-    const _link = document.createElement('link');
-    _link.href = `${localhost}/leaflet/leaflet.css`
-    _link.rel = "stylesheet"
-    document.head.appendChild(_link);
+  // useLayoutEffect(() => {
+    // const _link = document.createElement('link');
+    // if (!_link?.id) {
+    // _link.href = `${localhost}/leaflet/leaflet.css`
+    // _link.rel = "stylesheet"
+    // _link.id = 'mapStyle';
+    // document.head.appendChild(_link);
+    // }
+    // const mapScript = document.getElementById('mapScript');
+    // if (!mapScript?.id) {
+    //   const _script = document.createElement('script');
+    //   _script.src = `${localhost}/leaflet/leaflet.js`
+    //   _script.async = true;
+    //   _script.id = 'mapScript';
+    //   document.body.appendChild(_script);
+    // }
+  // }, [])
 
-
-    const mapScript = document.getElementById('mapScript');
-    if (!mapScript?.id) {
-      const _script = document.createElement('script');
-      _script.src = `${localhost}/leaflet/leaflet.js`
-      _script.async = true;
-      _script.id = 'mapScript';
-      document.body.appendChild(_script);
-    }
-  }, [])
-
-
-  useEffect(() => {
-    setTimeout(() => {
-      setchange(!change)
-    }, 400);
-  }, [])
 
 
   return (
@@ -48,7 +44,7 @@ const Location = (p) => {
         </form>
       </div>
 
-      {!change ? <_map {...p} setdisable={setdisable} />:<></>}
+      <_map {...p} setdisable={setdisable} />
 
       <div id='bottomDiv' style={{ display: 'flex', flexDirection: 'row', visibility: 'visible', zIndex: 10000, position: 'fixed', bottom: 0, width: '100%', height: 42, background: '#fff', padding: '6px 5px 0px', boxSizing: 'border-box' }}>
         <button disabled={disable} id='btnPayment' onClick={() => p.navigation.replace('SetAddressInTehran')} style={{ display: 'block', border: '1px solid #07f', background: "#fff", color: '#07f', height: '30px', width: '90%', margin: '0 auto', fontSize: '16px', borderRadius: '5px', cursor: !disable ? 'pointer' : '' }} >تایید</button>
@@ -67,11 +63,10 @@ const Location = (p) => {
 function _map(p){
 
   useEffect(() => {
-
       //! map
       let latlng = { lat: 35.6892523, lng: 51.3896004 },
         map = L.map('map', { center: latlng, zoom: 17, })
-      var myIcon = L.icon({ iconUrl: `${localhost}/leaflet/mark.png`, iconSize: [38, 95], iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowSize: [68, 95], shadowAnchor: [22, 94], });
+      var myIcon = L.icon({ iconUrl: require(`leaflet/dist/images/marker-icon.png`), iconSize: [30, 60], iconAnchor: [22, 94], popupAnchor: [-3, -76], shadowSize: [68, 95], shadowAnchor: [22, 94], });
       let markerOption = { draggable: true, icon: myIcon }
       let marker = L.marker(latlng, markerOption).addTo(map)
       map.on('click', (ev) => { marker.openPopup() })
@@ -179,4 +174,4 @@ function _map(p){
 
 
 
-export default Location;
+export default Map;

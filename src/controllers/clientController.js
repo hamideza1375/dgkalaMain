@@ -498,7 +498,7 @@ export function clientController(p) {
     _useEffect(() => {
       p.singleItem.title && p.setcolor((color) => {
         const c = { ...color }
-        c[p.route.params?.id] = color[p.route.params?.id] ? color[p.route.params?.id] : p.singleItem.color.find(c => c.value > 0).color
+        c[p.route.params?.id] = color[p.route.params?.id] ? color[p.route.params?.id] : p.singleItem.color.find(c => c.value > 0)?.color        
         return c
       })
     }, [p.singleItem])
