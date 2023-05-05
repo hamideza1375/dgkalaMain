@@ -76,6 +76,7 @@ import spacePrice from "./other/utils/spacePrice";
 import { ErrorBoundary } from "react-error-boundary";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNetInfo } from "@react-native-community/netinfo";
+import { myhost } from "./other/utils/axios/axios";
 
 rtl()
 LogBox.ignoreAllLogs();
@@ -326,9 +327,7 @@ let _App
 if (Platform.OS !== 'web') {
   _App = () => {
     return (
-      <NavigationContainer>
-        <Mobile />
-      </NavigationContainer>
+      <Mobile />
     )
   }
 }
@@ -354,14 +353,13 @@ else {
     }
 
     return (
-      <NavigationContainer linking={linking} >
-        <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', overflow: 'hidden', flex: 1 }} dir='rtl' >
-          <Mobile />
-        </Column>
-      </NavigationContainer>
+      <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', overflow: 'hidden', flex: 1 }} dir='rtl' >
+        <Mobile />
+      </Column>
     )
   }
 }
+
 
 
 let App = () => {
@@ -369,16 +367,20 @@ let App = () => {
   const netInfo = useNetInfo()
 
   return (
-    <ErrorBoundary fallback={
-      <Column style={{ width: '70%', marginTop: 20, padding: 12, display: 'flex', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1 }} >
-        <P style={{ fontFamily: 'IRANSansWeb', fontWeight: 'bold' }} >اتفاق غیر منتظره ای رخ داد</P>
-        <Press onClick={reload} style={{ marginTop: 15, width: 95, height: 37, borderWidth: 1, borderRadius: 4, borderColor: '#08e', justifyContent: 'center', alignItems: 'center' }} >
-          <P style={{ fontFamily: 'IRANSansWeb', color: '#08e', fontSize: 12 }} >بارگذاری مجدد</P>
-        </Press>
-        {netInfo.isConnected === false ? <P fs={13} mt={12} color='red' style={{ fontFamily: 'IRANSansWeb' }} >اتصال اینترنتتان را چک کنید</P> : <></>}
-      </Column>} >
-      <_App />
-    </ErrorBoundary>
+    <NavigationContainer>
+
+      <ErrorBoundary fallback={
+        <Column style={{ width: '70%', marginTop: 20, padding: 12, display: 'flex', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1 }} >
+          <P style={{ fontFamily: 'IRANSansWeb', fontWeight: 'bold' }} >اتفاق غیر منتظره ای رخ داد</P>
+          <Press onClick={Platform.OS === 'web' ? () => { location.href = myhost } : reload} style={{ marginTop: 15, width: 95, height: 37, borderWidth: 1, borderRadius: 4, borderColor: '#08e', justifyContent: 'center', alignItems: 'center' }} >
+            <P style={{ fontFamily: 'IRANSansWeb', color: '#08e', fontSize: 12 }} >بارگذاری مجدد</P>
+          </Press>
+          {netInfo.isConnected === false ? <P fs={13} mt={12} color='red' style={{ fontFamily: 'IRANSansWeb' }} >اتصال اینترنتتان را چک کنید</P> : <></>}
+        </Column>} >
+        <_App />
+      </ErrorBoundary>
+    </NavigationContainer>
+
   )
 }
 
