@@ -107,24 +107,36 @@ const Mobile = () => {
   _client.removeAsyncStorage()
 
   const [show, setshow] = useState(false)
+  const netInfo = useNetInfo()
 
   useEffect(() => {
     setTimeout(() => {
-      setshow(true)
+      netInfo.isConnected && setshow(true)
     }, 500);
-  }, [])
+  }, [netInfo])
 
 
   return (
     <>
+
+      {allState.init.splash ?
+        <Column pos='absolute' t={0} l={0} r={0} b={0} z={111111} h={'100%'} w={'100%'} bgcolor='#fff' pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
+          <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
+          <ToastProvider {...allState.init} />
+          {netInfo.isConnected && show ? <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button> : <></>}
+        </Column>
+        :
+        <></>
+      }
+
       <contextStates.Provider value={{ ...allState.init, toast }}>
         <Dropdown root {...allState.init}><Press onClick={() => { }} >{allState.init.dropdownValue}</Press></Dropdown>
         <StatusBar backgroundColor='#d29' barStyle={"light-content"} />
-        {allState.init.splash ?
-          <Column pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
-            <ToastProvider {...allState.init} />
+        {!show ?
+          <Column pos='absolute' t={0} l={0} r={0} b={0} z={111111} h={'100%'} w={'100%'} bgcolor='#fff' pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
             <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
-            {show ? <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button> : <></>}
+            <ToastProvider {...allState.init} />
+            {netInfo.isConnected && show ? <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button> : <></>}
           </Column>
           :
           <Column f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>

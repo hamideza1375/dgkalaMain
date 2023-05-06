@@ -85,7 +85,14 @@ export function initial() {
 
   const [changeProduct, setchangeProduct] = useState(false)
 
+  const [socketIoSeen, setsocketIoSeen] = useState(false)
+  const [productBasket, setproductBasket] = useState([])
+const refMap = useRef()
+
   this.all = {
+    // refMap,
+    // socketIoSeen, setsocketIoSeen,
+    // productBasket, setproductBasket,
     changeProduct, setchangeProduct,
     users7DeyForChart, setusers7DeyForChart,
     usersLength, setusersLength,
