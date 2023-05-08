@@ -47,7 +47,7 @@ const Map = (p) => {
       <_map {...p} setdisable={setdisable} />
 
       <div id='bottomDiv' style={{ display: 'flex', flexDirection: 'row', visibility: 'visible', zIndex: 10000, position: 'fixed', bottom: 0, width: '100%', height: 42, background: '#fff', padding: '6px 5px 0px', boxSizing: 'border-box' }}>
-        <button disabled={disable} id='btnPayment' onClick={() => p.navigation.replace('SetAddressInTehran')} style={{ display: 'block', border: '1px solid #07f', background: "#fff", color: '#07f', height: '30px', width: '90%', margin: '0 auto', fontSize: '16px', borderRadius: '5px', cursor: !disable ? 'pointer' : '' }} >تایید</button>
+        <button disabled={disable} id='btnPayment' onClick={() => p.navigation.navigate('SetAddressInTehran')} style={{ display: 'block', border: '1px solid #07f', background: "#fff", color: '#07f', height: '30px', width: '90%', margin: '0 auto', fontSize: '16px', borderRadius: '5px', cursor: !disable ? 'pointer' : '' }} >تایید</button>
       </div>
 
     </div>
