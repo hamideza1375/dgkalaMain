@@ -91,7 +91,6 @@ const Mobile = () => {
   let icon = Platform.OS === 'ios' ? { headerLeft: header } : {}
   const allState = states()
   const toast = new Toast(allState.client)
-  const p = { ...allState.client, ...allState.user, ...allState.admin, toast }
   const { clientChildren, userChildren, adminChildren } = new allChildren({ client: { ...allState.client, toast }, user: { ...allState.user, toast }, admin: { ...allState.admin, toast } })
   _initController({ ...allState.init, toast })
 
@@ -118,7 +117,6 @@ const Mobile = () => {
 
   return (
     <>
-
       {allState.init.splash ?
         <Column pos='absolute' t={0} l={0} r={0} b={0} z={111111} h={'100%'} w={'100%'} bgcolor='#fff' pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
           <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
@@ -130,7 +128,6 @@ const Mobile = () => {
       }
 
       <contextStates.Provider value={{ ...allState.init, toast }}>
-        <Dropdown root {...allState.init}><Press onClick={() => { }} >{allState.init.dropdownValue}</Press></Dropdown>
         <StatusBar backgroundColor='#d29' barStyle={"light-content"} />
         {!show ?
           <Column pos='absolute' t={0} l={0} r={0} b={0} z={111111} h={'100%'} w={'100%'} bgcolor='#fff' pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
@@ -140,8 +137,9 @@ const Mobile = () => {
           </Column>
           :
           <Column f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
-            <ToastProvider {...allState.init} />
+            <Dropdown root {...allState.init}><Press onClick={() => { }} >{allState.init.dropdownValue}</Press></Dropdown>
             <Init ref={(e) => allState.init.set$(e)} id={'s'} />
+            <ToastProvider {...allState.init} />
             <Tab.Navigator screenOptions={() => { return { headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon } }} >
               <Tab.Group>
                 <Tab.Screen initialParams={{ key: 'client' }} name="Home" options={{ title: 'دیجی کالا', headerShown: false }} {...clientChildren(Home, '1')} />
@@ -365,7 +363,7 @@ else {
     }
     return (
       <NavigationContainer linking={linking} >
-        <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', overflow: 'hidden', flex: 1 }} dir='rtl' >
+        <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', height:'100%'}} >
           <Mobile />
         </Column>
       </NavigationContainer>
