@@ -91,7 +91,7 @@ export default function InputBottom(p) {
       <Column w='95%' >
         <Column col1={{ left: 75 }} style={{ position: 'absolute', left: 90, zIndex: 111, }}>
           <Column w={30} h={50} jc='center' ai='center'  >
-            <Dropdown top={-5} value={
+            <Dropdown top={50} value={
               <Press onClick={()=>{}} fd='row' h={60} jc='center' ai='center' border={3} >
                 <Press h={'100%'} border={[1,'silver']} onClick={_imagePicker}  w={60} jc='center' ai='center' >
                   <Icon name={'image'} size={25} color={'#777'} />

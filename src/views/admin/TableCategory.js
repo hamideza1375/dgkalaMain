@@ -4,7 +4,7 @@ import s from "./Admin.module.scss"
 import { Table } from '../../other/Components/Html';
 
 const TableCategory = function (p) {
-  p._admin.getCategory()
+  p._admin.getCategorys()
 
   return (
     <Column f={1} ai='center' >

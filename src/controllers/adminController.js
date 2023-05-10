@@ -1,4 +1,4 @@
-import { getSingleItem, getAdminTicketSeen, createSlider, getCategory, changeAvailable, changeMainAdmin, createCategory, createChildItem, createNotification, deleteAddressForOneAdmin, deleteAdmin, deleteAllAddress, deleteCategory, deleteChildItem, deleteMultiProposal, deleteNotification, editCategory, editChildItem, getAllAddress, getAllAdmin, getProposal, listUnAvailable, setAdmin, adminTicketBox, getSocketIoSeen, createSeller, getAllSellers, setSellerAvailable, deleteSeller, getSinleCategory, postedOrder, getAllPaymentSuccessFalseAndTrue, postQueue, getAllAddressForChart, setOffer, getUserForChart, getDataForChart, getChildItems, getChildItemsTable, getPostPrice, sendPostPrice, getQuitsForSeller } from "../services/adminService"
+import { getSingleItem, getAdminTicketSeen, createSlider, getCategorys, changeAvailable, changeMainAdmin, createCategory, createChildItem, createNotification, deleteAddressForOneAdmin, deleteAdmin, deleteAllAddress, deleteCategory, deleteChildItem, deleteMultiProposal, deleteNotification, editCategory, editChildItem, getAllAddress, getAllAdmin, getProposal, listUnAvailable, setAdmin, adminTicketBox, getSocketIoSeen, createSeller, getAllSellers, setSellerAvailable, deleteSeller, getSinleCategory, postedOrder, getAllPaymentSuccessFalseAndTrue, postQueue, getAllAddressForChart, setOffer, getUserForChart, getDataForChart, getChildItems, getChildItemsTable, getPostPrice, sendPostPrice, getQuitsForSeller } from "../services/adminService"
 import _useEffect from "./_initial"
 import _Alert from "../other/utils/alert"
 import { useEffect } from "react"
@@ -73,7 +73,7 @@ export function adminController(p) {
 
   //! Category
   this.createCategory = async () => {
-    const { data } = await createCategory(p.route.params.id, { title: p.title, imageUrl: p.imageUrl })
+    const { data } = await createCategory( { title: p.title, imageUrl: p.imageUrl })
     p.setcategory(category => {
       const _category = [...category]
       _category.push(data.value)
@@ -84,10 +84,10 @@ export function adminController(p) {
   }
 
 
-  this.getCategory = () => {
+  this.getCategorys = () => {
     useEffect(() => {
       (async () => {
-        const { data } = await getCategory(p.route.params.id)
+        const { data } = await getCategorys()
         p.setcategory(data.value)
       })()
     }, [])
@@ -143,7 +143,7 @@ export function adminController(p) {
   }
   //! Category
 
-
+  
   //! ChildItem
   this.createChildItem = async () => {
     const { data } = await createChildItem(p.route.params.id, p.route.params.sellerId, {
@@ -151,8 +151,17 @@ export function adminController(p) {
       image2: p.image2,
       image3: p.image3,
       image4: p.image4,
-      title: p.title, price: Number(p.price), info: p.info, ram: p.input3, cpuCore: p.input4, camera: p.input5, storage: p.input6, warranty: p.input7, color: JSON.stringify(p.input8), display: p.input9
-      , operatingSystem: p.input10,
+      title: p.title,
+      price: Number(p.price), 
+      info: p.info,
+      ram: p.input3,
+      cpuCore: p.input4, 
+      camera: p.input5,
+      storage: p.input6, 
+      warranty: p.input7,
+      color: JSON.stringify(p.input8),
+      display: p.input9,
+      operatingSystem: p.input10,
       battery: p.input11,
       network: p.input12,
     })
@@ -196,7 +205,16 @@ export function adminController(p) {
       image2: p.image2,
       image3: p.image3,
       image4: p.image4,
-      title: p.title, price: Number(p.price), info: p.info, ram: p.input3, cpuCore: p.input4, camera: p.input5, storage: p.input6, warranty: p.input7, color: JSON.stringify(p.input8), display: p.input9,
+      title: p.title,
+      price: Number(p.price),
+      info: p.info,
+      ram: p.input3, 
+      cpuCore: p.input4, 
+      camera: p.input5, 
+      storage: p.input6, 
+      warranty: p.input7, 
+      color: JSON.stringify(p.input8), 
+      display: p.input9,
       operatingSystem: p.input10,
       battery: p.input11,
       network: p.input12,

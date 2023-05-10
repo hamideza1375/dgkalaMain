@@ -1,8 +1,8 @@
 import { axios, localhost } from '../other/utils/axios/axios'
 
 
-export const createCategory = (id, body) => axios.postData(`${localhost}/createCategory/${id}`, body)
-export const getCategory = (id) => axios.get(`${localhost}/getCategory/${id}`)
+export const createCategory = (body) => axios.postData(`${localhost}/createCategory`, body)
+export const getCategorys = () => axios.get(`${localhost}/getCategorys`)
 export const editCategory = (id, body) => axios.putData(`${localhost}/editCategory/${id}`, body)
 export const getSinleCategory = (id) => axios.get(`${localhost}/getSinleCategory/${id}`)
 export const deleteCategory = (id) => axios.delete(`${localhost}/deleteCategory/${id}`)
