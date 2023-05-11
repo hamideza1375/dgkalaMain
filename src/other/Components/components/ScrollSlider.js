@@ -62,8 +62,6 @@ function ScrollSlider(p) {
         onMoveShouldSetResponder={(e) => {
           
           das.push(e.nativeEvent.pageX)
-          if(das.length < 3) return
-          
           if (das[0] > das[1]) if ((count.current.count < data.length - 1)) count.current.count = count.current.count + .2
           if (das[0] < das[1]) if (count.current.count >= 1) count.current.count = count.current.count - .2
           

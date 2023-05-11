@@ -197,7 +197,8 @@ export function clientController(p) {
 
   this.createCommentAnswer = async () => {
     const { data } = await createCommentAnswer(p.route.params.commentId,
-      { message: p.message, to: JSON.parse(p.route.params.userphoneOrEmail).map((u, i) => u.slice(0, u.lastIndexOf(i))).join('') })
+      { message: p.message, to: JSON.parse(decodeURIComponent(p.route.params.userphoneOrEmail)).map((u, i) => u.slice(0, u.lastIndexOf(i))).join('') })
+      console.log('1234', JSON.parse(decodeURIComponent(p.route.params.userphoneOrEmail)).map((u, i) => u.slice(0, u.lastIndexOf(i))).join('') );
     p.childItemComment.length && p.setchildItemComment(comment => {
       try {
         const _comment = [...comment]
