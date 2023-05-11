@@ -127,6 +127,7 @@ export function clientController(p) {
         p.setchildItem(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
         p.setnewSearchArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
+      return()=>{p.setchildItem([]);p.setnewSearchArray([])}
     }, [p.route.params?.id])
   }
 

@@ -1,6 +1,6 @@
 import moment from 'moment-jalaali'
 import React from 'react'
-import { A_icon, Badge, Button, Card, Column, FlatList, Icon, M_icon, P, Press, Py, Row } from '../../../../other/Components/Html'
+import { A_icon, Badge, Button, Card, Column, Icon, M_icon, P, Press, Py, Row } from '../../../../other/Components/Html'
 
 
 
@@ -13,7 +13,7 @@ const AnswerComment = (p) => {
   
   return (
     p.answer.map((item) => (
-      <Column key={item._id} br={3} mv={8} sh={{ o: 1, r: 8, c: '#ddda' }} >
+      <Column w='99%' as='center' key={item._id} br={3} mv={8} sh={{ o: 1, r: 8, c: '#ddda' }} >
         <Card
           bgcolor='#efefef' color='black' dr='rtl' border={[1, '#eeee']} headerRow={
             <Column fd='row-reverse' w='100%' >

@@ -595,7 +595,7 @@ export const Ps = (props) => <_text ta='right' {...props} initalClass={s.p} />
 
 export const Pl = (props) => <_text ta='right' {...props} initalClass={s.p} ff='IRANSansWeb-Light' />
 
-export const Pfa = (props) => <_text ta='right' fs={16} {...props} style={Platform.select({ ios:{fontFamily:'B Baran'}, default:{fontFamily:'B Baran Regular'}})} />
+export const Pfa = (props) => <_text ta='right' fs={16} {...props} style={[Platform.select({ ios:{fontFamily:'B Baran'}, default:{fontFamily:'B Baran Regular'}}), props.style]} />
 
 export const Py = (props) => <_text ta='right' fw='bold' {...props} ff='Yekan Bakh Regular' />
 
