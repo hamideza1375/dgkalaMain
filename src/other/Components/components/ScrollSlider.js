@@ -5,7 +5,7 @@ import s from './style.module.scss';
 import { Loading, Column } from '../Html';
 
 
-var das = []
+var das = [], old = 0
 
 function ScrollSlider(p) {
   const { data, renderItem, h, style, ccStyle } = p
@@ -20,8 +20,16 @@ function ScrollSlider(p) {
     if (scroll2) {
       { ref.current?.scrollToIndex({ index: count.current.count }); }
       count.current.count = count.current.count + 2
+      old = count.current.count
     }
   };
+
+  const open2 = () => {
+    if(parseInt(count.current.count) >= old + 1 || parseInt(count.current.count) <= old - 1){
+    old = (parseInt(count.current.count))
+    { ref.current?.scrollToIndex({ index: parseInt(count.current.count) }); }
+ } };
+
 
   if (count.current.count + 1 >= data.length) { clearInterval(interval.current.interval) }
   if (!scroll2) { clearInterval(interval.current.interval) }
@@ -41,42 +49,54 @@ function ScrollSlider(p) {
     }
   }, []))
 
-
-
   return (
     <Column
       style={{ cursor: 'grab' }}
       class={s.selectNone}
-      onMouseUp={() => { setscroll2(false); setTimeout(() => { das = [] }, 10); }}
+      onMouseUp={(e) => { setscroll2(false); setTimeout(() => { das = [] }, 195); }}
       onMoveShouldSetResponder={() => { setscroll2(false); }}
       onTouchMove={() => { setscroll2(false); }} >
       <Column
+
+
         onMoveShouldSetResponder={(e) => {
-          setscroll2(!scroll2)
-          if (Platform.OS === 'web') {
-            if (navigator?.userAgent?.match('Mobile') != 'Mobile') {
-              // ref.current?.setNativeProps({ style: { overflowX: 'auto' } });
-              das.push(e.nativeEvent.pageX)
-
-              startTransition(() => {
-                setTimeout(() => {
-
-                  ref.current?.scrollToOffset({ offset: (scroll) + ((das[0] - das[das.length - 1]) * 2.2) })
-                }, 0);
-              })
-
-            }
-          }
-          setscroll2(false)
+          
+          das.push(e.nativeEvent.pageX)
+          if(das.length < 3) return
+          
+          if (das[0] > das[1]) if ((count.current.count < data.length - 1)) count.current.count = count.current.count + .2
+          if (das[0] < das[1]) if (count.current.count >= 1) count.current.count = count.current.count - .2
+          
+          setTimeout(() => {
+            open2()
+          }, 100);
 
         }}
+
+
+      // onMoveShouldSetResponder={(e) => {
+      //   setscroll2(!scroll2)
+      //   if (Platform.OS === 'web') {
+      //     if (navigator?.userAgent?.match('Mobile') != 'Mobile') {
+      //       // ref.current?.setNativeProps({ style: { overflowX: 'auto' } });
+      //       // setTimeout(() => {
+      //       //   das.push(e.nativeEvent.pageX)
+      //       //   startTransition(() => {
+      //       //       ref.current?.scrollToOffset({ offset: (scroll) + ((das[0] - das[das.length - 1]) * 1.5) })
+      //       //   }, [])
+      //       // }, 100)
+      //     }
+      //   }
+      //   setscroll2(false)
+
+      // }}
       >
         {data.length ?
           <FlatList
-          getItemLayout={(data, index) => (
-            {length: (160 + 10), offset: (160 + 10) * index, index}
-            // {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
-          )}
+            getItemLayout={(data, index) => (
+              { length: (160 + 10), offset: (160 + 10) * index, index }
+              // {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
+            )}
             initialNumToRender={1}
             showsHorizontalScrollIndicator={false}
             dir='ltr'
