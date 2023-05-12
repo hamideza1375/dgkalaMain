@@ -1,5 +1,4 @@
 import React, { memo } from 'react'
-import { Platform } from 'react-native'
 import { Column, Img, P, Press, ScrollSlider } from '../../../../other/Components/Html'
 import LinearGradient from '../../../../other/Components/other/LinearGradient'
 import { localhost } from '../../../../other/utils/axios/axios'
@@ -13,7 +12,7 @@ const Category = (p) => {
         <LinearGradient nativeStart={{ x: 1.5, y: 1.5 }} webStart={{ x: 7 }} colors={['#f5f', '#505']} style={{ width: '50%', height: 1, flexGrow: 1, marginTop: 28, marginHorizontal: 25 }} ></LinearGradient>
       </Column>
 
-      {p.category && <ScrollSlider
+      <ScrollSlider
         h={180} 
         ccStyle={{ height: 180, justifyContent: 'center' , alignSelf: 'center'}}
         data={p.category}
@@ -29,7 +28,7 @@ const Category = (p) => {
             <P as='center' mt='auto' fs={14} fw='600' color='#229b' >{item.title}</P>
           </Column>
         )}
-      />}
+      />
     </Column>)
 }
 

@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import jwtDecode from "jwt-decode";
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 import { BackHandler, Platform, ToastAndroid } from "react-native";
 import _Alert from "../other/utils/alert";
 import backgroundTimer from "../other/utils/backgroundTimer";
@@ -11,8 +11,43 @@ import { getSingleSavedItems, commentDisLike, commentLike, confirmPayment, creat
 import { savedItem } from "../services/userService";
 import _useEffect from "./_initial";
 
+
+export const actionGetCategory = async (dispatch) => {
+  const { data } = await getCategory()
+  if (!data?.value) return
+  dispatch({ type: "GETCATEGORY", payload: data.value })
+}
+
+export const reducerGetCategory = (state, action) => {
+  switch (action.type) {
+    case "GETCATEGORY":
+      return action.payload
+    default:
+      return state;
+  }
+};
+
+
 export function clientController(p) {
 
+    //! Category
+  // const actionGetCategory = async (dispatch) => {
+  //   const { data } = await getCategory()
+  //   if (!data?.value) return
+  //   dispatch({ type: "GETCATEGORY", payload: data.value })
+  // }
+  
+  // this.getCategory = () => {
+  // useEffect(() => {
+  //   (async () => {
+  //     const { data } = await getCategory()
+  //     if (!data?.value) return
+  //     p.setcategory(data.value)
+  //   })()
+  // }, [])
+  // }
+  //! Category
+  
   //! getSlider
   this.getSlider = () => {
     useEffect(() => {
@@ -51,72 +86,6 @@ export function clientController(p) {
   }
   //! SendStatusForClientBuy
 
-
-  //! Category
-  const reducerGetCategory = (state, action) => {
-    switch (action.type) {
-      case "GETCATEGORY":
-        return action.payload
-      default:
-        return state;
-    }
-  };
-
-  const [state, dispatch] = useReducer(reducerGetCategory, []);
-
-  const actionGetCategory = async () => {
-    const { data } = await getCategory()
-    if (!data?.value) return
-    dispatch({ type: "GETCATEGORY", payload: data.value })
-  }
-
-
-  this.getCategory = () => {
-    useEffect(() => { 
-      actionGetCategory()
-      p.setcategory(state) 
-    }, [state])
-  }
-
-  //!
-
-  // const reducerCategory = (state, action) => {
-  //   switch (action.type) {
-  //     case "GETCATEGORY":
-  //       return action.payload
-  //     default:
-  //       return state;
-  //   }
-  // };
-
-  // const actionCategory = async (dispatch) => {
-  //   const { data } = await getCategory()
-  //   if (!data?.value) return
-  //   dispatch({ type: "GETCATEGORY", payload: data.value })
-  // }
-
-  // const [state, dispatch] = useReducer(reducerCategory, []);
-
-  // this.getCategory = () => {
-  //   useEffect(() => {
-  //     actionCategory(dispatch)
-  //   }, []);
-
-  //   useEffect(() => { p.setcategory(state) }, [state])
-  // }
-
-  //!
-
-  // this.getCategory = () => {
-  // useEffect(() => {
-  //   (async () => {
-  //     const { data } = await getCategory()
-  //     if (!data?.value) return
-  //     p.setcategory(data.value)
-  //   })()
-  // }, [])
-  // }
-  //! Category
 
   //! product
   this.getChildItems = () => {
