@@ -6,7 +6,6 @@ const SliderOffers = lazy(() => import('./components/home/SliderOffers'));
 const SliderPopulars = lazy(() => import('./components/home/SliderPopulars'));
 const Banner = lazy(() => import('./components/home/Banner'));
 const Footer = lazy(() => import('./components/home/Footer'));
-
 function Home(p) {
   const [category, dispatch] = useReducer(reducerGetCategory, []);
   useEffect(() => { actionGetCategory(dispatch) }, [])

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Platform, LogBox, I18nManager, BackHandler, StatusBar } from "react-native";
+import { Platform, LogBox, I18nManager, StatusBar } from "react-native";
 
 import Home from './views/client/Home'
 import ChildItems from './views/client/ChildItems'
@@ -82,7 +82,6 @@ rtl()
 LogBox.ignoreAllLogs();
 
 
-
 const Tab = createNativeStackNavigator()
 const Mobile = () => {
 
@@ -104,7 +103,6 @@ const Mobile = () => {
   _client.getNotifee()
   _client.seenAndSendNotificationForSocketIo()
   _client.removeAsyncStorage()
-
   const [show, setshow] = useState(false)
   const netInfo = useNetInfo()
 

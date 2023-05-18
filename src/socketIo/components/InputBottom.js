@@ -116,7 +116,6 @@ export default function InputBottom(p) {
         <Input multiline maxLength={1000} min={99} style={{ minHeight: 50 }} iconSize={24}
           value={p.pvMessage} onChange={(e) =>{ p.setpvMessage(e.nativeEvent.text); p.handleKeypress(e, p.to)}}
           iconPress={() => { p.handlePvChat(); p.setpvMessage('') }} icon="paper-plane" iconColor="#38a" color="#25a" placeholder="ارسال پیام"
-
         />
       </Column>
     </Column>
