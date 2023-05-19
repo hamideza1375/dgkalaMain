@@ -57,7 +57,7 @@ function SearchInput({ table, iconBack, children, drawer, showDrawer, setshowDra
 
     <Column f={1} >
 
-      <Span bgcolor={bgcolor} h={53} w={'100%'} as='center' z={10000000}>
+      <Span bgcolor={bgcolor} h={53} w={'100.2%'} as='center' z={10000000}>
         <Span bgcolor={bgcolor} style={[styles.containHead]}>
           {(src) && <Press onClick={() => navigation.navigate('Home')} mr={7} ><Img bgcolor='transparent' w={55} h={54} mt={-1} br={4} src={src} /></Press>}
           {icon && icon !== 'arrow-left' ? <Icon size={24} style={[styles.iconHome, { marginTop: 3 }]} name={icon} onPress={() => { iconPress(); p.setshownDropdown(false) }} />

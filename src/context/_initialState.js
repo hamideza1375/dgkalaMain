@@ -83,9 +83,11 @@ export function initial() {
   const [productBasket, setproductBasket] = useState([])
   const refMap = useRef(new Map())
   const [logoUrl] = useState(require('../other/assets/images/logo.png'))
+  const refDropdown = useRef()
 
 
   this.all = {
+    refDropdown,
     refMap,
     socketIoSeen, setsocketIoSeen,
     productBasket, setproductBasket,

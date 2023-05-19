@@ -26,17 +26,17 @@ const PanelAdmin = (p) => {
               </Suspense>
 
               <Suspense>
-                  <Users7DeyForChart {...p} />
+                  <Users7DeyForChart />
               </Suspense>
 
             </Scroll>
 
             <Suspense>
-                <Address7DeyForProgress {...p} />
+                <Address7DeyForProgress />
             </Suspense>
 
             <Suspense>
-                <Address1YearsForChart {...p} />
+                <Address1YearsForChart />
             </Suspense>
 
           </Column>

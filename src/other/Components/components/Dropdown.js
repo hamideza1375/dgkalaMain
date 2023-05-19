@@ -1,28 +1,26 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Pressable } from "react-native";
 import { context } from "../../../context/_context";
 import { Platform } from "react-native";
 
 const Dropdown = ({ top, value, root, children }) => {
-  const ref = useRef()
-  const { setdropdownValue, setclientX, setclientY, clientY, clientX, shownDropdown, setshownDropdown, width, height } = context()
+  const { refDropdown, setdropdownValue, setclientX, setclientY, clientY, clientX, shownDropdown, setshownDropdown, width, height } = context()
   return (
     <Pressable
     onLayout={(e) => {
-      
-    if(e){ 
+    if(e && root){ 
       e.persist && e.persist();
-       ref.current = e
+       refDropdown.current = e
       }
     }}
      onTouchEnd={(e) => {
       if(Platform.OS !== 'web' ){
       setshownDropdown(false); setTimeout(() => { setshownDropdown(true) }, 100); if (!root) {
-        setclientX(((ref.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1: (e.nativeEvent.pageX));
+        setclientX(((refDropdown.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1: (e.nativeEvent.pageX));
         setclientY(!top?
-          ((ref.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1: (e.nativeEvent.pageY)
+          ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1: (e.nativeEvent.pageY)
           :
-          ((ref.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1: (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
+          ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1: (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
           );
         setdropdownValue(value);
       }
@@ -32,11 +30,11 @@ const Dropdown = ({ top, value, root, children }) => {
     onPressOut={(e) => {
       if(Platform.OS === 'web'){
       setshownDropdown(false); setTimeout(() => { setshownDropdown(true) }, 100); if (!root) {
-        setclientX(((ref.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1: (e.nativeEvent.pageX));
+        setclientX(((refDropdown.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1: (e.nativeEvent.pageX));
         setclientY(!top?
-          ((ref.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1: (e.nativeEvent.pageY)
+          ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1: (e.nativeEvent.pageY)
           :
-          ((ref.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1: (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
+          ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1: (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
           );
         setdropdownValue(value);
       }

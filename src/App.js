@@ -132,7 +132,7 @@ const Mobile = () => {
             <ToastProvider {...allState.init} />
             {netInfo.isConnected && show ? <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button> : <></>}
             {/* <Column pos='absolute' z={-10} ><Tab.Navigator><Tab.Screen name="home" options={{ title: 'دیجی کالا' }} >{()=><Column/>}</Tab.Screen></Tab.Navigator></Column> */}
-            <Column pos='absolute' z={-10} ><Tab.Navigator><Tab.Screen initialParams={{ key: 'home' }} name="Home" options={{ title: 'دیجی کالا' }} {...clientChildren(Home, '1')} /></Tab.Navigator></Column>
+            <Column pos='absolute' z={-10} ><Tab.Navigator><Tab.Screen name="digikala" options={{ title: 'دیجی کالا' }} {...clientChildren(Home, '1')} /></Tab.Navigator></Column>
           </Column>
           :
           <Column f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
