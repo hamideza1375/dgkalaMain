@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
-import { Column, Dropdown, Icon, Input, M_icon, Press } from "../../other/Components/Html";
-import { axios, localhost } from "../../other/utils/axios/axios";
-import { imagePicker } from "../../other/utils/imagePicer";
+import { Column, Dropdown, Icon, Input, M_icon, Press } from "../../../other/Components/Html";
+import { axios, localhost } from "../../../other/utils/axios/axios";
+import { imagePicker } from "../../../other/utils/imagePicer";
 
 export default function InputBottom(p) {
 

@@ -9,13 +9,10 @@ var
 
 const ProgressChart = ({ color = '#222', rodWidth = 30, bgcolor = '#fff', br = 2, w = '100%', h = '100%', data }) => {
 
-  const [change, setchange] = useState(false)
 
   const checkSend = useRef([])
   const queueSend = useRef([])
   const send = useRef([])
-
-
 
 
   const pushArrayRef = useRef([])
@@ -82,14 +79,6 @@ const ProgressChart = ({ color = '#222', rodWidth = 30, bgcolor = '#fff', br = 2
 
       }
   }, [data])
-
-
-  useEffect(() => {
-    setTimeout(() => {
-      setchange(true)
-    }, 1000);
-  }, [])
-
 
   return (
     <>

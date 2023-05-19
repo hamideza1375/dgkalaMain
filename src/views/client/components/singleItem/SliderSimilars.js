@@ -36,7 +36,7 @@ const SliderSimilars = (p) => {
             renderItem={({ item, index }) => (
               <Span /* mh='auto' */ mh={6} minw={155} fg={1} h={260} col2={{ marginHorizontal: 3 }}>
               <CardItem item={item} spacePrice={spacePrice} w={170} onClick={() => { 
-                p.navigation.navigate('SingleItem', { id: item._id }) 
+                p.navigation.navigate('SingleProduct', { id: item._id }) 
                 p.setsingleItemChange(!p.singleItemChange)
                 }}/>
             </Span>

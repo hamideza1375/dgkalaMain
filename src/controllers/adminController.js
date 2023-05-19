@@ -1,4 +1,4 @@
-import { getSingleItem, getAdminTicketSeen, createSlider, getCategorys, changeAvailable, changeMainAdmin, createCategory, createChildItem, createNotification, deleteAddressForOneAdmin, deleteAdmin, deleteAllAddress, deleteCategory, deleteChildItem, deleteMultiProposal, deleteNotification, editCategory, editChildItem, getAllAddress, getAllAdmin, getProposal, listUnAvailable, setAdmin, adminTicketBox, getSocketIoSeen, createSeller, getAllSellers, setSellerAvailable, deleteSeller, getSinleCategory, postedOrder, getAllPaymentSuccessFalseAndTrue, postQueue, getAllAddressForChart, setOffer, getUserForChart, getDataForChart, getChildItems, getChildItemsTable, getPostPrice, sendPostPrice, getQuitsForSeller } from "../services/adminService"
+import { getSingleProduct, getAdminTicketSeen, createSlider, getCategorys, changeAvailable, changeMainAdmin, createCategory, createProduct, createNotification, deleteAddressForOneAdmin, deleteAdmin, deleteAllAddress, deleteCategory, deleteProduct, deleteMultiProposal, deleteNotification, editCategory, editProduct, getAllAddress, getAllAdmin, getProposal, listUnAvailable, setAdmin, adminTicketBox, getSocketIoSeen, createSeller, getAllSellers, setSellerAvailable, deleteSeller, getSinleCategory, postedOrder, getAllPaymentSuccessFalseAndTrue, postQueue, setOffer, getDataForChart, getProductsTable, getPostPrice, sendPostPrice, getQuitsForSeller } from "../services/adminService"
 import _useEffect from "./_initial"
 import _Alert from "../other/utils/alert"
 import { useEffect } from "react"
@@ -145,8 +145,8 @@ export function adminController(p) {
 
   
   //! ChildItem
-  this.createChildItem = async () => {
-    const { data } = await createChildItem(p.route.params.id, p.route.params.sellerId, {
+  this.createProduct = async () => {
+    const { data } = await createProduct(p.route.params.id, p.route.params.sellerId, {
       image1: p.image1,
       image2: p.image2,
       image3: p.image3,
@@ -186,10 +186,10 @@ export function adminController(p) {
   }
 
 
-  this.getChildItemsTable = () => {
+  this.getProductsTable = () => {
     useEffect(() => {
       (async () => {
-        const { data } = await getChildItemsTable(p.route.params.id, p.route.params.sellerId)
+        const { data } = await getProductsTable(p.route.params.id, p.route.params.sellerId)
         p.setchildItem(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
         p.setnewSearchArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
@@ -200,8 +200,8 @@ export function adminController(p) {
 
 
 
-  this.editChildItem = async () => {
-    await editChildItem(p.route.params.id, {
+  this.editProduct = async () => {
+    await editProduct(p.route.params.id, {
       image1: p.image1,
       image2: p.image2,
       image3: p.image3,
@@ -244,7 +244,7 @@ export function adminController(p) {
 
 
 
-  this.deleteChildItem = async (id) => {
+  this.deleteProduct = async (id) => {
     _Alert.alert(
       "برای تایید کلیک کنید",
       "",
@@ -252,7 +252,7 @@ export function adminController(p) {
         { text: "cancel", onPress: () => { } },
         {
           text: "OK", onPress: async () => {
-            await deleteChildItem(id)
+            await deleteProduct(id)
             p.setchildItem((childItem) => childItem.filter(c => c._id !== id))
           }
         }
@@ -315,10 +315,10 @@ export function adminController(p) {
 
 
   //!SingleItem
-  this.getSingleItem = () => {
+  this.getSingleProduct = () => {
     _useEffect(() => {
       (async () => {
-        const { data } = await getSingleItem(p.route.params.id)
+        const { data } = await getSingleProduct(p.route.params.id)
         p.settitle(data.value.title)
         p.setprice(data.value.price)
         p.setimage1({ name: data.value.imageUrl1 })
@@ -600,21 +600,21 @@ export function adminController(p) {
 
 
   //! DataForChart
-  this.getDataForChart = async () => {
-    useEffect(() => {
-      // !p.usersLength &&
-      (async () => {
-        const { data } = await getDataForChart()
-        p.setaddress7DeyForChart(data.getAddress7DeyForChart)
-        setTimeout(() => {
-          p.setusersLength(data.getUsersLength)
-          p.setusers7DeyForChart(data.getUsers7DeyForChart)
-        }, 1000);
-        setTimeout(() => {p.setaddress1YearsForChart(data.getAddress1YearsForChart)}, 2000);
+  // this.getDataForChart = async () => {
+  //   useEffect(() => {
+  //     // !p.usersLength &&
+  //     (async () => {
+  //       const { data } = await getDataForChart()
+  //       p.setaddress7DeyForChart(data.getAddress7DeyForChart)
+  //       setTimeout(() => {
+  //         p.setusersLength(data.getUsersLength)
+  //         p.setusers7DeyForChart(data.getUsers7DeyForChart)
+  //       }, 1000);
+  //       setTimeout(() => {p.setaddress1YearsForChart(data.getAddress1YearsForChart)}, 2000);
 
-      })()
-    }, [])
-  }
+  //     })()
+  //   }, [])
+  // }
   //! DataForChart
 
 

@@ -2,10 +2,6 @@ import { useState } from "react"
 
 
 export function admin() {
-  const [usersLength, setusersLength] = useState('')
-  const [users7DeyForChart, setusers7DeyForChart] = useState([])
-  const [address7DeyForChart, setaddress7DeyForChart] = useState([])
-  const [address1YearsForChart, setaddress1YearsForChart] = useState([])
   const [adminTicketBox, setadminTicketBox] = useState([])
   const [sellerTable, setsellerTable] = useState([])
   const [listUnAvailabe, setlistUnAvailabe] = useState([])
@@ -14,7 +10,6 @@ export function admin() {
   const [proposalId, setproposalId] = useState([])
   const [proposal, setproposal] = useState([])
   const [allAdmin, setallAdmin] = useState([])
-  const [socketIoSeen, setsocketIoSeen] = useState()
   const [ticketSeen, setticketSeen] = useState(false)
   const [category,setcategory] =useState([])
   const [childItem, setchildItem] = useState([])
@@ -36,13 +31,8 @@ export function admin() {
     allAddress, setallAddress,
     proposalId, setproposalId,
     proposal, setproposal,
-    socketIoSeen, setsocketIoSeen,
     allAdmin, setallAdmin,
     adminTicketBox, setadminTicketBox,
-    // users7DeyForChart, setusers7DeyForChart,
-    // usersLength, setusersLength,
-    // address7DeyForChart, setaddress7DeyForChart,
-    // address1YearsForChart, setaddress1YearsForChart,
     sellerTable, setsellerTable,
   }
 }

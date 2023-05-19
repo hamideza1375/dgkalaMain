@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { SearchBar } from '../../Components/Html'
 
-const TableChildItemsPage = (p) => {
+const ProductsTablePage = (p) => {
   const [show, setshow] = useState(false)
 
   return (
@@ -15,4 +15,4 @@ const TableChildItemsPage = (p) => {
   )
 }
 
-export default TableChildItemsPage
+export default ProductsTablePage

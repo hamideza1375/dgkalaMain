@@ -58,7 +58,7 @@ const AnswerComment = (p) => {
 
 const ShowComment = (p) => {
 
-  p._client.getChildItemComments()
+  p._client.getProductComments()
 
   const deleteComment = (commentid) => p._client.deleteComment(commentid)
   const like = (commentid) => p._client.like(commentid)

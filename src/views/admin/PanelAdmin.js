@@ -1,17 +1,17 @@
 import React, {memo, Suspense, lazy } from 'react'
-import { Scroll, Column, Loading } from '../../other/Components/Html'
+import { Scroll, Column } from '../../other/Components/Html'
 
 const Address7DeyForChart = lazy(() => import('./components/Address7DeyForChart'));
 const Users7DeyForChart = lazy(() => import('./components/Users7DeyForChart'));
-const Address1YearsForChart = lazy(() => import('./components/Address1YearsForChart'));
 const Address7DeyForProgress = lazy(() => import('./components/Address7DeyForProgress'));
+const Address1YearsForChart = lazy(() => import('./components/Address1YearsForChart'));
 
 
 const PanelAdmin = (p) => {
 
   p._admin.getAdminTicketSeen()
   p._admin.getSocketIoSeen()
-  p._admin.getDataForChart()
+  // p._admin.getDataForChart()
   
   return (
     <Column f={1} fd='row'>
@@ -22,39 +22,21 @@ const PanelAdmin = (p) => {
             <Scroll ccStyle={{ flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-around' }} >
 
               <Suspense>
-                {p.address7DeyForChart.length
-                  ?
-                  <Address7DeyForChart {...p} />
-                  :
-                  <Column w='100%' fg={1} h={70} ><Loading/></Column>
-                  }
+                  <Address7DeyForChart />
               </Suspense>
 
               <Suspense>
-                {(p.users7DeyForChart.length || p.usersLength)
-                  ?
                   <Users7DeyForChart {...p} />
-                  :
-                  <Column w='100%' fg={1} h={70} ></Column>}
               </Suspense>
 
             </Scroll>
 
             <Suspense>
-              {p.address7DeyForChart.length
-                ?
                 <Address7DeyForProgress {...p} />
-                :
-                <Column w='100%' fg={1} h={70} ></Column>
-              }
             </Suspense>
 
             <Suspense>
-              {p.address1YearsForChart.length
-                ?
                 <Address1YearsForChart {...p} />
-                :
-                <Column w='100%' fg={1} h={100} ></Column>}
             </Suspense>
 
           </Column>

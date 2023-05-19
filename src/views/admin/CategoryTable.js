@@ -3,20 +3,20 @@ import { Button, Column } from '../../other/Components/Html';
 import s from "./Admin.module.scss"
 import { Table } from '../../other/Components/Html';
 
-const TableCategory = function (p) {
+const CategoryTable = function (p) {
   p._admin.getCategorys()
 
   return (
     <Column f={1} ai='center' >
       <Button mt={2} h={40} w='90%' onPress={() => p.navigation.navigate("CreateCategory",{id:p.route.params.id})}>ساخت دسته ی اغذیه</Button>
       <Column class={s.containTable} >
-          <CategoryTable {...p} />
+          <CTable {...p} />
       </Column>
     </Column>
   )
 }
 
-export default TableCategory
+export default CategoryTable
 
 
 
@@ -25,7 +25,7 @@ export default TableCategory
 
 
 
-function CategoryTable (p) {
+function CTable (p) {
 
   const [categoryTable, setcategoryTable] = useState([])
   const deleteCategory = (id) => p._admin.deleteCategory(id)

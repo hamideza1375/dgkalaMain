@@ -7,47 +7,24 @@ import _Alert from "../other/utils/alert";
 import backgroundTimer from "../other/utils/backgroundTimer";
 import { create } from "../other/utils/notification";
 import { truncate } from "../other/utils/truncate";
-import { getSingleSavedItems, commentDisLike, commentLike, confirmPayment, createComment, createCommentAnswer, deleteComment, deleteCommentAnswer, disLikeAnswer, editComment, editCommentAnswer, geocode, getCategory, getChildItemComments, getChildItems, getNotification, getOffers, getPopulars, getSendStatus, getSimilars, getSingleComment, getSingleCommentAnswer, getSingleItem, getSlider, getSocketIoSeenUser, likeAnswer, offers, reverse, getSingleSeller, allProduct } from "../services/clientService";
-import { savedItem } from "../services/userService";
+import { getSingleSavedsavedProducts, commentDisLike, commentLike, confirmPayment, createComment, createCommentAnswer, deleteComment, deleteCommentAnswer, disLikeAnswer, editComment, editCommentAnswer, getCategory, getProductComments, getProducts, getNotification, getOffers, getPopulars, getSendStatus, getSimilars, getSingleComment, getSingleCommentAnswer, getSingleProduct, getSlider, getSocketIoSeenUser, likeAnswer, getSingleSeller, allProduct } from "../services/clientService";
+import { savedProduct } from "../services/userService";
 import _useEffect from "./_initial";
-
-
-export const actionGetCategory = async (dispatch) => {
-  const { data } = await getCategory()
-  if (!data?.value) return
-  dispatch({ type: "GETCATEGORY", payload: data.value })
-}
-
-export const reducerGetCategory = (state, action) => {
-  switch (action.type) {
-    case "GETCATEGORY":
-      return action.payload
-    default:
-      return state;
-  }
-};
-
 
 export function clientController(p) {
 
-    //! Category
-  // const actionGetCategory = async (dispatch) => {
-  //   const { data } = await getCategory()
-  //   if (!data?.value) return
-  //   dispatch({ type: "GETCATEGORY", payload: data.value })
-  // }
-  
-  // this.getCategory = () => {
-  // useEffect(() => {
-  //   (async () => {
-  //     const { data } = await getCategory()
-  //     if (!data?.value) return
-  //     p.setcategory(data.value)
-  //   })()
-  // }, [])
-  // }
   //! Category
-  
+  this.getCategory = () => {
+    useEffect(() => {
+      (async () => {
+        const { data } = await getCategory()
+        if (!data?.value) return
+        p.setcategory(data.value)
+      })()
+    }, [])
+  }
+  //! Category
+
   //! getSlider
   this.getSlider = () => {
     useEffect(() => {
@@ -76,7 +53,7 @@ export function clientController(p) {
     const navigation = useNavigation()
     useEffect(() => {
       setTimeout(() => {
-        if ((navigation.getCurrentRoute()?.name === 'Home') || (navigation.getCurrentRoute()?.name === 'ChildItems') || navigation.getCurrentRoute()?.name === 'SingleItem' || navigation.getCurrentRoute()?.name === 'BeforePayment')
+        if ((navigation.getCurrentRoute()?.name === 'Home') || (navigation.getCurrentRoute()?.name === 'Products') || navigation.getCurrentRoute()?.name === 'SingleProduct' || navigation.getCurrentRoute()?.name === 'BeforePayment')
           getSendStatus().then(({ data }) => {
             if (data.checkSend === 1) p.toast.show('', 'سفارش شما ثبت شده و در حال برسی برای ارسال هست')
             else if (data.queueSend === 1) p.toast.success(data.queueSend, 'سفارش شما در صف ارسال قرار گرفت')
@@ -88,15 +65,15 @@ export function clientController(p) {
 
 
   //! product
-  this.getChildItems = () => {
+  this.getProducts = () => {
     useEffect(() => {
       (async () => {
-        const { data } = await getChildItems(p.route.params?.id)
+        const { data } = await getProducts(p.route.params?.id)
         if (!data?.value) return
         p.setchildItem(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
         p.setnewSearchArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
-      return()=>{p.setchildItem([]);p.setnewSearchArray([])}
+      return () => { p.setchildItem([]); p.setnewSearchArray([]) }
     }, [p.route.params?.id])
   }
 
@@ -138,10 +115,10 @@ export function clientController(p) {
 
 
   //! singleProduct
-  this.getSingleItem = () => {
+  this.getSingleProduct = () => {
     _useEffect(() => {
       (async () => {
-        const { data } = await getSingleItem(p.route.params?.id)
+        const { data } = await getSingleProduct(p.route.params?.id)
         if (!data?.value) return
         p.setsingleItem(data.value)
       })()
@@ -167,7 +144,7 @@ export function clientController(p) {
   this.createCommentAnswer = async () => {
     const { data } = await createCommentAnswer(p.route.params.commentId,
       { message: p.message, to: JSON.parse(decodeURIComponent(p.route.params.userphoneOrEmail)).map((u, i) => u.slice(0, u.lastIndexOf(i))).join('') })
-      console.log('1234', JSON.parse(decodeURIComponent(p.route.params.userphoneOrEmail)).map((u, i) => u.slice(0, u.lastIndexOf(i))).join('') );
+    console.log('1234', JSON.parse(decodeURIComponent(p.route.params.userphoneOrEmail)).map((u, i) => u.slice(0, u.lastIndexOf(i))).join(''));
     p.childItemComment.length && p.setchildItemComment(comment => {
       try {
         const _comment = [...comment]
@@ -181,9 +158,9 @@ export function clientController(p) {
     p.navigation.goBack()
   }
 
-  this.getChildItemComments = async () => {
+  this.getProductComments = async () => {
     useEffect(() => {
-      getChildItemComments(p.route.params?.id).then(({ data }) => {
+      getProductComments(p.route.params?.id).then(({ data }) => {
         p.setchildItemComment(data.value)
       })
       return () => p.setchildItemComment([])
@@ -415,14 +392,14 @@ export function clientController(p) {
 
 
 
-  //!SavedItem
-  this.getSingleSavedItems = () => {
+  //!savedProduct
+  this.getSingleSavedsavedProducts = () => {
     _useEffect(() => {
-      getSingleSavedItems(p.route.params?.id).then(({ data }) => { p.setbookmark(data.value) })
+      getSingleSavedsavedProducts(p.route.params?.id).then(({ data }) => { p.setbookmark(data.value) })
       return () => p.setbookmark(false)
     }, [p.route.params])
   }
-  //!SavedItem
+  //!savedProduct
 
 
 
@@ -469,7 +446,7 @@ export function clientController(p) {
     _useEffect(() => {
       p.singleItem.title && p.setcolor((color) => {
         const c = { ...color }
-        c[p.route.params?.id] = color[p.route.params?.id] ? color[p.route.params?.id] : p.singleItem.color.find(c => c.value > 0)?.color        
+        c[p.route.params?.id] = color[p.route.params?.id] ? color[p.route.params?.id] : p.singleItem.color.find(c => c.value > 0)?.color
         return c
       })
     }, [p.singleItem])
@@ -497,8 +474,8 @@ export function clientController(p) {
   }
 
 
-  this.savedItem = async () => {
-    const { data } = await savedItem(p.route.params?.id)
+  this.savedProduct = async () => {
+    const { data } = await savedProduct(p.route.params?.id)
     p.setbookmark(data.value)
   }
 

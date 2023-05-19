@@ -10,21 +10,21 @@ const HomeDrawer = (p) => {
 
       <Column ai='flex-start' mt={35} >
         <Py pr={22} pb={5} >گوشی</Py>
-        <P onClick={()=>{p.navigation.navigate('ChildPopulars')}} pv={5} pr={35} fs={11} >جدید ترین ها</P>
-        <P onClick={()=>{p.navigation.navigate('ChildOffers')}} pv={5} pr={35} fs={11} >تخفیف ها</P>
-        <P onClick={()=>{p.navigation.navigate('ChildPopulars')}} pv={5} pr={35} fs={11} >محبوب ترین ها</P>
+        <P onClick={()=>{p.navigation.navigate('ProductsPopulars')}} pv={5} pr={35} fs={11} >جدید ترین ها</P>
+        <P onClick={()=>{p.navigation.navigate('ProductsOffers')}} pv={5} pr={35} fs={11} >تخفیف ها</P>
+        <P onClick={()=>{p.navigation.navigate('ProductsPopulars')}} pv={5} pr={35} fs={11} >محبوب ترین ها</P>
       </Column>
 
       <Column ai='flex-start' mt={15} >
         <Py pr={22} pb={5} >تبلت</Py>
-        <P onClick={()=>{p.navigation.navigate('ChildPopulars')}} pv={5} pr={35} fs={11} >جدید ترین ها</P>
-        <P onClick={()=>{p.navigation.navigate('ChildOffers')}} pv={5} pr={35} fs={11} >تخفیف ها</P>
-        <P onClick={()=>{p.navigation.navigate('ChildPopulars')}} pv={5} pr={35} fs={11} >محبوب ترین ها</P>
+        <P onClick={()=>{p.navigation.navigate('ProductsPopulars')}} pv={5} pr={35} fs={11} >جدید ترین ها</P>
+        <P onClick={()=>{p.navigation.navigate('ProductsOffers')}} pv={5} pr={35} fs={11} >تخفیف ها</P>
+        <P onClick={()=>{p.navigation.navigate('ProductsPopulars')}} pv={5} pr={35} fs={11} >محبوب ترین ها</P>
       </Column>
 
       <Column ai='flex-start' mt={15} >
         <Py pr={22} pb={5} >ویژه</Py>
-        <P onClick={()=>{p.navigation.navigate('ChildOffers')}} pv={5} pr={35} fs={11} >بیشترین تخفبف</P>
+        <P onClick={()=>{p.navigation.navigate('ProductsOffers')}} pv={5} pr={35} fs={11} >بیشترین تخفبف</P>
         <P onClick={()=>{p.navigation.navigate('')}} pv={5} pr={35} fs={11} >پیشنهادات</P>
       </Column>
 

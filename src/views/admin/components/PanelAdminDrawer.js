@@ -27,7 +27,7 @@ const PanelAdminDrawer = (p) => {
             <Press mt={10} onClick={() => p.navigation.navigate('GetProposal')} ><Py color={pageName('GetProposal')} >صندوق انتقادات و پیشنهادات</Py></Press>
           </Column>
           <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
-            <Press onClick={() => { p.navigation.navigate('TableCategory') }} ><Py color={pageName('TableCategory')} >محصولات</Py></Press>
+            <Press onClick={() => { p.navigation.navigate('CategoryTable') }} ><Py color={pageName('CategoryTable')} >محصولات</Py></Press>
             <Press onClick={() => p.navigation.navigate('ListUnAvailable')} mt={10} ><Py color={pageName('ListUnAvailable')} >محصولات ناموجود</Py></Press>
           </Column>
           <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>

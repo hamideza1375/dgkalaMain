@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useState } from "react"
 
 
 export function client() {
@@ -13,13 +13,10 @@ export function client() {
   const [showDropdownFilter, setshowDropdownFilter] = useState(false)
   const [showFilterModal, setshowFilterModal] = useState(false)
   const [singleItemChange, setsingleItemChange] = useState(false)
-  const [productBasket, setproductBasket] = useState({})
   const [color, setcolor] = useState({})
-  const refMap = useRef(new Map())
   const [bookmark, setbookmark] = useState(false)
   const [newSearchOffershArray, setnewSearchOffershArray] = useState([])
   const [newSearchPopularsArray, setnewSearchPopularsArray] = useState([])
-  const [socketIoSeen, setsocketIoSeen] = useState(false)
   const [availableSeller, setavailableSeller] = useState(true)
   const [newSearchArray, setnewSearchArray] = useState([])
   const [newSearchHomeArray, setnewSearchHomeArray] = useState([])
@@ -30,13 +27,10 @@ export function client() {
     newSearchHomeArray, setnewSearchHomeArray,
     newSearchArray, setnewSearchArray,
     availableSeller, setavailableSeller,
-    socketIoSeen, setsocketIoSeen,
     newSearchPopularsArray, setnewSearchPopularsArray,
     newSearchOffershArray, setnewSearchOffershArray,
     bookmark, setbookmark,
-    refMap,
     color, setcolor,
-    productBasket, setproductBasket,
     singleItemChange, setsingleItemChange,
     slider, setslider,
     category, setcategory,

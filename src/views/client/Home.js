@@ -1,14 +1,12 @@
-import React, { lazy, Suspense, useEffect, useReducer } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Slider, Scroll, Loading, Column } from '../../other/Components/Html'
 import Category from './components/home/Category';
-import { actionGetCategory, reducerGetCategory } from '../../controllers/clientController';
+import _useEffect from '../../controllers/_initial';
 const SliderOffers = lazy(() => import('./components/home/SliderOffers'));
 const SliderPopulars = lazy(() => import('./components/home/SliderPopulars'));
 const Banner = lazy(() => import('./components/home/Banner'));
 const Footer = lazy(() => import('./components/home/Footer'));
 function Home(p) {
-  const [category, dispatch] = useReducer(reducerGetCategory, []);
-  useEffect(() => { actionGetCategory(dispatch) }, [])
   p._client.getSlider()
   p._client.backHandler()
   p._client.allProductForSearchBar()
@@ -16,11 +14,11 @@ function Home(p) {
     <Column f={1} >
       <Scroll>
         <Column>
-          <Slider data={p.slider} {...p} onClick={() => { p.navigation.navigate('ChildOffers') }} />
+          <Slider data={p.slider} {...p} onClick={() => { p.navigation.navigate('ProductsOffers') }} />
         </Column>
 
         <Column>
-          <Category {...p} category={category} />
+          <Category {...p} />
         </Column>
 
         <Column>

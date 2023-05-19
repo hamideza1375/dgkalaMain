@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Alert from '../other/utils/alert';
-import { getCodeForRegister, getNewCode, verifycodeRegister, login, verifyCodeLoginForAdmin, getCodeForgetPass, verifycodeForgetPass, resetPassword, sendImageProfile, getImageProfile, sendProposal, getLastPayment, singleTicket, ticketAnswer, sendNewTicket, ticketBox, deleteTicket, editTicket, sendTicketAnswer, getAnswersTicket, getSingleAnswerTicket, editAnswerTicket, deleteAnswerTicket, ticketSeen, getTicketSeen, getSavedItem, savedItem, getSavedItems, removeSavedItem, resetSpecification, getUserSpecification, verifycodeResetSpecification, getAllProductForSeller } from '../services/userService'
+import { getCodeForRegister, getNewCode, verifycodeRegister, login, verifyCodeLoginForAdmin, getCodeForgetPass, verifycodeForgetPass, resetPassword, sendImageProfile, getImageProfile, sendProposal, getLastPayment, singleTicket, ticketAnswer, sendNewTicket, ticketBox, deleteTicket, editTicket, sendTicketAnswer, getAnswersTicket, getSingleAnswerTicket, editAnswerTicket, deleteAnswerTicket, ticketSeen, getTicketSeen,  savedProduct, getSavedProducts, removeSavedProduct, resetSpecification, getUserSpecification, verifycodeResetSpecification, getAllProductForSeller } from '../services/userService'
 import _useEffect from './_initial';
 import _Alert from '../other/utils/alert';
 import axios from 'axios';
@@ -366,14 +366,14 @@ export function userController(p) {
   //! Ticket
 
 
-  //! savedItem
-  this.savedItem = async () => {
-    const { data } = await savedItem(p.route.params.id)
+  //! savedProduct
+  this.savedProduct = async () => {
+    const { data } = await savedProduct(p.route.params.id)
     p.setbookmark(data.value)
   }
 
 
-  this.removeSavedItem = async (itemId) => {
+  this.removeSavedProduct = async (itemId) => {
     _Alert.alert(
       "برای تایید کلیک کنید",
       "",
@@ -381,7 +381,7 @@ export function userController(p) {
         { text: "cancel", onPress: () => { } },
         {
           text: "OK", onPress: async () => {
-            await removeSavedItem(itemId)
+            await removeSavedProduct(itemId)
             p.setsavedItems(svItems=> svItems.filter((item)=>item.itemId !== itemId ))
             p.setbookmark(false)
           }
@@ -391,14 +391,14 @@ export function userController(p) {
   }
 
 
-  this.getSavedItem = async () => {
+  this.getSavedProducts = async () => {
     _useEffect(() => {
-      getSavedItems().then(({ data }) => {
+      getSavedProducts().then(({ data }) => {
         p.setsavedItems(data.value)
       })
     }, [])
   }
-  //! savedItem
+  //! savedProduct
 
 
   //! getAllProductForSeller

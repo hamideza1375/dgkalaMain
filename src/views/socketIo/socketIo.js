@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, FlatList, Platform, Animated, SafeAreaView } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
-import { A_icon, Badge, Column, Img, Modal, P, Press, Row } from '../other/Components/Html';
-import Video from '../other/Components/other/Video';
-import Audio from '../other/Components/other/Audio';
+import { A_icon, Badge, Column, Img, Modal, P, Press, Row } from '../../other/Components/Html';
+import Video from '../../other/Components/other/Video';
+import Audio from '../../other/Components/other/Audio';
 import InputBottom from './components/InputBottom';
 import SocketIOClient from 'socket.io-client';
-import { localhost } from '../other/utils/axios/axios';
+import { localhost } from '../../other/utils/axios/axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from 'jwt-decode'
 import moment from 'moment-jalaali';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
-import _useEffect from '../controllers/_initial';
+import _useEffect from '../../controllers/_initial';
 import { Keyboard } from 'react-native';
-import download from '../other/utils/download';
+import download from '../../other/utils/download';
 let adminId
 
 const SocketIo = (p) => {

@@ -4,16 +4,16 @@ import { Platform, SafeAreaView, Pressable, View } from 'react-native';
 import TopTab from '../Components/tabNavigation/TopTab';
 import { ContainerTab, Icon } from '../Components/Html';
 import HomePage from './page/HomePage';
-import ChildItemPage from './page/ChildItemPage';
-import SingleItemPage from './page/SingleItemPage';
-import TableChildItemsPage from './page/TableChildItemsPage';
+import ProductsPage from './page/ProductsPage';
+import SingleProductPage from './page/SingleProductPage';
+import ProductsTablePage from './page/ProductsTablePage';
 import ProfilePage from './page/ProfilePage';
 import PanelAdminPage from './page/PanelAdminPage';
 import SellerPage from './page/SellersPage';
 import SellerPanelPage from './page/SellerPanelPage';
 import AddressPage from './page/AddressPage';
-import ChildOffersPage from './page/ChildOffersPage';
-import ChildPopularsPage from './page/ChildPopularsPage';
+import ProductsOffersPage from './page/ProductsOffersPage';
+import ProductsPopularsPage from './page/ProductsPopularsPage';
 
 
 export const Layout = (p) => {
@@ -47,20 +47,20 @@ export const Layout = (p) => {
           p.route.name === 'Home' &&
           <HomePage {...p} bottom={bottom} />
           ||
-          p.route.name === 'ChildItems' &&
-          <ChildItemPage {...p} bottom={bottom} />
+          p.route.name === 'Products' &&
+          <ProductsPage {...p} bottom={bottom} />
           ||
-          p.route.name === 'ChildOffers' &&
-          <ChildOffersPage {...p} bottom={bottom} />
+          p.route.name === 'ProductsOffers' &&
+          <ProductsOffersPage {...p} bottom={bottom} />
           ||
-          p.route.name === 'ChildPopulars' &&
-          <ChildPopularsPage {...p} bottom={bottom} />
+          p.route.name === 'ProductsPopulars' &&
+          <ProductsPopularsPage {...p} bottom={bottom} />
           ||
-          p.route.name === 'TableChildItems' &&
-          <TableChildItemsPage {...p} bottom={bottom} />
+          p.route.name === 'ProductsTable' &&
+          <ProductsTablePage {...p} bottom={bottom} />
           ||
-          p.route.name === 'SingleItem' &&
-          <SingleItemPage {...p} bottom={bottom} />
+          p.route.name === 'SingleProduct' &&
+          <SingleProductPage {...p} bottom={bottom} />
           ||
           (p.route.params?.key === 'admin') && (!p.route.params?.set) && (p.route.name !== 'Address') && (p.route.name !== 'Sellers') &&
           <PanelAdminPage {...p} bottom={bottom} />

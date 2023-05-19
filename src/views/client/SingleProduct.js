@@ -13,10 +13,10 @@ const Footer = lazy(() => import('./components/home/Footer'));
 
 
 
-const SingleItem = (p) => {
-  p._client.getSingleItem()
-  p._client.getSingleSavedItems()
-  const savedItem = () => p._client.savedItem()
+const SingleProduct = (p) => {
+  p._client.getSingleProduct()
+  p._client.getSingleSavedsavedProducts()
+  const savedProduct = () => p._client.savedProduct()
 
   return (
     <Column f={1} >
@@ -25,9 +25,9 @@ const SingleItem = (p) => {
           <P pr={10} mt={14} fw='bold'>{p.singleItem.title}</P>
           <Row pr={10} mt={14} jc='space-around' w={100} >
             {p.bookmark ?
-              <M_icon color='#ccc' size={17} name='bookmark' onClick={() => savedItem()} />
+              <M_icon color='#ccc' size={17} name='bookmark' onClick={() => savedProduct()} />
               :
-              <M_icon color='#ccc' size={17} name='bookmark-border' onClick={() => savedItem()} />
+              <M_icon color='#ccc' size={17} name='bookmark-border' onClick={() => savedProduct()} />
             }
             <Icon color='#ccc' name='share-alt' size={17} onClick={async () => { share(`http://localhost:3000/singleitem/${p.route.params.id}`, 'دیجیکالا') }} />
             {p.navigation.canGoBack()?<Icon color='#ccc' name='arrow-left' size={17} onClick={ () => { p.navigation.goBack() }} />:<></>}
@@ -92,6 +92,6 @@ const SingleItem = (p) => {
   )
 }
 
-export default SingleItem
+export default SingleProduct
 
 

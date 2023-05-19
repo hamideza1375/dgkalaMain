@@ -34,14 +34,14 @@ const SliderOffers = (p) => {
               data={p.offers}
               renderItem={({ item, index }) => (
                 <Column /* mh='auto' */ mh={6} minw={155} fg={1} h={260} col2={{ marginHorizontal: 3 }}>
-                  <CardItem item={item} spacePrice={spacePrice} offers w={170} onClick={() => { p.navigation.navigate('SingleItem', { id: item._id }) }} />
+                  <CardItem item={item} spacePrice={spacePrice} offers w={170} onClick={() => { p.navigation.navigate('SingleProduct', { id: item._id }) }} />
                 </Column>
               )}
             /> :
             <></>
           }
         </Column>
-        <Press fd='row' onClick={() => p.navigation.navigate('ChildOffers')} pos='absolute' b={10} l={10} z={2}><Py color='#fff' >نمایش بیشتر </Py><P mt={1} mr={2} color='#fff' >↩</P></Press>
+        <Press fd='row' onClick={() => p.navigation.navigate('ProductsOffers')} pos='absolute' b={10} l={10} z={2}><Py color='#fff' >نمایش بیشتر </Py><P mt={1} mr={2} color='#fff' >↩</P></Press>
       </Column>
     </>
   )

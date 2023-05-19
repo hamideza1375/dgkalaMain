@@ -47,7 +47,7 @@ const ProfileDrawer = (p) => {
         <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
           <Press onClick={() => p.navigation.navigate('BeforePayment', {profile:'true'})} ><Py color={pageName('BeforePayment')} >نمایش سفارشات فعال</Py></Press>
           <Press mt={10} onClick={() => p.navigation.navigate('ShowLastOrder')} ><Py color={pageName('ShowLastOrder')} >نمایش خرید های قبل</Py></Press>
-          <Press mt={10} onClick={() => p.navigation.navigate('SavedItems')} ><Py color={pageName('SavedItems')} >ذخیره ها</Py></Press>
+          <Press mt={10} onClick={() => p.navigation.navigate('SavedProducts')} ><Py color={pageName('SavedProducts')} >ذخیره ها</Py></Press>
         </Column>
         <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
           <Press onClick={() => p.navigation.navigate('Logout')} ><Py color={pageName('Logout')} >خروج از حساب کاربری</Py></Press>

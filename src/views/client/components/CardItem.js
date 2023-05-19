@@ -46,7 +46,7 @@ const CardItem = ({ onClick, item, spacePrice, h = 240, w , style, sh = { r: 6, 
       coulumn3={<Column mt={8} fd='row' jc='space-evenly' w={'100%'}>
         {item.offerTime?.exp > new Date().getTime() ?
           <Row>
-            <Pfa fs={15} >{spacePrice(parseInt(item.price - ((item.price / 100) * item.offerValue)))} تومان</Pfa>
+            <Pfa fs={16} >{spacePrice(parseInt(item.price - ((item.price / 100) * item.offerValue)))} تومان</Pfa>
             <Pfa fs={13} style={{ textDecorationLine: 'line-through', color: 'red' }} >{spacePrice(item.price)} ت </Pfa>
 
           </Row>

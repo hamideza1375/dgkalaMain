@@ -23,7 +23,7 @@ const Sellers = (p) => {
           btn2={'#1e1'}
           btn2onClick={() => { _sellerTable[0]?._id &&setSellerAvailable(_sellerTable[0]._id) }}
           btn3={'#09f'}
-          btn3onClick={() => { _sellerTable[0]?._id && p.navigation.navigate('TableChildItems', { title: _sellerTable[0].title, id: p.route.params.id, sellerId: _sellerTable[0]._id }) }}
+          btn3onClick={() => { _sellerTable[0]?._id && p.navigation.navigate('ProductsTable', { title: _sellerTable[0].title, id: p.route.params.id, sellerId: _sellerTable[0]._id }) }}
           btn2Opacity
           object={p.sellerTable}
           setobject={_setsellerTable}

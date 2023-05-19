@@ -5,7 +5,7 @@ import spacePrice from '../../other/utils/spacePrice'
 const HorizontalImageCard2 = () => {
   return (
     <Card alert
-      // imgClick={() => p.navigation.navigate('SingleItem', { id: p.item[0] })}
+      // imgClick={() => p.navigation.navigate('SingleProduct', { id: p.item[0] })}
       style={{ maxWidth: 550, width: '90%',height:245, marginRight: -3, marginBottom:55 }}
       dr='ltr'
       bgcolor='white'
@@ -13,7 +13,7 @@ const HorizontalImageCard2 = () => {
       imageStyle={{height:78,width:78}}
       headerRow={
         <Column minh='100%' h={25} ai='flex-start' >
-          <P /* onClick={() => p.navigation.navigate('SingleItem', { id: p.item[0] })} */ >title</P>
+          <P /* onClick={() => p.navigation.navigate('SingleProduct', { id: p.item[0] })} */ >title</P>
         </Column>}
       bodyRow={
         <Column minh='100%' >

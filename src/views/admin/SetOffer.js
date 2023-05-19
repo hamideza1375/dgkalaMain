@@ -2,7 +2,7 @@ import React from 'react'
 import {Column, Form} from '../../other/Components/Html';
 
 const SetOffer = (p) => {
-  p._admin.getSingleItem()
+  p._admin.getSingleProduct()
   const setOffer = () => p._admin.setOffer()
 
   return (
