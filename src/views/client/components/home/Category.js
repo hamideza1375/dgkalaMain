@@ -9,7 +9,7 @@ const Category = (p) => {
   const [category, dispatch] = useReducer(reducerGetCategory, []);
 
   useEffect(() => {
-    actionGetCategory(dispatch)
+    actionGetCategory(dispatch, "GETCATEGORY")
   }, [])
   
   return (

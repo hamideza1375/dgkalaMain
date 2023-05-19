@@ -1,15 +1,15 @@
 import { memo, useEffect, useReducer } from "react";
 import { Column, Py, Row, UserLengthChart } from "../../../other/Components/Html";
 import { reducerChart } from "../../../reducers/reducers";
-import { GetDataForChart } from "../../../actions/actions";
+import { actionGetDataForChart } from "../../../actions/actions";
 
 function Users7DeyForChart() {
   const [userLengtState, dispatchUserLength] = useReducer(reducerChart, [])
   const [user7DayState, dispatchUser7Day] = useReducer(reducerChart, [])
   useEffect(() => {
     setTimeout(() => {
-      GetDataForChart(dispatchUserLength, 'GETUSERLENGTH')
-      GetDataForChart(dispatchUser7Day, 'GETUSER7DAY')
+      actionGetDataForChart(dispatchUserLength, 'GETUSERLENGTH')
+      actionGetDataForChart(dispatchUser7Day, 'GETUSER7DAY')
     }, 500);
   }, [])
   return (

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { KeyboardAvoidingView, Pressable, View,  TextInput, Image, StyleSheet, ScrollView, Dimensions, Animated, Platform, FlatList } from 'react-native'
-import { Input, Button, CheckBox, Swiper, CheckBoxRadius, List, Column, Row, Py, Br, P, Scroll } from '../Html'
+import { KeyboardAvoidingView, Pressable, View, TextInput, Image, StyleSheet, ScrollView, Platform, FlatList } from 'react-native'
+import { Input, Button, CheckBox, CheckBoxRadius, List, Column, Row, Py, Br, P, Scroll } from '../Html'
 import yub from '../../utils/yub'
-import {localhost} from '../../utils/axios/axios'
+import { localhost } from '../../utils/axios/axios'
 import A_icon from 'react-native-vector-icons/dist/AntDesign';
 import M_icon from 'react-native-vector-icons/dist/MaterialIcons';
 const newObj = new Proxy({}, yub);
@@ -13,17 +13,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { context } from '../../../context/_context';
 
 let loginInterval = null
-
-// textContentType="oneTimeCode" and keyboardType="numeric"
-
-{/* <input
-  type="text"
-  name="token"
-  inputmode="numeric"
-  pattern="[0-9]"
-  autocomplete="one-time-code"
-/> */}
-
 
 let interval
 const Form = ({
@@ -61,7 +50,7 @@ const Form = ({
     postalCode, setpostalCode, plaque, setplaque, unit, setunit, address, setaddress, message, setmessage, code, setcode, captcha, setcaptcha,
     setremember, star1, setstar1, star2, setstar2, star3, setstar3, star4, setstar4, star5, setstar5, fiveStar, setfiveStar, refInput, rand, setRand,
 
-    input1, setinput1, input2, setinput2, input3, setinput3, input4, setinput4, input5, setinput5, input6, setinput6, input7, setinput7, input8, setinput8, input9, setinput9, 
+    input1, setinput1, input2, setinput2, input3, setinput3, input4, setinput4, input5, setinput5, input6, setinput6, input7, setinput7, input8, setinput8, input9, setinput9,
     input10, setinput10, input11, setinput11, input12, setinput12
     , sliderImage1, setsliderImage1, sliderImage2, setsliderImage2, sliderImage3, setsliderImage3, sliderImage4, setsliderImage4, sliderImage5, setsliderImage5, sliderImage6, setsliderImage6,
     image1, setimage1, image2, setimage2, image3, setimage3, image4, setimage4, offerTime, setofferTime, offerValue, setofferValue,
@@ -412,22 +401,22 @@ const Form = ({
 
 
   useFocusEffect(useCallback(() => {
-    for(let i in input8 ){
-      if(input8[i]?.value > 0 && input8[i]?.color === 'red' )  {setredNumber(input8[i]?.value); setred(true) }
-      if(input8[i]?.value > 0 && input8[i]?.color === 'blue' )  {setblueNumber(input8[i]?.value); setblue(true) }
-      if(input8[i]?.value > 0 && input8[i]?.color === 'green' )  {setgreenNumber(input8[i]?.value); setgreen(true) }
-      if(input8[i]?.value > 0 && input8[i]?.color === 'yellow' )  {setyellowNumber(input8[i]?.value); setyellow(true) }
-      if(input8[i]?.value > 0 && input8[i]?.color === 'silver' )  {setsilverNumber(input8[i]?.value); setsilver(true) }
-      if(input8[i]?.value > 0 && input8[i]?.color === 'gold' )  {setgoldNumber(input8[i]?.value); setgold(true) }
-      if(input8[i]?.value > 0 && input8[i]?.color === 'purple' )  {setpurpleNumber(input8[i]?.value); setpurple(true) }
-      if(input8[i]?.value > 0 && input8[i]?.color === 'brown' )  {setbrownNumber(input8[i]?.value); setbrown(true) }
-      if(input8[i]?.value > 0 && input8[i]?.color === 'black' )  {setblackNumber(input8[i]?.value); setblack(true) }
-      if(input8[i]?.value > 0 && input8[i]?.color === 'white' )  {setwhiteNumber(input8[i]?.value); setwhite(true) }
-      if(input8[i]?.value > 0 && input8[i]?.color === 'orange' )  {setorangeNumber(input8[i]?.value); setorange(true) }
-      }
+    for (let i in input8) {
+      if (input8[i]?.value > 0 && input8[i]?.color === 'red') { setredNumber(input8[i]?.value); setred(true) }
+      if (input8[i]?.value > 0 && input8[i]?.color === 'blue') { setblueNumber(input8[i]?.value); setblue(true) }
+      if (input8[i]?.value > 0 && input8[i]?.color === 'green') { setgreenNumber(input8[i]?.value); setgreen(true) }
+      if (input8[i]?.value > 0 && input8[i]?.color === 'yellow') { setyellowNumber(input8[i]?.value); setyellow(true) }
+      if (input8[i]?.value > 0 && input8[i]?.color === 'silver') { setsilverNumber(input8[i]?.value); setsilver(true) }
+      if (input8[i]?.value > 0 && input8[i]?.color === 'gold') { setgoldNumber(input8[i]?.value); setgold(true) }
+      if (input8[i]?.value > 0 && input8[i]?.color === 'purple') { setpurpleNumber(input8[i]?.value); setpurple(true) }
+      if (input8[i]?.value > 0 && input8[i]?.color === 'brown') { setbrownNumber(input8[i]?.value); setbrown(true) }
+      if (input8[i]?.value > 0 && input8[i]?.color === 'black') { setblackNumber(input8[i]?.value); setblack(true) }
+      if (input8[i]?.value > 0 && input8[i]?.color === 'white') { setwhiteNumber(input8[i]?.value); setwhite(true) }
+      if (input8[i]?.value > 0 && input8[i]?.color === 'orange') { setorangeNumber(input8[i]?.value); setorange(true) }
+    }
 
-    
-    return()=>{ 
+
+    return () => {
       setred(false)
       setblue(false)
       setgreen(false)
@@ -455,34 +444,34 @@ const Form = ({
   }, [input8]))
 
 
-  const [scrollEnabled, setscrollEnabled]=useState(true)
-  const [changeScroll, setchangeScroll]=useState(true)
+  const [scrollEnabled, setscrollEnabled] = useState(true)
+  const [changeScroll, setchangeScroll] = useState(true)
 
-const scrollCount = useRef(0)
+  const scrollCount = useRef(0)
 
   const setScroll = () => {
-    
-      scrollCount.current += 1
-      if (scrollCount.current === 2) { setchangeScroll(false)}
-      if (!changeScroll && scrollCount.current === 2) { setscrollEnabled(true)}
-      setTimeout(() => {
-        scrollCount.current = 0
-      }, 2000);
-    }
-  
+
+    scrollCount.current += 1
+    if (scrollCount.current === 2) { setchangeScroll(false) }
+    if (!changeScroll && scrollCount.current === 2) { setscrollEnabled(true) }
+    setTimeout(() => {
+      scrollCount.current = 0
+    }, 2000);
+  }
+
 
 
   return (
-    <ScrollView onMoveShouldSetResponder={setScroll} scrollEnabled={Platform.OS !== 'web' ? scrollEnabled : true } contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]} style={[{ backgroundColor: bgcolor, borderRadius: 3, marginTop: mt }, Platform.OS === 'web' ? webStyle : nativeStyle]} >
+    <ScrollView onMoveShouldSetResponder={setScroll} scrollEnabled={Platform.OS !== 'web' ? scrollEnabled : true} contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]} style={[{ backgroundColor: bgcolor, borderRadius: 3, marginTop: mt }, Platform.OS === 'web' ? webStyle : nativeStyle]} >
 
       <View style={[styles.viewContainer, { paddingTop: top }, style]} >
         <View style={[{ transform: [{ scaleY: sizeY }], padding: 10, paddingBottom: pb, paddingTop: pt }, flexDirection === 'row' && Platform.OS === 'web' ? { flexDirection: 'row', flexWrap: 'wrap' } : {}]}>
 
 
           {city &&
-            <View onStartShouldSetResponderCapture={()=>{setchangeScroll(true);setscrollEnabled(false)}} style={[{ borderWidth: (!stct && _stateCity) ? 1 : 0, borderColor: 'red', width: '100%', height: height / 1.7, maxHeight: 280, marginVertical: 10, marginHorizontal: 10, flexGrow: 1, flexDirection: 'row-reverse' }]}>
+            <View onStartShouldSetResponderCapture={() => { setchangeScroll(true); setscrollEnabled(false) }} style={[{ borderWidth: (!stct && _stateCity) ? 1 : 0, borderColor: 'red', width: '100%', height: height / 1.7, maxHeight: 280, marginVertical: 10, marginHorizontal: 10, flexGrow: 1, flexDirection: 'row-reverse' }]}>
 
-              <Column onMoveShouldSetResponder={()=>setscrollEnabled(true)} h='100%' jc='center' mt={2} ph={9} >
+              <Column onMoveShouldSetResponder={() => setscrollEnabled(true)} h='100%' jc='center' mt={2} ph={9} >
                 <Column ai='center' jc='center' >
                   <Py as='flex-start' ph={8} ta='center' >استان:</Py>
                   <Column ai='center' jc='center' bgcolor='#fff' border={[1, 'silver']} br={4} >
@@ -490,7 +479,7 @@ const scrollCount = useRef(0)
                   </Column>
                 </Column>
 
-                <Column onMoveShouldSetResponder={()=>setscrollEnabled(true)} ai='center' jc='center' mt={7} >
+                <Column onMoveShouldSetResponder={() => setscrollEnabled(true)} ai='center' jc='center' mt={7} >
                   <Py as='flex-start' ph={8} ta='center' >شهر:</Py>
                   <Column ai='center' jc='center' bgcolor='#fff' border={[1, 'silver']} br={4} >
                     <Input value={City} onChangeText={(text) => setCity(text)} fw='100' fs={11} ta='center' style={{ maxWidth: 90, height: 33 }} />
@@ -501,8 +490,8 @@ const scrollCount = useRef(0)
               <Column f={1}>
                 <Py ml={8} ph={8} ta='center' >انتخاب استان و شهر:</Py>
 
-                <FlatList 
-                ref={flatlistRef}
+                <FlatList
+                  ref={flatlistRef}
                   data={selectStatesValues}
                   renderItem={({ item, index }) => (
                     <Column m={3} >
@@ -529,7 +518,7 @@ const scrollCount = useRef(0)
 
           {(!stct && _stateCity) ? <Py pr={5} style={[styles.textinput, { color: 'red', fontSize: 10, fontWeight: '100' }]} >کادر بالا را تکمیل کنید</Py> : <></>}
 
-          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom:0 }} />
+          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom: 0 }} />
 
 
 
@@ -673,7 +662,7 @@ const scrollCount = useRef(0)
           }
 
 
-          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom:0 }} />
+          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom: 0 }} />
 
           {$address &&
             <Frm setscrollEnabled={setscrollEnabled}
@@ -714,7 +703,7 @@ const scrollCount = useRef(0)
           }
 
 
-          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom:0 }} />
+          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom: 0 }} />
 
 
 
@@ -754,7 +743,7 @@ const scrollCount = useRef(0)
           </Row>
 
 
-          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom:0 }} />
+          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom: 0 }} />
 
 
           {t &&
@@ -984,7 +973,7 @@ const scrollCount = useRef(0)
           }
 
 
-{in10 &&
+          {in10 &&
             <Frm setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="android"
@@ -1001,7 +990,7 @@ const scrollCount = useRef(0)
           }
 
 
-{in11 &&
+          {in11 &&
             <Frm setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="battery-std"
@@ -1019,7 +1008,7 @@ const scrollCount = useRef(0)
           }
 
 
-{in12 &&
+          {in12 &&
             <Frm setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="network-cell"
@@ -1070,7 +1059,7 @@ const scrollCount = useRef(0)
 
 
 
-          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom:0 }} />
+          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom: 0 }} />
 
           {fourImage &&
             <>
@@ -1123,133 +1112,133 @@ const scrollCount = useRef(0)
 
 
 
-        { in8 &&
-         <Scroll ccStyle={{ flexDirection: 'row', flexWrap: 'wrap' }} w='95%' mh={10} jc='center' as='center' fg={1}  bgcolor='#fff' border={[1, '#333']} mt={35} mb={-10} br={4} p={10} >
+          {in8 &&
+            <Scroll ccStyle={{ flexDirection: 'row', flexWrap: 'wrap' }} w='95%' mh={10} jc='center' as='center' fg={1} bgcolor='#fff' border={[1, '#333']} mt={35} mb={-10} br={4} p={10} >
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}}>
-              <CheckBox
-                br={50}
-                bgcolor='red'
-                border={[1, 'red']} ml={4} mb={3}
-                show={red} setshow={setred}
-              />
-             <TextInput keyboardType='numeric' value={redNumber} onChangeText={(text)=>{setredNumber(text); setred(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >قرمز</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }}>
+                <CheckBox
+                  br={50}
+                  bgcolor='red'
+                  border={[1, 'red']} ml={4} mb={3}
+                  show={red} setshow={setred}
+                />
+                <TextInput keyboardType='numeric' value={redNumber} onChangeText={(text) => { setredNumber(text); setred(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >قرمز</Py>
+              </View>
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}} >
-              <CheckBox
-                br={50}
-                bgcolor='blue'
-                border={[1, 'blue']} ml={4} mb={3}
-                show={blue} setshow={setblue}
-              />
-             <TextInput keyboardType='numeric' value={blueNumber} onChangeText={(text)=>{setblueNumber(text); setblue(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >آبی</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }} >
+                <CheckBox
+                  br={50}
+                  bgcolor='blue'
+                  border={[1, 'blue']} ml={4} mb={3}
+                  show={blue} setshow={setblue}
+                />
+                <TextInput keyboardType='numeric' value={blueNumber} onChangeText={(text) => { setblueNumber(text); setblue(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >آبی</Py>
+              </View>
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}} >
-              <CheckBox
-                br={50}
-                bgcolor='green'
-                border={[1, 'green']} ml={4} mb={3}
-                show={green} setshow={setgreen}
-              />
-             <TextInput keyboardType='numeric' value={greenNumber} onChangeText={(text)=>{setgreenNumber(text); setgreen(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >سبز</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }} >
+                <CheckBox
+                  br={50}
+                  bgcolor='green'
+                  border={[1, 'green']} ml={4} mb={3}
+                  show={green} setshow={setgreen}
+                />
+                <TextInput keyboardType='numeric' value={greenNumber} onChangeText={(text) => { setgreenNumber(text); setgreen(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >سبز</Py>
+              </View>
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}} >
-              <CheckBox
-                br={50}
-                bgcolor='yellow'
-                border={[1, 'yellow']} ml={4} mb={3}
-                show={yellow} setshow={setyellow}
-              />
-             <TextInput keyboardType='numeric' value={yellowNumber} onChangeText={(text)=>{setyellowNumber(text); setyellow(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >زرد</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }} >
+                <CheckBox
+                  br={50}
+                  bgcolor='yellow'
+                  border={[1, 'yellow']} ml={4} mb={3}
+                  show={yellow} setshow={setyellow}
+                />
+                <TextInput keyboardType='numeric' value={yellowNumber} onChangeText={(text) => { setyellowNumber(text); setyellow(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >زرد</Py>
+              </View>
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}} >
-              <CheckBox
-                br={50}
-                bgcolor='silver'
-                border={[1, 'silver']} ml={4} mb={3}
-                show={silver} setshow={setsilver}
-              />
-             <TextInput keyboardType='numeric' value={silverNumber} onChangeText={(text)=>{setsilverNumber(text); setsilver(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >نقره ای</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }} >
+                <CheckBox
+                  br={50}
+                  bgcolor='silver'
+                  border={[1, 'silver']} ml={4} mb={3}
+                  show={silver} setshow={setsilver}
+                />
+                <TextInput keyboardType='numeric' value={silverNumber} onChangeText={(text) => { setsilverNumber(text); setsilver(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >نقره ای</Py>
+              </View>
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}} >
-              <CheckBox
-                br={50}
-                bgcolor='gold'
-                border={[1, 'gold']} ml={4} mb={3}
-                show={gold} setshow={setgold}
-              />
-             <TextInput keyboardType='numeric' value={goldNumber} onChangeText={(text)=>{setgoldNumber(text); setgold(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >طلایی</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }} >
+                <CheckBox
+                  br={50}
+                  bgcolor='gold'
+                  border={[1, 'gold']} ml={4} mb={3}
+                  show={gold} setshow={setgold}
+                />
+                <TextInput keyboardType='numeric' value={goldNumber} onChangeText={(text) => { setgoldNumber(text); setgold(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >طلایی</Py>
+              </View>
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}} >
-              <CheckBox
-                br={50}
-                bgcolor='purple'
-                border={[1, 'purple']} ml={4} mb={3}
-                show={purple} setshow={setpurple}
-              />
-             <TextInput keyboardType='numeric' value={purpleNumber} onChangeText={(text)=>{setpurpleNumber(text); setpurple(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >بنفش</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }} >
+                <CheckBox
+                  br={50}
+                  bgcolor='purple'
+                  border={[1, 'purple']} ml={4} mb={3}
+                  show={purple} setshow={setpurple}
+                />
+                <TextInput keyboardType='numeric' value={purpleNumber} onChangeText={(text) => { setpurpleNumber(text); setpurple(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >بنفش</Py>
+              </View>
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}} >
-              <CheckBox
-                br={50}
-                bgcolor='brown'
-                border={[1, 'brown']} ml={4} mb={3}
-                show={brown} setshow={setbrown}
-              />
-             <TextInput keyboardType='numeric' value={brownNumber} onChangeText={(text)=>{setbrownNumber(text); setbrown(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >قهوه ای</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }} >
+                <CheckBox
+                  br={50}
+                  bgcolor='brown'
+                  border={[1, 'brown']} ml={4} mb={3}
+                  show={brown} setshow={setbrown}
+                />
+                <TextInput keyboardType='numeric' value={brownNumber} onChangeText={(text) => { setbrownNumber(text); setbrown(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >قهوه ای</Py>
+              </View>
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}} >
-              <CheckBox
-                br={50}
-                bgcolor='black'
-                border={[1, 'black']} ml={4} mb={3}
-                show={black} setshow={setblack}
-              />
-             <TextInput keyboardType='numeric' value={blackNumber} onChangeText={(text)=>{setblackNumber(text); setblack(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >سیاه</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }} >
+                <CheckBox
+                  br={50}
+                  bgcolor='black'
+                  border={[1, 'black']} ml={4} mb={3}
+                  show={black} setshow={setblack}
+                />
+                <TextInput keyboardType='numeric' value={blackNumber} onChangeText={(text) => { setblackNumber(text); setblack(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >سیاه</Py>
+              </View>
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}} >
-              <CheckBox
-                br={50}
-                bgcolor='#eaeaea'
-                border={[1, '#eaeaea']} ml={4} mb={3}
-                show={white} setshow={setwhite}
-              />
-             <TextInput keyboardType='numeric' value={whiteNumber} onChangeText={(text)=>{setwhiteNumber(text); setwhite(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >سفید</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }} >
+                <CheckBox
+                  br={50}
+                  bgcolor='#eaeaea'
+                  border={[1, '#eaeaea']} ml={4} mb={3}
+                  show={white} setshow={setwhite}
+                />
+                <TextInput keyboardType='numeric' value={whiteNumber} onChangeText={(text) => { setwhiteNumber(text); setwhite(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >سفید</Py>
+              </View>
 
-            <View style={{width:50, alignSelf:'center', alignItems:'center'}} >
-              <CheckBox
-                br={50}
-                bgcolor='orange'
-                border={[1, 'orange']} ml={4} mb={3}
-                show={orange} setshow={setorange}
-              />
-             <TextInput keyboardType='numeric' value={orangeNumber} onChangeText={(text)=>{setorangeNumber(text); setorange(true)}} style={{borderWidth:1, width: 30,height:30,padding:0, marginVertical:3, borderRadius:2, fontSize:13, textAlign:'center'}} />
-              <Py fs={9} fw='100' >نارنجی</Py>
-            </View>
+              <View style={{ width: 50, alignSelf: 'center', alignItems: 'center' }} >
+                <CheckBox
+                  br={50}
+                  bgcolor='orange'
+                  border={[1, 'orange']} ml={4} mb={3}
+                  show={orange} setshow={setorange}
+                />
+                <TextInput keyboardType='numeric' value={orangeNumber} onChangeText={(text) => { setorangeNumber(text); setorange(true) }} style={{ borderWidth: 1, width: 30, height: 30, padding: 0, marginVertical: 3, borderRadius: 2, fontSize: 13, textAlign: 'center' }} />
+                <Py fs={9} fw='100' >نارنجی</Py>
+              </View>
 
-          </Scroll>
+            </Scroll>
 
-}
+          }
 
 
 
@@ -1293,7 +1282,7 @@ const scrollCount = useRef(0)
 
 
 
-          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom:0 }} />
+          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom: 0 }} />
           {slider === true &&
             <>
               <InputImage
@@ -1365,7 +1354,7 @@ const scrollCount = useRef(0)
             </>
           }
 
-          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom:0 }} />
+          <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom: 0 }} />
 
           {offer &&
             <>
@@ -1406,7 +1395,7 @@ const scrollCount = useRef(0)
               <View style={{ marginVertical: 10 }} >
                 <View style={[styles.viewCheckbox, { flexGrow: .4, maxHeight: 20 }]}>
                   <CheckBox show={!checkText ? show : changeremember} setshow={!checkText ? setshow : setchangeremember} />
-                  <Py onPress={!checkText ? () => { navigation.navigate('Rules') } : () => { setchangeremember(!changeremember) }} style={{ marginLeft: 11, paddingRight:7, marginTop:2 }} >{checkText ? " " + checkText : " موافقت با قوانین "}</Py>
+                  <Py onPress={!checkText ? () => { navigation.navigate('Rules') } : () => { setchangeremember(!changeremember) }} style={{ marginLeft: 11, paddingRight: 7, marginTop: 2 }} >{checkText ? " " + checkText : " موافقت با قوانین "}</Py>
                 </View>
                 {_checkbox && show == false && <Py fs={11} style={{ color: 'red', alignSelf: 'flex-start' }} >پرکردن فیلد الزامی هست</Py>}
               </View>
@@ -1418,8 +1407,8 @@ const scrollCount = useRef(0)
               <KeyboardAvoidingView behavior={"height"} style={{ height: 50, minHeight: 50, marginVertical: 8, marginHorizontal: 10 }}>
                 <View style={[styles.viewCaptcha, { height: 28, alignItems: 'center' }]}>
 
-                  <View style={{width:112, height:2, marginTop:topRandom1, marginRight:topRandom2, backgroundColor:'#900', position:'absolute', zIndex:1000, transform:[{rotate:'-8deg'}]}} />
-                  <View style={{width:111, height:2, marginTop:topRandom2, marginRight:topRandom1, backgroundColor:'#009', position:'absolute', zIndex:1000, transform:[{rotate:'22deg'}]}} />
+                  <View style={{ width: 112, height: 2, marginTop: topRandom1, marginRight: topRandom2, backgroundColor: '#900', position: 'absolute', zIndex: 1000, transform: [{ rotate: '-8deg' }] }} />
+                  <View style={{ width: 111, height: 2, marginTop: topRandom2, marginRight: topRandom1, backgroundColor: '#009', position: 'absolute', zIndex: 1000, transform: [{ rotate: '22deg' }] }} />
 
                   <Image source={{ uri: `${localhost}/captcha.png/${rand}` }} style={styles.imageCaptcha} />
                   <M_icon name="refresh" color="#66bbff" size={22}
@@ -1436,7 +1425,7 @@ const scrollCount = useRef(0)
                     keyboardType="numeric"
                     maxLength={4}
                     value={captcha}
-                    placeholder="کد امنیتی" style={[styles.TextInput, { borderColor: '#666', fontFamily:'IRANSansWeb', fontSize:12 }, rand != captcha && _captcha && { borderColor: '#a22' }]}
+                    placeholder="کد امنیتی" style={[styles.TextInput, { borderColor: '#666', fontFamily: 'IRANSansWeb', fontSize: 12 }, rand != captcha && _captcha && { borderColor: '#a22' }]}
                     placeholderTextColor='silver'
                     onChangeText={text => setcaptcha(text)} />
                 </View>
@@ -1539,17 +1528,17 @@ const scrollCount = useRef(0)
 
                   setinput8(() => {
                     let colorArray = []
-                      if(red && redNumber > 0) {colorArray.push({color:'red', value:redNumber}) }
-                      if(blue && blueNumber > 0) {colorArray.push({color:'blue', value:blueNumber})}
-                      if(green && greenNumber > 0) {colorArray.push({color:'green', value:greenNumber})}
-                      if(yellow && yellowNumber > 0) {colorArray.push({color:'yellow', value:yellowNumber})}
-                      if(silver && silverNumber > 0) {colorArray.push({color:'silver', value:silverNumber})}
-                      if(gold && goldNumber > 0) {colorArray.push({color:'gold', value:goldNumber})}
-                      if(purple && purpleNumber > 0) {colorArray.push({color:'purple', value:purpleNumber})}
-                      if(brown && brownNumber > 0) {colorArray.push({color:'brown', value:brownNumber})}
-                      if(black && blackNumber > 0) {colorArray.push({color:'black', value:blackNumber})}
-                      if(white && whiteNumber > 0) {colorArray.push({color:'white', value:whiteNumber})}
-                      if(orange && orangeNumber > 0) {colorArray.push({color:'orange', value:orangeNumber})}
+                    if (red && redNumber > 0) { colorArray.push({ color: 'red', value: redNumber }) }
+                    if (blue && blueNumber > 0) { colorArray.push({ color: 'blue', value: blueNumber }) }
+                    if (green && greenNumber > 0) { colorArray.push({ color: 'green', value: greenNumber }) }
+                    if (yellow && yellowNumber > 0) { colorArray.push({ color: 'yellow', value: yellowNumber }) }
+                    if (silver && silverNumber > 0) { colorArray.push({ color: 'silver', value: silverNumber }) }
+                    if (gold && goldNumber > 0) { colorArray.push({ color: 'gold', value: goldNumber }) }
+                    if (purple && purpleNumber > 0) { colorArray.push({ color: 'purple', value: purpleNumber }) }
+                    if (brown && brownNumber > 0) { colorArray.push({ color: 'brown', value: brownNumber }) }
+                    if (black && blackNumber > 0) { colorArray.push({ color: 'black', value: blackNumber }) }
+                    if (white && whiteNumber > 0) { colorArray.push({ color: 'white', value: whiteNumber }) }
+                    if (orange && orangeNumber > 0) { colorArray.push({ color: 'orange', value: orangeNumber }) }
                     return colorArray
                   })
 
@@ -1610,15 +1599,14 @@ const scrollCount = useRef(0)
 
                 }}
                 onPress={async () => {
-                  if(in8 && !Object.values(input8).length) return toast.error('','یک رنگ انتخاب کنید')
-                  if ((stct) && (flm && eml && opsd, psd && cfpsd && plq && unt && adrs && pst && msg && cap && show && titl && prc && cod && img && vdo && inf && offTime && offValue && pon && poe && star1 && inpt1 && inpt2 && inpt3 && inpt4 && inpt5 && inpt6 && inpt7 && inpt9 && inpt10  && inpt11 && inpt12)) {
+                  if (in8 && !Object.values(input8).length) return toast.error('', 'یک رنگ انتخاب کنید')
+                  if ((stct) && (flm && eml && opsd, psd && cfpsd && plq && unt && adrs && pst && msg && cap && show && titl && prc && cod && img && vdo && inf && offTime && offValue && pon && poe && star1 && inpt1 && inpt2 && inpt3 && inpt4 && inpt5 && inpt6 && inpt7 && inpt9 && inpt10 && inpt11 && inpt12)) {
 
                     setdisableClick(true)
 
                     if (!timer) {
                       setshowActivity(true)
                       onClick()
-                      // setRand(parseInt(Math.random() * 9000 + 1000))
                     } else {
                       loginInterval && clearInterval(loginInterval)
                       let d = new Date()
@@ -1645,7 +1633,6 @@ const scrollCount = useRef(0)
                         })
                         setshowActivity(true)
                         onClick()
-                        // setRand(parseInt(Math.random() * 9000 + 1000))
                       }
                       else {
                         let loc = await AsyncStorage.getItem('getTime')
@@ -1721,7 +1708,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: '#ccc',
     alignSelf: 'center',
-    // marginVertical: 22,
     elevation: 2,
     shadowColor: "#000",
     shadowOpacity: .5,
@@ -1814,7 +1800,6 @@ const styles = StyleSheet.create({
   imageCaptcha: {
     borderRadius: 2,
     padding: 5,
-    // backgroundColor: "#412",
     width: 105,
     height: 38,
 
@@ -1837,14 +1822,6 @@ const styles = StyleSheet.create({
     width: 150,
     minHeight: 18,
     marginBottom: 8,
-    // elevation: 2,
-    // shadowColor: "#000",
-    // shadowOpacity: .2,
-    // shadowRadius: 3,
-    // shadowOffset: {
-    //   width: 1,
-    //   height: 2
-    // }
   },
 
   messageInput: {
@@ -1863,7 +1840,7 @@ const styles = StyleSheet.create({
     fontSize: 11
   },
   input: {
-    fontFamily:'IRANSansWeb',
+    fontFamily: 'IRANSansWeb',
     marginBottom: 5,
     minHeight: 50,
     minWidth: '90%',
