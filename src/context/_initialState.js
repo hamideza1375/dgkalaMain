@@ -84,9 +84,11 @@ export function initial() {
   const refMap = useRef(new Map())
   const [logoUrl] = useState(require('../other/assets/images/logo.png'))
   const refDropdown = useRef()
-
+  const [rootOpacity, setrootOpacity] = useState(1)
 
   this.all = {
+    // logoUrl: Platform.OS === 'web' ? '/logo.png' : require('../other/assets/images/logo.png'),
+    rootOpacity, setrootOpacity,
     refDropdown,
     refMap,
     socketIoSeen, setsocketIoSeen,
@@ -94,7 +96,6 @@ export function initial() {
     changeProduct, setchangeProduct,
     changePage, setchangePage,
     logoUrl:logoUrl,
-    // logoUrl: Platform.OS === 'web' ? '/logo.png' : require('../other/assets/images/logo.png'),
     postPrice, setpostPrice,
     latlng, setlatlng,
     state, setstate, City, setCity,

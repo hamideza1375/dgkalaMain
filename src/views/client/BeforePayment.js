@@ -28,12 +28,13 @@ const BeforePaymentFlatlist = (p) => {
     <Column fg={1} h='100%' border={[1, 'red']} >
       {Object.entries(p.productBasket).length ?
         <FlatList
+        pt={7}
           column1={1} column2={1} column3={1} column4={2}
           column5={2} column6={3}
           keyExtractor={(data, index) => index.toString()}
           data={Object.entries(p.productBasket)}
           renderItem={({ item, index }) => (
-            <Column /* mh='auto' */ mh={6} minw={155} fg={1} h={250} ai='center' col2={{ marginHorizontal: 3 }} col1={{ marginHorizontal: 3 }}>
+            <Column /* mh='auto' */ mv={5} mh={6} minw={155} fg={1} h={250} ai='center' col2={{ marginHorizontal: 3 }} col1={{ marginHorizontal: 3 }}>
               <BeforePaymentCatd item={item} {...p} />
             </Column>)}
         />
@@ -53,7 +54,7 @@ function BeforePaymentCatd(p) {
   return (
     <Card
       imgClick={() => p.navigation.navigate('SingleProduct', { id: p.item[0] })}
-      style={{ maxWidth: 550, width: '90%', marginRight: -3 }}
+      style={{ maxWidth: 550, width: '95%' }}
       dr='ltr'
       bgcolor='white'
       img={{uri:`${localhost}/upload/childItem/${p.item[1].imageUrl1}`}}
@@ -70,7 +71,7 @@ function BeforePaymentCatd(p) {
           <Row ai='center' w='100%' jc='space-between'>
             <Row ai='center' ><P fs={13} mv={4}>تعداد: </P><P fs={11} >{p.item[1].number} عدد</P></Row>
           </Row>
-          <Row btw={1} pt={9} mb={-7} ai='center' ><P fs={13} > جمع: </P><P mt={4} fs={11} color='#0c8'>{spacePrice(p.item[1].price * p.item[1].number)}</P></Row>
+          <Row btw={1} pt={9} mb={-7} ai='center' ><P fs={13} > جمع: </P><Pfa mt={4} fs={15} color='#0c8'>{spacePrice(p.item[1].price * p.item[1].number)} تومان</Pfa></Row>
         </Column>}
       footerRow={<Press onClick={() => { deleteProduct() }} mt='auto' ai='center' jc='flex-end' pb={15}><P color='#c00'>حذف</P></Press>}
     />

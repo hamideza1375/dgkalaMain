@@ -7,9 +7,9 @@ import { user } from './userState';
 function State() {
 
   const init = new initial()
-  let _user = new user()
-  let _client = new client()
-  let _admin = new admin()
+  const _user = new user()
+  const _client = new client()
+  const _admin = new admin()
 
 
   this.init = { ...init.all }

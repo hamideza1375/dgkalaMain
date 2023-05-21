@@ -8,14 +8,14 @@ const ImageDisplay = (p) => {
    imageMap = [p.singleItem.imageUrl1, p.singleItem.imageUrl2, p.singleItem.imageUrl3, p.singleItem.imageUrl4]
 
   _useEffect(() => {
-    p.$.id(imageMap[0])?.setNativeProps({ style: { borderWidth: 1, borderColor: 'aqua' } })
+    p.$?.id(imageMap[0])?.setNativeProps({ style: { borderWidth: 1, borderColor: 'aqua' } })
   }, [p.singleItem])
   
   _useEffect(() => {
     return()=>{
-    p.$.id(imageMap[1])?.setNativeProps({ style: { borderWidth: 0 } })
-    p.$.id(imageMap[2])?.setNativeProps({ style: { borderWidth: 0 } })
-    p.$.id(imageMap[3])?.setNativeProps({ style: { borderWidth: 0 } })
+    p.$?.id(imageMap[1])?.setNativeProps({ style: { borderWidth: 0 } })
+    p.$?.id(imageMap[2])?.setNativeProps({ style: { borderWidth: 0 } })
+    p.$?.id(imageMap[3])?.setNativeProps({ style: { borderWidth: 0 } })
     }
   }, [])
 
@@ -35,9 +35,9 @@ const ImageDisplay = (p) => {
           <Column fg={1} style={{ flex: 1, justifyContent: 'center', flexDirection: 'row' }}  >
             {imageMap.length && (imageMap).map((item, index) => (
               <Press f={1} key={index} id={item} onClick={() => {
-                imageMap.forEach(img => (item !== img && p.$.id(img).setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })))
-                p.$.id(item).setNativeProps({ style: { borderWidth: 1, borderColor: 'aqua' } });
-                p.$.id('img').$({ src: {uri:`${localhost}/upload/childItem/${item}`} })
+                imageMap.forEach(img => (item !== img && p.$?.id(img).setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })))
+                p.$?.id(item).setNativeProps({ style: { borderWidth: 1, borderColor: 'aqua' } });
+                p.$?.id('img').$({ src: {uri:`${localhost}/upload/childItem/${item}`} })
 
               }}   >
                {item? <Img f={1} m={4} br={4} style={{ resizeMode: 'stretch' }} src={{uri:`${localhost}/upload/childItem/${item}`}} /> : <></> }

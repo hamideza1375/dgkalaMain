@@ -116,7 +116,7 @@ export function clientController(p) {
 
   //! singleProduct
   this.getSingleProduct = () => {
-    _useEffect(() => {
+    useEffect(() => {
       (async () => {
         const { data } = await getSingleProduct(p.route.params?.id)
         if (!data?.value) return

@@ -132,7 +132,16 @@ const Mobile = () => {
             <ToastProvider {...allState.init} />
             {netInfo.isConnected && show ? <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button> : <></>}
             {/* <Column pos='absolute' z={-10} ><Tab.Navigator><Tab.Screen name="home" options={{ title: 'دیجی کالا' }} >{()=><Column/>}</Tab.Screen></Tab.Navigator></Column> */}
-            <Column pos='absolute' z={-10} ><Tab.Navigator><Tab.Screen name="digikala" options={{ title: 'دیجی کالا' }} {...clientChildren(Home, '1')} /></Tab.Navigator></Column>
+            {/* <Tab.Screen name="digikala" options={{ title: 'دیجی کالا' }} {...clientChildren(Home, '1')} /> */}
+            <Column pos='absolute' z={-10} >
+              <Tab.Navigator>
+                <Tab.Screen initialParams={{ key: 'home' }} name="Home" options={{ title: 'دیجی کالا', headerShown: false }} {...clientChildren(Home, '1')} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="Products" options={{ title: 'محصولات', headerShown: false }} {...clientChildren(Products, '1')} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="ProductsOffers" options={{ title: 'تخفیف ها', headerShown: false }} {...clientChildren(ProductsOffers, '1')} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="ProductsPopulars" options={{ title: 'محبوب ها', headerShown: false }} {...clientChildren(ProductsPopulars, '1')} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="SingleProduct" options={({ route }) => ({ title: route.params.title, headerShown: false })} {...clientChildren(SingleProduct, '1')} />
+              </Tab.Navigator>
+            </Column>
           </Column>
           :
           <Column f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
@@ -177,12 +186,12 @@ const Mobile = () => {
 
               <Tab.Group screenOptions={{ headerShown: false }}>
                 <Tab.Screen initialParams={{ key: 'admin' }} name="CategoryTable" options={{ title: 'پنل ادمین' }} {...adminChildren(Table)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="ProductsTable" options={({ route }) => ({ title: 'محصولات' })} {...adminChildren(ProductsTable)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditCategory" options={({ route }) => ({ title: `ویرایش`, headerShown: true })} {...adminChildren(EditCategory)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditProduct" options={({ route }) => ({ title: 'ویرایش محصول', headerShown: true })} {...adminChildren(EditProduct)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="SetOffer" options={({ route }) => ({ title: 'تنظیم تخفیف', headerShown: true })} {...adminChildren(SetOffer)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateCategory" options={({ route }) => ({ title: 'ساخت دسته ی اغذیه', headerShown: true })} {...adminChildren(CreateCategory)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateProduct" options={({ route }) => ({ title: `ساخت محصول جدید`, headerShown: true })} {...adminChildren(CreateProduct)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="ProductsTable" options={{ title: 'محصولات' }} {...adminChildren(ProductsTable)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditCategory" options={{ title: `ویرایش`, headerShown: true }} {...adminChildren(EditCategory)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditProduct" options={{ title: 'ویرایش محصول', headerShown: true }} {...adminChildren(EditProduct)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="SetOffer" options={{ title: 'تنظیم تخفیف', headerShown: true }} {...adminChildren(SetOffer)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateCategory" options={{ title: 'ساخت دسته ی اغذیه', headerShown: true }} {...adminChildren(CreateCategory)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateProduct" options={{ title: `ساخت محصول جدید`, headerShown: true }} {...adminChildren(CreateProduct)} />
                 <Tab.Screen initialParams={{ key: 'admin' }} name="AddAdmin" options={{ title: 'اضافه کردن ادمین' }} {...adminChildren(AddAdmin)} />
                 <Tab.Screen initialParams={{ key: 'admin' }} name="Notifee" options={{ title: 'ارسال نوتیفیکیشن' }} {...adminChildren(Notifee)} />
                 <Tab.Screen initialParams={{ key: 'admin' }} name="ChangeMainAdmin" options={{ title: 'تعویض ادمین اصلی' }} {...adminChildren(ChangeMainAdmin)} />

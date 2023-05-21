@@ -73,7 +73,7 @@ export function adminController(p) {
 
   //! Category
   this.createCategory = async () => {
-    const { data } = await createCategory( { title: p.title, imageUrl: p.imageUrl })
+    const { data } = await createCategory({ title: p.title, imageUrl: p.imageUrl })
     p.setcategory(category => {
       const _category = [...category]
       _category.push(data.value)
@@ -143,7 +143,7 @@ export function adminController(p) {
   }
   //! Category
 
-  
+
   //! ChildItem
   this.createProduct = async () => {
     const { data } = await createProduct(p.route.params.id, p.route.params.sellerId, {
@@ -152,12 +152,12 @@ export function adminController(p) {
       image3: p.image3,
       image4: p.image4,
       title: p.title,
-      price: Number(p.price), 
+      price: Number(p.price),
       info: p.info,
       ram: p.input3,
-      cpuCore: p.input4, 
+      cpuCore: p.input4,
       camera: p.input5,
-      storage: p.input6, 
+      storage: p.input6,
       warranty: p.input7,
       color: JSON.stringify(p.input8),
       display: p.input9,
@@ -193,7 +193,7 @@ export function adminController(p) {
         p.setchildItem(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
         p.setnewSearchArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
-      return()=>{p.setchildItem([]);p.setnewSearchArray([])}
+      return () => { p.setchildItem([]); p.setnewSearchArray([]) }
     }, [p.route.params.id, p.route.params.sellerId])
   }
 
@@ -209,16 +209,24 @@ export function adminController(p) {
       title: p.title,
       price: Number(p.price),
       info: p.info,
-      ram: p.input3, 
-      cpuCore: p.input4, 
-      camera: p.input5, 
-      storage: p.input6, 
-      warranty: p.input7, 
-      color: JSON.stringify(p.input8), 
+      ram: p.input3,
+      cpuCore: p.input4,
+      camera: p.input5,
+      storage: p.input6,
+      warranty: p.input7,
+      color: JSON.stringify(p.input8),
       display: p.input9,
       operatingSystem: p.input10,
       battery: p.input11,
       network: p.input12,
+    })
+    p.setchildItem(childItem => {
+      const child = [...childItem]
+      const findIndex = child.findIndex((c => c._id === p.route.params.id))
+      if (findIndex === -1) return childItem
+      child[findIndex].title = p.title
+      child[findIndex].price = p.price
+      return child
     })
     p.settitle('')
     p.setprice('')
