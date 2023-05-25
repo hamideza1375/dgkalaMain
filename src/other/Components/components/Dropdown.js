@@ -23,6 +23,7 @@ const Dropdown = ({ top, value, root, children }) => {
       }}
       onTouchEnd={(e) => {
         if (Platform.OS !== 'web') {
+          e.persist && e.persist();
           setrootOpacity(0)
           setshownDropdown(false); setTimeout(() => { setshownDropdown(true) }, 100); if (!root) {
             setclientX(((refDropdown.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1 : (e.nativeEvent.pageX));
@@ -41,6 +42,7 @@ const Dropdown = ({ top, value, root, children }) => {
             }, 200)
             setTimeout(() => { setrootOpacity(1) }, 200);
             setTimeout(() => { setchange(!change) }, 300);
+            setTimeout(() => { int.current && clearInterval(int.current) }, 3000);
             setdropdownValue(value);
           }
         }
@@ -66,6 +68,7 @@ const Dropdown = ({ top, value, root, children }) => {
             }, 200)
             setTimeout(() => { setrootOpacity(1) }, 200);
             setTimeout(() => { setchange(!change) }, 300);
+            setTimeout(() => { int.current && clearInterval(int.current) }, 3000);
             setdropdownValue(value);
           }
         }
