@@ -407,7 +407,6 @@ export function userController(p) {
       getAllProductForSeller().then(({ data }) => {
         p.setsellerItems(data.value)
         p.setnewSearchSellerArray(data.value)
-        console.log(data.value);
       })
     }, [])
   }

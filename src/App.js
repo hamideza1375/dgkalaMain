@@ -365,7 +365,7 @@ else {
         deferredInstall.prompt();
         deferredInstall.userChoice.then(async (choice) => {
           if (choice.outcome == 'accepted') { console.log('installed'); }
-          else { await AsyncStorage.setItem('cancelInstalled', String(Number(cancelInstalled) + 1)); console.log(12345); }
+          else { await AsyncStorage.setItem('cancelInstalled', String(Number(cancelInstalled) + 1)); }
         });
       }
     }

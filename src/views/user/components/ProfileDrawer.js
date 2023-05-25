@@ -26,7 +26,7 @@ const ProfileDrawer = (p) => {
           <></>
         }
 
-        {p.tokenValue.sellerId ? <Column onLayout={()=>{console.log(p.tokenValue.sellerId);}} as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
+        {p.tokenValue.sellerId ? <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
           <Press onClick={() => p.navigation.navigate('SellerPanel')} ><Py color={pageName('SellerPanel')} >پنل فروشندگان</Py></Press>
         </Column>
           :

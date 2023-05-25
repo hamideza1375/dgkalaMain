@@ -9,7 +9,6 @@ const Dropdown = ({ top, value, root, children }) => {
     <Pressable onLayout={(e) => {
     if(e)  ref.current = e.persist()
     }} onPressOut={(e) => {
-      console.log( (ref.current?.nativeEvent?.layout ) , (height));
       setshownDropdown(false); setTimeout(() => { setshownDropdown(true) }, 100); if (!root) {
         setclientX(((ref.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1: (e.nativeEvent.pageX));
         setclientY(!top?

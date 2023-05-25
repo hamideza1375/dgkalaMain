@@ -1,9 +1,7 @@
-import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, TextInput, Platform } from 'react-native';
 import _icon from 'react-native-vector-icons/dist/FontAwesome5';
 import Micon from 'react-native-vector-icons/dist/MaterialIcons';
-import setStyleRef from '../classToStyle/setClassToStyle';
-import { Press, Span } from '../Html';
 
 
 
@@ -19,19 +17,7 @@ export const Textarea = React.forwardRef((props, ref) => {
 
 export const Input = React.forwardRef((props, ref) => {
   const { dropdown, onFocus, $input, textId, fg, f, ta, dr = 'rtl', as, fs=13, p, pt, pb, pl, pr, pv, ph, h = 50, w, m, mt, mb, ml, mr, mv, mh, color = '#222', bgcolor = '#fff', border = [.3], pColor = '#999', } = props;
- 
 
-  useImperativeHandle(ref, () => {
-    console.log(ref);
-    return {
-      focus() {
-        alert(9)
-      },
-      // scrollIntoView() {
-      //   inputRef.current.scrollIntoView();
-      // },
-    };
-  }, []);
  
   return (
     <View

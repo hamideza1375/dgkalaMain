@@ -23,14 +23,14 @@ export const Layout = (p) => {
   let bottom
   bottom = p.tokenValue.fullname ?
     [
-      { mainTitle: 'Home', title: ((p._key == '1') ? p.route.name : 'Home'), icon: 'home' },
+      { mainTitle: 'Home', title: ((p._key === '1') ? (p.route.name) : ('Home')), icon: 'home' },
       { title: 'Profile', icon: 'user-alt' },
       { title: 'BeforePayment', icon: 'shopping-cart' },
       { title: 'SocketIo', icon: 'comments' },
     ]
     :
     bottom = [
-      { mainTitle: 'Home', title: ((p._key == '1') ? p.route.name : 'Home'), icon: 'home' },
+      { mainTitle: 'Home', title: ((p._key === '1') ? (p.route.name) : ('Home')), icon: 'home' },
       { title: 'Login', icon: 'user-alt' },
       { title: 'BeforePayment', icon: 'shopping-cart', navigate: 'Login', params: { payment: true } },
       { title: 'SocketIo', icon: 'comments' },
@@ -38,11 +38,10 @@ export const Layout = (p) => {
 
   return (
     <View style={{ flex: 1, paddingHorizontal: Platform.OS === 'ios' ? (p.width > p.height ? 40 : 0) : 0, paddingBottom: Platform.OS === 'ios' ? 10 : 0 }} >
-      <SafeAreaView style={{backgroundColor:"#d293"}} />
+      <SafeAreaView style={{ backgroundColor: "#d293" }} />
       <View style={{ flex: 1, overflow: 'hidden' }}>
         {
-          p.route.params?.active === 'no' && (
-          <TopTab name={p.route.name} group={topUser} >{p.children}</TopTab>)
+          p.route.params?.active === 'no' && ( <TopTab name={p.route.name} group={topUser} >{p.children}</TopTab> )
           ||
           p.route.name === 'Home' &&
           <HomePage {...p} bottom={bottom} />

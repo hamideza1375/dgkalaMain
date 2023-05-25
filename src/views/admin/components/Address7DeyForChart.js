@@ -6,7 +6,6 @@ import { actionGetDataForChart } from "../../../actions/actions";
 function Address7DeyForChart() {
   const [state, dispatch] = useReducer(reducerChart, [])
   useEffect(() => {
-    console.log(state);
     actionGetDataForChart(dispatch, 'GETADDRESS7DAY')
   }, [])
   return (

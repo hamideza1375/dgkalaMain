@@ -4,7 +4,7 @@ import { Input } from "./FormComponent";
 import Swiper from '../components/Swiper'
 import { Py } from "../Html";
 
-
+let int
 export default function ({setscrollEnabled, textId, $input, initialHeight, iconSize, w, plackTextTop, autoFocus = false, multiline = false, m_icon, iconPress, secureTextEntry, icon, textContentType, autoComplete = 'off', keyboardType = 'default', p, p2, newObj, iconLeft, iconRight, setBlur, getBlur, state, setState, styles, yub }) {
 
 
@@ -68,8 +68,8 @@ export default function ({setscrollEnabled, textId, $input, initialHeight, iconS
               iconSize={iconSize}
               m_icon={m_icon}
               placeholder={p2 ? p2 : p}
-              value={String(state)}
-              onChangeText={(text) => setState(text)}
+              defaultValue={String(state)}
+              onChangeText={(text) => {int && clearInterval(int) ;int = setTimeout(() => {setState(text)}, 700);}}
               onBlur={() => { setBlur(true); !yub && fadeOut() }}
               style={[styles.input, (multiline && !initialHeight) && { height: 115, minHeight: 115 }]}
               iconPress={iconPress}
