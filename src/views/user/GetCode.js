@@ -1,4 +1,5 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
+import { BackHandler, Platform } from 'react-native'
 import { Column, Form, P, Press } from '../../other/Components/Html'
 
 const GetCode = memo((p) => {
@@ -6,6 +7,19 @@ const GetCode = memo((p) => {
   p._user.loadPageTimer()
   const verifycode = () => p._user.verifycode()
   const getNewCode = () => p._user.getNewCode()
+
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      BackHandler.addEventListener("hardwareBackPress", () => {
+        if (p.route.name === 'GetCode') {
+          return true
+        }
+      })
+    }
+    return () => Platform.OS === 'android' && BackHandler.removeEventListener('hardwareBackPress')
+  })
+
 
   return (
     <Column f={1}>

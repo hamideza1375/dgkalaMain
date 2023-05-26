@@ -78,6 +78,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNetInfo } from "@react-native-community/netinfo";
 import { myhost } from "./other/utils/axios/axios";
 
+
 rtl()
 LogBox.ignoreAllLogs();
 
@@ -155,7 +156,7 @@ const Mobile = () => {
                 <Tab.Screen initialParams={{ key: 'client' }} name="ProductsOffers" options={{ title: 'تخفیف ها', headerShown: false }} {...clientChildren(ProductsOffers, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="ProductsPopulars" options={{ title: 'محبوب ها', headerShown: false }} {...clientChildren(ProductsPopulars, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SingleProduct" options={({ route }) => ({ title: route.params.title, headerShown: false })} {...clientChildren(SingleProduct, '1')} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="BeforePayment" options={{ title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ddd' }, headerTitleStyle: { color: 'black', fontFamily: Platform.OS === 'ios' ? 'B Baran' : 'B Baran Regular', fontSize: 17 } }} {...clientChildren(BeforePayment)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="BeforePayment" options={{ title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ee66aa' }, headerTitleStyle: { color: 'white', fontFamily: Platform.OS === 'ios' ? 'B Baran' : 'B Baran Regular', fontSize: 17 } }} {...clientChildren(BeforePayment)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="Map" options={{ title: 'نقشه', headerShown: true }} {...clientChildren(Map)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressForm" options={{ title: 'فرم خرید', headerShown: true }} {...clientChildren(SetAddressForm)} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressInTehran" options={{ title: 'فرم خرید', headerShown: true }} {...clientChildren(SetAddressInTehran)} />
@@ -165,6 +166,7 @@ const Mobile = () => {
               </Tab.Group>
 
               <Tab.Group screenOptions={{ headerShown: false }}>
+                <Tab.Screen initialParams={{ key: 'user' }} name="Profile" options={{ title: 'پنل کاربری', headerShown: false }} {...userChildren(Profile)} />
                 <Tab.Screen initialParams={{ key: 'user', active: 'no' }} name="Register" options={{ headerShown: true, title: 'ثبت نام' }} {...userChildren(Register)} />
                 <Tab.Screen initialParams={{ key: 'user', active: 'no' }} name="Login" options={{ headerShown: true, title: 'ورود' }} {...userChildren(Login)} />
                 <Tab.Screen initialParams={{ key: 'user', active: 'yess' }} name="ForgetPass" options={{ headerShown: true, title: 'فراموشی رمز عبور', headerTitleStyle: { color: 'black', fontFamily: 'IRANSansWeb', fontSize: 15 }, headerTitleAlign: 'center' }} {...userChildren(ForgetPass)} />
@@ -172,7 +174,6 @@ const Mobile = () => {
                 <Tab.Screen initialParams={{ key: 'user', active: 'yess' }} name="Rules" options={{ headerShown: true, title: 'قوانین', }} {...userChildren(Rules)} />
                 <Tab.Screen initialParams={{ key: 'user', active: 'yess' }} name="GetCode" options={{ title: 'کد ورود' }} {...userChildren(GetCode)} />
                 <Tab.Screen initialParams={{ key: 'user' }} name="Logout" options={{ title: 'خروج' }} {...userChildren(Logout)} />
-                <Tab.Screen initialParams={{ key: 'user' }} name="Profile" options={{ title: 'پنل کاربری', headerShown: false }} {...userChildren(Profile)} />
                 <Tab.Screen initialParams={{ key: 'user' }} name="SellerPanel" options={{ title: 'پنل فروشندگان', headerShown: false }} {...userChildren(SellerPanel)} />
                 <Tab.Screen initialParams={{ key: 'user' }} name="ResetSpecification" options={{ title: 'تغییر مشخصات', headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center' }} {...userChildren(ResetSpecification)} />
                 <Tab.Screen initialParams={{ key: 'user' }} name="SendProposal" options={{ headerTitleStyle: { color: '#222', fontFamily: 'IRANSansWeb', fontSize: 15 }, title: 'ارسال انتقادات و پیشنهادات' }} {...userChildren(SendProposal)} />
@@ -184,34 +185,37 @@ const Mobile = () => {
                 <Tab.Screen initialParams={{ key: 'user', view: 'true' }} name="FramePayment" options={{ title: 'پرداخت', headerShown: true }} {...userChildren(FramePayment)} />
               </Tab.Group>
 
-              <Tab.Group screenOptions={{ headerShown: false }}>
-                <Tab.Screen initialParams={{ key: 'admin' }} name="CategoryTable" options={{ title: 'پنل ادمین' }} {...adminChildren(Table)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="ProductsTable" options={{ title: 'محصولات' }} {...adminChildren(ProductsTable)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditCategory" options={{ title: `ویرایش`, headerShown: true }} {...adminChildren(EditCategory)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditProduct" options={{ title: 'ویرایش محصول', headerShown: true }} {...adminChildren(EditProduct)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="SetOffer" options={{ title: 'تنظیم تخفیف', headerShown: true }} {...adminChildren(SetOffer)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateCategory" options={{ title: 'ساخت دسته ی اغذیه', headerShown: true }} {...adminChildren(CreateCategory)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateProduct" options={{ title: `ساخت محصول جدید`, headerShown: true }} {...adminChildren(CreateProduct)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="AddAdmin" options={{ title: 'اضافه کردن ادمین' }} {...adminChildren(AddAdmin)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="Notifee" options={{ title: 'ارسال نوتیفیکیشن' }} {...adminChildren(Notifee)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="ChangeMainAdmin" options={{ title: 'تعویض ادمین اصلی' }} {...adminChildren(ChangeMainAdmin)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="DeleteAdmin" options={{ title: 'حذف ادمین' }} {...adminChildren(DeleteAdmin)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="AllPayment" options={{ title: 'خرید های موفق و غیر موفق' }} {...adminChildren(AllPayment)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="Address" options={{ title: 'نمایش خرید کاربران' }} {...adminChildren(Address)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="QuitsForSeller" options={{ title: 'پرداخت به فروشندگان' }} {...adminChildren(QuitsForSeller)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="ListUnAvailable" options={{ title: 'لیست غذا های ناموجود' }} {...adminChildren(ListUnAvailable)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="GetProposal" options={{ title: 'صندوق انتقادلت و پیشنهادات' }} {...adminChildren(GetProposal)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="PanelAdmin" options={{ title: 'پنل ادمین' }} {...adminChildren(PanelAdmin)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="Sellers" options={{ title: 'فروشندگان' }} {...adminChildren(Sellers)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="AddSeller" options={{ title: 'افزودن فروشنده ی جدید', headerShown: true }} {...adminChildren(AddSeller)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="CreateSlider" options={{ title: 'ساخت اسلایدر' }} {...adminChildren(CreateSlider)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="AdminTicketBox" options={{ title: 'صندوق تیکت ها' }} {...adminChildren(AdminTicketBox)} />
-                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="ShowLatLngOnMap" options={{ title: 'نمایش آدرس روی نقشه', headerShown: true }} {...adminChildren(ShowLatLngOnMap)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="SendPostPrice" options={{ title: 'تایین قیمت پست' }} {...adminChildren(SendPostPrice)} />
-              </Tab.Group>
+              <Tab.Screen name="admin" options={{ headerShown: false }}>{() =>
+                <Tab.Navigator screenOptions={{ headerShown: false }}>
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="PanelAdmin" options={{ title: 'پنل ادمین' }} {...adminChildren(PanelAdmin)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="CategoryTable" options={{ title: 'پنل ادمین' }} {...adminChildren(Table)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="ProductsTable" options={{ title: 'محصولات' }} {...adminChildren(ProductsTable)} />
+                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditCategory" options={{ title: `ویرایش`, headerShown: true }} {...adminChildren(EditCategory)} />
+                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditProduct" options={{ title: 'ویرایش محصول', headerShown: true }} {...adminChildren(EditProduct)} />
+                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="SetOffer" options={{ title: 'تنظیم تخفیف', headerShown: true }} {...adminChildren(SetOffer)} />
+                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateCategory" options={{ title: 'ساخت دسته ی اغذیه', headerShown: true }} {...adminChildren(CreateCategory)} />
+                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateProduct" options={{ title: `ساخت محصول جدید`, headerShown: true }} {...adminChildren(CreateProduct)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="AddAdmin" options={{ title: 'اضافه کردن ادمین' }} {...adminChildren(AddAdmin)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="Notifee" options={{ title: 'ارسال نوتیفیکیشن' }} {...adminChildren(Notifee)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="ChangeMainAdmin" options={{ title: 'تعویض ادمین اصلی' }} {...adminChildren(ChangeMainAdmin)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="DeleteAdmin" options={{ title: 'حذف ادمین' }} {...adminChildren(DeleteAdmin)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="AllPayment" options={{ title: 'خرید های موفق و غیر موفق' }} {...adminChildren(AllPayment)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="Address" options={{ title: 'نمایش خرید کاربران' }} {...adminChildren(Address)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="QuitsForSeller" options={{ title: 'پرداخت به فروشندگان' }} {...adminChildren(QuitsForSeller)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="ListUnAvailable" options={{ title: 'لیست غذا های ناموجود' }} {...adminChildren(ListUnAvailable)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="GetProposal" options={{ title: 'صندوق انتقادلت و پیشنهادات' }} {...adminChildren(GetProposal)} />
+                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="Sellers" options={{ title: 'فروشندگان' }} {...adminChildren(Sellers)} />
+                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="AddSeller" options={{ title: 'افزودن فروشنده ی جدید', headerShown: true }} {...adminChildren(AddSeller)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="CreateSlider" options={{ title: 'ساخت اسلایدر' }} {...adminChildren(CreateSlider)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="AdminTicketBox" options={{ title: 'صندوق تیکت ها' }} {...adminChildren(AdminTicketBox)} />
+                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="ShowLatLngOnMap" options={{ title: 'نمایش آدرس روی نقشه', headerShown: true }} {...adminChildren(ShowLatLngOnMap)} />
+                  <Tab.Screen initialParams={{ key: 'admin' }} name="SendPostPrice" options={{ title: 'تایین قیمت پست' }} {...adminChildren(SendPostPrice)} />
+                </Tab.Navigator>
+              }</Tab.Screen>
 
               <Tab.Screen name="NotFound" options={{ title: '404', headerShown: false }} {...clientChildren(_404)} />
             </Tab.Navigator >
+
           </Column>
         }
       </contextStates.Provider>
@@ -311,29 +315,34 @@ const linking = {
       Rules: '/rules',
       FramePayment: '/framepayment',
 
-      AdminTicketBox: '/adminTicketBox',
-      AddSeller: '/addSeller',
-      CreateSlider: '/createslider',
-      Sellers: '/sellers',
-      PanelAdmin: '/paneladmin',
-      AddAdmin: '/addadmin',
-      Notifee: '/notifee',
-      ChangeMainAdmin: '/changemainadmin',
-      DeleteAdmin: '/deleteadmin',
-      AllPayment: '/allpayment',
-      ListUnAvailable: '/listunavailable',
-      GetProposal: '/getproposal',
-      Address: '/address',
-      QuitsForSeller: '/quitsforseller',
-      CategoryTable: '/categorytable',
-      CreateCategory: '/createcategory',
-      ProductsTable: '/productstable',
-      EditCategory: '/editcategory',
-      EditProduct: '/editproduct',
-      SetOffer: '/setoffer',
-      CreateProduct: '/createproduct/:id',
-      ShowLatLngOnMap: '/showlatlngonmap',
-      SendPostPrice: '/sendpostprice',
+      admin: {
+        screens: {
+          PanelAdmin: '/paneladmin',
+          AdminTicketBox: '/adminTicketBox',
+          AddSeller: '/addSeller',
+          CreateSlider: '/createslider',
+          Sellers: '/sellers',
+          AddAdmin: '/addadmin',
+          Notifee: '/notifee',
+          ChangeMainAdmin: '/changemainadmin',
+          DeleteAdmin: '/deleteadmin',
+          AllPayment: '/allpayment',
+          ListUnAvailable: '/listunavailable',
+          GetProposal: '/getproposal',
+          Address: '/address',
+          QuitsForSeller: '/quitsforseller',
+          CategoryTable: '/categorytable',
+          CreateCategory: '/createcategory',
+          ProductsTable: '/productstable',
+          EditCategory: '/editcategory',
+          EditProduct: '/editproduct',
+          SetOffer: '/setoffer',
+          CreateProduct: '/createproduct/:id',
+          ShowLatLngOnMap: '/showlatlngonmap',
+          SendPostPrice: '/sendpostprice',
+        }
+      },
+
       NotFound: '*'
     },
   },
@@ -344,8 +353,9 @@ let deferredInstall
 let _App
 if (Platform.OS !== 'web') {
   _App = () => {
+    // const scheme = useColorScheme();
     return (
-      <NavigationContainer>
+      <NavigationContainer /* theme={scheme === 'dark' ? DarkTheme : DefaultTheme} */>
         <Mobile />
       </NavigationContainer>
     )
@@ -369,8 +379,9 @@ else {
         });
       }
     }
+    // const scheme = useColorScheme();
     return (
-      <NavigationContainer linking={linking} >
+      <NavigationContainer /* theme={scheme === 'dark' ? DarkTheme : DefaultTheme} */ linking={linking} >
         <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', height: '100%' }} >
           <Mobile />
         </Column>

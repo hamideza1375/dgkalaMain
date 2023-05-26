@@ -69,7 +69,7 @@ export default function ({setscrollEnabled, textId, $input, initialHeight, iconS
               m_icon={m_icon}
               placeholder={p2 ? p2 : p}
               defaultValue={String(state)}
-              onChangeText={(text) => {int && clearInterval(int) ;int = setTimeout(() => {setState(text)}, 400);}}
+              onChangeText={(text) => {int && clearInterval(int) ;int = setTimeout(() => {setState(text)}, 500);}}
               onBlur={() => { setBlur(true); !yub && fadeOut() }}
               style={[styles.input, (multiline && !initialHeight) && { height: 115, minHeight: 115 }]}
               iconPress={iconPress}

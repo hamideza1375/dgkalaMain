@@ -86,8 +86,14 @@ export function initial() {
   const refDropdown = useRef()
   const [rootOpacity, setrootOpacity] = useState(1)
 
+  const [homeNavigate, sethomeNavigate] = useState('')
+  const [homeParams, sethomeParams] = useState('')
+
+
   this.all = {
     // logoUrl: Platform.OS === 'web' ? '/logo.png' : require('../other/assets/images/logo.png'),
+    homeNavigate, sethomeNavigate,
+    homeParams, sethomeParams,
     rootOpacity, setrootOpacity,
     refDropdown,
     refMap,

@@ -10,7 +10,7 @@ import { localhost } from '../../other/utils/axios/axios'
 const BeforePayment = (p) => {
   return (
     <Column f={1} >
-      <Column f={1} style={{  paddingBottom: 71, backgroundColor: 'silver' }} >
+      <Column f={1} style={{  paddingBottom: 71, backgroundColor: '#fad1' }} >
         <BeforePaymentFlatlist {...p} />
       </Column>
       <Column maxh={70} >
@@ -25,7 +25,7 @@ export default BeforePayment
 
 const BeforePaymentFlatlist = (p) => {
   return (
-    <Column fg={1} h='100%' border={[1, 'red']} >
+    <Column fg={1} h='100%' border={[1, '#e5a']} >
       {Object.entries(p.productBasket).length ?
         <FlatList
         pt={7}
@@ -96,17 +96,17 @@ function BottomTabBeforePayment(p) {
       settotalPrice(0)
   }, [p.productBasket])
   return (
-    <Row style={{ position: 'absolute' }} b={0} w='100%' h={70} bgcolor='#ccc' z={3} ph={8} jc='space-between' fg={1} >
+    <Row style={{ position: 'absolute' }} b={0} w='100%' h={70} bgcolor='#fad1' z={3} ph={8} jc='space-between' fg={1} >
       <Column jc='center' ai='flex-start' >
-        <P fs={13} mt={3} mr={3} color='#222'>قیمت کل: </P>
-        <Pfa fs={16} mt={3} mr={8} color='#09b'>{spacePrice(totalPrice + p.postPrice)} تومان</Pfa>
+        <P fs={13} mt={3} mr={3} color='#4488ff'>قیمت کل: </P>
+        <Pfa fs={16} mt={3} mr={8} color='#5599ff'>{spacePrice(totalPrice + p.postPrice)} تومان</Pfa>
       </Column>
       <Column h='100%' fg={1} maxw={'50%'} mh={7} jc='center' >
-        <Button onClick={() => Object.values(p.productBasket).length ? p.navigation.navigate('SetAddressForm') : p.toast.warning('خطا', 'هنوز محصولی انتخاب نکرده اید')} >پرداخت</Button>
+        <Button bgcolor='#5599ffcc' onClick={() => Object.values(p.productBasket).length ? p.navigation.navigate('SetAddressForm') : p.toast.warning('خطا', 'هنوز محصولی انتخاب نکرده اید')} >پرداخت</Button>
       </Column>
       {p.navigation.canGoBack() && !p.route.params.profile ? <Press onClick={() => { p.navigation.goBack() }} jc='center' ai='center' w={70} h={60} as='center' sh={{ r: 5, o: .4 }} br={3} p={3} bgcolor='#eee'>
-        <Icon style={{ marginTop: 1 }} name='cart-plus' size={22} />
-        <Py fs={11} mt={5} ta={'center'} color='#09b' >ادامه ی خرید</Py>
+        <Icon style={{ marginTop: 1 }} name='cart-plus' color='#5599ff' size={22} />
+        <Py fs={11} mt={5} ta={'center'} color='#5599ffcc' >ادامه ی خرید</Py>
       </Press>
         :
         <></>

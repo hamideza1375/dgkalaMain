@@ -468,8 +468,8 @@ export function clientController(p) {
             return true
           }
         })
-        return () => Platform.OS === 'android' && BackHandler.removeEventListener('hardwareBackPress')
       }
+      return () => Platform.OS === 'android' && BackHandler.removeEventListener('hardwareBackPress')
     }, [])
   }
 
