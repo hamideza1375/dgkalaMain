@@ -21,8 +21,7 @@ export const Layout = (p) => {
 
 
   useFocusEffect(useCallback(() => {
-    p.sethomeNavigate()
-    p.sethomeParams()
+    if (p._key === '1') { p.sethomeNavigate(); p.sethomeParams() }
     return () => {
       if (p._key === '1') { p.sethomeNavigate(p.route.name); p.sethomeParams(p.route.params) }
     }

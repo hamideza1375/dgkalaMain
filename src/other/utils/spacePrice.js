@@ -55,7 +55,7 @@
 
 
 
-const spacePrice = (inputPrice='',comma='.') => {
+const spacePrice = (inputPrice='',comma=',') => {
   let newNumber = (inputPrice).toString() ? (inputPrice).toString().replace(/\B(?=(\d{3})+(?!\d))/g, comma) : inputPrice
   return newNumber
 }
