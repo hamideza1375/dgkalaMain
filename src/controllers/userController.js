@@ -94,7 +94,7 @@ export function userController(p) {
     p.setcaptcha('')
     this.deleteTimerThreeMinut()
     if (p.route.params?.payment) p.navigation.replace('BeforePayment')
-    else p.navigation.replace('PanelAdmin')
+    else p.navigation.replace('admin')
   }
   // ! login
 

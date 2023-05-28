@@ -14,9 +14,13 @@ export function adminController(p) {
       _seller.push(data.value)
       return _seller
     })
+
+    p.$input?.id('businessInput')?.$({ text: '' })
+    p.$input?.id('phoneInput')?.$({ text: '' })
+
     p.setinput2('')
     p.setphone('')
-    p.navigation.goBack()
+    // p.navigation.goBack()
   }
 
 
@@ -79,6 +83,7 @@ export function adminController(p) {
       _category.push(data.value)
       return _category
     })
+    p.$input?.id('titleInput')?.$({ text: '' })
     p.settitle('')
     p.setimageUrl({})
   }
@@ -166,6 +171,18 @@ export function adminController(p) {
       network: p.input12,
     })
     p.setchildItem(childItem => childItem.concat(data.value))
+    p.$input?.id('titleInput')?.$({ text: '' })
+    p.$input?.id('priceInput')?.$({ text: '' })
+    p.$input?.id('ramInput')?.$({ text: '' })
+    p.$input?.id('cpuCoreInput')?.$({ text: '' })
+    p.$input?.id('cameraInput')?.$({ text: '' })
+    p.$input?.id('storageInput')?.$({ text: '' })
+    p.$input?.id('warantyInput')?.$({ text: '' })
+    p.$input?.id('displayInput')?.$({ text: '' })
+    p.$input?.id('systemInput')?.$({ text: '' })
+    p.$input?.id('batryInput')?.$({ text: '' })
+    p.$input?.id('networkInput')?.$({ text: '' })
+    p.$input?.id('infoInput')?.$({ text: '' })
     p.settitle('')
     p.setprice('')
     p.setimage1({})

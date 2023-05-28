@@ -69,9 +69,9 @@ export const Layout = (p) => {
           p.route.name === 'BeforePayment' &&
           <BeforePaymentPage {...p} bottom={bottom} />
           ||
-          p.route.name === 'SocketIo' &&
-          <SocketIoPage {...p} bottom={bottom} />
-          ||
+          // p.route.name === 'SocketIo' &&
+          // <SocketIoPage {...p} bottom={bottom} />
+          // ||
           p.route.name === 'ProductsTable' &&
           <ProductsTablePage {...p} />
           ||

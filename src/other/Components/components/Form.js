@@ -525,7 +525,10 @@ if(city){
 
 
           {f &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='fullnameInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               plackTextTop={plackTextTop}
               textContentType={autoComplete ? "username" : 'none'}
               autoComplete={autoComplete ? "username" : 'off'}
@@ -543,7 +546,10 @@ if(city){
           }
 
           {e &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='emailInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               plackTextTop={plackTextTop}
               textContentType={autoComplete ? "emailAddress" : 'none'}
               autoComplete={autoComplete ? "email" : 'off'}
@@ -563,7 +569,10 @@ if(city){
           }
 
           {ph &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='phoneInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               plackTextTop={plackTextTop}
               textContentType={autoComplete ? "telephoneNumber" : 'none'}
               autoComplete={autoComplete ? "tel" : 'off'}
@@ -584,7 +593,10 @@ if(city){
 
 
           {phore &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='phoneOrEmailInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               plackTextTop={plackTextTop}
               icon="phone"
               keyboardType="email-address"
@@ -602,7 +614,10 @@ if(city){
           }
 
           {op &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='oldPasswordInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               plackTextTop={plackTextTop}
               textContentType={'none'}
               autoComplete={'off'}
@@ -621,13 +636,16 @@ if(city){
           }
 
           {p &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='passwordInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               plackTextTop={plackTextTop}
               textContentType={autoComplete ? "password" : 'none'}
               autoComplete={autoComplete ? "password" : 'off'}
               icon={!secure ? "eye" : "eye-slash"}
               p="رمز عبور"
-              p2="رمز عبور جدید"
+              p2={op?"رمز عبور جدید":'رمز عبور'}
               iconLeft={pIconLeft}
               iconRight={pIconRight}
               state={password}
@@ -643,7 +661,10 @@ if(city){
           }
 
           {cp &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='confirmPasswordInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               plackTextTop={plackTextTop}
               textContentType={autoComplete ? "password" : 'none'}
               autoComplete={autoComplete ? "password" : 'off'}
@@ -667,7 +688,10 @@ if(city){
           <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom: 0 }} />
 
           {$address &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='addressInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               initialHeight
               multiline
               plackTextTop={plackTextTop}
@@ -687,7 +711,10 @@ if(city){
 
 
           {postal &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='postalCodeInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               plackTextTop={plackTextTop}
               textContentType="postalCode"
               autoComplete="postal-code"
@@ -711,7 +738,10 @@ if(city){
 
           <Row w='100%' jc='space-around' >
             {$plaque &&
-              <Frm setscrollEnabled={setscrollEnabled}
+              <Frm
+              textId='plaqueInput'
+            $input={$input}
+              setscrollEnabled={setscrollEnabled}
                 plackTextTop={plackTextTop}
                 p="پلاک"
                 state={plaque}
@@ -728,7 +758,10 @@ if(city){
 
 
             {$unit &&
-              <Frm setscrollEnabled={setscrollEnabled}
+              <Frm
+              textId='unitInput'
+            $input={$input}
+              setscrollEnabled={setscrollEnabled}
                 plackTextTop={plackTextTop}
                 p="واحد"
                 state={unit}
@@ -749,7 +782,10 @@ if(city){
 
 
           {t &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='titleInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               plackTextTop={plackTextTop}
               m_icon="title"
               p="عنوان "
@@ -766,7 +802,10 @@ if(city){
           }
 
           {pr &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='priceInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               plackTextTop={plackTextTop}
               icon="dollar-sign"
               p=" قیمت "
@@ -811,7 +850,10 @@ if(city){
 
 
           {in1 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='newAdminPhoneInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               textContentType="telephoneNumber"
               autoComplete="off"
               icon="phone"
@@ -830,7 +872,10 @@ if(city){
 
 
           {in2 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='businessInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="business-center"
               plackTextTop={plackTextTop}
@@ -847,7 +892,10 @@ if(city){
 
 
           {in3 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='ramInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               icon="memory"
               iconSize={17}
@@ -866,7 +914,10 @@ if(city){
 
 
           {in4 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='cpuCoreInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="memory"
               plackTextTop={plackTextTop}
@@ -884,7 +935,10 @@ if(city){
 
 
           {in5 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='cameraInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               icon="camera"
               iconSize={17}
@@ -903,7 +957,10 @@ if(city){
 
 
           {in6 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='storageInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               icon="hdd"
               iconSize={17}
@@ -922,7 +979,10 @@ if(city){
 
 
           {in7 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='warantyInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               icon="award"
               plackTextTop={plackTextTop}
@@ -958,7 +1018,10 @@ if(city){
 
 
           {in9 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='displayInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="fit-screen"
               plackTextTop={plackTextTop}
@@ -976,7 +1039,10 @@ if(city){
 
 
           {in10 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='systemInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="android"
               plackTextTop={plackTextTop}
@@ -993,7 +1059,10 @@ if(city){
 
 
           {in11 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='batryInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="battery-std"
               plackTextTop={plackTextTop}
@@ -1011,7 +1080,10 @@ if(city){
 
 
           {in12 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='networkInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="network-cell"
               plackTextTop={plackTextTop}
@@ -1245,7 +1317,10 @@ if(city){
 
 
           {i &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='infoInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               w='100%'
               plackTextTop={plackTextTop}
               multiline
@@ -1264,7 +1339,10 @@ if(city){
           }
 
           {m &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm
+            textId='messageInput'
+            $input={$input}
+            setscrollEnabled={setscrollEnabled}
               w='100%'
               plackTextTop={plackTextTop}
               p="پیام"
@@ -1527,7 +1605,6 @@ if(city){
               {btn && <Button
                 disable={disableClick}
                 onPressIn={() => {
-
                   setinput8(() => {
                     let colorArray = []
                     if (red && redNumber > 0) { colorArray.push({ color: 'red', value: redNumber }) }
