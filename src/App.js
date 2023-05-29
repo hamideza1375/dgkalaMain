@@ -133,7 +133,6 @@ const Mobile = () => {
             <ToastProvider {...allState.init} />
             {netInfo.isConnected && show ? <Button outline onClick={() => { reload() }} >بارگذاری مجدد</Button> : <></>}
             {/* <Column pos='absolute' z={-10} ><Tab.Navigator><Tab.Screen name="home" options={{ title: 'دیجی کالا' }} >{()=><Column/>}</Tab.Screen></Tab.Navigator></Column> */}
-            {/* <Tab.Screen name="digikala" options={{ title: 'دیجی کالا' }} {...clientChildren(Home, '1')} /> */}
             <Column pos='absolute' z={-10} >
               <Tab.Navigator>
                 <Tab.Screen initialParams={{ key: 'home' }} name="Home" options={{ title: 'دیجی کالا', headerShown: false }} {...clientChildren(Home, '1')} />

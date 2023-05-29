@@ -47,7 +47,7 @@ export function userController(p) {
     await getCodeForRegister({ fullname: p.fullname, phoneOrEmail: p.phoneOrEmail, password: p.password })
     this.deleteTimerThreeMinut()
     timerThreeMinut(p.settwoMinut,() => { })
-    p.navigation.navigate('GetCode', { register: 'true' })
+    p.navigation.replace('GetCode', { register: 'true' })
   }
 
 
@@ -67,7 +67,7 @@ export function userController(p) {
     if (!data?.value) {
       this.deleteTimerThreeMinut()
       timerThreeMinut(p.settwoMinut,() => { })
-      p.navigation.navigate('GetCode', { login: 'true' })
+      p.navigation.replace('GetCode', { login: 'true' })
     }
     else {
       await AsyncStorage.setItem('token', data.value)
@@ -77,8 +77,8 @@ export function userController(p) {
       p.setphoneOrEmail('')
       p.setpassword('')
       p.setcaptcha('')
-      if (p.route.params?.payment) p.navigation.replace('BeforePayment')
-      else p.navigation.replace('Profile')
+      if (p.route.params?.payment) p.navigation.push('BeforePayment')
+      else p.navigation.push('Profile')
     }
   }
 
@@ -93,8 +93,8 @@ export function userController(p) {
     p.setpassword('')
     p.setcaptcha('')
     this.deleteTimerThreeMinut()
-    if (p.route.params?.payment) p.navigation.replace('BeforePayment')
-    else p.navigation.replace('admin')
+    if (p.route.params?.payment) p.navigation.push('BeforePayment')
+    else p.navigation.push('admin')
   }
   // ! login
 
@@ -105,7 +105,7 @@ export function userController(p) {
     this.deleteTimerThreeMinut()
     timerThreeMinut(p.settwoMinut,() => { })
     p.setphoneOrEmail('')
-    p.navigation.navigate('GetCode', { forgetPass: 'true', newCode: 'true' })
+    p.navigation.replace('GetCode', { forgetPass: 'true', newCode: 'true' })
   }
 
 
@@ -167,7 +167,7 @@ export function userController(p) {
     p.setphoneOrEmail('')
     p.setpassword('')
     p.setoldPassword('')
-    p.navigation.navigate('GetCode', { resetSpecification: 'true', newCode: 'true' })
+    p.navigation.replace('GetCode', { resetSpecification: 'true', newCode: 'true' })
   }
 
 
@@ -180,7 +180,8 @@ export function userController(p) {
     p.settokenValue(user);
     this.deleteTimerThreeMinut()
     p.setcode('')
-    p.navigation.replace('Profile', {active:'yess'})
+    p.navigation.push('Profile')
+    // p.navigation.push('Profile', {active:'yess'})
   }
   //! changeSpecification
 

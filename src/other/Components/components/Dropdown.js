@@ -6,6 +6,7 @@ import { Platform } from "react-native";
 const Dropdown = ({ top, value, root, children }) => {
   const { rootOpacity, setrootOpacity, refDropdown, setdropdownValue, setclientX, setclientY, clientY, clientX, shownDropdown, setshownDropdown, width, height } = context()
   const int = useRef()
+  const int2 = useRef()
   const [change, setchange] = useState(false)
 
   useEffect(() => {
@@ -24,6 +25,8 @@ const Dropdown = ({ top, value, root, children }) => {
       onTouchEnd={(e) => {
         if (Platform.OS !== 'web') {
           e.persist && e.persist();
+          int.current && clearInterval(int.current)
+          int2.current && clearInterval(int.current)
           setrootOpacity(0)
           setshownDropdown(false); setTimeout(() => { setshownDropdown(true) }, 100); if (!root) {
             setclientX(((refDropdown.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1 : (e.nativeEvent.pageX));
@@ -40,6 +43,16 @@ const Dropdown = ({ top, value, root, children }) => {
                 ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1 : (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
               );
             }, 200)
+
+            int2.current = setTimeout(() => {
+              setclientX(((refDropdown.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1 : (e.nativeEvent.pageX));
+              setclientY(!top ?
+                ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1 : (e.nativeEvent.pageY)
+                :
+                ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1 : (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
+              );
+            }, 700)
+
             setTimeout(() => { setrootOpacity(1) }, 200);
             setTimeout(() => { setchange(!change) }, 300);
             setTimeout(() => { int.current && clearInterval(int.current) }, 3000);
@@ -50,6 +63,8 @@ const Dropdown = ({ top, value, root, children }) => {
 
       onPressOut={(e) => {
         if (Platform.OS === 'web') {
+          int.current && clearInterval(int.current)
+          int2.current && clearInterval(int.current)
           setrootOpacity(0)
           setshownDropdown(false); setTimeout(() => { setshownDropdown(true) }, 100); if (!root) {
             setclientX(((refDropdown.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1 : (e.nativeEvent.pageX));
@@ -66,6 +81,16 @@ const Dropdown = ({ top, value, root, children }) => {
                 ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1 : (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
               );
             }, 200)
+
+            int2.current = setTimeout(() => {
+              setclientX(((refDropdown.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1 : (e.nativeEvent.pageX));
+              setclientY(!top ?
+                ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1 : (e.nativeEvent.pageY)
+                :
+                ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1 : (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
+              );
+            }, 700)
+
             setTimeout(() => { setrootOpacity(1) }, 200);
             setTimeout(() => { setchange(!change) }, 300);
             setTimeout(() => { int.current && clearInterval(int.current) }, 3000);
