@@ -1,31 +1,31 @@
 const version = 6;
 const preCacheName = `static-${version}`;
 const preCache = [
-  '/',
-  '/home',
-  '/childpopulars?key=client',
-  '/beforepayment?key=client',
-  '/profile?key=user',
-  '/css/font.css',
+  // '/',
+  // '/home',
+  // '/childpopulars?key=client',
+  // '/beforepayment?key=client',
+  // '/profile?key=user',
+  // '/css/font.css',
 
-  '/fonts/AntDesign.ttf',
-  '/fonts/B Baran Regular.ttf',
-  '/fonts/FontAwesome5_Brands.ttf',
-  '/fonts/FontAwesome5_Regular.ttf',
-  '/fonts/FontAwesome5_Solid.ttf',
-  '/fonts/IRANSansWeb_Bold.ttf',
-  '/fonts/IRANSansWeb_Light.ttf',
-  '/fonts/IRANSansWeb.ttf',
-  '/fonts/MaterialIcons.ttf',
-  '/fonts/Yekan Bakh Regular.ttf',
+  // '/fonts/AntDesign.ttf',
+  // '/fonts/B Baran Regular.ttf',
+  // '/fonts/FontAwesome5_Brands.ttf',
+  // '/fonts/FontAwesome5_Regular.ttf',
+  // '/fonts/FontAwesome5_Solid.ttf',
+  // '/fonts/IRANSansWeb_Bold.ttf',
+  // '/fonts/IRANSansWeb_Light.ttf',
+  // '/fonts/IRANSansWeb.ttf',
+  // '/fonts/MaterialIcons.ttf',
+  // '/fonts/Yekan Bakh Regular.ttf',
 
-  "/manifest.json",
-  "/app.js",
+  // "/manifest.json",
+  // "/app.js",
 
-  '/logo.png',
-  '/64x64.png',
-  '/192x192.png',
-  '/512x512.png',
+  // '/logo.png',
+  // '/64x64.png',
+  // '/192x192.png',
+  // '/512x512.png',
 
 ];
 

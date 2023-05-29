@@ -4,8 +4,9 @@ import { Input } from "./FormComponent";
 import Swiper from '../components/Swiper'
 import { Py } from "../Html";
 
-let int
-export default function ({setscrollEnabled, textId, $input, initialHeight, iconSize, w, plackTextTop, autoFocus = false, multiline = false, m_icon, iconPress, secureTextEntry, icon, textContentType, autoComplete = 'off', keyboardType = 'default', p, p2, newObj, iconLeft, iconRight, setBlur, getBlur, state, setState, styles, yub }) {
+let int,
+  lastInterval = false
+export default function ({ setscrollEnabled, textId, $input, initialHeight, iconSize, w, plackTextTop, autoFocus = false, multiline = false, m_icon, iconPress, secureTextEntry, icon, textContentType, autoComplete = 'off', keyboardType = 'default', p, p2, newObj, iconLeft, iconRight, setBlur, getBlur, state, setState, styles, yub }) {
 
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -45,8 +46,8 @@ export default function ({setscrollEnabled, textId, $input, initialHeight, iconS
 
 
   return (
-    <KeyboardAvoidingView onStartShouldSetResponder={()=>setscrollEnabled(true)} onStartShouldSetResponderCapture={()=>setscrollEnabled(true)} behavior={"height"} style={[{ height: 70, minHeight: 70, marginVertical: 10, marginHorizontal: 10, flexGrow: 1, maxWidth: w, }, w === '100%' && { minWidth: '92%' }, (multiline && !initialHeight) && { height: 140, minHeight: 140, marginTop: 12 }]}>
-      <Animated.View onStartShouldSetResponder={()=>setscrollEnabled(true)} onStartShouldSetResponderCapture={()=>setscrollEnabled(true)} style={[styles.viewInput, { minHeight: 90 }, (multiline && !initialHeight) && { height: 120, minHeight: 120 }, { marginBottom: 5 }]} >
+    <KeyboardAvoidingView onStartShouldSetResponder={() => setscrollEnabled(true)} onStartShouldSetResponderCapture={() => setscrollEnabled(true)} behavior={"height"} style={[{ height: 70, minHeight: 70, marginVertical: 10, marginHorizontal: 10, flexGrow: 1, maxWidth: w, }, w === '100%' && { minWidth: '92%' }, (multiline && !initialHeight) && { height: 140, minHeight: 140, marginTop: 12 }]}>
+      <Animated.View onStartShouldSetResponder={() => setscrollEnabled(true)} onStartShouldSetResponderCapture={() => setscrollEnabled(true)} style={[styles.viewInput, { minHeight: 90 }, (multiline && !initialHeight) && { height: 120, minHeight: 120 }, { marginBottom: 5 }]} >
         <Swiper
           cansel={(iconLeft || iconRight) ? false : true}
           style={[(multiline && !initialHeight) && { height: 115, minHeight: 115 }]}
@@ -58,7 +59,7 @@ export default function ({setscrollEnabled, textId, $input, initialHeight, iconS
           {plackTextTop && <Py fw='100' style={[styles.textinput, { marginTop: 5 }, (multiline && !initialHeight) && { marginVertical: 5 }]} >{p}</Py>}
           <Animated.View style={[styles.animatedBorder, getBlur && !yub && { borderWidth: 1.2, borderColor: iterPlt, transform: [{ translateX: fadeAnim }] }, (multiline && !initialHeight) && { height: '101%', minHeight: '101%', marginTop: -3 }]} >
             <Input
-            onStartShouldSetResponder={()=>setscrollEnabled(true)} onStartShouldSetResponderCapture={()=>setscrollEnabled(true)}
+              onStartShouldSetResponder={() => setscrollEnabled(true)} onStartShouldSetResponderCapture={() => setscrollEnabled(true)}
               $input={$input}
               textId={textId}
               textContentType={textContentType}
@@ -69,8 +70,8 @@ export default function ({setscrollEnabled, textId, $input, initialHeight, iconS
               m_icon={m_icon}
               placeholder={p2 ? p2 : p}
               defaultValue={String(state)}
-              onChangeText={(text) => {int && clearInterval(int) ;int = setTimeout(() => {setState(text)}, 500);}}
-              onBlur={() => { setBlur(true); !yub && fadeOut() }}
+              onChangeText={(text) => { if (int && lastInterval) { clearInterval(int) }; int = setTimeout(() => { setState(text); if (lastInterval === false || String(state).length < 1) { setTimeout(() => { lastInterval = true }, 1000) }; }, 500); }}
+              onBlur={() => { setTimeout(() => { setBlur(true); !yub && fadeOut() }, 500); }}
               style={[styles.input, (multiline && !initialHeight) && { height: 115, minHeight: 115 }]}
               iconPress={iconPress}
               secureTextEntry={secureTextEntry}

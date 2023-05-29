@@ -1,6 +1,7 @@
 import React, { memo, useEffect } from 'react'
 import { BackHandler, Platform } from 'react-native'
 import { Column, Form, P, Press } from '../../other/Components/Html'
+import { CommonActions } from '@react-navigation/native'
 
 const GetCode = memo((p) => {
 
@@ -18,15 +19,49 @@ const GetCode = memo((p) => {
       })
     }
     return () => Platform.OS === 'android' && BackHandler.removeEventListener('hardwareBackPress')
-  })
+  }, [])
+
 
   useEffect(() => {
-    if (Platform.OS === 'web') {
-      console.log(window.location.search);
-      if (window.location.search)
-        history.pushState(null, null, window.location.href)
-    }
-  })
+    p.navigation.dispatch(p.navigation.navigate('GetCode'));
+    return()=>p.navigation.dispatch(p.navigation.navigate('GetCode'));
+  }, [])
+  
+
+
+
+  // p.navigation.push('Login')
+
+  // useEffect(() => {
+  //   if (Platform.OS === 'web') {
+  //     history.pushState(null, null, window.location.pathname)
+  //   }
+  // })
+
+  // useEffect(() => {
+  //   p.navigation.dispatch(
+  //     CommonActions.navigate({ 
+  //        name: 'GetCode' 
+  //     })
+  //   );
+  // }, [])
+
+
+  // p.navigation.dispatch(
+  //   CommonActions.reset({
+  //     index: 1,
+  //     routes: [
+  //       { name: 'Login' },
+  //       {
+  // name: 'GetCode' ,
+  // params: { user: 'jane' }
+  // },
+  //     ],
+  //   })
+  // );
+
+  // p.navigation.dispatch(CommonActions.goBack());
+
 
   return (
     <Column f={1}>
