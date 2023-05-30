@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Alert from '../other/utils/alert';
-import { getCodeForRegister, getNewCode, verifycodeRegister, login, verifyCodeLoginForAdmin, getCodeForgetPass, verifycodeForgetPass, resetPassword, sendImageProfile, getImageProfile, sendProposal, getLastPayment, singleTicket, ticketAnswer, sendNewTicket, ticketBox, deleteTicket, editTicket, sendTicketAnswer, getAnswersTicket, getSingleAnswerTicket, editAnswerTicket, deleteAnswerTicket, ticketSeen, getTicketSeen,  savedProduct, getSavedProducts, removeSavedProduct, resetSpecification, getUserSpecification, verifycodeResetSpecification, getAllProductForSeller } from '../services/userService'
+import { getCodeForRegister, getNewCode, verifycodeRegister, login, verifyCodeLoginForAdmin, getCodeForgetPass, verifycodeForgetPass, resetPassword, sendImageProfile, getImageProfile, sendProposal, getLastPayment, singleTicket, ticketAnswer, sendNewTicket, ticketBox, deleteTicket, editTicket, sendTicketAnswer, getAnswersTicket, getSingleAnswerTicket, editAnswerTicket, deleteAnswerTicket, ticketSeen, getTicketSeen, savedProduct, getSavedProducts, removeSavedProduct, resetSpecification, getUserSpecification, verifycodeResetSpecification, getAllProductForSeller } from '../services/userService'
 import _useEffect from './_initial';
 import _Alert from '../other/utils/alert';
 import axios from 'axios';
@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { create } from '../other/utils/notification';
 import { truncate } from '../other/utils/truncate';
 import { timerThreeMinut } from '../other/utils/timerThreeMinuts';
+import { useEffect } from 'react';
 
 
 export function userController(p) {
@@ -25,7 +26,7 @@ export function userController(p) {
     p.setshowActivity(true)
     await getNewCode(p.route.params?.newCode)
     this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut,() => { })
+    timerThreeMinut(p.settwoMinut, () => { })
   }
 
 
@@ -35,7 +36,7 @@ export function userController(p) {
       (async () => {
         const localDate = await AsyncStorage.getItem('localDate')
         if (localDate > new Date().getTime()) {
-          timerThreeMinut(p.settwoMinut,(interval) => timerInterwal = interval)
+          timerThreeMinut(p.settwoMinut, (interval) => timerInterwal = interval)
         } else p.settwoMinut(0)
       })()
       return () => { p.setcode(''); timerInterwal && clearInterval(timerInterwal) }
@@ -46,7 +47,7 @@ export function userController(p) {
   this.getCodeForRegister = async () => {
     await getCodeForRegister({ fullname: p.fullname, phoneOrEmail: p.phoneOrEmail, password: p.password })
     this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut,() => { })
+    timerThreeMinut(p.settwoMinut, () => { })
     p.navigation.replace('GetCode', { register: 'true' })
   }
 
@@ -66,7 +67,7 @@ export function userController(p) {
     await AsyncStorage.removeItem('getMinutes')
     if (!data?.value) {
       this.deleteTimerThreeMinut()
-      timerThreeMinut(p.settwoMinut,() => { })
+      timerThreeMinut(p.settwoMinut, () => { })
       p.navigation.replace('GetCode', { login: 'true' })
     }
     else {
@@ -103,7 +104,7 @@ export function userController(p) {
   this.getCodeForgetPass = async () => {
     await getCodeForgetPass(p.route.params?.newCode, { phoneOrEmail: p.phoneOrEmail })
     this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut,() => { })
+    timerThreeMinut(p.settwoMinut, () => { })
     p.setphoneOrEmail('')
     p.navigation.replace('GetCode', { forgetPass: 'true', newCode: 'true' })
   }
@@ -145,16 +146,12 @@ export function userController(p) {
 
   //! changeSpecification
   this.getUserSpecification = async () => {
-    _useEffect(() => {
+    useEffect(() => {
       (async () => {
         const { data } = await getUserSpecification()
         p.setfullname(data.fullname)
         p.setphoneOrEmail(data.phoneOrEmail)
       })()
-      // return()=>{
-      //   p.setfullname('')
-      //   p.setphoneOrEmail('')
-      // }
     }, [])
   }
 
@@ -162,7 +159,7 @@ export function userController(p) {
   this.resetSpecification = async () => {
     await resetSpecification({ fullname: p.fullname, phoneOrEmail: p.phoneOrEmail, oldPassword: p.oldPassword, password: p.password })
     this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut,() => { })
+    timerThreeMinut(p.settwoMinut, () => { })
     p.setfullname('')
     p.setphoneOrEmail('')
     p.setpassword('')
@@ -190,13 +187,13 @@ export function userController(p) {
   this.sendImageProfile = async () => {
     imagePicker().then(async (res) => {
       const { data } = await sendImageProfile({ imageUrl: res })
-      setTimeout(() => {p.$.id('card2Image')?.$({ src: {uri:`${localhost}/upload/profile/${data.imageUrl}`} })}, 3000);
+      setTimeout(() => { p.$.id('card2Image')?.$({ src: { uri: `${localhost}/upload/profile/${data.imageUrl}` } }) }, 3000);
     })
   }
 
 
   this.getImageProfile = async () => {
-    _useEffect(() => {
+    useEffect(() => {
       (async () => {
         const { data } = await getImageProfile()
         p.setimageProfile(data.imageUrl)
@@ -232,7 +229,7 @@ export function userController(p) {
         const { data } = await getAnswersTicket(p.route.params.id)
         p.setanswersTicket(data.value)
       })()
-      return()=>p.setanswersTicket([])
+      return () => p.setanswersTicket([])
     }, [])
   }
 
@@ -344,7 +341,7 @@ export function userController(p) {
   }
 
 
-   this.sendTicketNotifeeAndSeen = () => {
+  this.sendTicketNotifeeAndSeen = () => {
     const navigation = useNavigation()
     _useEffect(() => {
       setTimeout(async () => {
@@ -383,7 +380,7 @@ export function userController(p) {
         {
           text: "OK", onPress: async () => {
             await removeSavedProduct(itemId)
-            p.setsavedItems(svItems=> svItems.filter((item)=>item.itemId !== itemId ))
+            p.setsavedItems(svItems => svItems.filter((item) => item.itemId !== itemId))
             p.setbookmark(false)
           }
         }

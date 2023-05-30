@@ -14,7 +14,7 @@ const FilterListDrawer = (p) => {
 
   const [priceFilterValue, setpriceFilterValue] = useState([
     { _id: '1', value: 'همه', filterValue: '' },
-    { _id: '2', value: 'زیر 2000000', filterValue: [0, 2000000] },
+    { _id: '2', value: 'زیر 2000,000', filterValue: [0, 2000000] },
     { _id: '3', value: '2000000 تا 4000000', filterValue: [2000000, 4000000] },
     { _id: '4', value: '4000000 تا 7000000', filterValue: [4000000, 7000000] },
     { _id: '5', value: '7000000 تا 10000000', filterValue: [7000000, 10000000] },

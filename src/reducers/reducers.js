@@ -24,3 +24,16 @@ export const reducerChart = (state, action) => {
       return state;
   }
 };
+
+
+
+export const reducerGetProducts = (state, action) => {
+  switch (action.type) {
+    case "GETPRODUCT":
+      return action.payload
+      case "UNMOUNTPRODUCT":
+        return []
+    default:
+      return state;
+  }
+};

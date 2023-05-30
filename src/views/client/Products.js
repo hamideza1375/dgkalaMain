@@ -22,7 +22,8 @@ export default Products
 
 function FlatlistChild(p){
   p._client.getProducts()
-
+  // const [product, dispatch] = useReducer(reducerGetProducts, []);
+  // useEffect(() => {actionGetProducts(dispatch, "GETPRODUCT", p.route)}, [])
   return (
     <FlatList
      column1={1} column2={2} column3={2} column4={3}

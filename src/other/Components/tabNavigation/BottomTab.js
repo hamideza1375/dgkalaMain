@@ -32,8 +32,8 @@ const BottomTab = ({ productBasket, group, children, name, style, bgcolor = '#ff
               <Icon
                 onPress={() => { navigation.navigate(!r.navigate ? (r.mainTitle ? r.mainTitle : r.title) : r.navigate, { ...r.params }) }}
                 name={r.icon} size={r.icon === 'comments' ? 18 : 18} style={{ color: name == r.title ? activeColor : color, marginTop: r.name ? 0 : 4, width:30, textAlign:'center' }} />
-              {(r.icon === 'comments') && socketIoSeen ? <Badge bgcolor='#0e5' top={2} scale={.8} mr={25} /> : <></>}
-              {(r.icon === 'shopping-cart') && (productBasket && Object.values(productBasket).length) ? <Badge bgcolor='#0e5' top={2} scale={.8} mr={-25} /> : <></>}
+              {(r.icon === 'comments') && socketIoSeen ? <Badge onClick={() => { navigation.navigate(!r.navigate ? (r.mainTitle ? r.mainTitle : r.title) : r.navigate, { ...r.params }) }} bgcolor='#0e5' top={2} scale={.8} mr={25} /> : <></>}
+              {(r.icon === 'shopping-cart') && (productBasket && Object.values(productBasket).length) ? <Badge onClick={() => { navigation.navigate(!r.navigate ? (r.mainTitle ? r.mainTitle : r.title) : r.navigate, { ...r.params }) }} bgcolor='#0e5' top={2} scale={.8} mr={-25} /> : <></>}
               {r.name ?
                 <Py
                   onClick={() => { navigation.navigate(!r.navigate ? (r.mainTitle ? r.mainTitle : r.title) : r.navigate, { ...r.params }) }}

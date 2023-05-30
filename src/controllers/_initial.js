@@ -3,15 +3,16 @@ import { useFocusEffect } from '@react-navigation/native'
 import Axios from 'axios'
 import jwtDecode from "jwt-decode";
 import { useCallback, useEffect, useState } from 'react'
-import { Dimensions } from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 
 import { adminController } from "./adminController";
 import { clientController } from "./clientController";
 import { userController } from "./userController";
 import { Layout } from "../other/Layout/Layout";
-import { Loading } from '../other/Components/Html';
+import { Column, Img, Loading } from '../other/Components/Html';
 import { idValidator } from '../other/utils/idValidator';
 import { useNetInfo } from "@react-native-community/netinfo";
+import ToastProvider from '../other/utils/toast';
 
 
 var _show = false,
@@ -42,8 +43,8 @@ export const _initController = (p) => {
         }, function (error) {
           if (_show == false && error['request']?.status !== 0) { _show = true; setshow(true) }
           // if (error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
-            if (error['request']?.status === 0) {
-              if (!serverOff) {
+          if (error['request']?.status === 0) {
+            if (!serverOff) {
               p.setSplash(true)
               toastServerError()
               serverOff = true
@@ -93,7 +94,7 @@ export const _initController = (p) => {
 
   useEffect(() => {
     setTimeout(() => { setchange2(true) }, 200);
-    if ( change2)
+    if (change2)
       if (netInfo.isConnected !== true) {
         p.setSplash(true);
         if (!serverOff) {
@@ -113,7 +114,27 @@ export const _initController = (p) => {
 }
 
 
+
+const SplashScreen = (state) => {
+  return (
+    <Column pos='absolute' t={0} l={0} r={0} b={0} z={111111} h={'100%'} w={'100%'} bgcolor='#fff' pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={state.height} >
+      <Img src={state.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
+      <ToastProvider {...state} />
+    </Column>
+  )
+}
+
 export function allChildren({ client, user, admin }) {
+  const [show, setshow] = useState(false)
+  const netInfo = useNetInfo()
+
+  useEffect(() => {
+    setTimeout(() => {
+      netInfo.isConnected && setshow(true)
+    }, 150);
+  }, [netInfo])
+
+
   const _client = ({ navigation, route }) => new clientController({ ...client, navigation, route })
   const _user = ({ navigation, route }) => new userController({ ...user, navigation, route })
   const _admin = ({ navigation, route }) => new adminController({ ...admin, navigation, route })
@@ -125,14 +146,15 @@ export function allChildren({ client, user, admin }) {
       useEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('Login') }) }, [])
       _useEffect(() => { client.setshownDropdown(false); }, [])
       useEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
-      // useEffect(() => { if (props.route.name === 'Home' &&  props.route.params.key !== 'home') return props.navigation.navigate('NotFound') })
-      return <Layout _key={key} {...props} {...client}>{client.showActivity && <Loading setshowActivity={client.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...client} {...clientReducer(props)} /></Layout>
+      useEffect(() => { if (props.route.name === 'Home' &&  props.route.params.key !== 'home') return props.navigation.navigate('NotFound') })
+      if (show) return <Layout _key={key} {...props} {...client}>{client.showActivity && <Loading setshowActivity={client.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...client} {...clientReducer(props)} /></Layout>
+      else return <SplashScreen {...client} />
     }
   })
   this.userChildren = (Component, key) => ({
     children: (props) => {
       _useEffect(() => { user.setshownDropdown(false); }, [])
-      useEffect(() => {
+      _useEffect(() => {
         AsyncStorage.getItem("token").then((token) => {
           const _user = token ? jwtDecode(token) : {}
           user.settokenValue(_user);
@@ -141,13 +163,14 @@ export function allChildren({ client, user, admin }) {
         })
       }, [])
       useEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
-      return <Layout _key={key} {...props} {...user}>{user.showActivity && <Loading setshowActivity={user.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...user} {...userReducer(props)} /></Layout>
+      if (show) return <Layout _key={key} {...props} {...user}>{user.showActivity && <Loading setshowActivity={user.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...user} {...userReducer(props)} /></Layout>
+      else return <SplashScreen {...client} />
     }
   })
   this.adminChildren = (Component, key) => ({
     children: (props) => {
       _useEffect(() => { admin.setshownDropdown(false); }, [])
-      useEffect(() => {
+      _useEffect(() => {
         AsyncStorage.getItem("token").then((token) => {
           const user = token ? jwtDecode(token) : {}
           if (!token) return props.navigation.replace('Login')
@@ -156,7 +179,8 @@ export function allChildren({ client, user, admin }) {
         })
       }, [])
       useEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
-      return <Layout _key={key} {...props} {...admin}>{admin.showActivity && <Loading setshowActivity={admin.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...admin} {...adminReducer(props)} /></Layout>
+      if (show) return <Layout _key={key} {...props} {...admin}>{admin.showActivity && <Loading setshowActivity={admin.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...admin} {...adminReducer(props)} /></Layout>
+      else return <SplashScreen {...client} />
     }
   })
 
