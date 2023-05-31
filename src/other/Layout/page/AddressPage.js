@@ -11,7 +11,7 @@ const AddressPage = (p) => {
     <>
       <SearchBar
         setshownDropdown={p.setshownDropdown} drawer={<PanelAdminDrawer {...p} />} icon={'bars'} iconPress={() => { setshow(!show) }}
-        address iconBack src={p.logoUrl} newSearchArray={p.newSearchAddressArray} showDrawer={show} setshowDrawer={setshow}
+        address iconBack iconSrc={'home'} newSearchArray={p.newSearchAddressArray} showDrawer={show} setshowDrawer={setshow}
         bgcolor='#f5f5f5'
         array={p.allAddress} setarray={p.setallAddress} >
         {p.children}

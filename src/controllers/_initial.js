@@ -159,7 +159,7 @@ export function allChildren({ client, user, admin }) {
           const _user = token ? jwtDecode(token) : {}
           user.settokenValue(_user);
           if (props.route.params?.active === 'no' && (_user?.fullname)) return props.navigation.replace('Home')
-          if (!props.route.params?.active && (!_user?.fullname)) return props.navigation.replace('Home')
+          if (!props.route.params?.active && (!_user?.fullname)) return props.navigation.replace('Login')
         })
       }, [])
       useEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })

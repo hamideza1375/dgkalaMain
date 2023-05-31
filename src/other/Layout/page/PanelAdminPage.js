@@ -16,7 +16,7 @@ const PanelAdminPage = (p) => {
     <>
       <SearchBar setshownDropdown={p.setshownDropdown} drawer={<PanelAdminDrawer {...p} />}
         title='پنل ادمین'
-        showDrawer={show} setshowDrawer={setshow} bgcolor='#fffe' icon={'bars'} src={p.logoUrl}
+        showDrawer={show} setshowDrawer={setshow} bgcolor='#fffe' icon={'bars'} iconSrc={'home'}
         iconPress={() => { setshow(!show) }} >
         {p.children}
       </SearchBar>

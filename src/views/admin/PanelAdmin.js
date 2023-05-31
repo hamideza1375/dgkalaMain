@@ -1,5 +1,6 @@
 import React, {memo, Suspense, lazy } from 'react'
 import { Scroll, Column } from '../../other/Components/Html'
+import _useEffect from '../../controllers/_initial';
 
 const Address7DeyForChart = lazy(() => import('./components/Address7DeyForChart'));
 const Users7DeyForChart = lazy(() => import('./components/Users7DeyForChart'));
@@ -8,7 +9,7 @@ const Address1YearsForChart = lazy(() => import('./components/Address1YearsForCh
 
 
 const PanelAdmin = (p) => {
-
+  _useEffect(() => { return () => { p.navigation.dispatch(p.navigation.navigate('Home')) } }, [])
   p._admin.getAdminTicketSeen()
   p._admin.getSocketIoSeen()
   // p._admin.getDataForChart()

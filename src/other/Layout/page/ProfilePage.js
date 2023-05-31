@@ -19,7 +19,7 @@ const ProfilePage = (p) => {
       <SearchBar
         drawer={<ProfileDrawer {...p} />}
         title='پنل کاربری'
-        showDrawer={show} setshowDrawer={setshow} bgcolor='#fffe' icon={'bars'} src={p.logoUrl}
+        showDrawer={show} setshowDrawer={setshow} bgcolor='#fffe' icon={'bars'} iconSrc={'home'}
         iconPress={() => { setshow(!show) }} >
         {p.children}
       </SearchBar>

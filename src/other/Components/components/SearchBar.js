@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { localhost } from '../../utils/axios/axios';
 import _useEffect from '../../../controllers/_initial';
 
-function SearchInput({ table, iconBack, children, drawer, showDrawer, setshowDrawer, row, array, setarray, icon, m_icon, a_icon, src, iconPress, sort, bgcolor, title, brand, product, address, home, newSearchArray }) {
+function SearchInput({iconSrc, table, iconBack, children, drawer, showDrawer, setshowDrawer, row, array, setarray, icon, m_icon, a_icon, src, iconPress, sort, bgcolor, title, brand, product, address, home, newSearchArray }) {
 
   const navigation = useNavigation()
 
@@ -60,6 +60,8 @@ function SearchInput({ table, iconBack, children, drawer, showDrawer, setshowDra
       <Span bgcolor={bgcolor} h={53} w={'100.2%'} as='center' z={10000000}>
         <Span bgcolor={bgcolor} style={[styles.containHead]}>
           {(src) && <Press onClick={() => navigation.navigate('Home')} mr={7} ><Img bgcolor='transparent' w={55} h={54} mt={-1} br={4} src={src} /></Press>}
+          {(iconSrc) && <Press ph={5} mh={5} onClick={() => navigation.navigate('Home')} mr={7} ><Icon size={24} style={[styles.iconHome, { marginTop: 2 }]} name={iconSrc} /></Press>}
+        
           {icon && icon !== 'arrow-left' ? <Icon size={24} style={[styles.iconHome, { marginTop: 3 }]} name={icon} onPress={() => { iconPress(); p.setshownDropdown(false) }} />
             :
             navigation.canGoBack() ? <Icon size={24} style={[styles.iconHome, { marginTop: 3 }]} name={icon} onPress={() => { navigation.goBack() }} /> : <></>

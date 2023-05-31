@@ -6,12 +6,13 @@ import _Alert from '../other/utils/alert';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { imagePicker } from '../other/utils/imagePicer';
-import { localhost } from '../other/utils/axios/axios';
+import { localhost, myhost } from '../other/utils/axios/axios';
 import { useNavigation } from '@react-navigation/native';
 import { create } from '../other/utils/notification';
 import { truncate } from '../other/utils/truncate';
 import { timerThreeMinut } from '../other/utils/timerThreeMinuts';
 import { useEffect } from 'react';
+import { Platform } from 'react-native';
 
 
 export function userController(p) {
@@ -55,7 +56,11 @@ export function userController(p) {
   this.verifycodeRegister = async () => {
     await verifycodeRegister({ code: p.code })
     this.deleteTimerThreeMinut()
-    p.navigation.replace('Login')
+    if (Platform.OS === 'web')
+      location.replace(`${myhost}/login?key=user&active=no`)
+    else
+      p.navigation.replace('Login')
+      // p.navigation.push('Login')
   }
   // ! Register
 
@@ -78,8 +83,8 @@ export function userController(p) {
       p.setphoneOrEmail('')
       p.setpassword('')
       p.setcaptcha('')
-      if (p.route.params?.payment) p.navigation.push('BeforePayment')
-      else p.navigation.push('Profile')
+      if (p.route.params?.payment) p.navigation.replace('BeforePayment')
+      else p.navigation.replace('Profile')
     }
   }
 
@@ -114,7 +119,11 @@ export function userController(p) {
     await verifycodeForgetPass({ code: p.code })
     this.deleteTimerThreeMinut()
     p.setcode('')
+    if (Platform.OS === 'web')
+    location.replace(`${myhost}/resetpass?key=user&active=yess`)
+  else
     p.navigation.replace('ResetPass')
+    // p.navigation.push('ResetPass')
   }
 
 
@@ -177,8 +186,11 @@ export function userController(p) {
     p.settokenValue(user);
     this.deleteTimerThreeMinut()
     p.setcode('')
-    p.navigation.push('Profile')
-    // p.navigation.push('Profile', {active:'yess'})
+    if (Platform.OS === 'web')
+      location.replace(`${myhost}/profile?key=user`)
+    else
+      p.navigation.replace('Profile')
+      // p.navigation.push('Profile')
   }
   //! changeSpecification
 

@@ -1,4 +1,4 @@
-const version = 7;
+const version = 15;
 const preCacheName = `static-${version}`;
 const preCache = [
   // '/',
