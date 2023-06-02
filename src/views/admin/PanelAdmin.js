@@ -9,11 +9,11 @@ const Address1YearsForChart = lazy(() => import('./components/Address1YearsForCh
 
 
 const PanelAdmin = (p) => {
-  _useEffect(() => { return () => { p.navigation.dispatch(p.navigation.navigate('Home')) } }, [])
   p._admin.getAdminTicketSeen()
   p._admin.getSocketIoSeen()
   // p._admin.getDataForChart()
-  
+  _useEffect(() => { p.setgetCodeView(false) }, [])
+
   return (
     <Column f={1} fd='row'>
       <Column minw={220} f={3} h='100%' pt={10}>

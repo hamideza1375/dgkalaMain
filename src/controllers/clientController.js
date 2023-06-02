@@ -68,6 +68,7 @@ export function clientController(p) {
   this.getProducts = () => {
     useEffect(() => {
       (async () => {
+        if(!p.route.params?.id) return;
         const { data } = await getProducts(p.route.params?.id)
         if (!data?.value) return
         p.setchildItem(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
@@ -105,6 +106,7 @@ export function clientController(p) {
   this.getSimilars = () => {
     useEffect(() => {
       (async () => {
+        if(!p.route.params?.id) return;
         const { data } = await getSimilars(p.route.params?.id)
         if (!data?.value) return
         p.setsimilar(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
@@ -118,6 +120,7 @@ export function clientController(p) {
   this.getSingleProduct = () => {
     useEffect(() => {
       (async () => {
+        if(!p.route.params?.id) return;
         const { data } = await getSingleProduct(p.route.params?.id)
         if (!data?.value) return
         p.setsingleItem(data.value)
@@ -160,6 +163,7 @@ export function clientController(p) {
 
   this.getProductComments = async () => {
     useEffect(() => {
+      if(!p.route.params?.id) return;
       getProductComments(p.route.params?.id).then(({ data }) => {
         p.setchildItemComment(data.value)
       })
@@ -395,6 +399,7 @@ export function clientController(p) {
   //!savedProduct
   this.getSingleSavedsavedProducts = () => {
     _useEffect(() => {
+      if(!p.route.params?.id) return;
       getSingleSavedsavedProducts(p.route.params?.id).then(({ data }) => { p.setbookmark(data.value) })
       return () => p.setbookmark(false)
     }, [p.route.params])
@@ -444,6 +449,7 @@ export function clientController(p) {
 
   this.setColor = () => {
     _useEffect(() => {
+      if(!p.route.params?.id) return;
       p.singleItem.title && p.setcolor((color) => {
         const c = { ...color }
         c[p.route.params?.id] = color[p.route.params?.id] ? color[p.route.params?.id] : p.singleItem.color.find(c => c.value > 0)?.color

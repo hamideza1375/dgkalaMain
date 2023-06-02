@@ -1,6 +1,7 @@
 import React, { memo, useEffect } from 'react'
 import { BackHandler, Platform } from 'react-native'
 import { Column, Form, P, Press } from '../../other/Components/Html'
+import _useEffect from '../../controllers/_initial'
 
 const GetCode = memo((p) => {
 
@@ -22,11 +23,15 @@ const GetCode = memo((p) => {
 
   useEffect(() => {
     if (Platform.OS === 'web') {
-      console.log(window.location.search);
       if (window.location.search)
         history.pushState(null, null, window.location.href)
     }
   })
+
+  _useEffect(() => {
+    if(!p.getCodeView) p.navigation.dispatch(p.navigation.push('Client'))
+  }, [])
+  
 
   return (
     <Column f={1}>

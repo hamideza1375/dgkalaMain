@@ -1,8 +1,10 @@
 import React from 'react'
 import {Column, Form} from '../../other/Components/Html'
+import _useEffect from '../../controllers/_initial'
 
 export const ResetPass = (p) => {
    const resetPassword =()=> p._user.resetPassword()
+   _useEffect(() => { p.setgetCodeView(false) }, [])
   return (
     // <WebView style={styles.container2} source={{ uri: props.route.params.uri }} />
     <Column f={1} gcolor='#fff'>

@@ -7,7 +7,7 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { imagePicker } from '../other/utils/imagePicer';
 import { localhost, myhost } from '../other/utils/axios/axios';
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import { create } from '../other/utils/notification';
 import { truncate } from '../other/utils/truncate';
 import { timerThreeMinut } from '../other/utils/timerThreeMinuts';
@@ -56,11 +56,7 @@ export function userController(p) {
   this.verifycodeRegister = async () => {
     await verifycodeRegister({ code: p.code })
     this.deleteTimerThreeMinut()
-    if (Platform.OS === 'web')
-      location.replace(`${myhost}/login?key=user&active=no`)
-    else
-      p.navigation.replace('Login')
-      // p.navigation.push('Login')
+    p.navigation.navigate('Login')
   }
   // ! Register
 
@@ -83,8 +79,8 @@ export function userController(p) {
       p.setphoneOrEmail('')
       p.setpassword('')
       p.setcaptcha('')
-      if (p.route.params?.payment) p.navigation.replace('BeforePayment')
-      else p.navigation.replace('Profile')
+      if (p.route.params?.payment) p.navigation.dispatch(StackActions.replace('BeforePayment'))
+      else p.navigation.dispatch(StackActions.replace('Profile'))
     }
   }
 
@@ -99,8 +95,8 @@ export function userController(p) {
     p.setpassword('')
     p.setcaptcha('')
     this.deleteTimerThreeMinut()
-    if (p.route.params?.payment) p.navigation.push('BeforePayment')
-    else p.navigation.push('admin')
+    if (p.route.params?.payment) p.navigation.dispatch(StackActions.replace('BeforePayment'))
+   else p.navigation.dispatch(StackActions.replace('Profile'))
   }
   // ! login
 
@@ -119,11 +115,7 @@ export function userController(p) {
     await verifycodeForgetPass({ code: p.code })
     this.deleteTimerThreeMinut()
     p.setcode('')
-    if (Platform.OS === 'web')
-    location.replace(`${myhost}/resetpass?key=user&active=yess`)
-  else
-    p.navigation.replace('ResetPass')
-    // p.navigation.push('ResetPass')
+    p.navigation.dispatch(StackActions.replace('ResetPass'))
   }
 
 
@@ -186,11 +178,7 @@ export function userController(p) {
     p.settokenValue(user);
     this.deleteTimerThreeMinut()
     p.setcode('')
-    if (Platform.OS === 'web')
-      location.replace(`${myhost}/profile?key=user`)
-    else
-      p.navigation.replace('Profile')
-      // p.navigation.push('Profile')
+    p.navigation.dispatch(StackActions.replace('Profile'))
   }
   //! changeSpecification
 

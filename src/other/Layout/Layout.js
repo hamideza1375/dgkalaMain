@@ -32,15 +32,15 @@ export const Layout = (p) => {
   bottom = p.tokenValue.fullname ?
     [
       { mainTitle: 'Home', title: ((p._key === '1') ? (p.route.name) : ('Home')), icon: 'home', navigate: p.homeNavigate, params: p.homeParams },
-      { title: 'Profile', icon: 'user-alt' },
+      { title: 'User', icon: 'user-alt' },
       { title: 'BeforePayment', icon: 'shopping-cart' },
-      { title: 'SocketIo', icon: 'comments' },
+      { title: 'SocketIo', navigate: p.tokenValue.isAdmin ? 'PanelAdmin' : 'SocketIo', icon: 'comments' },
     ]
     :
     bottom = [
       { mainTitle: 'Home', title: ((p._key === '1') ? (p.route.name) : ('Home')), icon: 'home', navigate: p.homeNavigate, params: p.homeParams },
-      { title: 'Login', icon: 'user-alt' },
-      { title: 'BeforePayment', icon: 'shopping-cart', navigate: 'Login', params: { payment: true } },
+      { title: 'User', icon: 'user-alt' },
+      { title: 'BeforePayment', icon: 'shopping-cart', navigate: 'User', params: { payment: true } },
       { title: 'SocketIo', icon: 'comments' },
     ]
 
@@ -69,9 +69,9 @@ export const Layout = (p) => {
           p.route.name === 'BeforePayment' &&
           <BeforePaymentPage {...p} bottom={bottom} />
           ||
-          // p.route.name === 'SocketIo' &&
-          // <SocketIoPage {...p} bottom={bottom} />
-          // ||
+          p.route.name === 'SocketIo' &&
+          <SocketIoPage {...p} bottom={bottom} />
+          ||
           p.route.name === 'ProductsTable' &&
           <ProductsTablePage {...p} />
           ||
@@ -79,7 +79,7 @@ export const Layout = (p) => {
           <PanelAdminPage {...p} />
           ||
           (p.route.params?.key === 'user') && (!p.route.params?.view) && (p.route.name !== 'SellerPanel') && (!p.route.params?.active) &&
-          <ProfilePage {...p} />
+          <ProfilePage {...p} bottom={bottom} />
           ||
           p.route.name === 'Sellers' &&
           <SellerPage {...p} />
@@ -102,7 +102,7 @@ export const header = () => {
   const navigation = useNavigation();
   return (
     <Pressable onPress={() => navigation.goBack()} >
-      <Icon name='arrow-right' style={{ fontSize: 29, marginTop: -5, paddingVertical: 2.5, flexGrow: 1, color: '#222', fontWeight: '1000' }} />
+      {navigation.canGoBack() ? <Icon name='arrow-left' style={{ fontSize: 22, marginTop: 0, paddingVertical: 2.5, marginRight: 9, flexGrow: 1, color: '#222', fontWeight: '100' }} /> : <></>}
     </Pressable>
   );
 };

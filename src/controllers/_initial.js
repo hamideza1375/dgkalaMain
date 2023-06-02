@@ -16,7 +16,8 @@ import ToastProvider from '../other/utils/toast';
 
 
 var _show = false,
-  serverOff = false
+  serverOff = false,
+  serverOff2 = false
 export const _initController = (p) => {
   const [show, setshow] = useState(false)
   const netInfo = useNetInfo()
@@ -32,9 +33,10 @@ export const _initController = (p) => {
     var toastServerError = () => { p.toast.warning('سرور در حال تعمیر', 'لطفا چند دقیقه دیگر امتحان کنید') }
 
     setTimeout(() => { setchange(true) }, 100);
-
+    
     if (change) {
       if (netInfo.isConnected !== false) {
+        setTimeout(() => { serverOff2 = true }, 7000);
         Axios.interceptors.response.use(function (response) {
           p.setshowActivity(false)
           if (_show == false) { _show = true; setshow(true) }
@@ -44,15 +46,12 @@ export const _initController = (p) => {
           if (_show == false && error['request']?.status !== 0) { _show = true; setshow(true) }
           // if (error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
           if (error['request']?.status === 0) {
-            if (!serverOff) {
+            if (!serverOff2) {
               p.setSplash(true)
               toastServerError()
-              serverOff = true
-              setTimeout(() => {
-                serverOff = false
-              }, 2000);
+              serverOff2 = true
+              _show = false; setshow(false)
             }
-            _show = false; setshow(false)
             p.setshowActivity(false)
           }
           else if (error?.response?.status) {
@@ -146,7 +145,7 @@ export function allChildren({ client, user, admin }) {
       useEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('Login') }) }, [])
       _useEffect(() => { client.setshownDropdown(false); }, [])
       useEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
-      useEffect(() => { if (props.route.name === 'Home' &&  props.route.params.key !== 'home') return props.navigation.navigate('NotFound') })
+      useEffect(() => { if (props.route.name === 'Home' && props.route.params.key !== 'home') return props.navigation.navigate('NotFound') })
       if (show) return <Layout _key={key} {...props} {...client}>{client.showActivity && <Loading setshowActivity={client.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...client} {...clientReducer(props)} /></Layout>
       else return <SplashScreen {...client} />
     }

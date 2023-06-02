@@ -20,7 +20,7 @@ const ProfileDrawer = (p) => {
         </Column>
 
         {p.tokenValue.isAdmin ? <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
-          <Press onClick={() => p.navigation.navigate('admin')} ><Py color={pageName('admin')} >پنل ادمین</Py></Press>
+          <Press onClick={() => p.navigation.navigate('PanelAdmin')} ><Py color={pageName('PanelAdmin')} >پنل ادمین</Py></Press>
         </Column>
           :
           <></>
@@ -45,7 +45,7 @@ const ProfileDrawer = (p) => {
           <></>
         }
         <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
-          <Press onClick={() => p.navigation.navigate('BeforePayment', {profile:'true'})} ><Py color={pageName('BeforePayment')} >نمایش سفارشات فعال</Py></Press>
+          <Press onClick={() => p.navigation.navigate('ActiveOrder', {profile:'true'})} ><Py color={pageName('ActiveOrder')} >نمایش سفارشات فعال</Py></Press>
           <Press mt={10} onClick={() => p.navigation.navigate('ShowLastOrder')} ><Py color={pageName('ShowLastOrder')} >نمایش خرید های قبل</Py></Press>
           <Press mt={10} onClick={() => p.navigation.navigate('SavedProducts')} ><Py color={pageName('SavedProducts')} >ذخیره ها</Py></Press>
         </Column>

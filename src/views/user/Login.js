@@ -1,8 +1,10 @@
 import React from 'react'
 import { Column, Form, P } from '../../other/Components/Html'
+import _useEffect from '../../controllers/_initial'
 
 const Login = (p) => {
   const login = () => p._user.login()
+  _useEffect(() => { p.setgetCodeView(true) }, [])
 
   return (
     <Column f={1} ai='center' jc='center' bgcolor='#fafafa'>

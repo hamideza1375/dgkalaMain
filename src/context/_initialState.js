@@ -89,11 +89,13 @@ export function initial() {
   const [homeNavigate, sethomeNavigate] = useState('')
   const [homeParams, sethomeParams] = useState('')
   const [getCodeGoBack, setgetCodeGoBack] = useState(false)
-
+  const [getCodeView, setgetCodeView] = useState(true)
+  
   
 
   this.all = {
     // logoUrl: Platform.OS === 'web' ? '/logo.png' : require('../other/assets/images/logo.png'),
+    getCodeView, setgetCodeView,
     getCodeGoBack, setgetCodeGoBack,
     homeNavigate, sethomeNavigate,
     homeParams, sethomeParams,
