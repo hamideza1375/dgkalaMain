@@ -2,7 +2,7 @@ import { Platform } from "react-native";
 
 let reload = () => { }
 
-if (Platform.OS === 'web') reload = () => window.location.reload()
+if (Platform.OS === 'web') reload = () => window.location.assign('/')
 else {
   const { DevSettings } = require("react-native");
 

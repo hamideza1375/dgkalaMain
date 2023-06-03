@@ -64,13 +64,17 @@ const AdminSocketIo = (p) => {
   },))
 
 
+  useEffect(() => {
+      p.navigation.setOptions({ headerShown: false })
+  }, [])
+
 
   useEffect(() => {
     if (tokenValue.current.isAdmin) {
       if (to)
-        p.navigation.setOptions({ headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setto('')} /> })
+        p.navigation.setOptions({ headerShown: true, headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setto('')} /> })
       else
-        p.navigation.setOptions({ headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => p.navigation.goBack()} /> })
+        p.navigation.setOptions({ headerShown: false })
     }
     if (videoUri) p.navigation.setOptions({ headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setvideoUri('')} /> })
   }, [to, videoUri])
@@ -93,9 +97,7 @@ const AdminSocketIo = (p) => {
   }, []))
 
 
-  useFocusEffect(useCallback(() => {
-    if (!tokenValue.current.isAdmin) AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
-
+  useEffect(() => {
     socket.current.on("online", (users) => {
       const user = users.find((user) => (user.user.isAdmin === 1))
       adminId = user?.socketId
@@ -201,7 +203,12 @@ const AdminSocketIo = (p) => {
         }
     });
 
+  }, [])
 
+
+
+  useFocusEffect(useCallback(() => {
+    if (!tokenValue.current.isAdmin) AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
 
     return () => {
       setPvChatMessage([])
@@ -300,7 +307,7 @@ const AdminSocketIo = (p) => {
                             setimageUrl(`${localhost}/upload/socket/${item.uri}`)
                             setshowImage(true)
                           }}>
-                            <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} style={{resizeMode: 'stretch'}} />
+                            <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} style={{ resizeMode: 'stretch' }} />
                           </Press>
                           :
                           <Column w='100%' h={100} ai='flex-end' jc='center' >
@@ -384,7 +391,7 @@ const AdminSocketIo = (p) => {
                                   setimageUrl(`${localhost}/upload/socket/${item.uri}`)
                                   setshowImage(true)
                                 }}>
-                                  <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} style={{resizeMode: 'stretch'}} />
+                                  <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} style={{ resizeMode: 'stretch' }} />
                                 </Press>
                                 :
                                 <Column w='100%' h={100} ai='flex-end' jc='center' >

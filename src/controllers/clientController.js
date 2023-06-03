@@ -372,6 +372,12 @@ export function clientController(p) {
             const getTime = await AsyncStorage.getItem('socketDate')
             if (data && !user.isAdmin && data.getTime > JSON.parse(getTime)) p.setsocketIoSeen(true)
           }
+          else {
+            const socketTocken = await AsyncStorage.getItem('socketTocken')
+            const { data } = await getSocketIoSeenUser(socketTocken)
+            const getTime = await AsyncStorage.getItem('socketDate')
+            if (data && data.getTime > JSON.parse(getTime)) p.setsocketIoSeen(true)
+          }
         })
 
       }, 2000)

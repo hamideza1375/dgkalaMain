@@ -19,12 +19,12 @@ const ProfileDrawer = (p) => {
           <Press onClick={() => p.navigation.navigate('Profile')} ><Py color={pageName('Profile')} >حساب کاربری</Py></Press>
         </Column>
 
-        {p.tokenValue.isAdmin ? <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
+        {/* {p.tokenValue.isAdmin ? <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
           <Press onClick={() => p.navigation.navigate('PanelAdmin')} ><Py color={pageName('PanelAdmin')} >پنل ادمین</Py></Press>
         </Column>
           :
           <></>
-        }
+        } */}
 
         {p.tokenValue.sellerId ? <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
           <Press onClick={() => p.navigation.navigate('SellerPanel')} ><Py color={pageName('SellerPanel')} >پنل فروشندگان</Py></Press>

@@ -40,9 +40,9 @@ const PanelAdminDrawer = (p) => {
             <Press mt={10} onClick={() => p.navigation.navigate('CreateSlider')} ><Py color={pageName('CreateSlider')} >ساخت اسلایدر</Py></Press>
             <Press mt={10} onClick={() => p.navigation.navigate('SendPostPrice')} ><Py color={pageName('SendPostPrice')} >تایین قیمت پست</Py></Press>
           </Column>
-          <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
+          {/* <Column as='center' pv={15} ph={10} w='100%' border={[1, '#047']}>
             <Press onClick={() => p.navigation.navigate('Profile')} ><Py color={pageName('Profile')} >حساب کاربری</Py></Press>
-          </Column>
+          </Column> */}
         </Column>
       </Scroll>
   )

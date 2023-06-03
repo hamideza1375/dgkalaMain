@@ -14,21 +14,21 @@ const ProfilePage = (p) => {
     else setshow(true)
   }, [p.route.name])
 
-  if (p.route.name === 'Profile')
+  // if (p.route.name === 'Profile')
 
-    return (
-      <SearchBar
-        drawer={<ProfileDrawer {...p} />}
-        title='پنل کاربری'
-        showDrawer={show} setshowDrawer={setshow} bgcolor='#fffe' icon={'bars'} iconSrc={'home'}
-        iconPress={() => { setshow(!show) }} >
-        <BottomTab productBasket={p.productBasket} socketIoSeen={p.socketIoSeen} name={'User'} title={'پروفایل'} group={p.bottom} bgcolor='#f5f5f5' color='#cccc' activeColor='#99f' style={{ overflow: 'hidden', boxShadow: '1px -2px 8px #aaa', borderTopWidth: 1, borderColor: 'silver' }} >
-          {p.children}
-        </BottomTab>
-      </SearchBar>
+  //   return (
+  //     <SearchBar
+  //       drawer={<ProfileDrawer {...p} />}
+  //       title='پنل کاربری'
+  //       showDrawer={show} setshowDrawer={setshow} bgcolor='#fffe' icon={'bars'} iconSrc={'home'}
+  //       iconPress={() => { setshow(!show) }} >
+  //       <BottomTab productBasket={p.productBasket} socketIoSeen={p.socketIoSeen} name={'User'} title={'پروفایل'} group={p.bottom} bgcolor='#f5f5f5' color='#cccc' activeColor='#99f' style={{ overflow: 'hidden', boxShadow: '1px -2px 8px #aaa', borderTopWidth: 1, borderColor: 'silver' }} >
+  //         {p.children}
+  //       </BottomTab>
+  //     </SearchBar>
 
-    )
-  else
+  //   )
+  // else
     return (
       <SearchBar
         drawer={<ProfileDrawer {...p} />}

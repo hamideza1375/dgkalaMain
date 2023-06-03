@@ -180,12 +180,12 @@ const FilterListDrawer = (p) => {
   return (
     <>
 
-      <Column border={[2,'#ffaaff']} bbw={0} br={4} pt={8} z={10000000000} ai='center' minw={150} maxw={'97%'} w={'97%'} mt={10} maxh={p.height - 70} minh={'80%'} bgcolor='#fffe' f={1}
+      <Column border={[2,'#ffaaff']} bbw={0} br={4} pt={8} z={10000000000} ai='center' minw={150} maxw={'97%'} w={'97%'} mt={10} h='100%' pb={15} bgcolor='#fffe' f={1}
         col={p.show ? { right: -200, position: 'absolute' } : { position: 'absolute', right: 3 }}
         col1={p.show ? { right: -200, position: 'absolute' } : { position: 'absolute', right: 3 }}
         style={p.show ? { right: -200, position: 'absolute' } : { position: 'absolute', right: 3 }}
       >
-        <Scroll w='95%'  >
+        <Scroll w='95%' fg={1} >
 
           <Column fd={!isEnabled ? 'row' : 'row-reverse'} jc={'center'} mb={7} ph={7} >
             {!isEnabled ?
@@ -425,7 +425,7 @@ const FilterListDrawer = (p) => {
         </Scroll>
 
         {/* //! lovercase */}
-        <Column w={'100%'} ai='center' >
+        <Column w={'100%'} ai='center' f={1} minh={50} >
           <Button mt={10} w={'95%'} as='center' outline h={37} bgcolor='#ff88ee'
             onClick={() => {
               const filterArray = p.array.filter((f, i) => (

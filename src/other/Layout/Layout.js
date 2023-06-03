@@ -52,25 +52,16 @@ export const Layout = (p) => {
           p.route.params?.active === 'no' && (<TopTab name={p.route.name} group={topUser} >{p.children}</TopTab>)
           ||
           p.route.name === 'Home' &&
-          <HomePage {...p} bottom={bottom} />
+          <HomePage {...p} />
           ||
           p.route.name === 'Products' &&
-          <ProductsPage {...p} bottom={bottom} />
+          <ProductsPage {...p} />
           ||
           p.route.name === 'ProductsOffers' &&
-          <ProductsOffersPage {...p} bottom={bottom} />
+          <ProductsOffersPage {...p} />
           ||
           p.route.name === 'ProductsPopulars' &&
-          <ProductsPopularsPage {...p} bottom={bottom} />
-          ||
-          p.route.name === 'SingleProduct' &&
-          <SingleProductPage {...p} bottom={bottom} />
-          ||
-          p.route.name === 'BeforePayment' &&
-          <BeforePaymentPage {...p} bottom={bottom} />
-          ||
-          p.route.name === 'SocketIo' &&
-          <SocketIoPage {...p} bottom={bottom} />
+          <ProductsPopularsPage {...p} />
           ||
           p.route.name === 'ProductsTable' &&
           <ProductsTablePage {...p} />
@@ -79,7 +70,7 @@ export const Layout = (p) => {
           <PanelAdminPage {...p} />
           ||
           (p.route.params?.key === 'user') && (!p.route.params?.view) && (p.route.name !== 'SellerPanel') && (!p.route.params?.active) &&
-          <ProfilePage {...p} bottom={bottom} />
+          <ProfilePage {...p} />
           ||
           p.route.name === 'Sellers' &&
           <SellerPage {...p} />

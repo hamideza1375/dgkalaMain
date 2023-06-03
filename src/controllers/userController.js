@@ -13,6 +13,7 @@ import { truncate } from '../other/utils/truncate';
 import { timerThreeMinut } from '../other/utils/timerThreeMinuts';
 import { useEffect } from 'react';
 import { Platform } from 'react-native';
+import reload from '../other/utils/reload';
 
 
 export function userController(p) {
@@ -424,6 +425,9 @@ export function userController(p) {
             p.settokenValue({})
             axios.defaults.headers.common["Authorization"] = ''
             p.navigation.replace("Home")
+            setTimeout(() => {
+              reload()
+            }, 1000);
           }
         }])
     }, []);
