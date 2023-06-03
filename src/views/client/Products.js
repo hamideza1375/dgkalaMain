@@ -37,7 +37,7 @@ function FlatlistChild(p){
         col4={{ width:'30%' }}
         col5={{ width:'22%' }}
         col6={{ width:'18%' }}
-        mr='auto' ml='auto' h={260} fg={1} maxw={500}
+        mr='auto' ml='auto' h={260} fg={1} maxw={350}
         >
           <CardItem item={item} spacePrice={spacePrice} onClick={() => { p.navigation.navigate('SingleProduct', { id: item._id, title:item.title }) }} />
         </Column>)}

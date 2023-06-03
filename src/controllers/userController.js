@@ -124,7 +124,7 @@ export function userController(p) {
     await resetPassword({ password: p.password, confirmPassword: p.confirmPassword })
     p.setpassword('')
     p.setconfirmPassword('')
-    p.navigation.navigate('Login')
+    p.navigation.dispatch(p.navigation.push('Login'))
   }
   //! changePassword
 

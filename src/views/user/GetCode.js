@@ -9,6 +9,9 @@ const GetCode = memo((p) => {
   const verifycode = () => p._user.verifycode()
   const getNewCode = () => p._user.getNewCode()
 
+  _useEffect(() => {
+    if (!p.getCodeView) p.navigation.dispatch(p.navigation.navigate('Profile'))
+  }, [])
 
 
   _useEffect(() => {
@@ -23,11 +26,6 @@ const GetCode = memo((p) => {
         history.pushState(null, null, window.location.href)
     }
   })
-
-  _useEffect(() => {
-    if (!p.getCodeView) p.navigation.dispatch(p.navigation.push('Client'))
-  }, [])
-
 
   return (
     <Column f={1}>
