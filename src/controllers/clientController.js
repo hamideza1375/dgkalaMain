@@ -68,7 +68,7 @@ export function clientController(p) {
   this.getProducts = () => {
     useEffect(() => {
       (async () => {
-        if(!p.route.params?.id) return;
+        if (!p.route.params?.id) return;
         const { data } = await getProducts(p.route.params?.id)
         if (!data?.value) return
         p.setchildItem(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
@@ -106,7 +106,7 @@ export function clientController(p) {
   this.getSimilars = () => {
     useEffect(() => {
       (async () => {
-        if(!p.route.params?.id) return;
+        if (!p.route.params?.id) return;
         const { data } = await getSimilars(p.route.params?.id)
         if (!data?.value) return
         p.setsimilar(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
@@ -120,7 +120,7 @@ export function clientController(p) {
   this.getSingleProduct = () => {
     useEffect(() => {
       (async () => {
-        if(!p.route.params?.id) return;
+        if (!p.route.params?.id) return;
         const { data } = await getSingleProduct(p.route.params?.id)
         if (!data?.value) return
         p.setsingleItem(data.value)
@@ -163,7 +163,7 @@ export function clientController(p) {
 
   this.getProductComments = async () => {
     useEffect(() => {
-      if(!p.route.params?.id) return;
+      if (!p.route.params?.id) return;
       getProductComments(p.route.params?.id).then(({ data }) => {
         p.setchildItemComment(data.value)
       })
@@ -405,7 +405,7 @@ export function clientController(p) {
   //!savedProduct
   this.getSingleSavedsavedProducts = () => {
     _useEffect(() => {
-      if(!p.route.params?.id) return;
+      if (!p.route.params?.id) return;
       getSingleSavedsavedProducts(p.route.params?.id).then(({ data }) => { p.setbookmark(data.value) })
       return () => p.setbookmark(false)
     }, [p.route.params])
@@ -455,7 +455,7 @@ export function clientController(p) {
 
   this.setColor = () => {
     _useEffect(() => {
-      if(!p.route.params?.id) return;
+      if (!p.route.params?.id) return;
       p.singleItem.title && p.setcolor((color) => {
         const c = { ...color }
         c[p.route.params?.id] = color[p.route.params?.id] ? color[p.route.params?.id] : p.singleItem.color.find(c => c.value > 0)?.color
@@ -464,24 +464,23 @@ export function clientController(p) {
     }, [p.singleItem])
   }
 
+  let current = 0
+  const backAction = () => {
+    if (p.route.name === 'Home' && p.navigation?.getState()?.index === 0) {
+      current += 1
+      if (current === 2) { BackHandler.exitApp(); return true }
+      ToastAndroid.show("برای خروج دوبار لمس کنید", ToastAndroid.SHORT)
+      setTimeout(() => {
+        current = 0
+      }, 1000);
+      return true
+    }
+  }
 
   this.backHandler = () => {
-    useEffect(() => {
-      if (Platform.OS === 'android') {
-        let current = 0
-        BackHandler.addEventListener("hardwareBackPress", () => {
-          if (p.route.name === 'Home' && p.navigation?.getState()?.index === 0) {
-            current += 1
-            if (current === 2) { BackHandler.exitApp(); return true }
-            ToastAndroid.show("برای خروج دوبار لمس کنید", ToastAndroid.SHORT)
-            setTimeout(() => {
-              current = 0
-            }, 1000);
-            return true
-          }
-        })
-      }
-      return () => Platform.OS === 'android' && BackHandler.removeEventListener('hardwareBackPress')
+    _useEffect(() => {
+      const backHandler = Platform.OS === 'android' && BackHandler.addEventListener('hardwareBackPress', backAction);
+      return () => (Platform.OS === 'android' && backHandler) && backHandler.remove()
     }, [])
   }
 

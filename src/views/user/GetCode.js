@@ -10,16 +10,12 @@ const GetCode = memo((p) => {
   const getNewCode = () => p._user.getNewCode()
 
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      BackHandler.addEventListener("hardwareBackPress", () => {
-        if (p.route.name === 'GetCode') {
-          return true
-        }
-      })
-    }
-    return () => Platform.OS === 'android' && BackHandler.removeEventListener('hardwareBackPress')
-  })
+
+  _useEffect(() => {
+    const backHandler = Platform.OS === 'android' && BackHandler.addEventListener('hardwareBackPress', () => { return true });
+    return () => { (Platform.OS === 'android' && backHandler) && backHandler.remove() }
+  }, [])
+
 
   useEffect(() => {
     if (Platform.OS === 'web') {
@@ -29,9 +25,9 @@ const GetCode = memo((p) => {
   })
 
   _useEffect(() => {
-    if(!p.getCodeView) p.navigation.dispatch(p.navigation.push('Client'))
+    if (!p.getCodeView) p.navigation.dispatch(p.navigation.push('Client'))
   }, [])
-  
+
 
   return (
     <Column f={1}>
