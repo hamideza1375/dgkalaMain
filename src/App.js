@@ -114,13 +114,15 @@ const Mobile = () => {
   useEffect(() => {
     setTimeout(() => {
       netInfo.isConnected && setshow(true)
-    }, 500);
+    }, 1000);
   }, [netInfo])
 
 
+  const [hiddenTab, sethiddenTab] = useState(false)
+
   return (
     <>
-      {allState.init.splash ?
+      {(allState.init.splash || !show) ?
         <Column pos='absolute' t={0} l={0} r={0} b={0} z={111111} h={'100%'} w={'100%'} bgcolor='#fff' pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
           <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
           <ToastProvider {...allState.init} />
@@ -135,11 +137,11 @@ const Mobile = () => {
           <Dropdown root {...allState.init}><Press onClick={() => { }} >{allState.init.dropdownValue}</Press></Dropdown>
           <Init ref={(e) => allState.init.set$(e)} id={'s'} />
           <ToastProvider {...allState.init} />
-          <BottomTab.Navigator screenOptions={({ route }) => ({ tabBarInactiveTintColor: 'white', tabBarActiveTintColor: '#a05', tabBarActiveBackgroundColor: '#e833a8ee', tabBarInactiveBackgroundColor: '#e833a8ee', headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'flex', /* position:'absolute', top:1 */ }, tabBarBadgeStyle:{backgroundColor:'#0e5'} })}>
-            
+          <BottomTab.Navigator screenOptions={({ route }) => ({ tabBarHideOnKeyboard: true, tabBarInactiveTintColor: 'white', tabBarActiveTintColor: '#a05', tabBarActiveBackgroundColor: '#e833a8ee', tabBarInactiveBackgroundColor: '#e833a8ee', headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'flex', /* position:'absolute', top:1 */ }, tabBarBadgeStyle: { backgroundColor: '#0e5' } })}>
+
             <Tab.Screen name="Client" options={{ title: 'دیجی کالا', headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="home" color={color} size={size - 5} />) }} >{() =>
               <Tab.Navigator screenOptions={{ headerShown: false }}>
-                <Tab.Screen initialParams={{ key: 'home' }}   name="Home" options={{ title: 'دیجی کالا', headerShown: false }} {...clientChildren(Home, '1')} />
+                <Tab.Screen initialParams={{ key: 'home' }} name="Home" options={{ title: 'دیجی کالا', headerShown: false }} {...clientChildren(Home, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="Products" options={{ title: 'محصولات', headerShown: false }} {...clientChildren(Products, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="ProductsOffers" options={{ title: 'تخفیف ها', headerShown: false }} {...clientChildren(ProductsOffers, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="ProductsPopulars" options={{ title: 'محبوب ها', headerShown: false }} {...clientChildren(ProductsPopulars, '1')} />
@@ -149,16 +151,16 @@ const Mobile = () => {
               </Tab.Navigator>}
             </Tab.Screen>
 
-            <Tab.Screen name="BeforePayment" options={{ tabBarBadge: (allState.init.productBasket && Object.values(allState.init.productBasket).length) ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="shopping-cart" color={color} size={size - 5} />) }} >{() =>
+            <Tab.Screen name="BeforePayment" options={{ tabBarStyle: { display: hiddenTab ? 'none' : 'flex' }, tabBarBadge: (allState.init.productBasket && Object.values(allState.init.productBasket).length) ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="shopping-cart" color={color} size={size - 5} />) }} >{() =>
               <Tab.Navigator screenOptions={{ headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'none' } }} >
-                <Tab.Screen initialParams={{ key: 'client' }} name="ProductBasket" options={{ headerLeft: () => { }, title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ee66aa', }, headerTitleStyle: { color: 'white', fontFamily: Platform.OS === 'ios' ? 'B Baran' : 'B Baran Regular', fontSize: 17, }, headerTitleAlign: 'center' }} {...clientChildren(ProductBasket)} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressForm" options={{ title: 'فرم خرید', headerShown: true }} {...clientChildren(SetAddressForm)} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="Map" options={{ title: 'نقشه', headerShown: true }} {...clientChildren(Map)} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressInTehran" options={{ title: 'فرم خرید', headerShown: true }} {...clientChildren(SetAddressInTehran)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="ProductBasket" options={() => { sethiddenTab(false); return ({ headerLeft: () => { }, title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ee66aa', }, headerTitleStyle: { color: 'white', fontFamily: Platform.OS === 'ios' ? 'B Baran' : 'B Baran Regular', fontSize: 17, }, headerTitleAlign: 'center' }) }} {...clientChildren(ProductBasket)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressForm" options={() => { sethiddenTab(true); return ({ title: 'فرم خرید', headerShown: true }) }} {...clientChildren(SetAddressForm)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="Map" options={() => { sethiddenTab(true); return ({ title: 'نقشه', headerShown: true }) }} {...clientChildren(Map)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressInTehran" options={() => { sethiddenTab(true); return ({ title: 'فرم خرید', headerShown: true }) }} {...clientChildren(SetAddressInTehran)} />
               </Tab.Navigator>}
             </Tab.Screen>
 
-            <Tab.Screen name="User" options={{ headerShown: false, tabBarInactiveTintColor: '#acfa', tabBarActiveTintColor: '#9bf', tabBarActiveBackgroundColor: '#fafafa', tabBarInactiveBackgroundColor: '#fafafa', tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="user-alt" color={color} size={size - 5} />) }}>{() =>
+            <Tab.Screen name="User" options={{ headerShown: false, tabBarInactiveTintColor: '#acfa', tabBarActiveTintColor: '#7bf', tabBarActiveBackgroundColor: '#fafafa', tabBarInactiveBackgroundColor: '#fafafa', tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="user-alt" color={color} size={size - 5} />) }}>{() =>
               <Tab.Navigator initialRouteName={allState.init.tokenValue.fullname ? "Profile" : "Login"} screenOptions={() => { return { headerShown: false, headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'none' } } }} >
                 <Tab.Screen initialParams={{ key: 'user' }} name="Profile" options={{ title: 'پنل کاربری', headerShown: false }} {...userChildren(Profile)} />
                 <Tab.Screen initialParams={{ key: 'user', active: 'no' }} name="Register" options={{ headerShown: true, title: 'ثبت نام' }} {...userChildren(Register)} />
@@ -188,7 +190,7 @@ const Mobile = () => {
                 </Tab.Navigator>
               }</Tab.Screen>
               :
-              <Tab.Screen name="Admin" options={{ headerShown: false, tabBarInactiveTintColor: '#acfa', tabBarActiveTintColor: '#9bf', tabBarActiveBackgroundColor: '#fafafa', tabBarInactiveBackgroundColor: '#fafafa', tabBarLabel: '', tabBarIcon: ({ color, size }) => (<M_icon name="admin-panel-settings" color={color} size={size} />) }}>{() =>
+              <Tab.Screen name="Admin" options={{ headerShown: false, tabBarInactiveTintColor: '#acfa', tabBarActiveTintColor: '#7bf', tabBarActiveBackgroundColor: '#fafafa', tabBarInactiveBackgroundColor: '#fafafa', tabBarLabel: '', tabBarIcon: ({ color, size }) => (<M_icon name="admin-panel-settings" color={color} size={size} />) }}>{() =>
                 <Tab.Navigator screenOptions={{ headerShown: false, headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'none' } }} >
                   <Tab.Screen initialParams={{ key: 'admin' }} name="PanelAdmin" options={{ title: 'پنل ادمین' }} {...adminChildren(PanelAdmin)} />
                   <Tab.Screen initialParams={{ key: 'admin' }} name="CategoryTable" options={{ title: 'پنل ادمین' }} {...adminChildren(Table)} />
