@@ -130,7 +130,7 @@ const Mobile = () => {
           let inp = document.getElementsByTagName('input')
           for (let i = 0; i <= inp.length; i++) {
             inp[i]?.addEventListener('focus', () => { setshowTab(false) })
-            inp[i]?.addEventListener('blur', () => { setTimeout(() => {setshowTab(true)}, 100); })
+            inp[i]?.addEventListener('blur', () => { setshowTab(true)})
           }
         }, 1000);
 
@@ -145,7 +145,7 @@ const Mobile = () => {
 
   Dimensions.addEventListener('change', ({ window: { width, height } }) => { 
     if(height < _height) setshowTab(false) 
-    else setTimeout(() => {setshowTab(true)}, 100); 
+    else setshowTab(true)
   })
 
 
