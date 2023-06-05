@@ -60,12 +60,16 @@ function ScrollSlider(p) {
       onTouchMove={() => { setscroll2(false); }} >
       <Column
         onMoveShouldSetResponder={(e) => {
-          das.push(e.nativeEvent.pageX)
-          if (das[0] > das[1]) if ((count.current.count < data.length - 1)) count.current.count = count.current.count + .2
-          if (das[0] < das[1]) if (count.current.count >= 1) count.current.count = count.current.count - .2
-          setTimeout(() => {
-            open2()
-          }, 100);
+          setscroll2(false);
+          if (Platform.OS === 'web')
+            if (navigator?.userAgent?.match('Mobile') != 'Mobile') {
+              das.push(e.nativeEvent.pageX)
+              if (das[0] > das[1]) if ((count.current.count < data.length - 1)) count.current.count = count.current.count + .2
+              if (das[0] < das[1]) if (count.current.count >= 1) count.current.count = count.current.count - .2
+              setTimeout(() => {
+                open2()
+              }, 100);
+            }
         }}
       // onMoveShouldSetResponder={(e) => {
       //   setscroll2(!scroll2)

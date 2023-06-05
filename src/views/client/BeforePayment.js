@@ -8,13 +8,22 @@ import { localhost } from '../../other/utils/axios/axios'
 
 
 const BeforePayment = (p) => {
+
+  _useEffect(() => {
+    if (!p.tokenValue.fullname) {
+      p.navigation.navigate('User')
+      p.navigation.dispatch(p.navigation.navigate('User'))
+    }
+  }, [])
+
+
   return (
     <Column f={1} >
-      <Column f={1} style={{  paddingBottom: 71, backgroundColor: '#fad1' }} >
+      <Column f={1} style={{ paddingBottom: 71, backgroundColor: '#fad1' }} >
         <BeforePaymentFlatlist {...p} />
       </Column>
       <Column maxh={70} >
-      <BottomTabBeforePayment {...p} />
+        <BottomTabBeforePayment {...p} />
       </Column>
     </Column>
   )
@@ -28,7 +37,7 @@ const BeforePaymentFlatlist = (p) => {
     <Column fg={1} h='100%' border={[1, '#e5a']} >
       {Object.entries(p.productBasket).length ?
         <FlatList
-        pt={7}
+          pt={7}
           column1={1} column2={1} column3={1} column4={2}
           column5={2} column6={3}
           keyExtractor={(data, index) => index.toString()}
@@ -57,8 +66,8 @@ function BeforePaymentCatd(p) {
       style={{ maxWidth: 550, width: '95%' }}
       dr='ltr'
       bgcolor='white'
-      img={{uri:`${localhost}/upload/childItem/${p.item[1].imageUrl1}`}}
-      imageStyle={{height:78,width:78}}
+      img={{ uri: `${localhost}/upload/childItem/${p.item[1].imageUrl1}` }}
+      imageStyle={{ height: 78, width: 78 }}
       headerRow={
         <Column minh='100%' h={25} ai='flex-start' >
           <P onClick={() => p.navigation.navigate('SingleProduct', { id: p.item[0] })} >{p.item[1].title}</P>

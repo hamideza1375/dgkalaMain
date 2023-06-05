@@ -121,7 +121,7 @@ const ToastProvider = (p) => {
           }, Platform.OS === 'ios' ? { marginTop: 55 } : { marginTop: 15 }]}>
           <Swiper iconRight={p._list.length <= 1 ? <Column /> : false} >
 
-            <Column class={s.selectNone} pr={11} style={{ paddingTop: 8 }} w='100%' >
+            <Column class={s.selectNone} pr={11} style={{ paddingTop: 8 }} maxw='100%' w={'100%'} >
               <P style={{ padding: 6, color: 'white', position: 'absolute', top: 1, alignSelf: 'flex-end' }}
                 onClick={() => { let filter = p._list.filter((l) => l.id !== toast.id); p.set_list(filter); }}>X</P>
               <P ta='right' style={{ width: '90%', color: 'white', paddingTop: 2 }} >{toast.title}</P>

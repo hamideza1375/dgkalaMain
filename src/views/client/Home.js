@@ -1,14 +1,17 @@
 import React, { lazy, Suspense } from 'react'
 import { Slider, Scroll, Loading, Column } from '../../other/Components/Html'
 import Category from './components/home/Category';
+import _useEffect from '../../controllers/_initial';
 const SliderOffers = lazy(() => import('./components/home/SliderOffers'));
 const SliderPopulars = lazy(() => import('./components/home/SliderPopulars'));
 const Banner = lazy(() => import('./components/home/Banner'));
 const Footer = lazy(() => import('./components/home/Footer'));
+
 function Home(p) {
   p._client.getSlider()
   p._client.backHandler()
   p._client.allProductForSearchBar()
+
   return (
     <Column f={1} >
       <Scroll>

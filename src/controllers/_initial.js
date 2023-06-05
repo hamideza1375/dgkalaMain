@@ -14,6 +14,7 @@ import { idValidator } from '../other/utils/idValidator';
 import { useNetInfo } from "@react-native-community/netinfo";
 import ToastProvider from '../other/utils/toast';
 
+let num = 0, a = 0
 
 var _show = false,
   serverOff = false,
@@ -33,7 +34,7 @@ export const _initController = (p) => {
     var toastServerError = () => { p.toast.warning('سرور در حال تعمیر', 'لطفا چند دقیقه دیگر امتحان کنید') }
 
     setTimeout(() => { setchange(true) }, 100);
-    
+
     if (change) {
       if (netInfo.isConnected !== false) {
         setTimeout(() => { serverOff2 = true }, 7000);
@@ -142,6 +143,29 @@ export function allChildren({ client, user, admin }) {
   const adminReducer = (props) => ({ _admin: _admin(props) })
   this.clientChildren = (Component, key) => ({
     children: (props) => {
+
+      _useEffect(() => {
+        if (Platform.OS === 'web')
+          window.addEventListener('popstate', () => {
+            if (props.route.name === 'Home' && location.href === 'http://localhost:3000/home') {
+              if (num > 2) {
+                history.back()
+                history.back()
+              } else {
+                num++;
+                if (a > 0) { client.toast.show('', 'برای خروج دوبار کلیک کنید'); a = 0 }
+                else { setTimeout(() => { a = 1 }, 500); setTimeout(() => { a = 0; num = 0; }, 3000); }
+                history.pushState({}, '/home')
+              }
+            }
+            else {
+              return
+            }
+          });
+        return () => { num = 0, a = 0 }
+      }, [])
+
+
       useLayoutEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('Login') }) }, [])
       _useEffect(() => { client.setshownDropdown(false); }, [])
       useLayoutEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
