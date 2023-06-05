@@ -91,9 +91,10 @@ export function initial() {
   const [getCodeGoBack, setgetCodeGoBack] = useState(false)
   const [getCodeView, setgetCodeView] = useState(true)
   
-  
+  const timerInterwal = useRef()
 
   this.all = {
+    timerInterwal,
     // logoUrl: Platform.OS === 'web' ? '/logo.png' : require('../other/assets/images/logo.png'),
     getCodeView, setgetCodeView,
     getCodeGoBack, setgetCodeGoBack,

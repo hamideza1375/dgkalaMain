@@ -148,12 +148,17 @@ export function allChildren({ client, user, admin }) {
         if (Platform.OS === 'web')
           window.addEventListener('popstate', () => {
             if (props.route.name === 'Home' && location.href === 'http://localhost:3000/home') {
-              if (num > 2) {
-                history.back()
-                history.back()
+              if (num >= 2) {
+                if (a > 0) {
+                  history.back()
+                  history.back()
+                }
+                a = 1
               } else {
                 num++;
-                if (a > 0) { client.toast.show('', 'برای خروج دوبار کلیک کنید'); a = 0 }
+                setTimeout(() => { a = 1; }, 100);
+                setTimeout(() => { num = 0; }, 700);
+                if (a > 0) { client.toast.show('', 'برای خروج دوبار کلیک کنید', 2000); a = 0 }
                 else { setTimeout(() => { a = 1 }, 500); setTimeout(() => { a = 0; num = 0; }, 3000); }
                 history.pushState({}, '/home')
               }

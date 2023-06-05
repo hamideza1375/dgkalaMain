@@ -1677,7 +1677,7 @@ if(city){
                   set_Input12(true)
 
                 }}
-                onPress={async () => {
+                onPress={async () => {setTimeout(async()=>{
                   if (in8 && !Object.values(input8).length) return toast.error('', 'یک رنگ انتخاب کنید')
                   if ((stct) && (flm && eml && opsd, psd && cfpsd && plq && unt && adrs && pst && msg && cap && show && titl && prc && cod && img && vdo && inf && offTime && offValue && pon && poe && star1 && inpt1 && inpt2 && inpt3 && inpt4 && inpt5 && inpt6 && inpt7 && inpt9 && inpt10 && inpt11 && inpt12)) {
 
@@ -1736,7 +1736,7 @@ if(city){
                     settopRandom2(randomArrayNumber2[Math.floor(Math.random() * randomArrayNumber2.length)])
                     toast.error("خطا", "کادر های قرمز را تصحیح کنید")
                   }
-                }}
+                },200)}}
                 style={[styles.btn]} >
                 ارسال
               </Button>}

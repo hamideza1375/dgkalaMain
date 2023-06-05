@@ -28,20 +28,20 @@ export function userController(p) {
     p.setshowActivity(true)
     await getNewCode(p.route.params?.newCode)
     this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut, () => { })
+    timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
   }
 
 
   this.loadPageTimer = () => {
     _useEffect(() => {
-      let timerInterwal
-      (async () => {
-        const localDate = await AsyncStorage.getItem('localDate')
-        if (localDate > new Date().getTime()) {
-          timerThreeMinut(p.settwoMinut, (interval) => timerInterwal = interval)
-        } else p.settwoMinut(0)
-      })()
-      return () => { p.setcode(''); timerInterwal && clearInterval(timerInterwal) }
+      p.timerInterwal.current && clearInterval(p.timerInterwal.current)
+        (async () => {
+          const localDate = await AsyncStorage.getItem('localDate')
+          if (localDate > new Date().getTime()) {
+            timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
+          } else p.settwoMinut(0)
+        })()
+      return () => { p.settwoMinut(0); p.setcode(''); p.timerInterwal.current && clearInterval(p.timerInterwal.current) }
     }, [])
   }
 
@@ -49,7 +49,7 @@ export function userController(p) {
   this.getCodeForRegister = async () => {
     await getCodeForRegister({ fullname: p.fullname, phoneOrEmail: p.phoneOrEmail, password: p.password })
     this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut, () => { })
+    timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
     p.navigation.replace('GetCode', { register: 'true' })
   }
 
@@ -69,7 +69,7 @@ export function userController(p) {
     await AsyncStorage.removeItem('getMinutes')
     if (!data?.value) {
       this.deleteTimerThreeMinut()
-      timerThreeMinut(p.settwoMinut, () => { })
+      timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
       p.navigation.replace('GetCode', { login: 'true' })
     }
     else {
@@ -97,7 +97,7 @@ export function userController(p) {
     p.setcaptcha('')
     this.deleteTimerThreeMinut()
     if (p.route.params?.payment) p.navigation.dispatch(StackActions.replace('BeforePayment'))
-   else p.navigation.dispatch(StackActions.replace('Profile'))
+    else p.navigation.dispatch(StackActions.replace('Profile'))
   }
   // ! login
 
@@ -106,7 +106,7 @@ export function userController(p) {
   this.getCodeForgetPass = async () => {
     await getCodeForgetPass(p.route.params?.newCode, { phoneOrEmail: p.phoneOrEmail })
     this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut, () => { })
+    timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
     p.setphoneOrEmail('')
     p.navigation.replace('GetCode', { forgetPass: 'true', newCode: 'true' })
   }
@@ -124,7 +124,8 @@ export function userController(p) {
     await resetPassword({ password: p.password, confirmPassword: p.confirmPassword })
     p.setpassword('')
     p.setconfirmPassword('')
-    p.navigation.dispatch(p.navigation.push('Login'))
+    if (p.tokenValue.fullname) p.navigation.dispatch(p.navigation.push('Profile'))
+    else p.navigation.dispatch(p.navigation.push('Login'))
   }
   //! changePassword
 
@@ -161,7 +162,7 @@ export function userController(p) {
   this.resetSpecification = async () => {
     await resetSpecification({ fullname: p.fullname, phoneOrEmail: p.phoneOrEmail, oldPassword: p.oldPassword, password: p.password })
     this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut, () => { })
+    timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
     p.setfullname('')
     p.setphoneOrEmail('')
     p.setpassword('')

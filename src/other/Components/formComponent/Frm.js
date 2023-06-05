@@ -70,8 +70,8 @@ export default function ({ setscrollEnabled, textId, $input, initialHeight, icon
               m_icon={m_icon}
               placeholder={p2 ? p2 : p}
               defaultValue={String(state)}
-              onChangeText={(text) => { if (int && lastInterval) { clearInterval(int) }; int = setTimeout(() => { setState(text); if (lastInterval === false || String(state).length < 1) { setTimeout(() => { lastInterval = true }, 1000) }; }, 500); }}
-              onBlur={() => { setTimeout(() => { setBlur(true); !yub && fadeOut() }, 500); }}
+              onChangeText={(text) => { if (int && lastInterval) { clearInterval(int) }; int = setTimeout(() => { setState(text); if (lastInterval === false || String(state).length < 1) { setTimeout(() => { lastInterval = true }, 1000) }; }, 350); }}
+              onBlur={() => { setTimeout(() => { setBlur(true); !yub && fadeOut() }, 350); }}
               style={[styles.input, (multiline && !initialHeight) && { height: 115, minHeight: 115 }]}
               iconPress={iconPress}
               secureTextEntry={secureTextEntry}
