@@ -168,10 +168,7 @@ const Mobile = () => {
           <Dropdown root {...allState.init}><Press onClick={() => { }} >{allState.init.dropdownValue}</Press></Dropdown>
           <Init ref={(e) => allState.init.set$(e)} id={'s'} />
           <ToastProvider {...allState.init} />
-          <BottomTab.Navigator screenOptions={({ route }) => ({
-            tabBarHideOnKeyboard: true, tabBarInactiveTintColor: 'white', tabBarActiveTintColor: '#a05', tabBarActiveBackgroundColor: '#e833a8ee', tabBarInactiveBackgroundColor: '#e833a8ee', headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon,
-            tabBarStyle: Platform.OS === 'web' ? { display: showTab ? 'flex' : 'none' } : {}, tabBarBadgeStyle: { backgroundColor: '#0e5' }
-          })}>
+          <BottomTab.Navigator screenOptions={({ route }) => ({tabBarHideOnKeyboard: true, tabBarInactiveTintColor: 'white', tabBarActiveTintColor: '#a05', tabBarActiveBackgroundColor: '#e833a8ee', tabBarInactiveBackgroundColor: '#e833a8ee', headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: Platform.OS === 'web' ? { display: showTab ? 'flex' : 'none' } : {}, tabBarBadgeStyle: { backgroundColor: '#0e5' }})}>
 
             <Tab.Screen name="Client" options={{ title: 'دیجی کالا', headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="home" color={color} size={size - 5} />) }} >{() =>
               <Tab.Navigator screenListeners={{ focus: inputFocus }} screenOptions={{ headerShown: false }}>
@@ -186,23 +183,23 @@ const Mobile = () => {
             </Tab.Screen>
 
             <Tab.Screen name="BeforePayment" options={{ tabBarStyle: Platform.OS === 'web' ? { display: showTab ? (hiddenTab ? 'none' : 'flex') : 'none' } : { display: hiddenTab ? 'none' : 'flex' }, tabBarBadge: (allState.init.productBasket && Object.values(allState.init.productBasket).length) ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="shopping-cart" color={color} size={size - 5} />) }} >{() =>
-              <Tab.Navigator screenListeners={{ focus: inputFocus }} screenOptions={{ headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'none' } }} >
-                <Tab.Screen initialParams={{ key: 'client' }} name="ProductBasket" options={() => { sethiddenTab(false); return ({ headerLeft: () => { }, title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ee66aa', }, headerTitleStyle: { color: 'white', fontFamily: Platform.OS === 'ios' ? 'B Baran' : 'B Baran Regular', fontSize: 17, }, headerTitleAlign: 'center' }) }} {...clientChildren(ProductBasket)} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressForm" options={() => { sethiddenTab(true); return ({ title: 'فرم خرید', headerShown: true }) }} {...clientChildren(SetAddressForm)} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="Map" options={() => { sethiddenTab(true); return ({ title: 'نقشه', headerShown: true }) }} {...clientChildren(Map)} />
-                <Tab.Screen initialParams={{ key: 'client' }} name="SetAddressInTehran" options={() => { sethiddenTab(true); return ({ title: 'فرم خرید', headerShown: true }) }} {...clientChildren(SetAddressInTehran)} />
+              <Tab.Navigator screenListeners={({navigation})=>({ focus: ()=>{inputFocus();if (!allState.init.tokenValue.fullname) {navigation.navigate('User')}} })} screenOptions={{ headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'none' } }} >
+                <Tab.Screen listeners={{focus:()=>{sethiddenTab(false);}}} initialParams={{ key: 'client' }} name="ProductBasket" options={() => { return ({ headerLeft: () => { }, title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ee66aa', }, headerTitleStyle: { color: 'white', fontFamily: Platform.OS === 'ios' ? 'B Baran' : 'B Baran Regular', fontSize: 17, }, headerTitleAlign: 'center' }) }} {...clientChildren(ProductBasket)} />
+                <Tab.Screen listeners={{focus:()=>{sethiddenTab(true);}}} initialParams={{ key: 'client' }} name="SetAddressForm" options={() => {return ({ title: 'فرم خرید', headerShown: true }) }} {...clientChildren(SetAddressForm)} />
+                <Tab.Screen listeners={{focus:()=>{sethiddenTab(true);}}} initialParams={{ key: 'client' }} name="Map" options={() => {return ({ title: 'نقشه', headerShown: true }) }} {...clientChildren(Map)} />
+                <Tab.Screen listeners={{focus:()=>{sethiddenTab(true);}}} initialParams={{ key: 'client' }} name="SetAddressInTehran" options={() => {return ({ title: 'فرم خرید', headerShown: true }) }} {...clientChildren(SetAddressInTehran)} />
               </Tab.Navigator>}
             </Tab.Screen>
 
             <Tab.Screen name="User" options={{ tabBarStyle: Platform.OS === 'web' ? { display: showTab ? (hiddenTab ? 'none' : 'flex') : 'none' } : { display: hiddenTab ? 'none' : 'flex' }, headerShown: false, tabBarInactiveTintColor: '#acfa', tabBarActiveTintColor: '#7bf', tabBarActiveBackgroundColor: '#fafafa', tabBarInactiveBackgroundColor: '#fafafa', tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="user-alt" color={color} size={size - 5} />) }}>{() =>
               <Tab.Navigator screenListeners={{ focus: inputFocus }} initialRouteName={allState.init.tokenValue.fullname ? "Profile" : "Login"} screenOptions={() => { return { headerShown: false, headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'none' } } }} >
-                <Tab.Screen initialParams={{ key: 'user' }} name="Profile" options={() => { sethiddenTab(false); return ({ title: 'پنل کاربری', headerShown: false }) }} {...userChildren(Profile)} />
+                <Tab.Screen initialParams={{ key: 'user' }} name="Profile" listeners={{focus:()=>{sethiddenTab(false);}}} options={() => { return ({ title: 'پنل کاربری', headerShown: false }) }} {...userChildren(Profile)} />
                 <Tab.Screen initialParams={{ key: 'user', active: 'no' }} name="Register" options={{ headerShown: true, title: 'ثبت نام' }} {...userChildren(Register)} />
-                <Tab.Screen initialParams={{ key: 'user', active: 'no' }} name="Login" options={() => { sethiddenTab(false); return { headerShown: true, title: 'ورود' } }} {...userChildren(Login)} />
+                <Tab.Screen initialParams={{ key: 'user', active: 'no' }} name="Login" listeners={{focus:()=>{sethiddenTab(false);}}} options={() => { return { headerShown: true, title: 'ورود' } }} {...userChildren(Login)} />
                 <Tab.Screen initialParams={{ key: 'user', active: 'yess' }} name="ForgetPass" options={{ headerShown: true, title: 'فراموشی رمز عبور', headerTitleStyle: { color: 'black', fontFamily: 'IRANSansWeb', fontSize: 15 }, headerTitleAlign: 'center' }} {...userChildren(ForgetPass)} />
-                <Tab.Screen initialParams={{ key: 'user', active: 'yess' }} name="ResetPass" options={() => { sethiddenTab(true); return { headerShown: false, title: 'عوض کردن رمز عبور', headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center' } }} {...userChildren(ResetPass)} />
+                <Tab.Screen initialParams={{ key: 'user', active: 'yess' }} name="ResetPass" listeners={{focus:()=>{sethiddenTab(true);}}} options={() => { return { headerShown: false, title: 'عوض کردن رمز عبور', headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center' } }} {...userChildren(ResetPass)} />
                 <Tab.Screen initialParams={{ key: 'user', active: 'yess' }} name="Rules" options={{ headerShown: true, title: 'قوانین', }} {...userChildren(Rules)} />
-                <Tab.Screen initialParams={{ key: 'user', active: 'yess' }} name="GetCode" options={() => { sethiddenTab(true); return ({ title: 'کد ورود' }) }} {...userChildren(GetCode)} />
+                <Tab.Screen initialParams={{ key: 'user', active: 'yess' }} name="GetCode" listeners={{focus:()=>{sethiddenTab(true);}}} options={() => { return ({ title: 'کد ورود' }) }} {...userChildren(GetCode)} />
                 <Tab.Screen initialParams={{ key: 'user' }} name="Logout" options={{ title: 'خروج' }} {...userChildren(Logout)} />
                 <Tab.Screen initialParams={{ key: 'user' }} name="SellerPanel" options={{ title: 'پنل فروشندگان', headerShown: false }} {...userChildren(SellerPanel)} />
                 <Tab.Screen initialParams={{ key: 'user' }} name="ResetSpecification" options={{ title: 'تغییر مشخصات', headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center' }} {...userChildren(ResetSpecification)} />
@@ -261,7 +258,6 @@ const Mobile = () => {
   )
 }
 
-// tabBarVisible: false
 
 initialPropType(Home)
 initialPropType(Products)

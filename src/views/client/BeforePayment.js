@@ -9,14 +9,6 @@ import { localhost } from '../../other/utils/axios/axios'
 
 const BeforePayment = (p) => {
 
-  _useEffect(() => {
-    if (!p.tokenValue.fullname) {
-      p.navigation.navigate('User')
-      p.navigation.dispatch(p.navigation.navigate('User'))
-    }
-  }, [])
-
-
   return (
     <Column f={1} >
       <Column f={1} style={{ paddingBottom: 71, backgroundColor: '#fad1' }} >
