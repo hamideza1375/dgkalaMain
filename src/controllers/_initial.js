@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import Axios from 'axios'
 import jwtDecode from "jwt-decode";
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import { useCallback, useLayoutEffect, useState } from 'react'
 import { Dimensions, Platform } from 'react-native'
 
 import { adminController } from "./adminController";
@@ -18,8 +18,10 @@ let num = 0, a = 0
 
 var _show = false,
   serverOff = false,
-  serverOff2 = false
+  serverOff2 = false,
+  goToUser = true
 export const _initController = (p) => {
+  const navigation = useNavigation()
   const [show, setshow] = useState(false)
   const netInfo = useNetInfo()
 
@@ -45,7 +47,6 @@ export const _initController = (p) => {
           return response
         }, function (error) {
           if (_show == false && error['request']?.status !== 0) { _show = true; setshow(true) }
-          // if (error['request']?.statusText === '' && error['request']?.status === 0 && error['request']?.response === '' && error['isAxiosError'] === true) {
           if (error['request']?.status === 0) {
             if (!serverOff2) {
               p.setSplash(true)
@@ -57,7 +58,8 @@ export const _initController = (p) => {
           }
           else if (error?.response?.status) {
             p.setshowActivity(false)
-            if (error.response.status > 400 && error.response.status <= 500) { toast500(); p.setshowActivity(false) };
+            if (error.response.status === 401) { if (p.goToUser && goToUser) { goToUser = false; p.setgoToUser(false); setTimeout(() => {goToUser = true; p.setgoToUser(true)}, 2000); navigation.navigate('User'); p.toast.show('شما هنوز ثبت نام نکرده اید') } }
+            else if (error.response.status > 400 && error.response.status <= 500) { toast500(); p.setshowActivity(false) };
             if (error.response.status === 400 && error.response.data) { toast400(error.response.data) };
           } return Promise.reject(error);
         });

@@ -167,20 +167,12 @@ const AdminSocketIo = (p) => {
   };
 
 
-  _useEffect(() => {
+  useEffect(() => {
     try {
       Keyboard.addListener('keyboardDidShow', function () { p.setshownDropdown(false); });
       Keyboard.addListener('keyboardDidHide', function () { p.setshownDropdown(false); });
     } catch (error) { }
-    return () => {
-      try {
-        Keyboard.removeAllListeners('keyboardDidShow')
-        Keyboard.removeAllListeners('keyboardDidHide')
-      } catch (error) { }
-    }
   }, [])
-
-
 
 
 

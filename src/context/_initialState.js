@@ -76,9 +76,9 @@ export function initial() {
   const [latlng, setlatlng] = useState({ lat: 0, lng: 0 })
   const [postPrice, setpostPrice] = useState(35000)
   const [changePage, setchangePage] = useState(false)
-  
+
   const [changeProduct, setchangeProduct] = useState(false)
-  
+
   const [socketIoSeen, setsocketIoSeen] = useState(false)
   const [productBasket, setproductBasket] = useState([])
   const refMap = useRef(new Map())
@@ -90,11 +90,14 @@ export function initial() {
   const [homeParams, sethomeParams] = useState('')
   const [getCodeGoBack, setgetCodeGoBack] = useState(false)
   const [getCodeView, setgetCodeView] = useState(true)
-  
+
   const timerInterwal = useRef()
+  const [goToUser, setgoToUser] = useState(true)
+
 
   this.all = {
     timerInterwal,
+    goToUser, setgoToUser,
     // logoUrl: Platform.OS === 'web' ? '/logo.png' : require('../other/assets/images/logo.png'),
     getCodeView, setgetCodeView,
     getCodeGoBack, setgetCodeGoBack,
@@ -107,7 +110,7 @@ export function initial() {
     productBasket, setproductBasket,
     changeProduct, setchangeProduct,
     changePage, setchangePage,
-    logoUrl:logoUrl,
+    logoUrl: logoUrl,
     postPrice, setpostPrice,
     latlng, setlatlng,
     state, setstate, City, setCity,
