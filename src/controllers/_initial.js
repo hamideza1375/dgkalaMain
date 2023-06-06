@@ -167,7 +167,7 @@ export function allChildren({ client, user, admin }) {
       _useEffect(() => {
         if (Platform.OS === 'web')
           window.addEventListener('popstate', b);
-        return () => { num = 0, a = 0; window.removeEventListener('popstate', b); }
+        return () => { if (Platform.OS === 'web') {num = 0, a = 0; window.removeEventListener('popstate', b); }}
       }, [])
 
 
