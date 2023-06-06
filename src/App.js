@@ -171,7 +171,7 @@ const Mobile = () => {
           <BottomTab.Navigator screenOptions={({ route }) => ({ tabBarHideOnKeyboard: true, tabBarInactiveTintColor: 'white', tabBarActiveTintColor: '#a05', tabBarActiveBackgroundColor: '#e833a8ee', tabBarInactiveBackgroundColor: '#e833a8ee', headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: (Platform.OS === 'web' && (navigator?.userAgent?.match('Mobile') == 'Mobile')) ? { display: (showTab ? 'flex' : 'none') } : {}, tabBarBadgeStyle: { backgroundColor: '#0e5' } })}>
 
             <Tab.Screen name="Client" options={{ title: 'دیجی کالا', headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="home" color={color} size={size - 5} />) }} >{() =>
-              <Tab.Navigator screenListeners={{ focus: inputFocus }} screenOptions={{ headerShown: false }}>
+              <Tab.Navigator initialRouteName="Home" screenListeners={{ focus: inputFocus }} screenOptions={{ headerShown: false }}>
                 <Tab.Screen initialParams={{ key: 'home' }} name="Home" options={{ title: 'دیجی کالا', headerShown: false }} {...clientChildren(Home, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="Products" options={{ title: 'محصولات', headerShown: false }} {...clientChildren(Products, '1')} />
                 <Tab.Screen initialParams={{ key: 'client' }} name="ProductsOffers" options={{ title: 'تخفیف ها', headerShown: false }} {...clientChildren(ProductsOffers, '1')} />
@@ -183,7 +183,7 @@ const Mobile = () => {
             </Tab.Screen>
 
             <Tab.Screen name="BeforePayment" options={{ tabBarStyle: (Platform.OS === 'web' && (navigator?.userAgent?.match('Mobile') == 'Mobile')) ? { display: showTab ? (hiddenTab ? 'none' : 'flex') : 'none' } : { display: hiddenTab ? 'none' : 'flex' }, tabBarBadge: (allState.init.productBasket && Object.values(allState.init.productBasket).length) ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="shopping-cart" color={color} size={size - 5} />) }} >{() =>
-              <Tab.Navigator screenListeners={({ navigation }) => ({ focus: () => { inputFocus(); if (!allState.init.tokenValue.fullname) { navigation.navigate('User') } } })} screenOptions={{ headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'none' } }} >
+              <Tab.Navigator initialRouteName="ProductBasket" screenListeners={({ navigation }) => ({ focus: () => { inputFocus(); } })} screenOptions={{ headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'none' } }} >
                 <Tab.Screen listeners={{ focus: () => { sethiddenTab(false); } }} initialParams={{ key: 'client' }} name="ProductBasket" options={() => { return ({ headerLeft: () => { }, title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ee66aa', }, headerTitleStyle: { color: 'white', fontFamily: Platform.OS === 'ios' ? 'B Baran' : 'B Baran Regular', fontSize: 17, }, headerTitleAlign: 'center' }) }} {...clientChildren(ProductBasket)} />
                 <Tab.Screen listeners={{ focus: () => { sethiddenTab(true); } }} initialParams={{ key: 'client' }} name="SetAddressForm" options={() => { return ({ title: 'فرم خرید', headerShown: true }) }} {...clientChildren(SetAddressForm)} />
                 <Tab.Screen listeners={{ focus: () => { sethiddenTab(true); } }} initialParams={{ key: 'client' }} name="Map" options={() => { return ({ title: 'نقشه', headerShown: true }) }} {...clientChildren(Map)} />
@@ -221,7 +221,7 @@ const Mobile = () => {
             }</Tab.Screen>
 
             <Tab.Screen name="Admin" options={{ ...allState.init.tokenValue.isAdmin ? {} : { tabBarButton: () => null }, headerShown: false, tabBarInactiveTintColor: '#acfa', tabBarActiveTintColor: '#7bf', tabBarActiveBackgroundColor: '#fafafa', tabBarInactiveBackgroundColor: '#fafafa', tabBarLabel: '', tabBarIcon: ({ color, size }) => (<M_icon name="admin-panel-settings" color={color} size={size} />) }}>{() =>
-              <Tab.Navigator screenListeners={{ focus: inputFocus }} screenOptions={{ headerShown: false, headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon }} >
+              <Tab.Navigator initialRouteName="PanelAdmin" screenListeners={{ focus: inputFocus }} screenOptions={{ headerShown: false, headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon }} >
                 <Tab.Screen initialParams={{ key: 'admin' }} name="PanelAdmin" options={{ title: 'پنل ادمین' }} {...adminChildren(PanelAdmin)} />
                 <Tab.Screen initialParams={{ key: 'admin' }} name="CategoryTable" options={{ title: 'پنل ادمین' }} {...adminChildren(Table)} />
                 <Tab.Screen initialParams={{ key: 'admin' }} name="ProductsTable" options={{ title: 'محصولات' }} {...adminChildren(ProductsTable)} />

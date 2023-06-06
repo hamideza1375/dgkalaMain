@@ -80,7 +80,7 @@ export function userController(p) {
       p.setphoneOrEmail('')
       p.setpassword('')
       p.setcaptcha('')
-      if (p.route.params?.payment) p.navigation.dispatch(StackActions.replace('BeforePayment'))
+      if (p.route.params?.payment)  p.navigation.navigate('BeforePayment', { screen: 'ProductBasket' });
       else p.navigation.dispatch(StackActions.replace('Profile'))
     }
   }
@@ -96,7 +96,7 @@ export function userController(p) {
     p.setpassword('')
     p.setcaptcha('')
     this.deleteTimerThreeMinut()
-    if (p.route.params?.payment) p.navigation.dispatch(StackActions.replace('BeforePayment'))
+    if (p.route.params?.payment)  p.navigation.navigate('BeforePayment', { screen: 'ProductBasket' });
     else p.navigation.dispatch(StackActions.replace('Profile'))
   }
   // ! login
@@ -425,7 +425,7 @@ export function userController(p) {
             await AsyncStorage.removeItem("token");
             p.settokenValue({})
             axios.defaults.headers.common["Authorization"] = ''
-            p.navigation.replace("Home")
+            p.navigation.replace("Client")
             setTimeout(() => {
               reload()
             }, 1000);

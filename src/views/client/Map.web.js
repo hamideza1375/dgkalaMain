@@ -76,14 +76,14 @@ function _map(p){
 
       //! map dragstart
       map.on('dragstart', async (ev) => {
-        document.getElementById('bottomDiv').style.display = 'flex'
+        if(document.getElementById('bottomDiv')) document.getElementById('bottomDiv').style.display = 'flex'
       });
       //! map dragstart
 
       //! marker dragstart
       marker.on('dragstart', async (ev) => {
         p.setdisable(true)
-        document.getElementById('bottomDiv').style.display = 'flex'
+        if(document.getElementById('bottomDiv')) document.getElementById('bottomDiv').style.display = 'flex'
       });
       //! marker dragstart
 
@@ -141,14 +141,18 @@ function _map(p){
           const { data, status } = await axios.post(`${localhost}/reverse`, e.latlng, { headers: { 'Content-Type': 'application/json' } })
           if (status) {
             if (data[0]) {
+
               const one = (data[0].streetName && data[0].streetName !== data[0].formattedAddress.split(",")[0]) ? data[0].streetName : ''
               const two = data[0].formattedAddress.split(",")[0] ? data[0].formattedAddress.split(",")[0] : ''
               const three = data[0].formattedAddress.split(",")[1] ? data[0].formattedAddress.split(",")[1] : ''
               const street = one + ' ' + two + ' ' + three
+              map.setView({ lat: data[0].latitude, lng: data[0].longitude });
+              marker.setLatLng({ lat: data[0].latitude, lng: data[0].longitude })
               marker.bindPopup(street).openPopup()
               setTimeout(() => { marker.bindPopup(street).openPopup() }, 500)
-              document.getElementById('bottomDiv').style.display = 'none'
-              map.stopLocate()
+              if(document.getElementById('bottomDiv')) document.getElementById('bottomDiv').style.display = 'none'
+              setTimeout(() => {if(document.getElementById('bottomDiv')) document.getElementById('bottomDiv').style.display = 'flex'}, 1000);
+              setTimeout(() => {map.stopLocate()}, 1000);
               p.setdisable(false)
             }
           }

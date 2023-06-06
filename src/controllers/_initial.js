@@ -60,7 +60,7 @@ export const _initController = (p) => {
           }
           else if (error?.response?.status) {
             p.setshowActivity(false)
-            if (error.response.status === 401) { if (p.goToUser && goToUser) { goToUser = false; p.setgoToUser(false); setTimeout(() => { goToUser = true; p.setgoToUser(true) }, 2000); navigation.navigate('User'); toast401(error.response.data) } }
+            if (error.response.status === 401) { if (p.goToUser && goToUser) { goToUser = false; p.setgoToUser(false); setTimeout(() => { goToUser = true; p.setgoToUser(true) }, 1500); navigation.navigate('User'); toast401(error.response.data) } }
             else if (error.response.status > 400 && error.response.status <= 500) { toast500(); p.setshowActivity(false) };
             if (error.response.status === 400 && error.response.data) { toast400(error.response.data) };
           } return Promise.reject(error);
@@ -158,20 +158,10 @@ export function allChildren({ client, user, admin }) {
         }
         else return
       }
-      _useEffect(() => {
-        if (Platform.OS === 'web') {
-          if (props.route.name === 'Home')
-            history.pushState({}, location.href)
-        }
-      }, [])
-      _useEffect(() => {
-        if (Platform.OS === 'web')
-          window.addEventListener('popstate', b);
-        return () => { if (Platform.OS === 'web') {num = 0, a = 0; window.removeEventListener('popstate', b); }}
-      }, [])
+      _useEffect(() => { if (Platform.OS === 'web') { if (props.route.name === 'Home') history.pushState({}, location.href) }}, [])
+      _useEffect(() => { if (Platform.OS === 'web') window.addEventListener('popstate', b); return () => { if (Platform.OS === 'web') { num = 0, a = 0; window.removeEventListener('popstate', b); } } }, [])
 
-
-      useLayoutEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('User') }) }, [])
+      _useEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'ProductBasket') && (!token)) props.navigation.navigate('User', { screen: 'Login', params: { payment: 'true' } }); })}, [])
       _useEffect(() => { client.setshownDropdown(false); }, [])
       useLayoutEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
       useLayoutEffect(() => { if (props.route.name === 'Home' && props.route.params.key !== 'home') return props.navigation.navigate('NotFound') })
@@ -201,9 +191,9 @@ export function allChildren({ client, user, admin }) {
       _useEffect(() => {
         AsyncStorage.getItem("token").then((token) => {
           const user = token ? jwtDecode(token) : {}
-          if (!token) return props.navigation.navigate('User')
+          if (!token) return props.navigation.replace('User', { screen: 'Login' })
           admin.settokenValue(user);
-          if (!user?.isAdmin) return props.navigation.navigate('Client')
+          if (!user?.isAdmin) return props.navigation.replace('Client', { screen: 'Home' })
         })
       }, [])
       useLayoutEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
