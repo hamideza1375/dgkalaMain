@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Platform, LogBox, I18nManager, StatusBar, useWindowDimensions, Dimensions } from "react-native";
@@ -182,7 +182,7 @@ const Mobile = () => {
               </Tab.Navigator>}
             </Tab.Screen>
 
-            <Tab.Screen name="BeforePayment" options={{ tabBarStyle: (Platform.OS === 'web' && (navigator?.userAgent?.match('Mobile') == 'Mobile') ) ? { display: showTab ? (hiddenTab ? 'none' : 'flex') : 'none' } : { display: hiddenTab ? 'none' : 'flex' }, tabBarBadge: (allState.init.productBasket && Object.values(allState.init.productBasket).length) ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="shopping-cart" color={color} size={size - 5} />) }} >{() =>
+            <Tab.Screen name="BeforePayment" options={{ tabBarStyle: (Platform.OS === 'web' && (navigator?.userAgent?.match('Mobile') == 'Mobile')) ? { display: showTab ? (hiddenTab ? 'none' : 'flex') : 'none' } : { display: hiddenTab ? 'none' : 'flex' }, tabBarBadge: (allState.init.productBasket && Object.values(allState.init.productBasket).length) ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="shopping-cart" color={color} size={size - 5} />) }} >{() =>
               <Tab.Navigator screenListeners={({ navigation }) => ({ focus: () => { inputFocus(); if (!allState.init.tokenValue.fullname) { navigation.navigate('User') } } })} screenOptions={{ headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon, tabBarStyle: { display: 'none' } }} >
                 <Tab.Screen listeners={{ focus: () => { sethiddenTab(false); } }} initialParams={{ key: 'client' }} name="ProductBasket" options={() => { return ({ headerLeft: () => { }, title: `هزینه ی ارسال به سراسر ایران فقط ${spacePrice(allState.init.postPrice)} تومان`, headerStyle: { backgroundColor: '#ee66aa', }, headerTitleStyle: { color: 'white', fontFamily: Platform.OS === 'ios' ? 'B Baran' : 'B Baran Regular', fontSize: 17, }, headerTitleAlign: 'center' }) }} {...clientChildren(ProductBasket)} />
                 <Tab.Screen listeners={{ focus: () => { sethiddenTab(true); } }} initialParams={{ key: 'client' }} name="SetAddressForm" options={() => { return ({ title: 'فرم خرید', headerShown: true }) }} {...clientChildren(SetAddressForm)} />
@@ -214,40 +214,40 @@ const Mobile = () => {
               </Tab.Navigator>
             }</Tab.Screen>
 
-              <Tab.Screen name="SocketIo" options={{ ...!allState.init.tokenValue.isAdmin ? {} : { tabBarButton: () => null }, tabBarBadge: allState.init.socketIoSeen ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="comments" color={color} size={size - 5} />) }} >{() =>
-                <Tab.Navigator screenListeners={{ focus: inputFocus }} >
-                  <Tab.Screen initialParams={{ key: 'client' }} name="Socket" options={{ title: 'پرسش سوالات', headerTitleAlign: 'center' }} {...clientChildren(SocketIo)} />
-                </Tab.Navigator>
-              }</Tab.Screen>
-              
-              <Tab.Screen name="Admin" options={{...allState.init.tokenValue.isAdmin ? {} : { tabBarButton: () => null }, headerShown: false, tabBarInactiveTintColor: '#acfa', tabBarActiveTintColor: '#7bf', tabBarActiveBackgroundColor: '#fafafa', tabBarInactiveBackgroundColor: '#fafafa', tabBarLabel: '', tabBarIcon: ({ color, size }) => (<M_icon name="admin-panel-settings" color={color} size={size} />) }}>{() =>
-                <Tab.Navigator screenListeners={{ focus: inputFocus }} screenOptions={{ headerShown: false, headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon }} >
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="PanelAdmin" options={{ title: 'پنل ادمین' }} {...adminChildren(PanelAdmin)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="CategoryTable" options={{ title: 'پنل ادمین' }} {...adminChildren(Table)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="ProductsTable" options={{ title: 'محصولات' }} {...adminChildren(ProductsTable)} />
-                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditCategory" options={{ title: `ویرایش`, headerShown: true }} {...adminChildren(EditCategory)} />
-                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditProduct" options={{ title: 'ویرایش محصول', headerShown: true }} {...adminChildren(EditProduct)} />
-                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="SetOffer" options={{ title: 'تنظیم تخفیف', headerShown: true }} {...adminChildren(SetOffer)} />
-                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateCategory" options={{ title: 'ساخت دسته ی اغذیه', headerShown: true }} {...adminChildren(CreateCategory)} />
-                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateProduct" options={{ title: `ساخت محصول جدید`, headerShown: true }} {...adminChildren(CreateProduct)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="AddAdmin" options={{ title: 'اضافه کردن ادمین' }} {...adminChildren(AddAdmin)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="Notifee" options={{ title: 'ارسال نوتیفیکیشن' }} {...adminChildren(Notifee)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="ChangeMainAdmin" options={{ title: 'تعویض ادمین اصلی' }} {...adminChildren(ChangeMainAdmin)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="DeleteAdmin" options={{ title: 'حذف ادمین' }} {...adminChildren(DeleteAdmin)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="AllPayment" options={{ title: 'خرید های موفق و غیر موفق' }} {...adminChildren(AllPayment)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="Address" options={{ title: 'نمایش خرید کاربران' }} {...adminChildren(Address)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="QuitsForSeller" options={{ title: 'پرداخت به فروشندگان' }} {...adminChildren(QuitsForSeller)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="ListUnAvailable" options={{ title: 'لیست غذا های ناموجود' }} {...adminChildren(ListUnAvailable)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="GetProposal" options={{ title: 'صندوق انتقادلت و پیشنهادات' }} {...adminChildren(GetProposal)} />
-                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="Sellers" options={{ title: 'فروشندگان' }} {...adminChildren(Sellers)} />
-                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="AddSeller" options={{ title: 'افزودن فروشنده ی جدید', headerShown: true }} {...adminChildren(AddSeller)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="CreateSlider" options={{ title: 'ساخت اسلایدر' }} {...adminChildren(CreateSlider)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="AdminTicketBox" options={{ title: 'صندوق تیکت ها' }} {...adminChildren(AdminTicketBox)} />
-                  <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="ShowLatLngOnMap" options={{ title: 'نمایش آدرس روی نقشه', headerShown: true }} {...adminChildren(ShowLatLngOnMap)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="SendPostPrice" options={{ title: 'تایین قیمت پست' }} {...adminChildren(SendPostPrice)} />
-                  <Tab.Screen initialParams={{ key: 'admin' }} name="AdminSocketIo" options={{ title: 'پرسش سوالات', headerShown: true }} {...clientChildren(AdminSocketIo)} />
-                </Tab.Navigator>
-              }</Tab.Screen>
+            <Tab.Screen name="SocketIo" options={{ ...!allState.init.tokenValue.isAdmin ? {} : { tabBarButton: () => null }, tabBarBadge: allState.init.socketIoSeen ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="comments" color={color} size={size - 5} />) }} >{() =>
+              <Tab.Navigator screenListeners={{ focus: inputFocus }} >
+                <Tab.Screen initialParams={{ key: 'client' }} name="Socket" options={{ title: 'پرسش سوالات', headerTitleAlign: 'center' }} {...clientChildren(SocketIo)} />
+              </Tab.Navigator>
+            }</Tab.Screen>
+
+            <Tab.Screen name="Admin" options={{ ...allState.init.tokenValue.isAdmin ? {} : { tabBarButton: () => null }, headerShown: false, tabBarInactiveTintColor: '#acfa', tabBarActiveTintColor: '#7bf', tabBarActiveBackgroundColor: '#fafafa', tabBarInactiveBackgroundColor: '#fafafa', tabBarLabel: '', tabBarIcon: ({ color, size }) => (<M_icon name="admin-panel-settings" color={color} size={size} />) }}>{() =>
+              <Tab.Navigator screenListeners={{ focus: inputFocus }} screenOptions={{ headerShown: false, headerTitleStyle: { color: 'transparent' }, headerTitleAlign: 'center', ...icon }} >
+                <Tab.Screen initialParams={{ key: 'admin' }} name="PanelAdmin" options={{ title: 'پنل ادمین' }} {...adminChildren(PanelAdmin)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="CategoryTable" options={{ title: 'پنل ادمین' }} {...adminChildren(Table)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="ProductsTable" options={{ title: 'محصولات' }} {...adminChildren(ProductsTable)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditCategory" options={{ title: `ویرایش`, headerShown: true }} {...adminChildren(EditCategory)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="EditProduct" options={{ title: 'ویرایش محصول', headerShown: true }} {...adminChildren(EditProduct)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="SetOffer" options={{ title: 'تنظیم تخفیف', headerShown: true }} {...adminChildren(SetOffer)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateCategory" options={{ title: 'ساخت دسته ی اغذیه', headerShown: true }} {...adminChildren(CreateCategory)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="CreateProduct" options={{ title: `ساخت محصول جدید`, headerShown: true }} {...adminChildren(CreateProduct)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="AddAdmin" options={{ title: 'اضافه کردن ادمین' }} {...adminChildren(AddAdmin)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="Notifee" options={{ title: 'ارسال نوتیفیکیشن' }} {...adminChildren(Notifee)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="ChangeMainAdmin" options={{ title: 'تعویض ادمین اصلی' }} {...adminChildren(ChangeMainAdmin)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="DeleteAdmin" options={{ title: 'حذف ادمین' }} {...adminChildren(DeleteAdmin)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="AllPayment" options={{ title: 'خرید های موفق و غیر موفق' }} {...adminChildren(AllPayment)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="Address" options={{ title: 'نمایش خرید کاربران' }} {...adminChildren(Address)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="QuitsForSeller" options={{ title: 'پرداخت به فروشندگان' }} {...adminChildren(QuitsForSeller)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="ListUnAvailable" options={{ title: 'لیست غذا های ناموجود' }} {...adminChildren(ListUnAvailable)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="GetProposal" options={{ title: 'صندوق انتقادلت و پیشنهادات' }} {...adminChildren(GetProposal)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="Sellers" options={{ title: 'فروشندگان' }} {...adminChildren(Sellers)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="AddSeller" options={{ title: 'افزودن فروشنده ی جدید', headerShown: true }} {...adminChildren(AddSeller)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="CreateSlider" options={{ title: 'ساخت اسلایدر' }} {...adminChildren(CreateSlider)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="AdminTicketBox" options={{ title: 'صندوق تیکت ها' }} {...adminChildren(AdminTicketBox)} />
+                <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="ShowLatLngOnMap" options={{ title: 'نمایش آدرس روی نقشه', headerShown: true }} {...adminChildren(ShowLatLngOnMap)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="SendPostPrice" options={{ title: 'تایین قیمت پست' }} {...adminChildren(SendPostPrice)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="AdminSocketIo" options={{ title: 'پرسش سوالات', headerShown: true }} {...clientChildren(AdminSocketIo)} />
+              </Tab.Navigator>
+            }</Tab.Screen>
 
             <Tab.Screen name="NotFound" options={{ title: '404', headerShown: false, tabBarStyle: { display: 'none' }, tabBarButton: () => null }} {...clientChildren(_404)} />
           </BottomTab.Navigator >
@@ -450,13 +450,18 @@ else {
 }
 
 
-
+let showToast
 let App = () => {
 
   const netInfo = useNetInfo()
+  const [splash, setsplash] = useState(false)
+  useLayoutEffect(() => { netInfo.isConnected && setsplash(true) }, [netInfo])
+  const allState = states()
+  const toast = new Toast(allState.client)
+  var toastNetworkError = () => { toast.error('خطا ی شبکه', 'اتصال اینترنتتان را برسی کنید') }
 
   return (
-    <ErrorBoundary fallback={
+    splash ? <ErrorBoundary fallback={
       <Column style={{ width: '70%', marginTop: 20, padding: 12, display: 'flex', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1 }} >
         <P style={{ fontFamily: 'IRANSansWeb', fontWeight: 'bold' }} >اتفاق غیر منتظره ای رخ داد</P>
         <Press onClick={reload} style={{ marginTop: 15, width: 95, height: 37, borderWidth: 1, borderRadius: 4, borderColor: '#08e', justifyContent: 'center', alignItems: 'center' }} >
@@ -466,6 +471,11 @@ let App = () => {
       </Column>} >
       <_App />
     </ErrorBoundary>
+      :
+      <Column onLayout={()=>{if(!showToast){toastNetworkError(); showToast = true}}} pos='absolute' t={0} l={0} r={0} b={0} z={111111} h={'100%'} w={'100%'} bgcolor='#fff' pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
+        <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
+        <ToastProvider {...allState.init} />
+      </Column>
   )
 }
 

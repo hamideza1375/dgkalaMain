@@ -171,7 +171,7 @@ export function allChildren({ client, user, admin }) {
       }, [])
 
 
-      useLayoutEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('Login') }) }, [])
+      useLayoutEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'BeforePayment') && !token) return props.navigation.navigate('User') }) }, [])
       _useEffect(() => { client.setshownDropdown(false); }, [])
       useLayoutEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
       useLayoutEffect(() => { if (props.route.name === 'Home' && props.route.params.key !== 'home') return props.navigation.navigate('NotFound') })
@@ -186,7 +186,7 @@ export function allChildren({ client, user, admin }) {
         AsyncStorage.getItem("token").then((token) => {
           const _user = token ? jwtDecode(token) : {}
           user.settokenValue(_user);
-          if (props.route.params?.active === 'no' && (_user?.fullname)) return props.navigation.replace('Home')
+          if (props.route.params?.active === 'no' && (_user?.fullname)) return props.navigation.replace('Profile')
           if (!props.route.params?.active && (!_user?.fullname)) return props.navigation.replace('Login')
         })
       }, [])
@@ -201,9 +201,9 @@ export function allChildren({ client, user, admin }) {
       _useEffect(() => {
         AsyncStorage.getItem("token").then((token) => {
           const user = token ? jwtDecode(token) : {}
-          if (!token) return props.navigation.replace('Login')
+          if (!token) return props.navigation.navigate('User')
           admin.settokenValue(user);
-          if (!user?.isAdmin) return props.navigation.replace('Home')
+          if (!user?.isAdmin) return props.navigation.navigate('Client')
         })
       }, [])
       useLayoutEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })

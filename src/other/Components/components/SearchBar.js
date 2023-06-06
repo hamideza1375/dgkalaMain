@@ -78,6 +78,8 @@ function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, s
 
           {!title ?
             <Input
+            textContentType={'none'}
+            autoComplete={'off'}
               value={textSearch} onChangeText={text => {
                 settextSearch(text.toLowerCase());
                 p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } })
