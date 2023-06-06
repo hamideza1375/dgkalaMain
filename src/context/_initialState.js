@@ -93,9 +93,11 @@ export function initial() {
 
   const timerInterwal = useRef()
   const [goToUser, setgoToUser] = useState(true)
+  const [homeScreen, sethomeScreen] = useState(false)
 
 
   this.all = {
+    homeScreen, sethomeScreen,
     timerInterwal,
     goToUser, setgoToUser,
     // logoUrl: Platform.OS === 'web' ? '/logo.png' : require('../other/assets/images/logo.png'),

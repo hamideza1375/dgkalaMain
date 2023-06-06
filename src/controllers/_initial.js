@@ -13,6 +13,7 @@ import { Column, Img, Loading } from '../other/Components/Html';
 import { idValidator } from '../other/utils/idValidator';
 import { useNetInfo } from "@react-native-community/netinfo";
 import ToastProvider from '../other/utils/toast';
+import { myhost } from '../other/utils/axios/axios';
 
 let num = 0, a = 0
 
@@ -33,6 +34,7 @@ export const _initController = (p) => {
     var toastOK = (data) => { typeof data !== 'string' ? p.toast.success('موفق آمیز', '√', 2500) : p.toast.success('موفق آمیز', data, 3500); setTimeout(() => { p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }, 1000); }
     var toast500 = () => { p.toast.error('خطا ی سرور', 'مشکلی از سمت سرور پیش آمده'); p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }
     var toast400 = (error) => { p.toast.error('خطا', typeof error === 'string' ? error : 'خطایی غیر منتظره رخ داد'); p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }
+    var toast401 = (error) => { p.toast.warning('عدم دسترسی', typeof error === 'string' ? error : 'خطایی غیر منتظره رخ داد'); p.setRand(parseInt(Math.random() * 9000 + 1000)); p.refInput.current && p.refInput.current.setNativeProps({ text: '' }); p.setcaptcha('') }
     var toastServerError = () => { p.toast.warning('سرور در حال تعمیر', 'لطفا چند دقیقه دیگر امتحان کنید') }
 
     setTimeout(() => { setchange(true) }, 100);
@@ -58,7 +60,7 @@ export const _initController = (p) => {
           }
           else if (error?.response?.status) {
             p.setshowActivity(false)
-            if (error.response.status === 401) { if (p.goToUser && goToUser) { goToUser = false; p.setgoToUser(false); setTimeout(() => {goToUser = true; p.setgoToUser(true)}, 2000); navigation.navigate('User'); p.toast.show('شما هنوز ثبت نام نکرده اید') } }
+            if (error.response.status === 401) { if (p.goToUser && goToUser) { goToUser = false; p.setgoToUser(false); setTimeout(() => { goToUser = true; p.setgoToUser(true) }, 2000); navigation.navigate('User'); toast401(error.response.data) } }
             else if (error.response.status > 400 && error.response.status <= 500) { toast500(); p.setshowActivity(false) };
             if (error.response.status === 400 && error.response.data) { toast400(error.response.data) };
           } return Promise.reject(error);
@@ -137,6 +139,7 @@ export function allChildren({ client, user, admin }) {
   }, [netInfo])
 
 
+
   const _client = ({ navigation, route }) => new clientController({ ...client, navigation, route })
   const _user = ({ navigation, route }) => new userController({ ...user, navigation, route })
   const _admin = ({ navigation, route }) => new adminController({ ...admin, navigation, route })
@@ -146,30 +149,25 @@ export function allChildren({ client, user, admin }) {
   this.clientChildren = (Component, key) => ({
     children: (props) => {
 
+      const b = () => {
+        if (location.href === location.origin || location.href === myhost) history.back()
+        if ((props.route.name === 'Home' || props.route.params?.key === 'home') && (location.href === myhost || location.href === 'http://localhost:3000/home')) {
+          num++;
+          if (num === 1) { client.toast.show('', 'برای خروج دوبار کلیک کنید', 2000); setTimeout(() => { num = 0 }, 1000); }
+          if (num >= 2) { history.back(); history.back() }
+        }
+        else return
+      }
+      _useEffect(() => {
+        if (Platform.OS === 'web') {
+          if (props.route.name === 'Home')
+            history.pushState({}, location.href)
+        }
+      }, [])
       _useEffect(() => {
         if (Platform.OS === 'web')
-          window.addEventListener('popstate', () => {
-            if (props.route.name === 'Home' && location.href === 'http://localhost:3000/home') {
-              if (num >= 2) {
-                if (a > 0) {
-                  history.back()
-                  history.back()
-                }
-                a = 1
-              } else {
-                num++;
-                setTimeout(() => { a = 1; }, 100);
-                setTimeout(() => { num = 0; }, 700);
-                if (a > 0) { client.toast.show('', 'برای خروج دوبار کلیک کنید', 2000); a = 0 }
-                else { setTimeout(() => { a = 1 }, 500); setTimeout(() => { a = 0; num = 0; }, 3000); }
-                history.pushState({}, '/home')
-              }
-            }
-            else {
-              return
-            }
-          });
-        return () => { num = 0, a = 0 }
+          window.addEventListener('popstate', b);
+        return () => { num = 0, a = 0; window.removeEventListener('popstate', b); }
       }, [])
 
 
