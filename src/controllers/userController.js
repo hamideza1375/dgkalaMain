@@ -250,8 +250,8 @@ export function userController(p) {
   }
 
 
-  this.sendTicketAnswer = async (call) => {
-    const { data } = await sendTicketAnswer({ message: p.message, imageUrl: p.imageUrl }, p.route.params.id)
+  this.sendTicketAnswer = async (call, message) => {
+    const { data } = await sendTicketAnswer({ message, imageUrl: p.imageUrl }, p.route.params.id)
     p.setanswersTicket(singleTicket => {
       const answer = [...singleTicket]
       answer.unshift(data.value)
@@ -259,7 +259,6 @@ export function userController(p) {
     })
     call()
     p.setimageUrl({})
-    p.setmessage('')
   }
 
 

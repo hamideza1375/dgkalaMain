@@ -10,12 +10,13 @@ const Profile = (p) => {
   _useEffect(() => {p.setgetCodeView(false)}, [])
 
   return (
-    <Column f={1} bgcolor='#f8f8f8'>
+    <Column f={1} jc='center' bgcolor='#f5f5f5' >
+    <Column f={.95} bgcolor='#f8f8f8'>
       <Scroll as='flex-end' ai='center' bgcolor='#fff' w={320} h={400} minw={320} br={5} mt={5} >
-        <Column w={290} h={350}>
+        <Column w={250} h={350}>
           <Column pv={11} mt={10} ><Py>مشخصات حساب کاربری شما</Py></Column>
           <Card2 bgcolor={'#fff'} onClick={sendImageProfile}
-            csrc={1.5} src={p.imageProfile ? { uri: `${localhost}/upload/profile/${p.imageProfile}` } : require('../../other/assets/images/logo.png')}
+            csrc={1.6} src={p.imageProfile ? { uri: `${localhost}/upload/profile/${p.imageProfile}` } : require('../../other/assets/images/logo.png')}
             coulumn1={
               <Column f={1} w='100%'>
                 <Row mt={7} pr={12} f={1} ai='center'>
@@ -46,6 +47,7 @@ const Profile = (p) => {
           />
         </Column>
       </Scroll>
+    </Column >
     </Column >
   )
 }

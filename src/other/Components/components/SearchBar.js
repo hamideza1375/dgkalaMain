@@ -62,8 +62,8 @@ function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, s
 
       <Span bgcolor={bgcolor} h={53} w={'100.2%'} as='center' z={10000000}>
         <Span bgcolor={bgcolor} style={[styles.containHead]}>
-          {(src) && <Press onClick={() => navigation.navigate('Home')} mr={7} ><Img bgcolor='transparent' w={55} h={54} mt={-1} br={4} src={src} /></Press>}
-          {(iconSrc) && <Press ph={5} mh={5} onClick={() => { navigation.navigate('Home') }
+          {(src) && <Press onClick={() => navigation.navigate('Client', { screen: 'Home' })} mr={7} ><Img bgcolor='transparent' w={55} h={54} mt={-1} br={4} src={src} /></Press>}
+          {(iconSrc) && <Press ph={5} mh={5} onClick={() => { navigation.navigate('Client', { screen: 'Home' }) }
           // {(iconSrc) && <Press ph={5} mh={5} onClick={() => { navigation.dispatch(StackActions.replace('Client')); }
           } mr={7} ><Icon size={24} style={[styles.iconHome, { marginTop: 2 }]} name={iconSrc} /></Press>}
 

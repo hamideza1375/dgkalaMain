@@ -18,8 +18,8 @@ const AdminTicketBox = (p) => {
               <P fs={11} color='#aab' >{moment(item.date).format('jYYYY/jM/jD')}</P>
             </Column>
             <Column >
-              <P onClick={() => { p.navigation.navigate('GetTicket', { id: item._id }) }} ta='right' fs={12} >{item.title}</P>
-              <P onClick={() => { p.navigation.navigate('GetTicket', { id: item._id }) }} ta='right' fs={10} color={'#777'} >{truncate(item.message, 30, false)}</P>
+              <P onClick={() => { p.navigation.navigate('AdminGetTicket', { id: item._id }) }} ta='right' fs={12} >{item.title}</P>
+              <P onClick={() => { p.navigation.navigate('AdminGetTicket', { id: item._id }) }} ta='right' fs={10} color={'#777'} >{truncate(item.message, 30, false)}</P>
               <M_icon onClick={() => { deleteTicket(item._id) }} name='delete' size={30} color='#e52222' style={{ position: 'absolute', left: 1, top: 10 }} />
               {!item.adminSeen && <Badge bgcolor={'#0e2'} left={-3} />}
             </Column>

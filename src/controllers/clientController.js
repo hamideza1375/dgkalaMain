@@ -448,7 +448,7 @@ export function clientController(p) {
           ]
         )
       }
-    p.navigation.replace('FramePayment', { url: data.value })
+      p.navigation.navigate('User', { screen: 'FramePayment', params: { url: data.value } })
   }
   //! payment
 

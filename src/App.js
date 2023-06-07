@@ -80,6 +80,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNetInfo } from "@react-native-community/netinfo";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import AdminGetTicket from "./views/admin/AdminGetTicket";
 
 
 rtl()
@@ -246,6 +247,7 @@ const Mobile = () => {
                 <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="ShowLatLngOnMap" options={{ title: 'نمایش آدرس روی نقشه', headerShown: true }} {...adminChildren(ShowLatLngOnMap)} />
                 <Tab.Screen initialParams={{ key: 'admin' }} name="SendPostPrice" options={{ title: 'تایین قیمت پست' }} {...adminChildren(SendPostPrice)} />
                 <Tab.Screen initialParams={{ key: 'admin' }} name="AdminSocketIo" options={{ title: 'پرسش سوالات', headerShown: true }} {...clientChildren(AdminSocketIo)} />
+                <Tab.Screen initialParams={{ key: 'user', view: 'true' }} name="AdminGetTicket" options={{ title: 'تیکت', headerShown: true }} {...userChildren(AdminGetTicket)} />
               </Tab.Navigator>
             }</Tab.Screen>
 
@@ -314,6 +316,7 @@ initialPropType(AdminTicketBox)
 initialPropType(ShowLatLngOnMap)
 initialPropType(SendPostPrice)
 initialPropType(AdminSocketIo)
+initialPropType(AdminGetTicket)
 
 
 const linking = {
@@ -397,6 +400,7 @@ const linking = {
           ShowLatLngOnMap: '/showlatlngonmap',
           SendPostPrice: '/sendpostprice',
           AdminSocketIo: '/adminsocketio',
+          AdminGetTicket: '/admingetticket',
         }
       },
 
