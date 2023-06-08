@@ -190,6 +190,7 @@ export function userController(p) {
     imagePicker().then(async (res) => {
       const { data } = await sendImageProfile({ imageUrl: res })
       setTimeout(() => { p.$.id('card2Image')?.$({ src: { uri: `${localhost}/upload/profile/${data.imageUrl}` } }) }, 3000);
+      setTimeout(() => { p.$.id('card2Image')?.$({ src: { uri: `${localhost}/upload/profile/${data.imageUrl}` } }) }, 5000);
     })
   }
 
@@ -427,7 +428,7 @@ export function userController(p) {
             p.navigation.replace("Client")
             setTimeout(() => {
               reload()
-            }, 1000);
+            }, 100);
           }
         }])
     }, []);

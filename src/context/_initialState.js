@@ -9,11 +9,11 @@ export function initial() {
   const [splash, setSplash] = useState(true)
   const [height, setheight] = useState(_height)
   const [width, setwidth] = useState(_width)
-  const [star1, setstar1] = useState(true)
-  const [star2, setstar2] = useState(true)
-  const [star3, setstar3] = useState(true)
-  const [star4, setstar4] = useState(true)
-  const [star5, setstar5] = useState(true)
+  // const [star1, setstar1] = useState(true)
+  // const [star2, setstar2] = useState(true)
+  // const [star3, setstar3] = useState(true)
+  // const [star4, setstar4] = useState(true)
+  // const [star5, setstar5] = useState(true)
   const [fiveStar, setfiveStar] = useState(5)
   const [plaque, setplaque] = useState('')
   const [unit, setunit] = useState('')
@@ -145,11 +145,11 @@ export function initial() {
     dropdownValue, setdropdownValue,
     shownDropdown, setshownDropdown,
     splash, setSplash,
-    star5, setstar5,
-    star4, setstar4,
-    star3, setstar3,
-    star2, setstar2,
-    star1, setstar1,
+    // star5, setstar5,
+    // star4, setstar4,
+    // star3, setstar3,
+    // star2, setstar2,
+    // star1, setstar1,
     fiveStar, setfiveStar,
     width, setwidth,
     height, setheight,
@@ -226,11 +226,11 @@ export const initialPropType = (component) => {
     dropdownValue: PropTypes.any,
     shownDropdown: PropTypes.bool,
     splash: PropTypes.bool,
-    star5: PropTypes.bool,
-    star4: PropTypes.bool,
-    star3: PropTypes.bool,
-    star2: PropTypes.bool,
-    star1: PropTypes.bool,
+    // star5: PropTypes.bool,
+    // star4: PropTypes.bool,
+    // star3: PropTypes.bool,
+    // star2: PropTypes.bool,
+    // star1: PropTypes.bool,
     fiveStar: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,

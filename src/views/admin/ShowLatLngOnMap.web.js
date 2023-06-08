@@ -43,7 +43,7 @@ function _map(p) {
 
     //! circle2
     let mark2 = { lat: 1.214174234928924, lng: 1.68491965736432 }
-    var myIcon2 = L.icon({ iconUrl: `${localhost}/lefleat/circle.png`, iconSize: [17, 17] });
+    var myIcon2 = L.icon({ iconUrl: `${localhost}/leaflet/circle.png`, iconSize: [17, 17] });
     let markerOption2 = { draggable: false, icon: myIcon2 }
     var marker2 = L.marker(mark2, markerOption2).addTo(map)
     var circle1 = L.circle(mark2, 5).addTo(map);

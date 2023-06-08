@@ -12,7 +12,7 @@ import InputImage from '../formComponent/InputImage'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { context } from '../../../context/_context';
 
-let loginInterval = null
+let loginInterval = null, cInt, intCity, intState
 
 const Form = ({
   webStyle = {}, nativeStyle = {}, timer = false, btn = true,
@@ -47,7 +47,7 @@ const Form = ({
   const { toast, title, settitle, price, setprice, phone, setphone, phoneOrEmail, setphoneOrEmail, imageUrl, setimageUrl,
     videoUrl, setvideoUrl, info, setinfo, fullname, setfullname, email, setemail, oldPassword, setoldPassword, password, setpassword, confirmPassword, setconfirmPassword,
     postalCode, setpostalCode, plaque, setplaque, unit, setunit, address, setaddress, message, setmessage, code, setcode, captcha, setcaptcha,
-    setremember, star1, setstar1, star2, setstar2, star3, setstar3, star4, setstar4, star5, setstar5, fiveStar, setfiveStar, refInput, rand, setRand,
+    setremember, /* star1, setstar1, star2, setstar2, star3, setstar3, star4, setstar4, star5, setstar5, */ fiveStar, setfiveStar, refInput, rand, setRand,
 
     input1, setinput1, input2, setinput2, input3, setinput3, input4, setinput4, input5, setinput5, input6, setinput6, input7, setinput7, input8, setinput8, input9, setinput9,
     input10, setinput10, input11, setinput11, input12, setinput12
@@ -57,7 +57,16 @@ const Form = ({
     height, showActivity, setshowActivity, $input
   } = context()
 
+  const [_state, set_state] = useState('')
+  const [_City, set_City] = useState('')
 
+
+
+  const [star1, setstar1] = useState(true)
+  const [star2, setstar2] = useState(true)
+  const [star3, setstar3] = useState(true)
+  const [star4, setstar4] = useState(true)
+  const [star5, setstar5] = useState(true)
 
   const flatlistRef = useRef()
 
@@ -206,6 +215,7 @@ const Form = ({
   }, [fiveStar]))
 
 
+
   useEffect(() => {
     ((setfiveStar) && (s)) && setfiveStar(() => {
       let a
@@ -253,7 +263,10 @@ const Form = ({
 
   useFocusEffect(useCallback(() => {
     setRand && setRand(parseInt(Math.random() * 9000 + 1000))
-    return () => setcaptcha && setcaptcha('')
+    return () => {
+      setcaptcha && setcaptcha('');
+    refInput.current?.setNativeProps({ text: '' });
+  }
   }, [show2]))
 
   const [_fullname, set_Fullname] = useState()
@@ -462,6 +475,21 @@ if(city){
  } }
 
 
+ const [change, setchange] = useState(false)
+
+
+ useEffect(() => {
+  set_state(String(state))
+  set_City(String(City))
+ }, [change])
+
+ useEffect(() => {
+   setTimeout(() => { !_state.length && setchange(true) }, 700);
+   setTimeout(() => { !_City.length && setchange(false) }, 1400);
+ }, [])
+
+
+
 
   return (
     <ScrollView onMoveShouldSetResponder={setScroll} scrollEnabled={Platform.OS !== 'web' ? scrollEnabled : true} contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]} style={[{ backgroundColor: bgcolor, borderRadius: 3, marginTop: mt }, Platform.OS === 'web' ? webStyle : nativeStyle]} >
@@ -477,14 +505,14 @@ if(city){
                 <Column ai='center' jc='center' >
                   <Py as='flex-start' ph={8} ta='center' >استان:</Py>
                   <Column ai='center' jc='center' bgcolor='#fff' border={[1, 'silver']} br={4} >
-                    <Input value={state} onChangeText={(text) => setstate(text)} fw='100' fs={11} ta='center' style={{ maxWidth: 90, height: 33 }} />
+                    <Input onBlur={()=>{setstate(_state)}} value={_state} onChangeText={(text) => {set_state(text); intState && clearInterval(intState); intState = setTimeout(()=>{setstate(text)},1500)}} fw='100' fs={11} ta='center' style={{ maxWidth: 90, height: 33 }} />
                   </Column>
                 </Column>
 
                 <Column onMoveShouldSetResponder={() => setscrollEnabled(true)} ai='center' jc='center' mt={7} >
                   <Py as='flex-start' ph={8} ta='center' >شهر:</Py>
                   <Column ai='center' jc='center' bgcolor='#fff' border={[1, 'silver']} br={4} >
-                    <Input value={City} onChangeText={(text) => setCity(text)} fw='100' fs={11} ta='center' style={{ maxWidth: 90, height: 33 }} />
+                    <Input onBlur={()=>{setCity(_City)}} value={_City} onChangeText={(text) => {set_City(text); intCity && clearInterval(intCity); intCity =setTimeout(()=>{setCity(text)},1500)}} fw='100' fs={11} ta='center' style={{ maxWidth: 90, height: 33 }} />
                   </Column>
                 </Column>
               </Column>
@@ -497,13 +525,13 @@ if(city){
                   data={selectStatesValues}
                   renderItem={({ item, index }) => (
                     <Column m={3} >
-                      <List onClick={() => { setstate(item); setTimeout(() => { flatlistRef.current?.scrollToIndex({ index: index, animate: true }) }, 330) }} h={46} fontSize={12} header={item} header2={item === state ? City : ''} bgcolor={'white'} color='black' border={[1, 'silver']} hidden={hidden} sethidden={sethidden}
+                      <List onClick={() => { set_state(item); setstate(item); setTimeout(() => { flatlistRef.current?.scrollToIndex({ index: index, animate: true }) }, 330) }} h={46} fontSize={12} header={item} header2={item === state ? City : ''} bgcolor={'white'} color='black' border={[1, 'silver']} hidden={hidden} sethidden={sethidden}
                         bodyRow={
                           ((loadCity.length) && (state === item)) &&
                           loadCity.map((item2, index) =>
                             <Row key={index} maxw={400} jc='space-between' w='100%' mv={2} bbw={1} ai='center' border={[0, 'silver']} >
                               <P fw='100' fs={11} >{item2}</P>
-                              <CheckBoxRadius onPressIn={() => { setCity(item2); }} item={{ value: item + ',' + item2 }} index={index}
+                              <CheckBoxRadius onPressIn={() => { set_City(item2); setCity(item2); }} item={{ value: item + ',' + item2 }} index={index}
                                 border={[1, 'silver']} ml={4} mb={3}
                                 show={show1} setshow={setshow1}
                                 style={{ transform: [{ scale: .9 }] }} />
@@ -1497,6 +1525,7 @@ if(city){
                       setchangeRand(true)
                       setShow2(!show2)
                       setcaptcha('')
+                      refInput.current?.setNativeProps({ text: '' });
                       settopRandom1(randomArrayNumber[Math.floor(Math.random() * randomArrayNumber.length)])
                       settopRandom2(randomArrayNumber2[Math.floor(Math.random() * randomArrayNumber2.length)])
                     }} />
@@ -1504,10 +1533,10 @@ if(city){
                     ref={refInput}
                     keyboardType="numeric"
                     maxLength={4}
-                    value={captcha}
+                    // value={captcha}
                     placeholder="کد امنیتی" style={[styles.TextInput, { borderColor: '#666', fontFamily: 'IRANSansWeb', fontSize: 12 }, rand != captcha && _captcha && { borderColor: '#a22' }]}
                     placeholderTextColor='silver'
-                    onChangeText={text => setcaptcha(text)} />
+                    onChangeText={text => { if(text.length > 3) setcaptcha(text); clearInterval(cInt) ; cInt = setTimeout(()=>{text.length <= 3 && setcaptcha(text)},3000)}} />
                 </View>
                 {((_captcha) && (!captcha) ? <Py fs={11} style={{ color: 'red', width: captcha ? 280 : 260 }}>لطفا کادر را پر کنید</Py> : <></>)}
                 {((_captcha) && (captcha) && (rand != captcha) ? <Py fs={11} style={{ color: 'red', width: captcha ? 280 : 260 }}> کد وارد شده اشتباه هست</Py> : <></>)}
@@ -1679,6 +1708,8 @@ if(city){
                 }}
                 onPress={async () => {
                   setdisableClick(true)
+                  setshowActivity(true)
+
                   setTimeout(async()=>{
                   if (in8 && !Object.values(input8).length) return toast.error('', 'یک رنگ انتخاب کنید')
                   if ((stct) && (flm && eml && opsd, psd && cfpsd && plq && unt && adrs && pst && msg && cap && show && titl && prc && cod && img && vdo && inf && offTime && offValue && pon && poe && star1 && inpt1 && inpt2 && inpt3 && inpt4 && inpt5 && inpt6 && inpt7 && inpt9 && inpt10 && inpt11 && inpt12)) {
@@ -1733,8 +1764,10 @@ if(city){
                   }
                   else {
                     setdisableClick(false)
+                    setshowActivity(false)
                     setRand(parseInt(Math.random() * 9000 + 1000))
                     setcaptcha('')
+                    refInput.current?.setNativeProps({ text: '' });
                     settopRandom1(randomArrayNumber[Math.floor(Math.random() * randomArrayNumber.length)])
                     settopRandom2(randomArrayNumber2[Math.floor(Math.random() * randomArrayNumber2.length)])
                     toast.error("خطا", "کادر های قرمز را تصحیح کنید")

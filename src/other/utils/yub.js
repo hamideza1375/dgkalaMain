@@ -68,8 +68,8 @@ const yub = {
       if (!target[propName]) {
         return ('کادر نباید خالی باشد')
       }
-      else if (target[propName].includes('@') || isNaN(target[propName])) {
-        if (target[propName]?.length < 5 || !target[propName].includes('.')) {
+      else if (isNaN(target[propName])) {
+        if (target[propName]?.length < 5 || !target[propName].includes('.') || !target[propName].includes('@')) {
           return ('ایمیل وارد شده صحیح نمیباشد')
         }
         else return target[propName]

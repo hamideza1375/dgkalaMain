@@ -125,17 +125,17 @@ const Mobile = () => {
 
 
   const inputFocus = () => {
-    if (Platform.OS === 'web')
-      if (navigator?.userAgent?.match('Mobile') == 'Mobile') {
-        setTimeout(() => {
-          let inp = document.getElementsByTagName('input')
-          for (let i = 0; i <= inp.length; i++) {
-            inp[i]?.addEventListener('focus', () => { setshowTab(false) })
-            inp[i]?.addEventListener('blur', () => { setshowTab(true) })
-          }
-        }, 1000);
+    // if (Platform.OS === 'web')
+    //   if (navigator?.userAgent?.match('Mobile') == 'Mobile') {
+    //     setTimeout(() => {
+    //       let inp = document.getElementsByTagName('input')
+    //       for (let i = 0; i <= inp.length; i++) {
+    //         inp[i]?.addEventListener('focus', () => { setshowTab(false) })
+    //         inp[i]?.addEventListener('blur', () => { setshowTab(true) })
+    //       }
+    //     }, 1000);
 
-      }
+    //   }
   }
 
   useEffect(() => {

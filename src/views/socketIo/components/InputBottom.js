@@ -38,6 +38,7 @@ export default function InputBottom(p) {
         type: 'audio'
       });
     }
+    p.onClick()
   }
 
 
@@ -48,7 +49,7 @@ export default function InputBottom(p) {
       const imageName = `${(new Date().getTime() + Math.random() * 1000000).toString()}.${fileType}`;
       await imageChat({ uri: res, imageName })
       sendMessage('image', imageName);
-      p.setshownDropdown(false);
+      p.setshownDropdown && p.setshownDropdown(false);
     })
   }
 
@@ -60,7 +61,7 @@ export default function InputBottom(p) {
       const videoName = `${(new Date().getTime() + Math.random() * 1000000).toString()}.${fileType}`;
       await videoChat({ uri: res, videoName })
       sendMessage('video', videoName);
-      p.setshownDropdown(false);
+      p.setshownDropdown && p.setshownDropdown(false);
     })
   }
 
@@ -72,7 +73,7 @@ export default function InputBottom(p) {
       const audioName = `${(new Date().getTime() + Math.random() * 1000000).toString()}.${fileType}`;
       await audioChat({ uri: res, audioName })
       sendMessage('audio', audioName);
-      p.setshownDropdown(false);
+      p.setshownDropdown && p.setshownDropdown(false);
     })
   }
 
@@ -92,16 +93,16 @@ export default function InputBottom(p) {
         <Column col1={{ left: 75 }} style={{ position: 'absolute', left: 90, zIndex: 111, }}>
           <Column w={30} h={50} jc='center' ai='center'  >
             <Dropdown top={50} value={
-              <Press onClick={()=>{}} fd='row' h={60} jc='center' ai='center' border={3} >
-                <Press h={'100%'} border={[1,'silver']} onClick={_imagePicker}  w={60} jc='center' ai='center' >
+              <Press onClick={() => { }} fd='row' h={60} jc='center' ai='center' border={3} >
+                <Press h={'100%'} border={[1, 'silver']} onClick={_imagePicker} w={60} jc='center' ai='center' >
                   <Icon name={'image'} size={25} color={'#777'} />
                 </Press>
-                <Press h={'100%'} border={[1,'silver']} onClick={_videoPicker} w={60} jc='center' ai='center' >
+                <Press h={'100%'} border={[1, 'silver']} onClick={_videoPicker} w={60} jc='center' ai='center' >
                   <Icon name={'video'} size={25} color={'#777'} />
                 </Press>
 
                 {Platform.OS === 'web' ?
-                  <Press h={'100%'} border={[1,'silver']} onClick={_audioPicker} w={60} jc='center' ai='center' >
+                  <Press h={'100%'} border={[1, 'silver']} onClick={_audioPicker} w={60} jc='center' ai='center' >
                     <M_icon name={'audiotrack'} size={25} color={'#777'} />
                   </Press>
                   :
@@ -114,8 +115,8 @@ export default function InputBottom(p) {
           </Column>
         </Column>
         <Input multiline maxLength={1000} min={99} style={{ minHeight: 50 }} iconSize={24}
-          value={p.pvMessage} onChange={(e) =>{ p.setpvMessage(e.nativeEvent.text); p.handleKeypress(e, p.to)}}
-          iconPress={() => { p.handlePvChat(); p.setpvMessage('') }} icon="paper-plane" iconColor="#38a" color="#25a" placeholder="ارسال پیام"
+          value={p.pvMessage} onChange={(e) => { p.setpvMessage(e.nativeEvent.text); p.handleKeypress(e, p.to) }}
+          iconPress={() => { p.handlePvChat(); p.setpvMessage(''); p.onClick() }} icon="paper-plane" iconColor="#38a" color="#25a" placeholder="ارسال پیام"
         />
       </Column>
     </Column>

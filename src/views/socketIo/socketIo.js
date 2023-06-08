@@ -31,6 +31,7 @@ const AdminSocketIo = (p) => {
   const tokenValue = useRef({})
   const tokenSocket = useRef()
   const socketTocken = useRef()
+  const flatlistRef = useRef()
 
 
 
@@ -123,19 +124,25 @@ const AdminSocketIo = (p) => {
 
 
 
+  // useEffect(() => {
+  //   AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
+  //   return () => {
+  //     setPvChatMessage([])
+  //     settitleMessage([])
+  //     socket.current.emit("delRemove")
+  //   }
+  // }, [])
+
   useFocusEffect(useCallback(() => {
     AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
     return () => {
-      setPvChatMessage([])
-      settitleMessage([])
-      p.setsocketIoSeen(false)
       AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
-      socket.current.emit("delRemove")
+      p.setsocketIoSeen(false)
     }
   }, []));
 
 
-  useFocusEffect(useCallback(() => {
+  useEffect(() => {
     var socketTocken
     (async () => {
       socketTocken = await AsyncStorage.getItem('socketTocken')
@@ -150,7 +157,7 @@ const AdminSocketIo = (p) => {
         socket.current.emit("online", { user: tokenValue.current, userId: socketTocken });
       }
     })()
-  }, []))
+  }, [])
 
 
   const handlePvChat = () => {
@@ -186,6 +193,7 @@ const AdminSocketIo = (p) => {
       {(pvChatMessage.length || titleMessage.length) ?
         <View onLayout={() => { setto('1') }} style={{ flex: 1 }} >
           <FlatList
+            ref={flatlistRef}
             inverted
             keyExtractor={(data, i) => data._id}
             data={pvChatMessage}
@@ -233,7 +241,7 @@ const AdminSocketIo = (p) => {
 
 
           <Column mt='auto' >
-            <InputBottom handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to} ></InputBottom>
+            <InputBottom onClick={()=>flatlistRef.current.scrollToEnd()} flatlistRef={flatlistRef} handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to} ></InputBottom>
           </Column>
 
 

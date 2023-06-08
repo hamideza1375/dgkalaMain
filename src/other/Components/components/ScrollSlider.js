@@ -5,7 +5,7 @@ import s from './style.module.scss';
 import { Loading, Column } from '../Html';
 
 
-var das = [], old = 0
+var das = [], old = 0, time = 2000
 
 function ScrollSlider(p) {
   const { data, renderItem, h, style, ccStyle } = p
@@ -56,11 +56,11 @@ function ScrollSlider(p) {
       style={{ cursor: 'grab' }}
       class={s.selectNone}
       onMouseUp={(e) => { setscroll2(false); setTimeout(() => { das = [] }, 195); }}
-      onMoveShouldSetResponder={() => { setscroll2(false); }}
-      onTouchMove={() => { setscroll2(false); }} >
+      onMoveShouldSetResponder={() => { if (data.length > 5) setscroll2(false); else setTimeout(() => { setscroll2(false) }, 2500); }}
+      onTouchMove={() => { if (data.length > 5) setscroll2(false); else setTimeout(() => { setscroll2(false) }, 2500); }} >
       <Column
         onMoveShouldSetResponder={(e) => {
-          setscroll2(false);
+          if (data.length > 5) setscroll2(false); else setTimeout(() => { setscroll2(false) }, 2500);
           if (Platform.OS === 'web')
             if (navigator?.userAgent?.match('Mobile') != 'Mobile') {
               das.push(e.nativeEvent.pageX)
@@ -71,21 +71,7 @@ function ScrollSlider(p) {
               }, 100);
             }
         }}
-      // onMoveShouldSetResponder={(e) => {
-      //   setscroll2(!scroll2)
-      //   if (Platform.OS === 'web') {
-      //     if (navigator?.userAgent?.match('Mobile') != 'Mobile') {
-      //       // ref.current?.setNativeProps({ style: { overflowX: 'auto' } });
-      //       // setTimeout(() => {
-      //       //   das.push(e.nativeEvent.pageX)
-      //       //   startTransition(() => {
-      //       //       ref.current?.scrollToOffset({ offset: (scroll) + ((das[0] - das[das.length - 1]) * 1.5) })
-      //       //   }, [])
-      //       // }, 100)
-      //     }
-      //   }
-      //   setscroll2(false)
-      // }}
+
       >
         {data.length ?
           <FlatList
@@ -98,7 +84,7 @@ function ScrollSlider(p) {
             {...p}
             renderItem={renderItem}
             contentContainerStyle={[{ flexGrow: 1, direction: 'rtl' }, ccStyle]}
-            onLayout={(e) => { let int = setInterval(sum, 3000); function sum() { if (scroll2 && !(count.current.count >= data.length)) { open() } else clearInterval(int) } interval.current.interval = int }}
+            onLayout={(e) => { let int = setInterval(sum, time); function sum() { if (scroll2 && !(count.current.count >= data.length)) { if (time < 3) time += 500; open() } else clearInterval(int) } interval.current.interval = int }}
             // scrollEventThrottle={0}
             // alwaysBounceHorizontal={false}
             // alwaysBounceVertical={false}
