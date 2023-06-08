@@ -13,10 +13,7 @@ import moment from 'moment-jalaali';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import { Keyboard } from 'react-native';
 import download from '../../other/utils/download';
-import changeNavigationBarColor, {
-  hideNavigationBar,
-  showNavigationBar,
-} from 'react-native-navigation-bar-color';
+import _useEffect from '../../controllers/_initial';
 
 let adminId
 
@@ -65,70 +62,47 @@ const AdminSocketIo = (p) => {
     }
   },))
 
-  const setNavigationColor = color => { changeNavigationBarColor(color); };
-  const hideNavigation = () => { hideNavigationBar(); };
-  const showNavigation = () => { showNavigationBar(); };
-  const testSetTranslucent = () => { changeNavigationBarColor('translucent', false); };
-  const testSetTransparent = () => { changeNavigationBarColor('transparent', true); };
+  // const setNavigationColor = color => { changeNavigationBarColor(color); };
+  // const hideNavigation = () => { hideNavigationBar(); };
+  // const showNavigation = () => { showNavigationBar(); };
+  // const testSetTranslucent = () => { changeNavigationBarColor('translucent', false); };
+  // const testSetTransparent = () => { changeNavigationBarColor('transparent', true); };
 
   const [showChange, setshowChange] = useState(false)
 
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      p.navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          display: (videoUri) ? "none" : "flex"
-        }
-      })
-
-      if(showChange){ (videoUri) ? changeNavigationBarColor('black') : changeNavigationBarColor('white')}
-    }
-  }, [to, videoUri])
-
-
-
-  
-  useFocusEffect(useCallback(() => {
-    if (Platform.OS === 'android') {
-      p.navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          display: (videoUri) ? "none" : "flex"
-        }
-      })
-      if (showChange) {
-        if (videoUri) p.navigation.setOptions({
-          title: '',
-           headerStyle: { backgroundColor: '#000' }, statusBarHidden: true,
-          headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setvideoUri('')} />
-        })
-        else p.navigation.setOptions({
-          title: 'پرسش سوالات',
-          headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
-          headerLeft: () => { }
-        })
-      }
-      setshowChange(true)
-    }
-    else
-      if (videoUri) p.navigation.setOptions({
-        headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setvideoUri('')} />
-      })
-      else p.navigation.setOptions({ headerLeft: () => { } })
-    return () => {
-      if (Platform.OS === 'android')
-        p.navigation.setOptions({
-          headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
-        })
-    }
-  }, [to, videoUri]))
-
-
-
-  useFocusEffect(useCallback(() => {
-    const backHandler = Platform.OS === 'android' && videoUri && BackHandler.addEventListener('hardwareBackPress', () => { setvideoUri('');  setTimeout(() => { return p.navigation.navigate('SocketIo') }, 100) });
-    (Platform.OS === 'android' && backHandler && !videoUri) && backHandler.remove()
-    return () => (Platform.OS === 'android' && backHandler) && backHandler.remove()
-  }, [videoUri]))
+  // _useEffect(() => {
+  //   if (Platform.OS === 'android') {
+  //     p.navigation.getParent()?.setOptions({
+  //       tabBarStyle: {
+  //         display: (videoUri) ? "none" : "flex"
+  //       }
+  //     })
+  //     if (showChange) {
+  //       if (videoUri) p.navigation.setOptions({
+  //         title: '',
+  //         navigationBarColor: '#000e', headerStyle: { backgroundColor: '#000e' }, statusBarHidden: true,
+  //         headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setvideoUri('')} />
+  //       })
+  //       else p.navigation.setOptions({
+  //         title: 'پرسش سوالات',
+  //         navigationBarColor: '#fff', headerStyle: { backgroundColor: '#fff' }, navigationBarHidden: false, statusBarHidden: false,
+  //         headerLeft: () => { }
+  //       })
+  //     }
+  //     setshowChange(true)
+  //   }
+  //   else
+  //     if (videoUri) p.navigation.setOptions({
+  //       headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setvideoUri('')} />
+  //     })
+  //     else p.navigation.setOptions({ headerLeft: () => { } })
+  //   return () => {
+  //     if (Platform.OS === 'android')
+  //       p.navigation.setOptions({
+  //         navigationBarColor: '#fff', headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
+  //       })
+  //   }
+  // }, [to, videoUri])
 
 
   useFocusEffect(useCallback(() => {
@@ -136,7 +110,6 @@ const AdminSocketIo = (p) => {
     AsyncStorage.getItem('socketTocken').then((_socketTocken) => {
       socketTocken.current = _socketTocken
     })
-
 
     AsyncStorage.getItem('token').then((token) => {
       if (token) {
@@ -182,16 +155,6 @@ const AdminSocketIo = (p) => {
 
   }, [])
 
-
-
-  // useEffect(() => {
-  //   AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
-  //   return () => {
-  //     setPvChatMessage([])
-  //     settitleMessage([])
-  //     socket.current.emit("delRemove")
-  //   }
-  // }, [])
 
   useFocusEffect(useCallback(() => {
     AsyncStorage.setItem('socketDate', JSON.stringify(new Date().getTime())).then(() => { })
@@ -306,9 +269,11 @@ const AdminSocketIo = (p) => {
 
 
           {Platform.OS === 'android' && videoUri ?
+            // <Modal show={showVideo} setshow={setshowVideo} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} >
             <Column style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} >
               {videoUri ? <Video source={{ uri: videoUri }} controls paused={false} muted={false} style={{ height: '100%', width: '100%', borderRadius: 4, alignSelf: 'center' }} /> : <></>}
             </Column>
+            // </Modal>
             :
             <></>}
 

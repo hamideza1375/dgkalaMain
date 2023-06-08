@@ -14,6 +14,10 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import _useEffect from '../../controllers/_initial';
 import { Keyboard } from 'react-native';
 import download from '../../other/utils/download';
+import changeNavigationBarColor, {
+  hideNavigationBar,
+  showNavigationBar,
+} from 'react-native-navigation-bar-color';
 let adminId
 
 const AdminSocketIo = (p) => {
@@ -64,13 +68,26 @@ const AdminSocketIo = (p) => {
     }
   },))
 
+  const [showChange, setshowChange] = useState(false)
+
+
+
 
   useEffect(() => {
-      p.navigation.setOptions({ headerShown: false })
+    p.navigation.setOptions({ headerShown: false })
   }, [])
 
 
   useEffect(() => {
+    if (Platform.OS === 'android') {
+      p.navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          display: (videoUri) ? "none" : "flex"
+        }
+      })
+      if (showChange) { (videoUri) ? changeNavigationBarColor('black') : changeNavigationBarColor('white') }
+    }
+
     if (tokenValue.current.isAdmin) {
       if (to)
         p.navigation.setOptions({ headerShown: true, headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setto('')} /> })
@@ -80,6 +97,29 @@ const AdminSocketIo = (p) => {
     if (videoUri) p.navigation.setOptions({ headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setvideoUri('')} /> })
   }, [to, videoUri])
 
+
+
+  useFocusEffect(useCallback(() => {
+    if (Platform.OS === 'android') {
+      p.navigation.getParent()?.setOptions({
+        tabBarStyle: {
+          display: (videoUri) ? "none" : "flex"
+        }
+      })
+      if (showChange) {
+        if (videoUri) p.navigation.setOptions({ headerStyle: { backgroundColor: '#000' }, statusBarHidden: true, })
+        else p.navigation.setOptions({ headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false, })
+      }
+      setshowChange(true)
+    }
+
+    return () => {
+      if (Platform.OS === 'android')
+        p.navigation.setOptions({
+          headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
+        })
+    }
+  }, [to, videoUri]))
 
 
 
@@ -395,7 +435,7 @@ const AdminSocketIo = (p) => {
                     )}
                   />
                   <Column mt='auto' >
-                    <InputBottom onClick={()=>flatlistRef.current.scrollToEnd()} flatlistRef={flatlistRef} handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to}  ></InputBottom>
+                    <InputBottom onClick={() => flatlistRef.current.scrollToOffset({ offset: 0 })} flatlistRef={flatlistRef} handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to}  ></InputBottom>
                   </Column>
                 </View>
               }
@@ -403,7 +443,7 @@ const AdminSocketIo = (p) => {
           }
           {(!tokenValue.current.isAdmin) ?
             <Column mt='auto' >
-              <InputBottom onClick={()=>flatlistRef.current.scrollToEnd()} flatlistRef={flatlistRef} handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to} ></InputBottom>
+              <InputBottom onClick={() => flatlistRef.current.scrollToOffset({ offset: 0 })} flatlistRef={flatlistRef} handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to} ></InputBottom>
             </Column>
             :
             <></>

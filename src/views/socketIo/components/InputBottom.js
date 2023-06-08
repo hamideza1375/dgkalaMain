@@ -38,7 +38,7 @@ export default function InputBottom(p) {
         type: 'audio'
       });
     }
-    p.onClick()
+    setTimeout(() => { p.onClick()}, 1000);
   }
 
 

@@ -81,7 +81,7 @@ const AdminSocketIo = (p) => {
         }
       })
 
-      if(showChange){ (videoUri) ? changeNavigationBarColor('black') : changeNavigationBarColor('white')}
+      if(showChange){ (videoUri) ? testSetTransparent('black') : testSetTransparent('white')}
     }
   }, [to, videoUri])
 
@@ -98,12 +98,12 @@ const AdminSocketIo = (p) => {
       if (showChange) {
         if (videoUri) p.navigation.setOptions({
           title: '',
-           headerStyle: { backgroundColor: '#000' }, statusBarHidden: true,
+          /* navigationBarHidden:true, */ headerStyle: { backgroundColor: '#000e' }, statusBarHidden: true,
           headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setvideoUri('')} />
         })
         else p.navigation.setOptions({
           title: 'پرسش سوالات',
-          headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
+          /* navigationBarHidden:false, */ headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
           headerLeft: () => { }
         })
       }
@@ -117,21 +117,24 @@ const AdminSocketIo = (p) => {
     return () => {
       if (Platform.OS === 'android')
         p.navigation.setOptions({
-          headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
+         /* navigationBarHidden:false, */  headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
         })
     }
   }, [to, videoUri]))
 
 
 
-  useFocusEffect(useCallback(() => {
-    const backHandler = Platform.OS === 'android' && videoUri && BackHandler.addEventListener('hardwareBackPress', () => { setvideoUri('');  setTimeout(() => { return p.navigation.navigate('SocketIo') }, 100) });
-    (Platform.OS === 'android' && backHandler && !videoUri) && backHandler.remove()
-    return () => (Platform.OS === 'android' && backHandler) && backHandler.remove()
-  }, [videoUri]))
+
+
+  // useFocusEffect(useCallback(() => {
+  //   Platform.OS === 'android' &&
+  //     BackHandler.addEventListener('hardwareBackPress', () => { if(videoUri){ setvideoUri(''); setTimeout(() => { return p.navigation.navigate('SocketIo') }, 0);} });
+  // }, []))
 
 
   useFocusEffect(useCallback(() => {
+
+    setTimeout(() => {setshowChange(true)}, 1000);
 
     AsyncStorage.getItem('socketTocken').then((_socketTocken) => {
       socketTocken.current = _socketTocken
@@ -306,9 +309,11 @@ const AdminSocketIo = (p) => {
 
 
           {Platform.OS === 'android' && videoUri ?
+            // <Modal show={showVideo} setshow={setshowVideo} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} >
             <Column style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} >
               {videoUri ? <Video source={{ uri: videoUri }} controls paused={false} muted={false} style={{ height: '100%', width: '100%', borderRadius: 4, alignSelf: 'center' }} /> : <></>}
             </Column>
+            // </Modal>
             :
             <></>}
 

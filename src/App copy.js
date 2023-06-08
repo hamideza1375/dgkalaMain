@@ -217,7 +217,7 @@ const Mobile = () => {
 
             <Tab.Screen name="SocketIo" options={{ ...!allState.init.tokenValue.isAdmin ? {} : { tabBarButton: () => null }, tabBarBadge: allState.init.socketIoSeen ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="comments" color={color} size={size - 5} />) }} >{() =>
               <Tab.Navigator screenListeners={{ focus: inputFocus }} >
-                <Tab.Screen initialParams={{ key: 'client' }} name="Socket" options={{ title: 'پرسش سوالات', headerTitleAlign: 'center' }} {...clientChildren(SocketIo)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="Socket" options={{statusBarColor:'#d29', title: 'پرسش سوالات', headerTitleAlign: 'center' }} {...clientChildren(SocketIo)} />
               </Tab.Navigator>
             }</Tab.Screen>
 
@@ -246,7 +246,7 @@ const Mobile = () => {
                 <Tab.Screen initialParams={{ key: 'admin' }} name="AdminTicketBox" options={{ title: 'صندوق تیکت ها' }} {...adminChildren(AdminTicketBox)} />
                 <Tab.Screen initialParams={{ key: 'admin', set: 'true' }} name="ShowLatLngOnMap" options={{ title: 'نمایش آدرس روی نقشه', headerShown: true }} {...adminChildren(ShowLatLngOnMap)} />
                 <Tab.Screen initialParams={{ key: 'admin' }} name="SendPostPrice" options={{ title: 'تایین قیمت پست' }} {...adminChildren(SendPostPrice)} />
-                <Tab.Screen initialParams={{ key: 'admin' }} name="AdminSocketIo" options={{ title: '', headerShown: true }} {...clientChildren(AdminSocketIo)} />
+                <Tab.Screen initialParams={{ key: 'admin' }} name="AdminSocketIo" options={{ title: 'پرسش سوالات', headerShown: true }} {...clientChildren(AdminSocketIo)} />
                 <Tab.Screen initialParams={{ key: 'user', view: 'true' }} name="AdminGetTicket" options={{ title: 'تیکت', headerShown: true }} {...userChildren(AdminGetTicket)} />
               </Tab.Navigator>
             }</Tab.Screen>
