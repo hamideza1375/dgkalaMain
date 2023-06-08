@@ -11,13 +11,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from 'jwt-decode'
 import moment from 'moment-jalaali';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
-import _useEffect from '../../controllers/_initial';
 import { Keyboard } from 'react-native';
 import download from '../../other/utils/download';
-import changeNavigationBarColor, {
-  hideNavigationBar,
-  showNavigationBar,
-} from 'react-native-navigation-bar-color';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 let adminId
 
 const AdminSocketIo = (p) => {

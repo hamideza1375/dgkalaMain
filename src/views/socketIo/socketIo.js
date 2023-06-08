@@ -13,10 +13,7 @@ import moment from 'moment-jalaali';
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import { Keyboard } from 'react-native';
 import download from '../../other/utils/download';
-import changeNavigationBarColor, {
-  hideNavigationBar,
-  showNavigationBar,
-} from 'react-native-navigation-bar-color';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
 let adminId
 
@@ -65,11 +62,11 @@ const AdminSocketIo = (p) => {
     }
   },))
 
-  const setNavigationColor = color => { changeNavigationBarColor(color); };
-  const hideNavigation = () => { hideNavigationBar(); };
-  const showNavigation = () => { showNavigationBar(); };
-  const testSetTranslucent = () => { changeNavigationBarColor('translucent', false); };
-  const testSetTransparent = () => { changeNavigationBarColor('transparent', true); };
+  // const setNavigationColor = color => { changeNavigationBarColor(color); };
+  // const hideNavigation = () => { hideNavigationBar(); };
+  // const showNavigation = () => { showNavigationBar(); };
+  // const testSetTranslucent = () => { changeNavigationBarColor('translucent', false); };
+  // const testSetTransparent = () => { changeNavigationBarColor('transparent', true); };
 
   const [showChange, setshowChange] = useState(false)
 

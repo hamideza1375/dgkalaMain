@@ -81,6 +81,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNetInfo } from "@react-native-community/netinfo";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AdminGetTicket from "./views/admin/AdminGetTicket";
+import { SafeAreaProvider, useSafeAreaInsets } from "react-native-safe-area-context";
 
 
 rtl()
@@ -149,6 +150,8 @@ const Mobile = () => {
     else setshowTab(true)
   })
 
+  const insets = useSafeAreaInsets();
+
 
   //   if (navigation?.getState()?.routes[0]?.state?.index === 1 || navigation?.getState()?.routes[0]?.state?.index === 0) 
 
@@ -164,8 +167,8 @@ const Mobile = () => {
         <></>
       }
       <contextStates.Provider value={{ ...allState.init, toast }}>
-        <StatusBar backgroundColor='#d29' barStyle={"light-content"} />
-        <Column f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
+        <StatusBar translucent={true} backgroundColor='#d29' barStyle={"light-content"} />
+        <Column pt={insets.top} f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
           <Dropdown root {...allState.init}><Press onClick={() => { }} >{allState.init.dropdownValue}</Press></Dropdown>
           <Init ref={(e) => allState.init.set$(e)} id={'s'} />
           <ToastProvider {...allState.init} />
@@ -217,7 +220,7 @@ const Mobile = () => {
 
             <Tab.Screen name="SocketIo" options={{ ...!allState.init.tokenValue.isAdmin ? {} : { tabBarButton: () => null }, tabBarBadge: allState.init.socketIoSeen ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="comments" color={color} size={size - 5} />) }} >{() =>
               <Tab.Navigator screenListeners={{ focus: inputFocus }} >
-                <Tab.Screen initialParams={{ key: 'client' }} name="Socket" options={{statusBarColor:'#d29', title: 'پرسش سوالات', headerTitleAlign: 'center' }} {...clientChildren(SocketIo)} />
+                <Tab.Screen initialParams={{ key: 'client' }} name="Socket" options={{ title: 'پرسش سوالات', headerTitleAlign: 'center' }} {...clientChildren(SocketIo)} />
               </Tab.Navigator>
             }</Tab.Screen>
 
@@ -416,9 +419,12 @@ if (Platform.OS !== 'web') {
   _App = () => {
     // const scheme = useColorScheme();
     return (
+      <SafeAreaProvider>
+
       <NavigationContainer /* theme={scheme === 'dark' ? DarkTheme : DefaultTheme} */>
         <Mobile />
       </NavigationContainer>
+      </SafeAreaProvider>
     )
   }
 }

@@ -61,10 +61,13 @@ export function adminController(p) {
           text: "OK", onPress: async () => {
             const { data } = await setSellerAvailable(id)
             p.setsellerTable((curentSeller) => {
-              const _curentSeller = [...curentSeller]
-              const findIndex = curentSeller.findIndex(s => s._id === id)
-              _curentSeller[findIndex].available = data.value
-              return _curentSeller
+              try {
+                const _curentSeller = [...curentSeller]
+                const findIndex = curentSeller.findIndex(s => s._id === id)
+                if(findIndex === -1) throw new Error()
+                _curentSeller[findIndex].available = data.value
+                return _curentSeller
+              } catch (error) {}
             })
           }
         }
@@ -119,8 +122,8 @@ export function adminController(p) {
     const { data } = await editCategory(p.route.params.id, { title: p.title, imageUrl: p.imageUrl })
     try {
       const _category = [...p.category]
-      const index = _category.findIndex(c => c._id === p.route.params.id)
-      if (!index) throw new Error()
+      const index = p.category.findIndex(c => c._id === p.route.params.id)
+      if (index === -1 ) throw new Error()
       _category[index].title = data.value.title
       _category[index].imageUrl = data.value.imageUrl
       p.setcategory(_category)
@@ -550,10 +553,13 @@ export function adminController(p) {
           text: "OK", onPress: async () => {
             const { data } = await postQueue(id)
             p.setallAddress(allAddres => {
-              const _allAddres = [...allAddres]
-              const index = _allAddres.findIndex(a => a._id === id)
-              _allAddres[index].queueSend = data.value
-              return _allAddres
+              try {
+                const _allAddres = [...allAddres]
+                const index = _allAddres.findIndex(a => a._id === id)
+                if(index === -1) throw new Error()
+                _allAddres[index].queueSend = data.value
+                return _allAddres
+              } catch (error) {}
             })
           }
         }
