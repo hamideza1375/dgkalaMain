@@ -72,68 +72,32 @@ const AdminSocketIo = (p) => {
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      p.navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          display: (videoUri) ? "none" : "flex"
-        }
-      })
-
-      if(showChange){ (videoUri) ? changeNavigationBarColor('black') : changeNavigationBarColor('white')}
-    }
+      p.navigation.getParent()?.setOptions({ tabBarStyle: { display: (videoUri) ? "none" : "flex" } })
+      if (showChange) {
+        (videoUri) ? changeNavigationBarColor('black') : changeNavigationBarColor('white')
+        if (videoUri) p.navigation.setOptions({ title: '', headerTransparent: true, statusBarHidden: true, statusBarColor: 'black', headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={21} onPress={() => setvideoUri('')} /> })
+        else p.navigation.setOptions({ title: 'پرسش سوالات', headerTransparent: false, statusBarHidden: false, statusBarColor: '#d29', headerLeft: () => { } })
+      }
+       }
+    else
+      if (videoUri) p.navigation.setOptions({ headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={21} onPress={() => setvideoUri('')} /> })
+      else p.navigation.setOptions({ headerLeft: () => { } })
   }, [to, videoUri])
 
 
-
-  
   useFocusEffect(useCallback(() => {
-    if (Platform.OS === 'android') {
-      p.navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          display: (videoUri) ? "none" : "flex"
-        }
-      })
-      if (showChange) {
-        if (videoUri) p.navigation.setOptions({
-          title: '',
-           headerStyle: { backgroundColor: '#000' }, statusBarHidden: true,
-          headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setvideoUri('')} />
-        })
-        else p.navigation.setOptions({
-          title: 'پرسش سوالات',
-          headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
-          headerLeft: () => { }
-        })
-      }
-      setshowChange(true)
-    }
-    else
-      if (videoUri) p.navigation.setOptions({
-        headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setvideoUri('')} />
-      })
-      else p.navigation.setOptions({ headerLeft: () => { } })
-    return () => {
-      if (Platform.OS === 'android')
-        p.navigation.setOptions({
-          headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
-        })
-    }
-  }, [to, videoUri]))
-
-
-
-  useFocusEffect(useCallback(() => {
-    const backHandler = Platform.OS === 'android' && videoUri && BackHandler.addEventListener('hardwareBackPress', () => { setvideoUri('');  setTimeout(() => { return p.navigation.navigate('SocketIo') }, 100) });
+    const backHandler = Platform.OS === 'android' && videoUri && BackHandler.addEventListener('hardwareBackPress', () => { setvideoUri(''); setTimeout(() => { return p.navigation.navigate('SocketIo') }, 100) });
     (Platform.OS === 'android' && backHandler && !videoUri) && backHandler.remove()
     return () => (Platform.OS === 'android' && backHandler) && backHandler.remove()
   }, [videoUri]))
 
 
   useFocusEffect(useCallback(() => {
+    setTimeout(() => {setshowChange(true)}, 2000); 
 
     AsyncStorage.getItem('socketTocken').then((_socketTocken) => {
       socketTocken.current = _socketTocken
     })
-
 
     AsyncStorage.getItem('token').then((token) => {
       if (token) {
@@ -312,8 +276,8 @@ const AdminSocketIo = (p) => {
           <Modal show={showImage} setshow={setshowImage} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }} >
             {imageUrl ?
               <>
-                <Press pos='absolute' z={100} t={0} r={-2} bgcolor='#fffa' br={1} h={25} w={20} style={{ transform: [{ scaleX: .9 }, { scaleX: .9 }] }}  >
-                  <A_icon name={'ellipsis1'} size={23} style={{ transform: [{ rotate: '90deg' }], position: 'absolute', zIndex: 99999 }}
+                <Press pos='absolute' z={100} t={0} r={-2} bgcolor='#0001' br={1} h={27} w={20} style={{ transform: [{ scaleX: .9 }, { scaleX: .9 }], borderRadius: 3, }}  >
+                  <A_icon name={'ellipsis1'} size={23} color={'#777'} style={{ transform: [{ rotate: '90deg' }], position: 'absolute', zIndex: 99999 }}
                     onClick={() => { download(imageUrl) }}
                   />
                 </Press>

@@ -23,10 +23,8 @@ const Video = (props) => {
   return (
     <>
       {(props.controls) || (Platform.OS === 'ios') ?
-        <Press pos='absolute' z={100} t={0} r={-2} bgcolor='#0007' br={3} h={25} w={20} style={{ transform: [{ scaleX: .9 }, { scaleX: .9 }] }}  >
-          <A_icon name={'ellipsis1'} color='white' size={23} style={{ transform: [{ rotate: '90deg' }], position: 'absolute', zIndex: 99999 }}
-            onClick={() => { download(props.source.uri) }}
-          />
+        <Press pos='absolute' t={0} r={-2} z={999999} onClick={() => { download(props.source.uri) }} bgcolor='#fff0' br={3} h={50} w={40} style={{ top:25 , transform: [{ scaleX: .9 }, { scaleX: .9 }] }}  >
+          <A_icon name={'ellipsis1'} color='#777' size={23} style={{ transform: [{ rotate: '90deg' }], position: 'absolute', zIndex: 99999, right:5, top:5 }}/>
         </Press>
         :
         <></>
@@ -40,7 +38,7 @@ const Video = (props) => {
         rate={1.0}
         controls={Platform.OS === 'android' ? false : true}
         {...props}
-        style={[{ width: '100%', height: '100%', backgroundColor: 'silver' }, props.style]}
+        style={[{ width: '100%', height: '100%', backgroundColor: '#000d' }, props.style]}
       />
     </>
   )

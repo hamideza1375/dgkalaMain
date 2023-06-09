@@ -5,8 +5,8 @@ const yub = {
         if (target[propName]?.length < 3) {
           return ('نام نباید کوچک تر از ۳ کلمه باشد')
         }
-        if (target[propName]?.length > 15) {
-          return ('نام نباید بزرگ تر از ۱۵ کلمه باشد')
+        if (target[propName]?.length > 30) {
+          return ('کارکتر های نام وارد شده بزرگ تر از ۱۵ حد مجاز هست')
         }
         else {
           return target[propName]

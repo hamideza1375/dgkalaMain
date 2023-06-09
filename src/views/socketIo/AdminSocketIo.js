@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { View, FlatList, Platform, Animated, SafeAreaView } from 'react-native'
+import { View, FlatList, Platform, Animated, SafeAreaView, BackHandler } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import { A_icon, Badge, Column, Img, Modal, P, Press, Row } from '../../other/Components/Html';
 import Video from '../../other/Components/other/Video';
@@ -69,6 +69,11 @@ const AdminSocketIo = (p) => {
 
 
 
+  useFocusEffect(useCallback(() => {
+    return()=>changeNavigationBarColor('white')
+  }, []))
+
+
   useEffect(() => {
     p.navigation.setOptions({ headerShown: false })
   }, [])
@@ -76,50 +81,52 @@ const AdminSocketIo = (p) => {
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      p.navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          display: (videoUri) ? "none" : "flex"
-        }
-      })
-      if (showChange) { (videoUri) ? changeNavigationBarColor('black') : changeNavigationBarColor('white') }
-    }
+      p.navigation.getParent()?.setOptions({ tabBarStyle: { display: (videoUri) ? "none" : "flex" } })
+      if (showChange) {
+        (videoUri) ? changeNavigationBarColor('black') : changeNavigationBarColor('white')
+        if (videoUri) p.navigation.setOptions({ title: '', headerTransparent: true, statusBarHidden: true, statusBarColor: 'black', headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={21} onPress={() => setvideoUri('')} /> })
+        else p.navigation.setOptions({ title: 'پرسش سوالات', headerTransparent: false, statusBarHidden: false, statusBarColor: '#d29', headerLeft: () => { } })
+      }
+       }
+    else
+      if (videoUri) p.navigation.setOptions({ headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={21} onPress={() => setvideoUri('')} /> })
+      else p.navigation.setOptions({ headerLeft: () => { } })
+  }, [to, videoUri])
 
+
+  useEffect(() => {
+    if (Platform.OS !== 'android') {
     if (tokenValue.current.isAdmin) {
       if (to)
-        p.navigation.setOptions({ headerShown: true, headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setto('')} /> })
+        p.navigation.setOptions({ headerShown: true, headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={21} onPress={() => setto('')} /> })
       else
         p.navigation.setOptions({ headerShown: false })
     }
-    if (videoUri) p.navigation.setOptions({ headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={23} onPress={() => setvideoUri('')} /> })
+  }
+  }, [to, videoUri])
+
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+    if (tokenValue.current.isAdmin) {
+      if (to && !videoUri)
+        p.navigation.setOptions({ headerShown: true, headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={21} onPress={() => setto('')} /> })
+      
+    }
+  }
   }, [to, videoUri])
 
 
 
-  useFocusEffect(useCallback(() => {
-    if (Platform.OS === 'android') {
-      p.navigation.getParent()?.setOptions({
-        tabBarStyle: {
-          display: (videoUri) ? "none" : "flex"
-        }
-      })
-      if (showChange) {
-        if (videoUri) p.navigation.setOptions({ headerStyle: { backgroundColor: '#000' }, statusBarHidden: true, })
-        else p.navigation.setOptions({ headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false, })
-      }
-      setshowChange(true)
-    }
-
-    return () => {
-      if (Platform.OS === 'android')
-        p.navigation.setOptions({
-          headerStyle: { backgroundColor: '#fff' }, statusBarHidden: false,
-        })
-    }
-  }, [to, videoUri]))
-
+  // useFocusEffect(useCallback(() => {
+  //   const backHandler = Platform.OS === 'android' && videoUri && BackHandler.addEventListener('hardwareBackPress', () => { setvideoUri(''); setTimeout(() => { return p.navigation.navigate('SocketIo') }, 100) });
+  //   (Platform.OS === 'android' && backHandler && !videoUri) && backHandler.remove()
+  //   return () => (Platform.OS === 'android' && backHandler) && backHandler.remove()
+  // }, [videoUri]))
 
 
   useFocusEffect(useCallback(() => {
+    setTimeout(() => {setshowChange(true)}, 2000); 
 
     AsyncStorage.getItem('socketTocken').then((_socketTocken) => {
       socketTocken.current = _socketTocken

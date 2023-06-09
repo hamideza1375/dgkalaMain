@@ -4,8 +4,7 @@ import { Input } from "./FormComponent";
 import Swiper from '../components/Swiper'
 import { Py } from "../Html";
 
-let int,
-  lastInterval = false
+let int
 export default function ({ setscrollEnabled, textId, $input, initialHeight, iconSize, w, plackTextTop, autoFocus = false, multiline = false, m_icon, iconPress, secureTextEntry, icon, textContentType, autoComplete = 'off', keyboardType = 'default', p, p2, newObj, iconLeft, iconRight, setBlur, getBlur, state, setState, styles, yub }) {
 
 
@@ -44,17 +43,15 @@ export default function ({ setscrollEnabled, textId, $input, initialHeight, icon
 
   const [inputState, setinputState] = useState('')
   const [change, setchange] = useState(false)
+  const [inputChange, setinputChange] = useState(false)
 
-
-  useEffect(() => {
-    setinputState(String(state))
-  }, [change])
+  useEffect(() => { setinputState(String(state)) }, [change])
 
   useEffect(() => {
     setTimeout(() => { !inputState.length && setchange(true) }, 700);
     setTimeout(() => { !inputState.length && setchange(false) }, 1400);
+    setTimeout(() => { setinputChange(true) }, 5000);
   }, [])
-
 
 
   return (
@@ -84,7 +81,7 @@ export default function ({ setscrollEnabled, textId, $input, initialHeight, icon
               m_icon={m_icon}
               placeholder={p2 ? p2 : p}
               value={inputState}
-              onChangeText={(text) => { if (!state.length) setState(text); setinputState(text); (int) && clearInterval(int); int = setTimeout(() => { setState(text) }, 2000); }}
+              onChangeText={(text) => { if (!inputChange){ !state.length && setState(text); setinputChange(true) } setinputState(text); (int) && clearInterval(int); int = setTimeout(() => { setState(text) }, 2000); }}
               onBlur={() => { (int) && clearInterval(int); (inputState !== state) && setState(inputState); setTimeout(() => { setBlur(true); !yub && fadeOut() }, 2500); }}
               style={[styles.input, (multiline && !initialHeight) && { height: 115, minHeight: 115 }]}
               iconPress={iconPress}

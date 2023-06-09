@@ -67,7 +67,7 @@ export const header = () => {
   const navigation = useNavigation();
   return (
     <Pressable onPress={() => navigation.goBack()} >
-      {navigation.canGoBack() ? <Icon name='arrow-left' style={{ fontSize: 22, marginTop: 0, paddingVertical: 2.5, marginRight: 9, flexGrow: 1, color: '#222', fontWeight: '100' }} /> : <></>}
+      {navigation.canGoBack() ? <Icon name='arrow-left' style={{ fontSize: 21, marginTop: 0, paddingVertical: 2.5, marginRight: 9, flexGrow: 1, color: '#222', }} /> : <></>}
     </Pressable>
   );
 };

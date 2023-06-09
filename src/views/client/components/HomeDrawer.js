@@ -25,7 +25,7 @@ const HomeDrawer = (p) => {
       <Column ai='flex-start' mt={15} >
         <Py pr={22} pb={5} >ویژه</Py>
         <P onClick={()=>{p.navigation.navigate('ProductsOffers')}} pv={5} pr={35} fs={11} >بیشترین تخفبف</P>
-        <P onClick={()=>{p.navigation.navigate('')}} pv={5} pr={35} fs={11} >پیشنهادات</P>
+        <P onClick={()=>{p.navigation.navigate('ProductsPopulars')}} pv={5} pr={35} fs={11} >پیشنهادات</P>
       </Column>
 
     </Scroll>
