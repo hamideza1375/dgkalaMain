@@ -76,7 +76,11 @@ const preCache = [
   "/static/js/365.c5bdddd2.chunk.js.map",
   "/static/js/510.f9ea72e7.chunk.js.map",
   "/static/js/102.516b6cbf.chunk.js.map",
-  "/static/js/496.1a783828.chunk.js.map"  
+  "/static/js/496.1a783828.chunk.js.map",
+  
+  
+  "http://localhost:4000/images/etemadElectronic.png"
+
 ];
 
 

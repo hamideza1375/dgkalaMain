@@ -152,7 +152,7 @@ function _map(p){
               setTimeout(() => { marker.bindPopup(street).openPopup() }, 500)
               if(document.getElementById('bottomDiv')) document.getElementById('bottomDiv').style.display = 'none'
               setTimeout(() => {if(document.getElementById('bottomDiv')) document.getElementById('bottomDiv').style.display = 'flex'}, 1000);
-              setTimeout(() => {map.stopLocate()}, 1000);
+              setTimeout(() => {map.stopLocate()}, 2000);
               p.setdisable(false)
             }
           }

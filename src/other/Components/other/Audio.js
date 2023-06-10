@@ -1,13 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { View } from 'react-native'
 import Slider from '@react-native-community/slider';
 import Sound from 'react-native-sound';
 import Loading from '../components/Loading';
 import Badge from '../components/Badge';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { useFocusEffect } from '@react-navigation/native';
+import { context } from '../../../context/_context';
 
 
 const Audio = (props) => {
+
+const {playMusic, setplayMusic} = context()
 
   const [music, setMusic] = useState(null)
   const [progress, setprogress] = useState(0)
@@ -34,6 +38,7 @@ const Audio = (props) => {
 
 
   const play = () => {
+    setplayMusic(!playMusic)
     summer.current = new Sound(props.source.uri, null, (err) => {
       if (err) {
         console.log('hata', err)
@@ -65,11 +70,12 @@ const Audio = (props) => {
   }, [music])
 
 
-  useEffect(() => {
-    return () => {
-      music && music.stop()
-    }
-  }, [])
+
+  useFocusEffect(useCallback(() => {
+    music && music.stop()
+    setchange(true);
+    return () => { music && music.stop() }
+  }, [playMusic]))
 
 
 
@@ -84,9 +90,9 @@ const Audio = (props) => {
         </View>
         {summer.current && summer.current.getDuration() === -1 && !change
           ?
-          <Loading time={999999} size={11} color={"red"} onPress={() => { setchange(!change); if (show) { play(); setshow(false) } if (!show) { change ? music.play() : music.pause() } }} style={{ width: 30, height: 30, top: 22 }} />
+          <Loading time={999999} size={11} color={"red"} onPress={() => { setchange(!change); if (show) { play(); setTimeout(() => {setchange(false); }, 500) } if (!show) { change ? music.play() : music.pause() } }} style={{ width: 30, height: 30, top: 22 }} />
           :
-          <Icon name={!change ? "pause" : "play"} size={27} style={{ top: 15 }} onPress={() => { setchange(!change); if (show) { play(); setshow(false) } if (!show) { change ? music.play() : music.pause() } }} />
+          <Icon name={!change ? "pause" : "play"} size={27} style={{ top: 15 }} onPress={() => { setTimeout(() => {setchange(!change); }, 100);if (show) { play(); setshow(false) } if (!show) { change ? music.play() : music.pause() } }} />
         }
 
         <View style={{ height: 30, width: 30 }}>

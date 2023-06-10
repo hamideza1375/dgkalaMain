@@ -34,6 +34,7 @@ export { default as ProgressChart } from './chart/ProgressChart'
 export { Textarea, Input, CheckBox, CheckBoxRadius } from './formComponent/FormComponent'
 // import { Input as _Input } from './formComponent/FormComponent'
 
+import FastImage from './components/FastImage'
 import setStyleRef from './classToStyle/setClassToStyle';
 
 
@@ -480,6 +481,8 @@ export const PressScrollView = (props) =>
 export const ImgBackground = (props) => <Component source={props.src} {...props} Component={ImageBackground} />
 
 export const Img = (props) => <ComponentImage style={[props.style]} source={props.src} {...props} Component={Image} />
+
+export const FastImg = (props) => <FastImage {...props} />
 
 export const Scroll = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} style={[{flexWrap:'nowrap'}, props.style]} Component={ScrollView} />
 

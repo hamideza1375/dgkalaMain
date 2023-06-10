@@ -24,7 +24,7 @@ const Video = (props) => {
     <>
       {(props.controls) || (Platform.OS === 'ios') ?
         <Press pos='absolute' t={0} r={-2} z={999999} onClick={() => { download(props.source.uri) }} bgcolor='#fff0' br={3} h={50} w={40} style={{ top:25 , transform: [{ scaleX: .9 }, { scaleX: .9 }] }}  >
-          <A_icon name={'ellipsis1'} color='#777' size={23} style={{ transform: [{ rotate: '90deg' }], position: 'absolute', zIndex: 99999, right:5, top:5 }}/>
+          <A_icon name={'ellipsis1'} color='#777' size={23} style={{ transform: [{ rotate: '90deg' }], position: 'absolute', zIndex: 99999, right:5, top:15 }}/>
         </Press>
         :
         <></>

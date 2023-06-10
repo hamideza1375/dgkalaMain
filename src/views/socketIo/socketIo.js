@@ -75,10 +75,10 @@ const AdminSocketIo = (p) => {
       p.navigation.getParent()?.setOptions({ tabBarStyle: { display: (videoUri) ? "none" : "flex" } })
       if (showChange) {
         (videoUri) ? changeNavigationBarColor('black') : changeNavigationBarColor('white')
-        if (videoUri) p.navigation.setOptions({ title: '', headerTransparent: true, statusBarHidden: true, statusBarColor: 'black', headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={21} onPress={() => setvideoUri('')} /> })
-        else p.navigation.setOptions({ title: 'پرسش سوالات', headerTransparent: false, statusBarHidden: false, statusBarColor: '#d29', headerLeft: () => { } })
+        if (videoUri) p.navigation.setOptions({ statusBarTranslucent: true, title: '', headerTransparent: true, statusBarHidden: true, statusBarColor: 'black', headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={21} onPress={() => setvideoUri('')} /> })
+        else p.navigation.setOptions({ statusBarTranslucent: false, title: 'پرسش سوالات', headerTransparent: false, statusBarHidden: false, statusBarColor: '#d29', headerLeft: () => { } })
       }
-       }
+    }
     else
       if (videoUri) p.navigation.setOptions({ headerLeft: () => <Icon style={{ paddingRight: 10, color: '#555' }} name='arrow-left' size={21} onPress={() => setvideoUri('')} /> })
       else p.navigation.setOptions({ headerLeft: () => { } })
@@ -93,7 +93,7 @@ const AdminSocketIo = (p) => {
 
 
   useFocusEffect(useCallback(() => {
-    setTimeout(() => {setshowChange(true)}, 2000); 
+    setTimeout(() => { setshowChange(true) }, 2000);
 
     AsyncStorage.getItem('socketTocken').then((_socketTocken) => {
       socketTocken.current = _socketTocken
@@ -200,6 +200,78 @@ const AdminSocketIo = (p) => {
       Keyboard.addListener('keyboardDidShow', function () { p.setshownDropdown(false); });
       Keyboard.addListener('keyboardDidHide', function () { p.setshownDropdown(false); });
     } catch (error) { }
+  }, [])
+
+
+  const [audioChange, setaudioChange] = useState(false)
+
+  useEffect(() => {
+    if (Platform.OS === 'web') {
+
+      const audios = document.getElementsByTagName('audio')
+      const play = (e) => {
+        for (let i = 0; i < audios.length; i++) {
+          if (audios[i] !== e.target) audios[i]?.pause()
+        }
+      }
+      if (audios)
+        for (let i = 0; i < audios.length; i++) {
+          audios[i]?.removeEventListener('playing', play)
+          audios[i]?.addEventListener('playing', play)
+        }
+
+
+
+      const video_1 = document.getElementsByTagName('video')
+      const play_video = (e) => {
+        for (let i = 0; i < video_1.length; i++) {
+          if (video_1[i] !== e.target) video_1[i]?.pause()
+        }
+      }
+      if (video_1)
+        for (let i = 0; i < video_1.length; i++) {
+          video_1[i]?.removeEventListener('playing', play_video)
+          video_1[i]?.addEventListener('playing', play_video)
+        }
+
+
+
+      const video = document.getElementsByTagName('video')
+      const playVideo = () => {
+        const _audio = document.getElementsByTagName('audio')
+        for (let i = 0; i < video.length; i++) {
+          _audio[i]?.pause()
+        }
+      }
+      if (video)
+        for (let i = 0; i < video.length; i++) {
+          video[i]?.removeEventListener('playing', playVideo)
+          video[i]?.addEventListener('playing', playVideo)
+        }
+
+        
+
+      const audio = document.getElementsByTagName('audio')
+      const playAudio = () => {
+        const _video = document.getElementsByTagName('video')
+        for (let i = 0; i < audio.length; i++) {
+          _video[i]?.pause()
+        }
+      }
+      if (audio)
+        for (let i = 0; i < audio.length; i++) {
+          audio[i]?.removeEventListener('playing', playAudio)
+          audio[i]?.addEventListener('playing', playAudio)
+        }
+    }
+
+  }, [audioChange])
+
+
+  useEffect(() => {
+    setTimeout(() => { setaudioChange(!audioChange) }, 2000);
+    setTimeout(() => { setaudioChange(!audioChange) }, 6000);
+    setTimeout(() => { setaudioChange(!audioChange) }, 14000);
   }, [])
 
 
