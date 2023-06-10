@@ -81,6 +81,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNetInfo } from "@react-native-community/netinfo";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AdminGetTicket from "./views/admin/AdminGetTicket";
+import { SafeAreaView } from "react-native";
 
 
 rtl()
@@ -477,6 +478,7 @@ let App = () => {
     </ErrorBoundary>
       :
       <Column onLayout={() => { if (!showToast) { toastNetworkError(); showToast = true } }} pos='absolute' t={0} l={0} r={0} b={0} z={111111} h={'100%'} w={'100%'} bgcolor='#fff' pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
+      <SafeAreaView />
         <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
         <ToastProvider {...allState.init} />
       </Column>
