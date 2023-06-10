@@ -20,8 +20,8 @@ export const Layout = (p) => {
 
   return (
     <View style={{ flex: 1, paddingHorizontal: Platform.OS === 'ios' ? (p.width > p.height ? 40 : 0) : 0, paddingBottom: Platform.OS === 'ios' ? 10 : 0 }} >
-      <SafeAreaView style={{ backgroundColor: "#d293" }} />
-      <View style={{ flex: 1, overflow: 'hidden' }}>
+      <SafeAreaView style={{ flex:1 }} >
+      <View style={{ flex: 1, overflow: 'hidden'  }}>
         {
           p.route.params?.active === 'no' && (<TopTab name={p.route.name} group={topUser} >{p.children}</TopTab>)
           ||
@@ -58,6 +58,7 @@ export const Layout = (p) => {
           <ContainerTab >{p.children}</ContainerTab>
         }
       </View>
+      </SafeAreaView>
     </View>
   )
 }

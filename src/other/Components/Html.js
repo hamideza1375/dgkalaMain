@@ -482,7 +482,7 @@ export const ImgBackground = (props) => <Component source={props.src} {...props}
 
 export const Img = (props) => <ComponentImage style={[props.style]} source={props.src} {...props} Component={Image} />
 
-export const FastImg = (props) => <FastImage {...props} />
+export const FastImg = React.forwardRef((props, ref) => <FastImage ref={ref} {...props} />)
 
 export const Scroll = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} style={[{flexWrap:'nowrap'}, props.style]} Component={ScrollView} />
 

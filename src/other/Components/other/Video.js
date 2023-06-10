@@ -4,6 +4,7 @@ import _Video from "react-native-video";
 import _useEffect from '../../../controllers/_initial';
 import { A_icon, Press } from '../Html';
 import download from '../../utils/download';
+import convertToProxyURL from 'react-native-video-cache';
 
 const Video = (props) => {
 
@@ -38,6 +39,7 @@ const Video = (props) => {
         rate={1.0}
         controls={Platform.OS === 'android' ? false : true}
         {...props}
+        source={{uri: convertToProxyURL(props.source.uri)}}
         style={[{ width: '100%', height: '100%', backgroundColor: '#000d' }, props.style]}
       />
     </>
