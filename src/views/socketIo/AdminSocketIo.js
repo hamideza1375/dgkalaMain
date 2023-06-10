@@ -302,6 +302,71 @@ const AdminSocketIo = (p) => {
 
 
 
+  
+  const [audioChange, setaudioChange] = useState(false)
+
+  useEffect(() => {
+    if (Platform.OS === 'web') {
+
+      const audios = document.getElementsByTagName('audio')
+      const play = (e) => {
+        for (let i = 0; i < audios.length; i++) {
+          if (audios[i] !== e.target) audios[i]?.pause()
+        }
+      }
+      if (audios)
+        for (let i = 0; i < audios.length; i++) {
+          audios[i]?.removeEventListener('playing', play)
+          audios[i]?.addEventListener('playing', play)
+        }
+
+
+
+      const video_1 = document.getElementsByTagName('video')
+      const play_video = (e) => {
+        for (let i = 0; i < video_1.length; i++) {
+          if (video_1[i] !== e.target) video_1[i]?.pause()
+        }
+      }
+      if (video_1)
+        for (let i = 0; i < video_1.length; i++) {
+          video_1[i]?.removeEventListener('playing', play_video)
+          video_1[i]?.addEventListener('playing', play_video)
+        }
+
+
+
+      const video = document.getElementsByTagName('video')
+      const playVideo = () => {
+        const _audio = document.getElementsByTagName('audio')
+        for (let i = 0; i < video.length; i++) {
+          _audio[i]?.pause()
+        }
+      }
+      if (video)
+        for (let i = 0; i < video.length; i++) {
+          video[i]?.removeEventListener('playing', playVideo)
+          video[i]?.addEventListener('playing', playVideo)
+        }
+
+        
+
+      const audio = document.getElementsByTagName('audio')
+      const playAudio = () => {
+        const _video = document.getElementsByTagName('video')
+        for (let i = 0; i < audio.length; i++) {
+          _video[i]?.pause()
+        }
+      }
+      if (audio)
+        for (let i = 0; i < audio.length; i++) {
+          audio[i]?.removeEventListener('playing', playAudio)
+          audio[i]?.addEventListener('playing', playAudio)
+        }
+    }
+
+  }, [audioChange])
+
 
 
   return (
