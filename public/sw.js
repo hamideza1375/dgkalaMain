@@ -1,5 +1,5 @@
 
-const version = 43;
+const version = 50;
 const dynamicVersion = `dinamic-${version}`;
 const preCacheName = `static-${version}`;
 const preCache = [
@@ -77,6 +77,7 @@ const preCache = [
   "/static/js/510.f9ea72e7.chunk.js.map",
   "/static/js/102.516b6cbf.chunk.js.map",
   "/static/js/496.1a783828.chunk.js.map",
+
 ];
 
 
@@ -113,34 +114,33 @@ self.addEventListener('activate', (ev) => {
 });
 
 self.addEventListener('fetch', (ev) => {
-
   ev.respondWith(
-    fetch(ev.request)
-      .then((res) => {
-        return caches.open(dynamicVersion)
-          .then((cache) => {
-            console.log('dynamicCache');
-            cache.put(ev.request.url, res.clone())
-            return res
-          })
+    caches.match(ev.request).then((cacheRes) => {
+      return cacheRes || fetch(ev.request).then((res) => {
+        return caches.open(dynamicVersion).then((cache) => {
+          console.log('dynamicCache');
+          cache.put(ev.request.url, res.clone())
+          return res
+        })
       })
-      .catch((err) => {
-        return caches.match(ev.request)
-      })
-  );
-});
-
-self.addEventListener('message', (ev) => {
-  let data = ev.data;
-  console.log('SW received', data);
-});
-
-const sendMessage = async (msg) => {
-  let allClients = await clients.matchAll({ includeUncontrolled: true });
-  return Promise.all(
-    allClients.map((client) => {
-      let channel = new MessageChannel();
-      return client.postMessage(msg);
     })
-  );
-};
+  )
+});
+
+
+// self.addEventListener('fetch', (ev) => {
+//   ev.respondWith(
+//     fetch(ev.request)
+//       .then((res) => {
+//         return caches.open(dynamicVersion)
+//           .then((cache) => {
+//             console.log('dynamicCache');
+//             cache.put(ev.request.url, res.clone())
+//             return res
+//           })
+//       })
+//       .catch((err) => {
+//         return caches.match(ev.request)
+//       })
+//   );
+// });
