@@ -1,5 +1,6 @@
 
-const version = 34;
+const version = 43;
+const dynamicVersion = `dinamic-${version}`;
 const preCacheName = `static-${version}`;
 const preCache = [
   '/',
@@ -34,9 +35,8 @@ const preCache = [
   '/64x64.png',
   '/192x192.png',
   '/512x512.png',
-
   "/static/css/main.a6890c29.css",
-  "/static/js/main.278d3b32.js",
+  "/static/js/main.7d6aea1a.js",
   "/static/css/269.92b20761.chunk.css",
   "/static/js/269.abb55885.chunk.js",
   "/static/css/529.92b20761.chunk.css",
@@ -58,7 +58,7 @@ const preCache = [
   "/static/media/logo.18974f15ded44566f065.png",
   "/index.html",
   "/static/css/main.a6890c29.css.map",
-  "/static/js/main.278d3b32.js.map",
+  "/static/js/main.7d6aea1a.js.map",
   "/static/css/269.92b20761.chunk.css.map",
   "/static/js/269.abb55885.chunk.js.map",
   "/static/css/529.92b20761.chunk.css.map",
@@ -77,10 +77,6 @@ const preCache = [
   "/static/js/510.f9ea72e7.chunk.js.map",
   "/static/js/102.516b6cbf.chunk.js.map",
   "/static/js/496.1a783828.chunk.js.map",
-  
-  
-  "http://localhost:4000/images/etemadElectronic.png"
-
 ];
 
 
@@ -117,34 +113,24 @@ self.addEventListener('activate', (ev) => {
 });
 
 self.addEventListener('fetch', (ev) => {
-  //fetch request received
-  //send back a response from cache or fetch
+
   ev.respondWith(
-    caches.match(ev.request).then((cacheRes) => {
-      // if(cacheRes) return cacheRes
-      return (
-        cacheRes ||
-        fetch(ev.request).then(
-          (response) => {
-            return response;
-          },
-          (err) => {
-            if (
-              ev.request.url.indexOf('.html') > -1 ||
-              ev.request.mode == 'navigation'
-            ) {
-              return caches.match('/index.html');
-            }
-          }
-        )
-      );
-    })
+    fetch(ev.request)
+      .then((res) => {
+        return caches.open(dynamicVersion)
+          .then((cache) => {
+            console.log('dynamicCache');
+            cache.put(ev.request.url, res.clone())
+            return res
+          })
+      })
+      .catch((err) => {
+        return caches.match(ev.request)
+      })
   );
 });
 
 self.addEventListener('message', (ev) => {
-  //message received
-  //do things based on message props
   let data = ev.data;
   console.log('SW received', data);
 });

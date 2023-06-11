@@ -268,12 +268,8 @@ const AdminSocketIo = (p) => {
   }, [audioChange])
 
 
-  useEffect(() => {
-    setTimeout(() => { setaudioChange(!audioChange) }, 2000);
-    setTimeout(() => { setaudioChange(!audioChange) }, 6000);
-    setTimeout(() => { setaudioChange(!audioChange) }, 14000);
-  }, [])
-
+  useEffect(() => { setTimeout(() => { setaudioChange(!audioChange) }, 2000);}, [pvChatMessage])
+  useEffect(() => { setTimeout(() => { setaudioChange(!audioChange) }, 5000);}, [])
 
 
   return (
