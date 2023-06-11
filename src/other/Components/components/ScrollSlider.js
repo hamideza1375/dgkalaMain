@@ -76,7 +76,7 @@ function ScrollSlider(p) {
         {data.length ?
           <FlatList
             getItemLayout={(data, index) => ({ length: (160 + 10), offset: (160 + 10) * index, index })}
-            initialNumToRender={2}
+            initialNumToRender={4}
             showsHorizontalScrollIndicator={false}
             dir='ltr'
             ref={ref}

@@ -117,7 +117,7 @@ const Mobile = () => {
   useEffect(() => {
     setTimeout(() => {
       netInfo.isConnected && setshow(true)
-    }, 600);
+    }, 400);
   }, [netInfo])
 
 

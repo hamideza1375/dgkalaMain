@@ -34,7 +34,7 @@ export function userController(p) {
 
   this.loadPageTimer = () => {
     _useEffect(() => {
-      p.timerInterwal.current && clearInterval(p.timerInterwal.current)
+      // p.timerInterwal.current && clearInterval(p.timerInterwal.current)
         (async () => {
           const localDate = await AsyncStorage.getItem('localDate')
           if (localDate > new Date().getTime()) {

@@ -150,6 +150,7 @@ export function allChildren({ client, user, admin }) {
     children: (props) => {
 
       const b = () => {
+        if(location.pathname === '/'){ location.pathname = '/home';}
         if (location.href === location.origin || location.href === myhost) history.back()
         if ((props.route.name === 'Home' || props.route.params?.key === 'home') && (location.href === myhost || location.href === 'http://localhost:3000/home')) {
           num++;
@@ -158,7 +159,7 @@ export function allChildren({ client, user, admin }) {
         }
         else return
       }
-      _useEffect(() => { if (Platform.OS === 'web') { if (props.route.name === 'Home') history.pushState({}, location.href) }}, [])
+      _useEffect(() => { if (Platform.OS === 'web') { if (props.route.name === 'Home') history.pushState({}, '/home'/* location.href */) }}, [])
       _useEffect(() => { if (Platform.OS === 'web') window.addEventListener('popstate', b); return () => { if (Platform.OS === 'web') { num = 0, a = 0; window.removeEventListener('popstate', b); } } }, [])
 
       _useEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'ProductBasket') && (!token)) props.navigation.navigate('User', { screen: 'Login', params: { payment: 'true' } }); })}, [])

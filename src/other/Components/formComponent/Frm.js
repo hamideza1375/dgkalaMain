@@ -45,7 +45,7 @@ export default function ({ setscrollEnabled, textId, $input, initialHeight, icon
   const [change, setchange] = useState(false)
   const [inputChange, setinputChange] = useState(false)
 
-  useEffect(() => { setinputState(String(state)) }, [change])
+  useEffect(() => { !inputState.length && setinputState(String(state)) }, [change])
 
   useEffect(() => {
     setTimeout(() => { !inputState.length && setchange(true) }, 700);

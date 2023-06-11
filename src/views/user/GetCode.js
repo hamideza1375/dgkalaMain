@@ -2,6 +2,7 @@ import React, { memo, useEffect } from 'react'
 import { BackHandler, Platform } from 'react-native'
 import { Column, Form, P, Press } from '../../other/Components/Html'
 import _useEffect from '../../controllers/_initial'
+import { myhost } from '../../other/utils/axios/axios'
 
 const GetCode = memo((p) => {
 
@@ -10,7 +11,11 @@ const GetCode = memo((p) => {
   const getNewCode = () => p._user.getNewCode()
 
   _useEffect(() => {
-    if (!p.getCodeView) p.navigation.dispatch(p.navigation.navigate('Profile'))
+    if (!p.getCodeView) {
+      if (Platform.OS !== 'web') { p.navigation.dispatch(p.navigation.navigate('Client', { screen: 'Home' })) }
+      else { location.replace(myhost) /* location.pathname = '/'  */}
+    }
+
   }, [])
 
 
@@ -22,8 +27,9 @@ const GetCode = memo((p) => {
 
   useEffect(() => {
     if (Platform.OS === 'web') {
-      if (window.location.search)
-        history.pushState(null, null, window.location.href)
+      if (p.route.name === 'GetCode')
+        if (window.location.search)
+          history.pushState(null, null, window.location.href)
     }
   })
 

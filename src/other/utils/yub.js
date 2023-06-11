@@ -213,8 +213,8 @@ const yub = {
     if (propName === 'message') {
       if (typeof target[propName] === 'string') {
 
-        if (target[propName]?.length < 4) {
-          return ('پیام نباید کوچک تر از ۴ کلمه باشد')
+        if (target[propName]?.trim()?.length < 1) {
+          return ('پیام نباید خالی')
         }
         else if (target[propName]?.length > 1000) {
           return ('پیام بزرک تر از حد مجاز هست')

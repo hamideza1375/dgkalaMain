@@ -34,7 +34,7 @@ export { default as ProgressChart } from './chart/ProgressChart'
 export { Textarea, Input, CheckBox, CheckBoxRadius } from './formComponent/FormComponent'
 // import { Input as _Input } from './formComponent/FormComponent'
 
-import FastImage from './components/FastImage'
+// import FastImage from './components/FastImage'
 import setStyleRef from './classToStyle/setClassToStyle';
 
 
@@ -84,29 +84,12 @@ export const ComponentForScroll = React.forwardRef((props, ref) => {
     onClick={() => { }}
     src={null}
     source={uri ? uri : props.source}
-    contentContainerStyle={[{justifyContent: jc, alignItems: ai},props.ccStyle, props.contentContainerStyle, Platform.OS !== 'web' && props.containClass]}
+    contentContainerStyle={[{ justifyContent: jc, alignItems: ai }, props.ccStyle, props.contentContainerStyle, Platform.OS !== 'web' && props.containClass]}
     imageStyle={[props.imageStyle, Platform.OS !== 'web' && props.containClass]}
     style={[
 
       Platform.select({
-        web:{
-            flexWrap: fw, elevation: el,
-            shadowRadius: sh.r, shadowOpacity: sh.o, shadowColor: sh.c, shadowOffset: sh.of,
-            transform: [{ scale }, { rotate: rotate + 'deg' }],
-            borderTopWidth: btw, borderRadius: br,
-            borderBottomWidth: bbw, borderLeftWidth: blw, borderRightWidth: brw,
-            minWidth: minw, maxWidth: maxw, minHeight: minh, maxHeight: maxh,
-            opacity: opc,
-            position: pos, zIndex: z, top: t, bottom: b, right: r, left: l,
-            flexGrow: fg, flex: f, flexDirection: fd,
-            alignSelf: as, padding: p, paddingBottom: pb, paddingTop: pt,
-            paddingRight: pr, paddingLeft: pl, paddingHorizontal: ph, paddingVertical: pv,
-            marginVertical: mv, margin: m, marginTop: mt, marginBottom: mb,
-            marginLeft: ml, marginRight: mr, marginHorizontal: mh,
-            backgroundColor: bgcolor, borderWidth: border[0], borderColor: border[1],
-            height: h, width: w, 
-        },
-        native:{
+        web: {
           flexWrap: fw, elevation: el,
           shadowRadius: sh.r, shadowOpacity: sh.o, shadowColor: sh.c, shadowOffset: sh.of,
           transform: [{ scale }, { rotate: rotate + 'deg' }],
@@ -121,14 +104,31 @@ export const ComponentForScroll = React.forwardRef((props, ref) => {
           marginVertical: mv, margin: m, marginTop: mt, marginBottom: mb,
           marginLeft: ml, marginRight: mr, marginHorizontal: mh,
           backgroundColor: bgcolor, borderWidth: border[0], borderColor: border[1],
-          height: h, width: w, 
+          height: h, width: w,
+        },
+        native: {
+          flexWrap: fw, elevation: el,
+          shadowRadius: sh.r, shadowOpacity: sh.o, shadowColor: sh.c, shadowOffset: sh.of,
+          transform: [{ scale }, { rotate: rotate + 'deg' }],
+          borderTopWidth: btw, borderRadius: br,
+          borderBottomWidth: bbw, borderLeftWidth: blw, borderRightWidth: brw,
+          minWidth: minw, maxWidth: maxw, minHeight: minh, maxHeight: maxh,
+          opacity: opc,
+          position: pos, zIndex: z, top: t, bottom: b, right: r, left: l,
+          flexGrow: fg, flex: f, flexDirection: fd,
+          alignSelf: as, padding: p, paddingBottom: pb, paddingTop: pt,
+          paddingRight: pr, paddingLeft: pl, paddingHorizontal: ph, paddingVertical: pv,
+          marginVertical: mv, margin: m, marginTop: mt, marginBottom: mb,
+          marginLeft: ml, marginRight: mr, marginHorizontal: mh,
+          backgroundColor: bgcolor, borderWidth: border[0], borderColor: border[1],
+          height: h, width: w,
         }
       })
 
       ,
       stl, stl2, col, orientation
     ]}
-    
+
     ref={(e) => { setStyleRef(props, e, ref, setinnerHTML, flatlist, seturi); }}
   >{innerHTML ? ((typeof innerHTML === 'string') ? <Text onPress={props.onClick}>{innerHTML}</Text> : innerHTML) : (typeof props.children === 'string') ? <Text onPress={props.onClick}>{props.children}</Text> : props.children}</Component>;
 });
@@ -223,7 +223,7 @@ export const ComponentImage = React.forwardRef((props, ref) => {
       ,
       stl, stl2, col, orientation
     ]}
-    
+
     ref={(e) => { setStyleRef(props, e, ref, setinnerHTML, flatlist, seturi); }}
   >{innerHTML ? ((typeof innerHTML === 'string') ? <Text onPress={props.onClick}>{innerHTML}</Text> : innerHTML) : (typeof props.children === 'string') ? <Text onPress={props.onClick}>{props.children}</Text> : props.children}</Component>;
 });
@@ -319,7 +319,7 @@ export const Component = React.forwardRef((props, ref) => {
       ,
       stl, stl2, col, orientation
     ]}
-    
+
     ref={(e) => { setStyleRef(props, e, ref, setinnerHTML, flatlist, seturi); }}
   >{innerHTML ? ((typeof innerHTML === 'string') ? <Text onPress={props.onClick}>{innerHTML}</Text> : innerHTML) : (typeof props.children === 'string') ? <Text onPress={props.onClick}>{props.children}</Text> : props.children}</Component>;
 });
@@ -361,10 +361,10 @@ export const _text = React.forwardRef((props, ref) => {
   return <Text
     {...props}
     style={[
-      
+
       Platform.select({
         web: {
-          overflow:'hidden',
+          overflow: 'hidden',
           textShadowRadius: tsh.r, textShadowColor: tsh.c, textShadowOffset: tsh.of,
           borderBottomColor: bbc, borderTopColor: btc,
           borderLeftColor: blc, borderRightColor: brc, borderTopWidth: btw,
@@ -381,7 +381,7 @@ export const _text = React.forwardRef((props, ref) => {
           height: h, width: w, fontFamily: ff, fontSize: fs, fontWeight: fw, color,
         },
         android: {
-          overflow:'hidden',
+          overflow: 'hidden',
           textShadowRadius: tsh.r, textShadowColor: tsh.c, textShadowOffset: tsh.of,
           borderBottomColor: bbc, borderTopColor: btc,
           borderLeftColor: blc, borderRightColor: brc, borderTopWidth: btw,
@@ -389,7 +389,7 @@ export const _text = React.forwardRef((props, ref) => {
           minWidth: minw, maxWidth: maxw, minHeight: minh, maxHeight: maxh,
           opacity: opc,
           position: pos, zIndex: z, top: t, bottom: b, right: r, left: l,
-          textAlign:ta === 'left' ? 'right' :( ta === 'right' ? 'left' : ta) , flexGrow: fg, flex: f,
+          textAlign: ta === 'left' ? 'right' : (ta === 'right' ? 'left' : ta), flexGrow: fg, flex: f,
           alignSelf: as, padding: p, paddingBottom: pb, paddingTop: pt,
           paddingRight: pl, paddingLeft: pr, paddingHorizontal: ph, paddingVertical: pv,
           marginVertical: mv, margin: m, marginTop: mt, marginBottom: mb,
@@ -398,7 +398,7 @@ export const _text = React.forwardRef((props, ref) => {
           height: h, width: w, fontFamily: ff, fontSize: fs, fontWeight: fw, color,
         },
         ios: {
-          overflow:'hidden',
+          overflow: 'hidden',
           textShadowRadius: tsh.r, textShadowColor: tsh.c, textShadowOffset: tsh.of,
           borderBottomColor: bbc, borderTopColor: btc,
           borderLeftColor: blc, borderRightColor: brc, borderTopWidth: btw,
@@ -406,7 +406,7 @@ export const _text = React.forwardRef((props, ref) => {
           minWidth: minw, maxWidth: maxw, minHeight: minh, maxHeight: maxh,
           opacity: opc,
           position: pos, zIndex: z, top: t, bottom: b, right: r, left: l,
-          textAlign:ta === 'left' ? 'right' :( ta === 'right' ? 'left' : ta), flexGrow: fg, flex: f,
+          textAlign: ta === 'left' ? 'right' : (ta === 'right' ? 'left' : ta), flexGrow: fg, flex: f,
           alignSelf: as, padding: p, paddingBottom: pb, paddingTop: pt,
           paddingRight: pr, paddingLeft: pl, paddingHorizontal: ph, paddingVertical: pv,
           marginVertical: mv, margin: m, marginTop: mt, marginBottom: mb,
@@ -416,7 +416,7 @@ export const _text = React.forwardRef((props, ref) => {
         }
       })
 
-     ,
+      ,
       stl, col, orientation
     ]}
     onPress={props.onClick} ref={(e) => {
@@ -438,7 +438,7 @@ export const Container = (props) => <Component onStartShouldSetResponder={props.
 export const ContainerFix = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={Platform.OS === 'web' ? s.ContainerWeb : s.Container} {...props} Component={View} />
 
 export const Container2 = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={Platform.OS === 'web' ? s.ContainerWeb2 : s.Container} {...props} Component={View} />
- 
+
 export const ContainerNavigation = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={Platform.OS === 'web' ? s.ContainerNavigation : s.Container} {...props} Component={View} />
 
 export const ContainerTab = (props) => <Component onStartShouldSetResponder={props.onClick} initalClass={s.Container} {...props} Component={View} />
@@ -480,13 +480,13 @@ export const PressScrollView = (props) =>
 
 export const ImgBackground = (props) => <Component source={props.src} {...props} Component={ImageBackground} />
 
-export const Img = (props) => <ComponentImage style={[props.style]} source={props.src} {...props} Component={Image} />
+export const Img = (props) => <ComponentImage style={[props.style]} source={{ ...props.src, ...props.src?.uri ? { cache: 'force-cache' } : null }} {...props} Component={Image} />
 
-export const FastImg = React.forwardRef((props, ref) => <FastImage ref={ref} {...props} />)
+// export const FastImg = React.forwardRef((props, ref) => <FastImage ref={ref} {...props} />)
 
-export const Scroll = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} style={[{flexWrap:'nowrap'}, props.style]} Component={ScrollView} />
+export const Scroll = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} style={[{ flexWrap: 'nowrap' }, props.style]} Component={ScrollView} />
 
-export const ScrollHorizontal = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} style={[{flexWrap:'wrap'}, props.style]} horizontal={true} Component={ScrollView} />
+export const ScrollHorizontal = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} style={[{ flexWrap: 'wrap' }, props.style]} horizontal={true} Component={ScrollView} />
 
 export const FlatList = ({ pageLimit, loading = true, column1, column2, column3, column4, column5, column6, renderItem, numColumns, data, keyExtractor, ...props }) => {
 
@@ -515,13 +515,13 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
         <>
           <ComponentForScroll
             {...props}
-            style={[{flexWrap:'nowrap'}, props.style]}
+            style={[{ flexWrap: 'nowrap' }, props.style]}
             data={data}
             renderItem={({ item, index }) =>
-            <>
-              <View style={{ position: 'absolute', height: 0, width: 0 }} ref={() => setindex(index)} ></View>
-              
-              {renderItem({ item, index })}
+              <>
+                <View style={{ position: 'absolute', height: 0, width: 0 }} ref={() => setindex(index)} ></View>
+
+                {renderItem({ item, index })}
               </>
             }
             flatlist={true}
@@ -543,10 +543,10 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
         ?
         <>
           <Component
-          style={[{flexWrap:'nowrap', paddingBottom:50}, props.style]}
+            style={[{ flexWrap: 'nowrap', paddingBottom: 50 }, props.style]}
             {...props}
             data={current}
-            renderItem={({ item, index }) => 
+            renderItem={({ item, index }) =>
               <View style={{ position: 'absolute', height: 0, width: 0 }} ref={() => setindex(index)} ></View>
               &&
               renderItem({ item, index })}
@@ -576,7 +576,7 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
   }
 }
 
-export const FlatListHorizontal = (props) => <ComponentForScroll flatlist={true} {...props} style={[{flexWrap:'wrap'}, props.style]} horizontal={true} Component={_FlatList} />
+export const FlatListHorizontal = (props) => <ComponentForScroll flatlist={true} {...props} style={[{ flexWrap: 'wrap' }, props.style]} horizontal={true} Component={_FlatList} />
 
 export const Vlist = (props) => <VirtualizedList keyExtractor={item => item._id} getItemCount={(data) => data.length} getItem={(data, index) => (data[index])} {...props} />
 
@@ -598,7 +598,7 @@ export const Ps = (props) => <_text ta='right' {...props} initalClass={s.p} />
 
 export const Pl = (props) => <_text ta='right' {...props} initalClass={s.p} ff='IRANSansWeb-Light' />
 
-export const Pfa = (props) => <_text ta='right' fs={16} {...props} style={[Platform.select({ ios:{fontFamily:'B Baran'}, default:{fontFamily:'B Baran Regular'}}), props.style]} />
+export const Pfa = (props) => <_text ta='right' fs={16} {...props} style={[Platform.select({ ios: { fontFamily: 'B Baran' }, default: { fontFamily: 'B Baran Regular' } }), props.style]} />
 
 export const Py = (props) => <_text ta='right' fw='bold' {...props} ff='Yekan Bakh Regular' />
 
