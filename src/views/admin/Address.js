@@ -13,6 +13,7 @@ const Address = (p) => {
   return (
     <Column f={1} >
       <FlatList
+        cacheId={'flatlistAddress'}
         data={p.allAddress}
         contentContainerStyle={{ paddingBottom: 55, }}
         renderItem={({ item, index }) => (

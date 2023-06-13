@@ -26,6 +26,7 @@ function FlatlistChild(p){
   // useEffect(() => {actionGetProducts(dispatch, "GETPRODUCT", p.route)}, [])
   return (
     <FlatList
+    cacheId={p.route.params.id}
      column1={1} column2={2} column3={2} column4={3}
       column5={4} column6={5}
       data={p.childItem}

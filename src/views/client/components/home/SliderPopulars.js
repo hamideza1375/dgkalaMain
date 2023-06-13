@@ -28,6 +28,7 @@ const SliderPopulars = (p) => {
         <Column class={s.p_offerGlass} t={0}></Column>
         {p.populars ?
           <ScrollSlider
+            cacheId='sliderPopulars'
             style={[{ height: 300, minHeight: 300 }]}
             ccStyle={{ height: 300, minHeight: 300, justifyContent: 'center' }}
             data={p.populars}

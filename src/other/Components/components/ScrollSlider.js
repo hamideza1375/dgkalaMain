@@ -1,16 +1,19 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { FlatList, Platform } from 'react-native'
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useRoute } from '@react-navigation/native';
 import s from './style.module.scss';
 import { Loading, Column } from '../Html';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 
 var das = [], old = 0, time = 2000
 
 function ScrollSlider(p) {
-  const { data, renderItem, h, style, ccStyle } = p
+  const { cacheId, data, renderItem, h, style, ccStyle } = p
   const ref = useRef()
   const [scroll2, setscroll2] = useState(true)
+  const [cacheData, setcacheData] = useState([])
 
   const count = useRef({ count: 1 })
   const interval = useRef({ interval: null })
@@ -51,6 +54,29 @@ function ScrollSlider(p) {
     }
   }, []))
 
+
+  const netInfo = useNetInfo()
+
+  useEffect(() => {
+    if (cacheId) {
+      (async () => {
+        const preCache = await AsyncStorage.getItem(cacheId)
+        if ((netInfo.isConnected && data.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== data.length))))) {
+          await AsyncStorage.setItem(cacheId, JSON.stringify(data))
+        }
+      })();
+      (async () => {
+        const cacheData = await AsyncStorage.getItem(cacheId)
+        if (cacheData) {
+          const dataParse = JSON.parse(cacheData)
+          dataParse.length && setcacheData(dataParse)
+        }
+      })()
+    }
+    
+  }, [data])
+
+
   return (
     <Column
       style={{ cursor: 'grab' }}
@@ -73,7 +99,7 @@ function ScrollSlider(p) {
         }}
 
       >
-        {data.length ?
+        {(data.length || cacheData.length) ?
           <FlatList
             getItemLayout={(data, index) => ({ length: (160 + 10), offset: (160 + 10) * index, index })}
             initialNumToRender={4}
@@ -91,6 +117,7 @@ function ScrollSlider(p) {
             // contentInset={{ left: 0 }}
             // onScroll={(e) => { setscroll(e.nativeEvent.contentOffset.x) }}
             style={[{ height: h ? h : 150, width: '99%', borderRadius: 5, flexWrap: 'wrap' }, style]}
+            data={data.length ? data : cacheData}
           />
           :
           <Column w='100%' ><Loading /></Column>

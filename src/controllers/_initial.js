@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import Axios from 'axios'
 import jwtDecode from "jwt-decode";
-import { useCallback, useLayoutEffect, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import { Dimensions, Platform } from 'react-native'
 
 import { adminController } from "./adminController";
@@ -51,7 +51,7 @@ export const _initController = (p) => {
           if (_show == false && error['request']?.status !== 0) { _show = true; setshow(true) }
           if (error['request']?.status === 0) {
             if (!serverOff2) {
-              p.setSplash(true)
+              // p.setSplash(true)
               toastServerError()
               serverOff2 = true
               _show = false; setshow(false)
@@ -60,7 +60,7 @@ export const _initController = (p) => {
           }
           else if (error?.response?.status) {
             p.setshowActivity(false)
-            if (error.response.status === 401) { if (p.goToUser && goToUser) { goToUser = false; p.setgoToUser(false); setTimeout(() => { goToUser = true; p.setgoToUser(true) }, 1500); navigation.navigate('User'); toast401(error.response.data) } }
+            if (error.response.status === 401) { if (p.goToUser && goToUser) { goToUser = false; p.setgoToUser(false); setTimeout(() => { goToUser = true; p.setgoToUser(true) }, 1500); navigation.navigate('User', { screen: 'Logout' }); toast401(error.response.data) } }
             else if (error.response.status > 400 && error.response.status <= 500) { toast500(); p.setshowActivity(false) };
             if (error.response.status === 400 && error.response.data) { toast400(error.response.data) };
           } return Promise.reject(error);
@@ -88,11 +88,14 @@ export const _initController = (p) => {
   }, [change])
 
 
+  useEffect(() => { (!p.splash && netInfo.isConnected) && p.setchangeRefresh(!p.changeRefresh) }, [netInfo])
+  
+
 
   useLayoutEffect(() => { p.$input.set('a', 'a') }, [])
   useLayoutEffect(() => {
-    show === true && setTimeout(() => { if (show === true) { p.setSplash(false); p.setshowActivity(false) } }, 200)
-    show === false && p.setSplash(true);
+    /* show === true && */ setTimeout(() => { if (show === true) { p.setSplash(false); p.setshowActivity(false) } }, 200)
+    // show === false && p.setSplash(true);
   }, [show])
   Dimensions.addEventListener('change', ({ window: { width, height } }) => { p.setwidth(width); p.setheight(height) })
 
@@ -100,7 +103,7 @@ export const _initController = (p) => {
     setTimeout(() => { setchange2(true) }, 200);
     if (change2)
       if (netInfo.isConnected !== true) {
-        p.setSplash(true);
+        // p.setSplash(true);
         if (!serverOff) {
           toastNetworkError()
           serverOff = true
@@ -150,7 +153,7 @@ export function allChildren({ client, user, admin }) {
     children: (props) => {
 
       const b = () => {
-        if(location.pathname === '/'){ location.pathname = '/home';}
+        // if(location.pathname === '/'){ history.back()}
         if (location.href === location.origin || location.href === myhost) history.back()
         if ((props.route.name === 'Home' || props.route.params?.key === 'home') && (location.href === myhost || location.href === 'http://localhost:3000/home')) {
           num++;

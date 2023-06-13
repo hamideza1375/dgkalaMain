@@ -11,6 +11,7 @@ const Address = (p) => {
 	return (
 		<Column f={1} >
 			<FlatList
+      cacheId={'allpayment'}
 				data={p.allPaymentSuccessFalseAndTrue}
 				ccStyle={{ paddingBottom: 55, }}
 				renderItem={({ item, index }) => (

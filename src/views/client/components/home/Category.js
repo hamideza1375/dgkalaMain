@@ -20,6 +20,7 @@ const Category = (p) => {
       </Column>
 
       <ScrollSlider
+        cacheId='sliderCategory'
         h={180}
         ccStyle={{ height: 180, justifyContent: 'center', alignSelf: 'center' }}
         data={p.category}

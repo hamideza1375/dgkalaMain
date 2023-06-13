@@ -1,7 +1,7 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Platform, LogBox, I18nManager, StatusBar, useWindowDimensions, Dimensions } from "react-native";
+import { Platform, LogBox, I18nManager, StatusBar, useWindowDimensions, Dimensions, View } from "react-native";
 
 import Home from './views/client/Home'
 import Products from './views/client/Products'
@@ -61,7 +61,7 @@ import AdminTicketBox from "./views/admin/AdminTicketBox";
 import AdminSocketIo from "./views/socketIo/AdminSocketIo";
 
 
-import { Button, Dropdown, Img, Init, Column, Press, P, Icon, M_icon } from "./other/Components/Html";
+import { Button, Dropdown, Img, Init, Column, Press, P, Icon, M_icon, Loading } from "./other/Components/Html";
 import _404 from "./other/Components/404/404";
 import ToastProvider, { Toast } from "./other/utils/toast";
 import { header } from "./other/Layout/Layout";
@@ -90,7 +90,7 @@ LogBox.ignoreAllLogs();
 
 const Tab = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
-let _height
+let _height, das = []
 const Mobile = () => {
 
   useEffect(() => { setTimeout(() => { if ((Platform.OS !== 'web') && (!I18nManager.isRTL)) { reload() } }, 3000) }, [])
@@ -152,6 +152,9 @@ const Mobile = () => {
 
 
   //   if (navigation?.getState()?.routes[0]?.state?.index === 1 || navigation?.getState()?.routes[0]?.state?.index === 0) 
+  const [refresh, setrefresh] = useState(false)
+  const y = useRef()
+  const onRefresh = (e) => { setrefresh(true); setTimeout(() => { setrefresh(false); }, 500); allState.init.setchangeRefresh(!allState.init.changeRefresh) }
 
   return (
     <>
@@ -166,7 +169,13 @@ const Mobile = () => {
       }
       <contextStates.Provider value={{ ...allState.init, toast }}>
         {/* <StatusBar backgroundColor='#d29' barStyle={"light-content"} /> */}
-        <Column f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
+        {refresh ? <Loading pos='absolute' color='#a05' /> : <></>}
+
+
+        <Column
+          onMoveShouldSetResponder={(e) => { if (e) { if (das.length >= 2) das = []; setTimeout(() => { das = [] }, 400); das.push(e.nativeEvent.pageY); y.current = e.nativeEvent.pageY; if ((y.current < 70) && (y.current - e.nativeEvent.pageY < 40) && das[1] > das[0]) onRefresh(e) } }}
+          // onTouchStart={(e)=>{y.current = e.nativeEvent.pageY}} onTouchEnd={(e)=>{if(y.current < 50 && (y.current - e.nativeEvent.pageY < 40)) onRefresh(e) }}
+          f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
           <Dropdown root {...allState.init}><Press onClick={() => { }} >{allState.init.dropdownValue}</Press></Dropdown>
           <Init ref={(e) => allState.init.set$(e)} id={'s'} />
           <ToastProvider {...allState.init} />
@@ -416,6 +425,8 @@ let _App
 if (Platform.OS !== 'web') {
   _App = () => {
     // const scheme = useColorScheme();
+
+
     return (
       <NavigationContainer /* theme={scheme === 'dark' ? DarkTheme : DefaultTheme} */>
         <Mobile />
@@ -444,6 +455,7 @@ else {
         });
       }
     }
+
     return (
       <NavigationContainer linking={linking} >
         <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', height }} >
@@ -478,7 +490,7 @@ let App = () => {
     </ErrorBoundary>
       :
       <Column onLayout={() => { if (!showToast) { toastNetworkError(); showToast = true } }} pos='absolute' t={0} l={0} r={0} b={0} z={111111} h={'100%'} w={'100%'} bgcolor='#fff' pb={Platform.OS === 'ios' ? 10 : 1} f={1} maxh={allState.init.height} >
-      <SafeAreaView />
+        <SafeAreaView />
         <Img src={allState.init.logoUrl} f={1} style={{ resizeMode: 'stretch' }} />
         <ToastProvider {...allState.init} />
       </Column>

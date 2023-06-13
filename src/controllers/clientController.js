@@ -21,7 +21,8 @@ export function clientController(p) {
         if (!data?.value) return
         p.setcategory(data.value)
       })()
-    }, [])
+      console.log('nw');
+    }, [p.changeRefresh])
   }
   //! Category
 
@@ -31,7 +32,7 @@ export function clientController(p) {
       getSlider().then(({ data }) => {
         data && p.setslider(Object.values(data.value))
       })
-    }, [p.sliderImage1])
+    }, [p.sliderImage1, p.changeRefresh])
   }
   //! getSlider
 
@@ -75,7 +76,7 @@ export function clientController(p) {
         p.setnewSearchArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
       return () => { p.setchildItem([]); p.setnewSearchArray([]) }
-    }, [p.route.params?.id])
+    }, [p.route.params?.id, p.changeRefresh])
   }
 
 
@@ -87,7 +88,7 @@ export function clientController(p) {
         p.setoffers(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
         p.setnewSearchOffershArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
-    }, [p.route.params?.id])
+    }, [p.route.params?.id, p.changeRefresh])
   }
 
 
@@ -99,7 +100,7 @@ export function clientController(p) {
         p.setpopulars(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
         p.setnewSearchPopularsArray(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })));
       })()
-    }, [p.route.params?.id])
+    }, [p.route.params?.id, p.changeRefresh])
   }
 
 
@@ -111,7 +112,7 @@ export function clientController(p) {
         if (!data?.value) return
         p.setsimilar(data.value.map(item => ({ ...item, imageUrl: item.imageUrl1 })))
       })()
-    }, [p.route.params])
+    }, [p.route.params, p.changeRefresh])
   }
   //! product
 
@@ -126,7 +127,7 @@ export function clientController(p) {
         p.setsingleItem(data.value)
       })()
       return () => p.setsingleItem({})
-    }, [p.route.params])
+    }, [p.route.params, p.changeRefresh])
   }
   //! singleProduct
 
@@ -168,7 +169,7 @@ export function clientController(p) {
         p.setchildItemComment(data.value)
       })
       return () => p.setchildItemComment([])
-    }, [p.route.params])
+    }, [p.route.params, p.changeRefresh])
   }
 
 
@@ -191,7 +192,7 @@ export function clientController(p) {
         p.setmessage('')
         p.setfiveStar()
       }
-    }, [])
+    }, [p.changeRefresh])
   }
 
 
@@ -396,7 +397,7 @@ export function clientController(p) {
           p.setavailableSeller(data.value?.available);
         })
       return () => p.setavailableSeller(true)
-    }, [p.singleItem.sellerId])
+    }, [p.singleItem.sellerId, p.changeRefresh])
   }
   //! getSingleSeller for check available
 
@@ -408,7 +409,7 @@ export function clientController(p) {
       if (!p.route.params?.id) return;
       getSingleSavedsavedProducts(p.route.params?.id).then(({ data }) => { p.setbookmark(data.value) })
       return () => p.setbookmark(false)
-    }, [p.route.params])
+    }, [p.route.params, p.changeRefresh])
   }
   //!savedProduct
 
@@ -461,7 +462,7 @@ export function clientController(p) {
         c[p.route.params?.id] = color[p.route.params?.id] ? color[p.route.params?.id] : p.singleItem.color.find(c => c.value > 0)?.color
         return c
       })
-    }, [p.singleItem])
+    }, [p.singleItem, p.changeRefresh])
   }
 
   let current = 0

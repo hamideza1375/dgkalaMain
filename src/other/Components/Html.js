@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Animated as _Animated, StyleSheet as _StyleSheet, View, Text, Image, ScrollView, TouchableOpacity, Platform, FlatList as _FlatList, VirtualizedList, Pressable, ImageBackground, Dimensions } from 'react-native';
 import _icon from 'react-native-vector-icons/dist/FontAwesome5';
 import Aicon from 'react-native-vector-icons/dist/AntDesign';
@@ -36,6 +36,10 @@ export { Textarea, Input, CheckBox, CheckBoxRadius } from './formComponent/FormC
 
 // import FastImage from './components/FastImage'
 import setStyleRef from './classToStyle/setClassToStyle';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import _useEffect from '../../controllers/_initial';
+import { useRoute } from '@react-navigation/native';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 
 
@@ -480,7 +484,7 @@ export const PressScrollView = (props) =>
 
 export const ImgBackground = (props) => <Component source={props.src} {...props} Component={ImageBackground} />
 
-export const Img = (props) => <ComponentImage style={[props.style]} source={{ ...props.src, ...props.src?.uri ? { cache: 'force-cache' } : null }} {...props} Component={Image} />
+export const Img = (props) => <ComponentImage style={[props.style]} source={!props.src.uri ? props.src : { ...props.src, ...{ cache: 'force-cache' } }} {...props} Component={Image} />
 
 // export const FastImg = React.forwardRef((props, ref) => <FastImage ref={ref} {...props} />)
 
@@ -488,7 +492,7 @@ export const Scroll = (props) => <ComponentForScroll onStartShouldSetResponder={
 
 export const ScrollHorizontal = (props) => <ComponentForScroll onStartShouldSetResponder={props.onClick} {...props} style={[{ flexWrap: 'wrap' }, props.style]} horizontal={true} Component={ScrollView} />
 
-export const FlatList = ({ pageLimit, loading = true, column1, column2, column3, column4, column5, column6, renderItem, numColumns, data, keyExtractor, ...props }) => {
+export const FlatList = ({ cacheId, pageLimit, loading = true, column1, column2, column3, column4, column5, column6, renderItem, numColumns, data, keyExtractor, ...props }) => {
 
   const width = Dimensions.get('window').width
   const [index, setindex] = useState(0)
@@ -506,17 +510,39 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
   const [page, setpage] = useState(1)
   const [currentPage, setcurrentPage] = useState(1)
   const [current, setcurrent] = useState([])
+  const [cacheData, setcacheData] = useState([])
+  const netInfo = useNetInfo()
+
+  useEffect(() => {
+    if (cacheId) {
+      (async () => {
+        const preCache = await AsyncStorage.getItem(cacheId)
+        if ((netInfo.isConnected && data.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== data.length))))) {
+          await AsyncStorage.setItem(cacheId, JSON.stringify(data))
+          console.log(JSON.parse(preCache).length, data.length);
+        }
+      })();
+      (async () => {
+        const cacheData = await AsyncStorage.getItem(cacheId)
+        if (cacheData) {
+          const dataParse = JSON.parse(cacheData)
+          dataParse.length && setcacheData(dataParse)
+        }
+      })()
+    }
+  }, [data])
+
 
 
   if (!pageLimit) {
     return (
-      data?.length
+      (data?.length || cacheData.length)
         ?
         <>
           <ComponentForScroll
             {...props}
             style={[{ flexWrap: 'nowrap' }, props.style]}
-            data={data}
+            data={data.length ? data : cacheData}
             renderItem={({ item, index }) =>
               <>
                 <View style={{ position: 'absolute', height: 0, width: 0 }} ref={() => setindex(index)} ></View>
@@ -539,7 +565,7 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
   else {
 
     return (
-      data?.length
+      (data?.length || cacheData.length)
         ?
         <>
           <Component
@@ -549,7 +575,7 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
             renderItem={({ item, index }) =>
               <View style={{ position: 'absolute', height: 0, width: 0 }} ref={() => setindex(index)} ></View>
               &&
-              renderItem({ item, index })}
+            renderItem({ item, index })}
             flatlist={true}
             keyExtractor={keyExtractor ? keyExtractor : (item, index) => item._id}
             numColumns={numColumns ? numColumns : column}
@@ -560,7 +586,7 @@ export const FlatList = ({ pageLimit, loading = true, column1, column2, column3,
 
           <Column w='100%' pos='absolute' b={2} ai='center' >
             <_Pagination
-              item={data}
+              item={data.length ? data : cacheData}
               current={current}
               setcurrent={setcurrent}
               pageLimit={pageLimit}

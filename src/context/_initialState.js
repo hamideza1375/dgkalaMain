@@ -95,9 +95,11 @@ export function initial() {
   const [goToUser, setgoToUser] = useState(true)
   const [homeScreen, sethomeScreen] = useState(false)
   const [playMusic, setplayMusic] = useState(false)
-
+  const [changeRefresh, setchangeRefresh] = useState(false)
+  
 
   this.all = {
+    changeRefresh, setchangeRefresh,
     homeScreen, sethomeScreen,
     playMusic, setplayMusic,
     timerInterwal,

@@ -26,6 +26,7 @@ const FlatlistPopulars = (p) => {
 
   return (
     <FlatList
+      cacheId='ProductsPopulars'
       column1={1} column2={2} column3={2} column4={2}
       column5={3} column6={4}
       data={p.populars}

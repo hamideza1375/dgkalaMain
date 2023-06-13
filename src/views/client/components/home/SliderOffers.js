@@ -29,6 +29,7 @@ const SliderOffers = (p) => {
 
           {p.offers.length ?
             <ScrollSlider
+              cacheId='slideroffers'
               style={{ height: 300, minHeight: 300 }}
               ccStyle={{ height: 300, minHeight: 300, justifyContent: 'center' }}
               data={p.offers}
