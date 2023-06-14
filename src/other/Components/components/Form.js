@@ -57,6 +57,8 @@ const Form = ({
     height, showActivity, setshowActivity, $input
   } = context()
 
+  const [changePress, setchangePress] = useState(false)
+
   const [_state, set_state] = useState('')
   const [_City, set_City] = useState('')
 
@@ -553,7 +555,8 @@ if(city){
 
 
           {f &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='fullnameInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -574,7 +577,8 @@ if(city){
           }
 
           {e &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='emailInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -597,7 +601,8 @@ if(city){
           }
 
           {ph &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='phoneInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -621,7 +626,8 @@ if(city){
 
 
           {phore &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='phoneOrEmailInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -642,7 +648,8 @@ if(city){
           }
 
           {op &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='oldPasswordInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -664,7 +671,8 @@ if(city){
           }
 
           {p &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='passwordInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -689,7 +697,8 @@ if(city){
           }
 
           {cp &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='confirmPasswordInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -716,7 +725,8 @@ if(city){
           <Br style={{ height: 0, padding: 0, marginTop: 0, marginBottom: 0 }} />
 
           {$address &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='addressInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -739,7 +749,8 @@ if(city){
 
 
           {postal &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='postalCodeInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -766,7 +777,8 @@ if(city){
 
           <Row w='100%' jc='space-around' >
             {$plaque &&
-              <Frm
+              <Frm 
+              changePress={changePress}
               textId='plaqueInput'
             $input={$input}
               setscrollEnabled={setscrollEnabled}
@@ -786,7 +798,8 @@ if(city){
 
 
             {$unit &&
-              <Frm
+              <Frm 
+              changePress={changePress}
               textId='unitInput'
             $input={$input}
               setscrollEnabled={setscrollEnabled}
@@ -810,7 +823,8 @@ if(city){
 
 
           {t &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='titleInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -830,7 +844,8 @@ if(city){
           }
 
           {pr &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='priceInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -852,7 +867,8 @@ if(city){
           }
 
           {$code &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm 
+            changePress={changePress} setscrollEnabled={setscrollEnabled}
               $input={$input}
               textId='inputCodeId'
               plackTextTop={plackTextTop}
@@ -878,7 +894,8 @@ if(city){
 
 
           {in1 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='newAdminPhoneInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -900,7 +917,8 @@ if(city){
 
 
           {in2 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='businessInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -920,7 +938,8 @@ if(city){
 
 
           {in3 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='ramInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -942,7 +961,8 @@ if(city){
 
 
           {in4 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='cpuCoreInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -963,7 +983,8 @@ if(city){
 
 
           {in5 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='cameraInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -985,7 +1006,8 @@ if(city){
 
 
           {in6 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='storageInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -1007,7 +1029,8 @@ if(city){
 
 
           {in7 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='warantyInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -1028,7 +1051,8 @@ if(city){
 
           {/* 
           {in8 &&
-            <Frm setscrollEnabled={setscrollEnabled}
+            <Frm 
+            changePress={changePress} setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="color-lens"
               plackTextTop={plackTextTop}
@@ -1046,7 +1070,8 @@ if(city){
 
 
           {in9 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='displayInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -1067,7 +1092,8 @@ if(city){
 
 
           {in10 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='systemInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -1087,7 +1113,8 @@ if(city){
 
 
           {in11 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='batryInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -1108,7 +1135,8 @@ if(city){
 
 
           {in12 &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='networkInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -1345,7 +1373,8 @@ if(city){
 
 
           {i &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='infoInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -1367,7 +1396,8 @@ if(city){
           }
 
           {m &&
-            <Frm
+            <Frm 
+            changePress={changePress}
             textId='messageInput'
             $input={$input}
             setscrollEnabled={setscrollEnabled}
@@ -1466,7 +1496,8 @@ if(city){
 
           {offer &&
             <>
-              <Frm setscrollEnabled={setscrollEnabled}
+              <Frm 
+              changePress={changePress} setscrollEnabled={setscrollEnabled}
                 plackTextTop={plackTextTop}
                 m_icon="timer"
                 p="مدت زمان تخفیف به ساعت"
@@ -1480,7 +1511,8 @@ if(city){
                 keyboardType={'numeric'}
               />
 
-              <Frm setscrollEnabled={setscrollEnabled}
+              <Frm 
+              changePress={changePress} setscrollEnabled={setscrollEnabled}
                 plackTextTop={plackTextTop}
                 m_icon="money-off"
                 p="درصد تخفیف به عدد"
@@ -1634,6 +1666,9 @@ if(city){
               {btn && <Button
                 disable={disableClick}
                 onPressIn={() => {
+
+                  setchangePress(!changePress)
+
                   setinput8(() => {
                     let colorArray = []
                     if (red && redNumber > 0) { colorArray.push({ color: 'red', value: redNumber }) }

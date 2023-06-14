@@ -5,7 +5,7 @@ import Swiper from '../components/Swiper'
 import { Py } from "../Html";
 
 let int
-export default function ({ setscrollEnabled, textId, $input, initialHeight, iconSize, w, plackTextTop, autoFocus = false, multiline = false, m_icon, iconPress, secureTextEntry, icon, textContentType, autoComplete = 'off', keyboardType = 'default', p, p2, newObj, iconLeft, iconRight, setBlur, getBlur, state, setState, styles, yub }) {
+export default function ({ changePress, setscrollEnabled, textId, $input, initialHeight, iconSize, w, plackTextTop, autoFocus = false, multiline = false, m_icon, iconPress, secureTextEntry, icon, textContentType, autoComplete = 'off', keyboardType = 'default', p, p2, newObj, iconLeft, iconRight, setBlur, getBlur, state, setState, styles, yub }) {
 
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -45,6 +45,8 @@ export default function ({ setscrollEnabled, textId, $input, initialHeight, icon
   const [change, setchange] = useState(false)
   const [inputChange, setinputChange] = useState(false)
 
+  useEffect(() => { (inputState.length && (inputState !== state)) && setState(inputState) }, [changePress])
+
   useEffect(() => { !inputState.length && setinputState(String(state)) }, [change])
 
   useEffect(() => {
@@ -52,6 +54,8 @@ export default function ({ setscrollEnabled, textId, $input, initialHeight, icon
     setTimeout(() => { !inputState.length && setchange(false) }, 1400);
     setTimeout(() => { setinputChange(true) }, 5000);
   }, [])
+
+
 
 
   return (
@@ -81,8 +85,8 @@ export default function ({ setscrollEnabled, textId, $input, initialHeight, icon
               m_icon={m_icon}
               placeholder={p2 ? p2 : p}
               value={inputState}
-              onChangeText={(text) => { if (!inputChange){ !state.length && setState(text); setTimeout(() => {setinputChange(true)}, 500); } setinputState(text); (int) && clearInterval(int); int = setTimeout(() => { setState(text) }, 2000); }}
-              onBlur={() => { (int) && clearInterval(int); (inputState !== state) && setState(inputState); setTimeout(() => { setBlur(true); !yub && fadeOut() }, 2500); }}
+              onChangeText={(text) => { (!state.length && setState(text)); setinputState(text); ((int) && clearInterval(int)); int = setTimeout(() => { setState(text) }, 3000); }}
+              onBlur={() => { ((int) && clearInterval(int)); ((inputState !== state) && setState(inputState)); setTimeout(() => { setBlur(true); !yub && fadeOut() }, 500); }}
               style={[styles.input, (multiline && !initialHeight) && { height: 115, minHeight: 115 }]}
               iconPress={iconPress}
               secureTextEntry={secureTextEntry}

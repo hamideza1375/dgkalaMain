@@ -14,6 +14,10 @@ const preCache = [
   // '/socket?key=client',
   // '/login?key=user&active=no',
   // '/productsoffers?key=client',
+  // '/getCode?key=user&active=yess&resetSpecification=true&newCode=true',
+  // '/getCode?key=user&active=yess&forgetPass=true&newCode=true',
+  // '/getCode?key=user&active=yess&register=true',
+  // '/getCode?key=user&active=yess&login=true',
 
   // '/css/font.css',
 
