@@ -14,8 +14,9 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import { Keyboard } from 'react-native';
 import download from '../../other/utils/download';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
+import { useNetInfo } from '@react-native-community/netinfo';
 
-let adminId
+let adminId, _item=[]
 
 const AdminSocketIo = (p) => {
 
@@ -26,6 +27,7 @@ const AdminSocketIo = (p) => {
   const [showImage, setshowImage] = useState(false)
   const [pvMessage, setpvMessage] = useState('')
   const [pvChatMessage, setPvChatMessage] = useState([])
+  const [pvChatMessage2, setPvChatMessage2] = useState([])
   const [to, setto] = useState('')
   const [titleMessage, settitleMessage] = useState([])
 
@@ -33,6 +35,7 @@ const AdminSocketIo = (p) => {
   const tokenSocket = useRef()
   const socketTocken = useRef()
   const flatlistRef = useRef()
+  const netInfo = useNetInfo()
 
 
 
@@ -105,6 +108,30 @@ const AdminSocketIo = (p) => {
       }
     })
   }, []))
+
+
+
+  const [changeCache, setchangeCache] = useState(false)
+  useFocusEffect(useCallback(() => {
+    // (async () => {
+    //   const preCache = await AsyncStorage.getItem('socket_io')
+    //   if ((netInfo.isConnected && pvChatMessage.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== pvChatMessage.length))) || ((JSON.parse(preCache)?.length === pvChatMessage.length) && ((JSON.parse(preCache)[0].info && JSON.parse(preCache)[0].info !== pvChatMessage[0].info) || (JSON.parse(preCache)[0].title && JSON.parse(preCache)[0].title !== pvChatMessage[0].title)))) ) {
+    //     await AsyncStorage.setItem('socket_io', JSON.stringify(pvChatMessage))
+    //   }
+    // })();
+    (async () => {
+      const cacheData = await AsyncStorage.getItem('socket_io')
+      if (cacheData) {
+        const dataParse = JSON.parse(cacheData)
+        dataParse.length && setPvChatMessage2(dataParse)
+        console.log(dataParse);
+      }
+    })()
+
+    setTimeout(() => {setchangeCache(true)}, 1000);
+
+  }, [changeCache]))
+  
 
 
   useEffect(() => {
@@ -279,24 +306,35 @@ const AdminSocketIo = (p) => {
         <P fs={25} h={30} pos='absolute' color='#99f' z={11111111} >{typing}</P>
       </Animated.View>
 
-      {(pvChatMessage.length || titleMessage.length) ?
+      {((pvChatMessage.length || pvChatMessage2.length) || titleMessage.length) ?
         <View onLayout={() => { setto('1') }} style={{ flex: 1 }} >
           <FlatList
             ref={flatlistRef}
             inverted
             keyExtractor={(data, i) => data._id}
-            data={pvChatMessage}
+            data={pvChatMessage.length ? pvChatMessage: pvChatMessage2}
             renderItem={({ item, index }) => (
               ((item.userId == tokenSocket.current) || (adminId === socket.current.id) || (item.to === tokenSocket.current)) ?
                 <Column style={{ opacity: (pvChatMessage.find(pv => (pv._id !== 'a1') && (pv.userId == tokenSocket.current)) && item._id === 'a1') ? 0 : 1, marginVertical: 10, marginHorizontal: 2, width: '70%', minHeight: 45, justifyContent: 'center', paddingHorizontal: 8, backgroundColor: item.to === to ? '#f8f8f8' : '#fff', borderWidth: 1, alignSelf: (item.to === to || item._id === 'a1') ? 'flex-start' : 'flex-end', borderRadius: 10, borderColor: '#ddd' }} >
-                  <Row fd='row-reverse' jc='flex-end' pt={3}>
+                  <Row 
+                  onLayout={()=>{
+                    (async () => {
+                     let find = _item.findIndex(dt=>dt._id === item._id )
+                     if(find === -1 &&  pvChatMessage.find(pv => (pv._id !== 'a1')))  _item.push(item)
+                      if(pvChatMessage.length -1 === index ){
+                         await AsyncStorage.setItem('socket_io', JSON.stringify(_item))
+                        }
+                    })();
+                  }}
+                  fd='row-reverse' jc='flex-end' pt={3}>
                     {(pvChatMessage.find(pv => (pv._id !== 'a1' && (pv.userId == tokenSocket.current))) && (item.userId === tokenSocket.current)) && <P ta='right' style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >شما</P>}
                     {(pvChatMessage.find(pv => (pv._id !== 'a1') && (pv.userId == tokenSocket.current))) && <P ta='right' mr={20} style={{ fontSize: 9, paddingRight: 3, color: 'silver' }} >{moment(item.date).format('jM/jD hh:mm')}</P>}
                   </Row>
                   {!item.type ?
                     <P ta='right' p={3} >{item.message}</P> :
                     item.type === 'video' ?
-                      <Press onClick={() => {
+                      <Press
+                       onClick={() => {
                         setvideoUri(`${localhost}/upload/socket/${item.uri}`)
                         setshowVideo(true)
                       }}>
@@ -330,7 +368,7 @@ const AdminSocketIo = (p) => {
 
 
           <Column mt='auto' >
-            <InputBottom onClick={() => flatlistRef.current.scrollToOffset({ offset: 0 })} flatlistRef={flatlistRef} handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to} ></InputBottom>
+            <InputBottom changeCache={changeCache} setchangeCache={setchangeCache} onClick={() => flatlistRef.current.scrollToOffset({ offset: 0 })} flatlistRef={flatlistRef} handleKeypress={handleKeypress} handlePvChat={handlePvChat} setpvMessage={setpvMessage} pvMessage={pvMessage} socket={socket} tokenSocket={tokenSocket} tokenValue={tokenValue} to={to} ></InputBottom>
           </Column>
 
 

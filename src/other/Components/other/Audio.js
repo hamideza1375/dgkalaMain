@@ -7,6 +7,7 @@ import Badge from '../components/Badge';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useFocusEffect } from '@react-navigation/native';
 import { context } from '../../../context/_context';
+import convertToProxyURL from 'react-native-video-cache';
 
 let int
 const Audio = (props) => {
@@ -38,7 +39,7 @@ const Audio = (props) => {
 
 
   const play = () => {
-    summer.current = new Sound(props.source.uri, null, (err) => {
+    summer.current = new Sound(convertToProxyURL(props.source.uri), null, (err) => {
       if (err) {
         console.log('hata', err)
         return

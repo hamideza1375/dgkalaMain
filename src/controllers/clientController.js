@@ -21,7 +21,6 @@ export function clientController(p) {
         if (!data?.value) return
         p.setcategory(data.value)
       })()
-      console.log('nw');
     }, [p.changeRefresh])
   }
   //! Category

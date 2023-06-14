@@ -517,9 +517,8 @@ export const FlatList = ({ cacheId, pageLimit, loading = true, column1, column2,
     if (cacheId) {
       (async () => {
         const preCache = await AsyncStorage.getItem(cacheId)
-        if ((netInfo.isConnected && data.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== data.length))))) {
+        if ((netInfo.isConnected && data.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== data.length))) || ((JSON.parse(preCache)?.length === data.length) && ((JSON.parse(preCache)[0].info && JSON.parse(preCache)[0].info !== data[0].info) || (JSON.parse(preCache)[0].title && JSON.parse(preCache)[0].title !== data[0].title)))) ) {
           await AsyncStorage.setItem(cacheId, JSON.stringify(data))
-          console.log(JSON.parse(preCache).length, data.length);
         }
       })();
       (async () => {

@@ -61,8 +61,9 @@ function ScrollSlider(p) {
     if (cacheId) {
       (async () => {
         const preCache = await AsyncStorage.getItem(cacheId)
-        if ((netInfo.isConnected && data.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== data.length))))) {
+        if ((netInfo.isConnected && data.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== data.length)))) || ((JSON.parse(preCache)?.length === data.length) && ((JSON.parse(preCache)[0].info && JSON.parse(preCache)[0].info !== data[0].info) || (JSON.parse(preCache)[0].title && JSON.parse(preCache)[0].title !== data[0].title))) ) {
           await AsyncStorage.setItem(cacheId, JSON.stringify(data))
+          console.log(55);
         }
       })();
       (async () => {
@@ -73,7 +74,6 @@ function ScrollSlider(p) {
         }
       })()
     }
-    
   }, [data])
 
 

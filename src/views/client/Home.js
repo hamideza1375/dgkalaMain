@@ -1,6 +1,7 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useState } from 'react'
 import { Slider, Scroll, Loading, Column } from '../../other/Components/Html'
 import Category from './components/home/Category';
+import { Platform, ScrollView } from 'react-native';
 const SliderOffers = lazy(() => import('./components/home/SliderOffers'));
 const SliderPopulars = lazy(() => import('./components/home/SliderPopulars'));
 const Banner = lazy(() => import('./components/home/Banner'));
@@ -11,9 +12,11 @@ function Home(p) {
   p._client.backHandler()
   p._client.allProductForSearchBar()
 
+  const [enableScroll, setenableScroll] = useState(false)
+
   return (
     <Column f={1} >
-      <Scroll>
+      <ScrollView onMoveShouldSetResponder={() => { setTimeout(() => { setenableScroll(true) }, 500); }} scrollEnabled={(Platform.OS === 'web') ? ((navigator?.userAgent?.match('Mobile') == 'Mobile') ? enableScroll : true) : true} >
         <Column>
           <Slider data={p.slider} {...p} onClick={() => { p.navigation.navigate('ProductsOffers') }} />
         </Column>
@@ -46,7 +49,7 @@ function Home(p) {
           </Suspense>
         </Column>
 
-      </Scroll>
+      </ScrollView>
     </Column>
   )
 }
