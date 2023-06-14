@@ -124,7 +124,6 @@ const AdminSocketIo = (p) => {
       if (cacheData) {
         const dataParse = JSON.parse(cacheData)
         dataParse.length && setPvChatMessage2(dataParse)
-        console.log(dataParse);
       }
     })()
 
