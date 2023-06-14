@@ -1,4 +1,4 @@
-
+const random = String(Math.random())
 const d_version = 24;
 const version = 24;
 const dynamicVersion = `dinamic-${d_version}`;
@@ -79,7 +79,6 @@ self.addEventListener('fetch', (ev) => {
         cacheRes ||
         fetch(ev.request).then(
           (res) => {
-
             if (ev.request.url.split('.')[ev.request.url.split('.').length - 1] === 'mp3' || ev.request.url.split('.')[ev.request.url.split('.').length - 1] === 'png' || ev.request.url.split('.')[ev.request.url.split('.').length - 1] === 'jpg' || ev.request.url.split('.')[ev.request.url.split('.').length - 1] === 'jpeg') {
               return caches.open(dynamicVersion).then((cache) => {
                 cache.put(ev.request.url, res.clone())
@@ -87,7 +86,7 @@ self.addEventListener('fetch', (ev) => {
               })
             }
             else if (ev.request.url.split('.')[ev.request.url.split('.').length - 1] === 'mp4') {
-              return caches.open(String(Math.random())).then((cache) => {
+              return caches.open(random).then((cache) => {
                 cache.put(ev.request.url, res.clone())
                 return res
               })
@@ -107,7 +106,6 @@ self.addEventListener('fetch', (ev) => {
     })
   );
 });
-
 
 // self.addEventListener('fetch', (ev) => {
 //   ev.respondWith(
