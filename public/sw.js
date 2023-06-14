@@ -37,15 +37,10 @@ const preCache = [
   // '/192x192.png',
   // '/512x512.png',
   
-
-
 ];
 
 
-
-
 self.addEventListener('install', (ev) => {
-  //installed
   ev.waitUntil(
     caches.open(preCacheName)
       .then((cache) => {
@@ -54,11 +49,10 @@ self.addEventListener('install', (ev) => {
       })
       .catch(console.warn)
   );
-  //load pre-cache
 });
 
+
 self.addEventListener('activate', (ev) => {
-  //activating
   ev.waitUntil(
     caches
       .keys()
@@ -71,8 +65,45 @@ self.addEventListener('activate', (ev) => {
       })
       .catch(console.warn)
   );
-  //delete old caches
 });
+
+
+self.addEventListener('fetch', (ev) => {
+  ev.respondWith(
+    caches.match(ev.request).then((cacheRes) => {
+      return (
+        cacheRes ||
+        fetch(ev.request).then(
+          (res) => {
+
+            if (ev.request.url.split('.')[ev.request.url.split('.').length - 1] === 'mp3' || ev.request.url.split('.')[ev.request.url.split('.').length - 1] === 'png' || ev.request.url.split('.')[ev.request.url.split('.').length - 1] === 'jpg' || ev.request.url.split('.')[ev.request.url.split('.').length - 1] === 'jpeg') {
+              return caches.open(dynamicVersion).then((cache) => {
+                cache.put(ev.request.url, res.clone())
+                return res
+              })
+            }
+            else if (ev.request.url.split('.')[ev.request.url.split('.').length - 1] === 'mp4') {
+              return caches.open(String(Math.random())).then((cache) => {
+                cache.put(ev.request.url, res.clone())
+                return res
+              })
+            }
+            else return res
+          },
+          (err) => {
+            if (
+              ev.request.url.indexOf('.html') > -1 ||
+              ev.request.mode == 'navigation'
+            ) {
+              return caches.match('/index.html');
+            }
+          }
+        )
+      );
+    })
+  );
+});
+
 
 // self.addEventListener('fetch', (ev) => {
 //   ev.respondWith(
@@ -114,37 +145,37 @@ self.addEventListener('activate', (ev) => {
 //   );
 // });
 
-self.addEventListener('fetch', (ev) => {
-  //fetch request received
-  //send back a response from cache or fetch
-  ev.respondWith(
-    caches.match(ev.request).then((cacheRes) => {
-      // if(cacheRes) return cacheRes
-      return (
-        cacheRes ||
-        fetch(ev.request).then(
-          (res) => {
+// self.addEventListener('fetch', (ev) => {
+//   //fetch request received
+//   //send back a response from cache or fetch
+//   ev.respondWith(
+//     caches.match(ev.request).then((cacheRes) => {
+//       // if(cacheRes) return cacheRes
+//       return (
+//         cacheRes ||
+//         fetch(ev.request).then(
+//           (res) => {
 
-            if ( ev.request.url.split('.')[ev.request.url.split('.').length -1] === 'png' || ev.request.url.split('.')[ev.request.url.split('.').length -1] === 'jpg' || ev.request.url.split('.')[ev.request.url.split('.').length -1] === 'jpeg' ) {
-               return caches.open(dynamicVersion).then((cache) => {
-                 console.log('dynamicCache');
-                 cache.put(ev.request.url, res.clone())
-                 return res
-               })
-             } else 
-             return res
+//             if ( ev.request.url.split('.')[ev.request.url.split('.').length -1] === 'mp3' || ev.request.url.split('.')[ev.request.url.split('.').length -1] === 'mp4' || ev.request.url.split('.')[ev.request.url.split('.').length -1] === 'png' || ev.request.url.split('.')[ev.request.url.split('.').length -1] === 'jpg' || ev.request.url.split('.')[ev.request.url.split('.').length -1] === 'jpeg' ) {
+//               return caches.open(dynamicVersion).then((cache) => {
+//                  console.log('dynamicCache');
+//                  cache.put(ev.request.url, res.clone())
+//                  return res
+//                })
+//              } else 
+//              return res
 
-          },
-          (err) => {
-            if (
-              ev.request.url.indexOf('.html') > -1 ||
-              ev.request.mode == 'navigation'
-            ) {
-              return caches.match('/index.html');
-            }
-          }
-        )
-      );
-    })
-  );
-});
+//           },
+//           (err) => {
+//             if (
+//               ev.request.url.indexOf('.html') > -1 ||
+//               ev.request.mode == 'navigation'
+//             ) {
+//               return caches.match('/index.html');
+//             }
+//           }
+//         )
+//       );
+//     })
+//   );
+// });

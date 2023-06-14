@@ -320,7 +320,7 @@ const AdminSocketIo = (p) => {
                     (async () => {
                      let find = _item.findIndex(dt=>dt._id === item._id )
                      if(find === -1 &&  pvChatMessage.find(pv => (pv._id !== 'a1')))  _item.push(item)
-                      if(pvChatMessage.length -1 === index ){
+                      if(pvChatMessage.length && (pvChatMessage.length -1 === index )){
                          await AsyncStorage.setItem('socket_io', JSON.stringify(_item))
                         }
                     })();
