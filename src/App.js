@@ -173,7 +173,7 @@ const Mobile = () => {
 
 
         <Column
-          onMoveShouldSetResponder={(e) => { if (e) { if (das.length >= 2) das = []; setTimeout(() => { das = [] }, 400); das.push(e.nativeEvent.pageY); y.current = e.nativeEvent.pageY; if ((y.current < 70) && (y.current - e.nativeEvent.pageY < 40) && (das[1]) > (das[0] + 5) && (navigation.getCurrentRoute().params.key === 'client' || navigation.getCurrentRoute().params.key === 'home')) {onRefresh(e)} } }}
+          onMoveShouldSetResponder={(e) => { if (e) { if (das.length >= 2) das = []; setTimeout(() => { das = [] }, 400); das.push(e.nativeEvent.pageY); y.current = e.nativeEvent.pageY; if ((y.current < 70) && (y.current - e.nativeEvent.pageY < 40) && (das[1]) > (das[0] + 9) && (navigation.getCurrentRoute().params.key === 'client' || navigation.getCurrentRoute().params.key === 'home')) {onRefresh(e)} } }}
           // onTouchStart={(e)=>{y.current = e.nativeEvent.pageY}} onTouchEnd={(e)=>{if(y.current < 50 && (y.current - e.nativeEvent.pageY < 40)) onRefresh(e) }}
           f={1} w='100%' minw={280} onClick={() => { allState.init.shownDropdown && allState.init.setshownDropdown(false); allState.init.$input?.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) }}>
           <Dropdown root {...allState.init}><Press onClick={() => { }} >{allState.init.dropdownValue}</Press></Dropdown>
