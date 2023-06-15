@@ -97,7 +97,12 @@ export const _initController = (p) => {
     /* show === true && */ setTimeout(() => { if (show === true) { p.setSplash(false); p.setshowActivity(false) } }, 200)
     // show === false && p.setSplash(true);
   }, [show])
-  Dimensions.addEventListener('change', ({ window: { width, height } }) => { p.setwidth(width); p.setheight(height) })
+
+  useEffect(() => {
+    Dimensions.addEventListener('change', ({ window: { width, height } }) => { p.setwidth(width); p.setheight(height) })
+  }, [])
+  
+
 
   useLayoutEffect(() => {
     setTimeout(() => { setchange2(true) }, 200);

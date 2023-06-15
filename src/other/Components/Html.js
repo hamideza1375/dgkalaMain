@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { Animated as _Animated, StyleSheet as _StyleSheet, View, Text, Image, ScrollView, TouchableOpacity, Platform, FlatList as _FlatList, VirtualizedList, Pressable, ImageBackground, Dimensions } from 'react-native';
+import { Animated as _Animated, StyleSheet as _StyleSheet, View, Text, Image, ScrollView, TouchableOpacity, Platform, FlatList as _FlatList, VirtualizedList, Pressable, ImageBackground, useWindowDimensions } from 'react-native';
 import _icon from 'react-native-vector-icons/dist/FontAwesome5';
 import Aicon from 'react-native-vector-icons/dist/AntDesign';
 import Micon from 'react-native-vector-icons/dist/MaterialIcons';
@@ -54,9 +54,8 @@ export const ComponentForScroll = React.forwardRef((props, ref) => {
     orientation = {},
     _col = {},
     _orientation = {}
-  const width = Dimensions.get('window').width
-  const height = Dimensions.get('window').height
 
+  const { height, width } = useWindowDimensions();
 
 
   if (width <= 320) _col = props._col1
@@ -155,9 +154,8 @@ export const ComponentImage = React.forwardRef((props, ref) => {
     orientation = {},
     _col = {},
     _orientation = {}
-  const width = Dimensions.get('window').width
-  const height = Dimensions.get('window').height
 
+  const { height, width } = useWindowDimensions();
 
 
   if (width <= 320) _col = props._col1
@@ -247,9 +245,8 @@ export const Component = React.forwardRef((props, ref) => {
     orientation = {},
     _col = {},
     _orientation = {}
-  const width = Dimensions.get('window').width
-  const height = Dimensions.get('window').height
 
+  const { height, width } = useWindowDimensions();
 
 
   if (width <= 320) _col = props._col1
@@ -336,9 +333,8 @@ export const _text = React.forwardRef((props, ref) => {
     _orientation = {},
     col = {},
     orientation = {}
-  const width = Dimensions.get('window').width
-  const height = Dimensions.get('window').height
 
+  const { height, width } = useWindowDimensions();
 
 
   if (width <= 320) _col = props._col1
@@ -481,10 +477,11 @@ export const PressScrollView = (props) =>
   </Component>
 
 
-
 export const ImgBackground = (props) => <Component source={props.src} {...props} Component={ImageBackground} />
 
-export const Img = (props) => <ComponentImage style={[props.style]} source={!props.src.uri ? props.src : { ...props.src, ...{ cache: 'force-cache' } }} {...props} Component={Image} />
+export const Img = (props) => props.src.uri ? <ComponentImage style={[props.style]} source={{uri:props.src.uri}} {...props} Component={Image} /> : <ComponentImage style={[props.style]} source={props.src} {...props} Component={Image} />
+
+// export const Img = (props) => <ComponentImage style={[props.style]} source={!props.src.uri ? props.src : { ...props.src, ...{ cache: 'force-cache' } }} {...props} Component={Image} />
 
 // export const FastImg = React.forwardRef((props, ref) => <FastImage ref={ref} {...props} />)
 
@@ -494,7 +491,7 @@ export const ScrollHorizontal = (props) => <ComponentForScroll onStartShouldSetR
 
 export const FlatList = ({ cacheId, pageLimit, loading = true, column1, column2, column3, column4, column5, column6, renderItem, numColumns, data, keyExtractor, ...props }) => {
 
-  const width = Dimensions.get('window').width
+  const { width } = useWindowDimensions();
   const [index, setindex] = useState(0)
 
   let column
@@ -517,7 +514,7 @@ export const FlatList = ({ cacheId, pageLimit, loading = true, column1, column2,
     if (cacheId) {
       (async () => {
         const preCache = await AsyncStorage.getItem(cacheId)
-        if ((netInfo.isConnected && data.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== data.length))) || ((JSON.parse(preCache)?.length === data.length) && ((JSON.parse(preCache)[0].info && JSON.parse(preCache)[0].info !== data[0].info) || (JSON.parse(preCache)[0].title && JSON.parse(preCache)[0].title !== data[0].title)))) ) {
+        if ((netInfo.isConnected && data.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== data.length))) || ((JSON.parse(preCache)?.length === data.length) && ((JSON.parse(preCache)[0].info && JSON.parse(preCache)[0].info !== data[0].info) || (JSON.parse(preCache)[0].title && JSON.parse(preCache)[0].title !== data[0].title))))) {
           await AsyncStorage.setItem(cacheId, JSON.stringify(data))
         }
       })();
@@ -574,7 +571,7 @@ export const FlatList = ({ cacheId, pageLimit, loading = true, column1, column2,
             renderItem={({ item, index }) =>
               <View style={{ position: 'absolute', height: 0, width: 0 }} ref={() => setindex(index)} ></View>
               &&
-            renderItem({ item, index })}
+              renderItem({ item, index })}
             flatlist={true}
             keyExtractor={keyExtractor ? keyExtractor : (item, index) => item._id}
             numColumns={numColumns ? numColumns : column}

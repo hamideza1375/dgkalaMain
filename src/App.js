@@ -86,11 +86,12 @@ import { SafeAreaView } from "react-native";
 
 rtl()
 LogBox.ignoreAllLogs();
+let _height = Dimensions.get('window').height;
 
 
 const Tab = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
-let _height, das = []
+let das = []
 const Mobile = () => {
 
   useEffect(() => { setTimeout(() => { if ((Platform.OS !== 'web') && (!I18nManager.isRTL)) { reload() } }, 3000) }, [])
@@ -117,7 +118,7 @@ const Mobile = () => {
   useEffect(() => {
     setTimeout(() => {
       netInfo.isConnected && setshow(true)
-    }, 400);
+    }, 200);
   }, [netInfo])
 
 
@@ -140,15 +141,14 @@ const Mobile = () => {
   }
 
   useEffect(() => {
-    _height = Dimensions.get('window').height;
+      Dimensions.addEventListener('change', ({ window: { width, height } }) => {
+    if ((height + 130) < _height) setshowTab(false)
+    else setshowTab(true)
+  })
   }, [])
 
 
 
-  Dimensions.addEventListener('change', ({ window: { width, height } }) => {
-    if (height < _height) setshowTab(false)
-    else setshowTab(true)
-  })
 
 
   const [refresh, setrefresh] = useState(false)
@@ -227,7 +227,7 @@ const Mobile = () => {
 
             <Tab.Screen name="SocketIo" options={{ ...!allState.init.tokenValue.isAdmin ? {} : { tabBarButton: () => null }, tabBarBadge: allState.init.socketIoSeen ? true : null, headerShown: false, tabBarLabel: '', tabBarIcon: ({ color, size }) => (<Icon name="comments" color={color} size={size - 5} />) }} >{() =>
               <Tab.Navigator screenListeners={{ focus: inputFocus }} screenOptions={{ statusBarColor: '#d29', }} >
-                <Tab.Screen initialParams={{ key: 'client' }} name="Socket" options={{ title: 'پرسش سوالات', headerTitleAlign: 'center' }} {...clientChildren(SocketIo)} />
+                <Tab.Screen initialParams={{ key: 'socket' }} name="Socket" options={{ title: 'پرسش سوالات', headerTitleAlign: 'center' }} {...clientChildren(SocketIo)} />
               </Tab.Navigator>
             }</Tab.Screen>
 
