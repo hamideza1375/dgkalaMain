@@ -87,6 +87,7 @@ export function adminController(p) {
       return _category
     })
     p.$input?.id('titleInput')?.$({ text: '' })
+    // p.$input?.id('titleInput')?.target.value = ''
     p.settitle('')
     p.setimageUrl({})
   }

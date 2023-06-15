@@ -1,14 +1,16 @@
 import { useRef, useState } from 'react';
-import { Dimensions } from "react-native";
+import { useWindowDimensions } from "react-native";
 import PropTypes from 'prop-types';
 
 export function initial() {
-  const _width = Dimensions.get('window').width;
-  const _height = Dimensions.get('window').height;
+  // const _width = Dimensions.get('window').width;
+  // const _height = Dimensions.get('window').height;
+  const { height, width } = useWindowDimensions();
+
   const [_list, set_list] = useState([])
   const [splash, setSplash] = useState(true)
-  const [height, setheight] = useState(_height)
-  const [width, setwidth] = useState(_width)
+  // const [height, setheight] = useState(_height)
+  // const [width, setwidth] = useState(_width)
   // const [star1, setstar1] = useState(true)
   // const [star2, setstar2] = useState(true)
   // const [star3, setstar3] = useState(true)
@@ -155,8 +157,8 @@ export function initial() {
     // star2, setstar2,
     // star1, setstar1,
     fiveStar, setfiveStar,
-    width, setwidth,
-    height, setheight,
+    width, 
+    height, 
     input1, setinput1,
     _list, set_list,
     remember, setremember,

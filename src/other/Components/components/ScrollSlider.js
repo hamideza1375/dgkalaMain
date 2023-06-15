@@ -61,17 +61,13 @@ function ScrollSlider(p) {
     if (cacheId) {
       (async () => {
         const preCache = await AsyncStorage.getItem(cacheId)
-        if ((netInfo.isConnected && data.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== data.length)))) || ((JSON.parse(preCache)?.length === data.length) && ((JSON.parse(preCache)[0].info && JSON.parse(preCache)[0].info !== data[0].info) || (JSON.parse(preCache)[0].title && JSON.parse(preCache)[0].title !== data[0].title))) ) {
+        if ((netInfo.isConnected && data.length) && ((!preCache) || (((preCache && JSON.parse(preCache)) && (JSON.parse(preCache)?.length !== data.length)))) || ((JSON.parse(preCache)?.length === data.length) && ((JSON.parse(preCache)[0].info && JSON.parse(preCache)[0].info !== data[0].info) || (JSON.parse(preCache)[0].title && JSON.parse(preCache)[0].title !== data[0].title)))) {
           await AsyncStorage.setItem(cacheId, JSON.stringify(data))
-          console.log(55);
         }
       })();
       (async () => {
         const cacheData = await AsyncStorage.getItem(cacheId)
-        if (cacheData) {
-          const dataParse = JSON.parse(cacheData)
-          dataParse.length && setcacheData(dataParse)
-        }
+        if (cacheData) JSON.parse(cacheData) && (JSON.parse(cacheData)?.length !== 1) && (setcacheData(JSON.parse(cacheData)))
       })()
     }
   }, [data])

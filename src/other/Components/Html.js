@@ -520,10 +520,7 @@ export const FlatList = ({ cacheId, pageLimit, loading = true, column1, column2,
       })();
       (async () => {
         const cacheData = await AsyncStorage.getItem(cacheId)
-        if (cacheData) {
-          const dataParse = JSON.parse(cacheData)
-          dataParse.length && setcacheData(dataParse)
-        }
+        if (cacheData) JSON.parse(cacheData) && (JSON.parse(cacheData)?.length !== 1) && (setcacheData(JSON.parse(cacheData)))
       })()
     }
   }, [data])

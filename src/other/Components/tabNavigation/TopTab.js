@@ -1,11 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet, Pressable, Dimensions } from 'react-native'
+import { View, StyleSheet, Pressable, useWindowDimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { Div, Py } from '../Html';
 
 const TopTab = ({ group, children, name, style, bgcolor = '#fff', color = "#aaa", activeColor = "#7aeb" }) => {
   const navigation = useNavigation()
-  const height = Dimensions.get('window').height
+  const { height } = useWindowDimensions();
 
 
   return (

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import seconder from '../../utils/seconder';
 import spacePrice from '../../utils/spacePrice';
 import { truncate } from '../../utils/truncate';
-import { Row, Span, P, Button, H1, H5, H6, FlatList, Loading, Press, Column } from '../Html';
+import { Row, Span, P, Button, H6, FlatList, Loading, Press, Column } from '../Html';
 import Pagination from './Pagination';
 
 

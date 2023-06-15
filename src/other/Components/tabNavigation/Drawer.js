@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useRef, useState } from 'react'
-import { Dimensions, View, Text, StyleSheet, Animated, Pressable, Platform, ScrollView } from 'react-native'
+import { useWindowDimensions, View, Text, StyleSheet, Animated, Pressable, Platform, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import { Column, ContainerTab, Drawer2, Py, Row } from '../Html';
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height
 
 const Drawer = ({ color = '#222', group, children, name, title, bgcolor = '#fff', style, icon, iconRight, Header, drawer=true, drawer2 }) => {
+  const { height, width } = useWindowDimensions();
+  
   const fadeAnim = useRef(new Animated.Value(-width * 2)).current;
   const shadowRef = useRef()
   const navigation = useNavigation()

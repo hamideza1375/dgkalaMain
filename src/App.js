@@ -454,11 +454,12 @@ else {
           else { await AsyncStorage.setItem('cancelInstalled', String(Number(cancelInstalled) + 1)); }
         });
       }
+
     }
 
     return (
       <NavigationContainer linking={linking} >
-        <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', height }} >
+        <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', height, minHeight:'100dvh' }} >
           <Mobile />
         </Column>
       </NavigationContainer>

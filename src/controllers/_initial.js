@@ -3,7 +3,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import Axios from 'axios'
 import jwtDecode from "jwt-decode";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
-import { Dimensions, Platform } from 'react-native'
+import { Platform } from 'react-native'
 
 import { adminController } from "./adminController";
 import { clientController } from "./clientController";
@@ -98,9 +98,9 @@ export const _initController = (p) => {
     // show === false && p.setSplash(true);
   }, [show])
 
-  useEffect(() => {
-    Dimensions.addEventListener('change', ({ window: { width, height } }) => { p.setwidth(width); p.setheight(height) })
-  }, [])
+  // useEffect(() => {
+  //   Dimensions.addEventListener('change', ({ window: { width, height } }) => { p.setwidth(width); p.setheight(height) })
+  // }, [])
   
 
 

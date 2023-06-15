@@ -11,7 +11,7 @@ const preCache = [
   // '/profile?key=user',
   // '/productbasket?key=client',
   // '/paneladmin?key=admin',
-  // '/socket?key=client',
+  // '/socket?key=socket',
   // '/login?key=user&active=no',
   // '/productsoffers?key=client',
   // '/getCode?key=user&active=yess&resetSpecification=true&newCode=true',

@@ -1,9 +1,9 @@
 import { useFocusEffect } from '@react-navigation/native';
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Animated, Platform, ScrollView, View } from 'react-native';
 import { localhost } from '../../utils/axios/axios';
 import { Img, Column, M_icon, Press, Badge, Row } from '../Html'
-import { Dimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 import _useEffect from '../../../controllers/_initial';
 
 var count = 0,
@@ -19,6 +19,18 @@ function Slider({ style, onClick, data }) {
   const [showOpacity, setshowOpacity] = useState(false)
 
   const ref = useRef()
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (ref.current) { ref.current.scrollTo({ x: width * count, y: 0, animated: true }); setbadgeActive(count) }
+      if (count === 0) { plus = true; minus = false }
+      if (count === 5) { minus = true; plus = false }
+      if (minus) { count = count - 1 }
+      if (plus) { count += 1 }
+    }, 2000);
+  }, [])
+
 
 
   const open = () => {
@@ -94,8 +106,12 @@ function Slider({ style, onClick, data }) {
 
 
 
-  const _width = Dimensions.get('window').width
-  const _height = Dimensions.get('window').height
+  // const _width = Dimensions.get('window').width
+  // const _height = Dimensions.get('window').height
+
+  const { height: _height, width: _width } = useWindowDimensions();
+  
+
   return (
 
     <Column style={style} >
