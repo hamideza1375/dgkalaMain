@@ -158,13 +158,10 @@ export function allChildren({ client, user, admin }) {
     children: (props) => {
 
       const b = () => {
-        // if(location.pathname === '/'){ history.back()}
-        if (location.href === location.origin || location.href === myhost) history.back()
-        if ((props.route.name === 'Home' || props.route.params?.key === 'home') && (location.href === myhost || location.href === 'http://localhost:3000/home')) {
-          num++;
-          if (num === 1) { client.toast.show('', 'برای خروج دوبار کلیک کنید', 2000); setTimeout(() => { num = 0 }, 1000); }
-          if (num >= 2) { history.back(); history.back() }
-        }
+        if (location.href === (location.origin + '/home') ) num++;
+        if (num === 1) { client.toast.show('', 'برای خروج دوبار کلیک کنید', 2000); setTimeout(() => { num = 0 }, 2000); }
+        if (num >= 2) { history.back(); }
+        if ((location.href === location.origin) || (location.href === location.origin + '/')) history.back()
         else return
       }
       _useEffect(() => { if (Platform.OS === 'web') { if (props.route.name === 'Home') history.pushState({}, '/home'/* location.href */) }}, [])
