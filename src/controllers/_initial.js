@@ -164,8 +164,8 @@ export function allChildren({ client, user, admin }) {
         if ((location.href === location.origin) || (location.href === location.origin + '/')) history.back()
         else return
       }
-      _useEffect(() => { if (Platform.OS === 'web') { if (props.route.name === 'Home') history.pushState({}, '/home'/* location.href */) }}, [])
-      _useEffect(() => { if (Platform.OS === 'web') window.addEventListener('popstate', b); return () => { if (Platform.OS === 'web') { num = 0, a = 0; window.removeEventListener('popstate', b); } } }, [])
+      _useEffect(() => { if (Platform.OS === 'web' && window.matchMedia('(display-mode:standalone)').matches) { if (props.route.name === 'Home') history.pushState({}, '/home'/* location.href */) }}, [])
+      _useEffect(() => { if (Platform.OS === 'web' && window.matchMedia('(display-mode:standalone)').matches) window.addEventListener('popstate', b); return () => { if (Platform.OS === 'web') { num = 0, a = 0; window.removeEventListener('popstate', b); } } }, [])
 
       _useEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'ProductBasket') && (!token)) props.navigation.navigate('User', { screen: 'Login', params: { payment: 'true' } }); })}, [])
       _useEffect(() => { client.setshownDropdown(false); }, [])
