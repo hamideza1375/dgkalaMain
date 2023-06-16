@@ -529,7 +529,7 @@ export const FlatList = ({ cacheId, pageLimit, loading = true, column1, column2,
 
   if (!pageLimit) {
     return (
-      (data?.length || cacheData.length)
+      (data?.length || (cacheData.length > 1))
         ?
         <>
           <ComponentForScroll
@@ -558,7 +558,7 @@ export const FlatList = ({ cacheId, pageLimit, loading = true, column1, column2,
   else {
 
     return (
-      (data?.length || cacheData.length)
+      (data?.length || (cacheData.length > 1))
         ?
         <>
           <Component

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, KeyboardAvoidingView, Text } from "react-native";
+import { Animated, KeyboardAvoidingView, Platform, Text } from "react-native";
 import { Input } from "./FormComponent";
 import Swiper from '../components/Swiper'
 import { Py } from "../Html";
@@ -57,6 +57,7 @@ export default function ({ changePress, setscrollEnabled, textId, $input, initia
 
 
 
+  const [_focus, set_focus] = useState(false)
 
   return (
     <KeyboardAvoidingView onStartShouldSetResponder={() => setscrollEnabled(true)} onStartShouldSetResponderCapture={() => setscrollEnabled(true)} behavior={"height"} style={[{ height: 70, minHeight: 70, marginVertical: 10, marginHorizontal: 10, flexGrow: 1, maxWidth: w, }, w === '100%' && { minWidth: '92%' }, (multiline && !initialHeight) && { height: 140, minHeight: 140, marginTop: 12 }]}>
@@ -86,12 +87,13 @@ export default function ({ changePress, setscrollEnabled, textId, $input, initia
               placeholder={p2 ? p2 : p}
               value={inputState}
               onChangeText={(text) => { (!state.length && setState(text)); setinputState(text); ((int) && clearInterval(int)); int = setTimeout(() => { setState(text) }, 3000); }}
-              onBlur={() => { ((int) && clearInterval(int)); ((inputState !== state) && setState(inputState)); setTimeout(() => { setBlur(true); !yub && fadeOut() }, 500); }}
+              onBlur={() => { ((int) && clearInterval(int)); ((inputState !== state) && setState(inputState)); set_focus(false); setTimeout(() => { setBlur(true); !yub && fadeOut() }, 500); }}
               style={[styles.input, (multiline && !initialHeight) && { height: 115, minHeight: 115 }]}
               iconPress={iconPress}
               secureTextEntry={secureTextEntry}
               autoFocus={autoFocus}
-              multiline={multiline}
+              onFocus={() => { set_focus(true) }}
+              multiline={(!_focus && Platform.OS === 'android' ) ? true : multiline}
             />
           </Animated.View>
           {getBlur && !yub && <Py style={[styles.textinput, { color: 'red', fontSize: 10, fontWeight: '100' }]} >

@@ -95,7 +95,7 @@ function ScrollSlider(p) {
         }}
 
       >
-        {(data.length || cacheData.length) ?
+        {(data.length || (cacheData.length > 1)) ?
           <FlatList
             getItemLayout={(data, index) => ({ length: (160 + 10), offset: (160 + 10) * index, index })}
             initialNumToRender={4}
