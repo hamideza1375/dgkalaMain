@@ -459,7 +459,7 @@ else {
 
     return (
       <NavigationContainer linking={linking} >
-        <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', height, minHeight:'100dvh' }} >
+        <Column onStartShouldSetResponderCapture={installStatus} style={{ width: '100%', height}} >
           <Mobile />
         </Column>
       </NavigationContainer>

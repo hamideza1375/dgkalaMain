@@ -78,7 +78,8 @@ function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, s
 
           {!title ?
             <Input
-            textContentType={'none'}
+            inputMode='text'
+            // textContentType={'none'}
             autoComplete={'off'}
               value={textSearch} onChangeText={text => {
                 settextSearch(text.toLowerCase());

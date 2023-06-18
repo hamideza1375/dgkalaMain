@@ -167,10 +167,10 @@ const yub = {
 
 
     if (propName === 'code') {
-      if (isNaN(target[propName])) {
+      if (target[propName].length && isNaN(target[propName])) {
         return ('اعداد را صحیح وارد کنید')
       }
-      else if (target[propName]?.length !== 5) {
+      else if (target[propName]?.length > 5) {
         return ('تعداد اعداد را صحیح وارد کنید')
       }
       else {

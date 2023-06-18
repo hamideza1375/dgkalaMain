@@ -33,14 +33,14 @@ const Dropdown = ({ top, value, root, children }) => {
             setclientY(!top ?
               ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1 : (e.nativeEvent.pageY)
               :
-              ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1 : (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
+              (((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) - top) >= (height)) ? 1 : (e.nativeEvent.pageY - top)
             );
             int.current = setInterval(() => {
               setclientX(((refDropdown.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1 : (e.nativeEvent.pageX));
               setclientY(!top ?
                 ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1 : (e.nativeEvent.pageY)
                 :
-                ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1 : (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
+                (((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) - top) >= (height)) ? 1 : (e.nativeEvent.pageY - top)
               );
             }, 200)
 
@@ -49,19 +49,20 @@ const Dropdown = ({ top, value, root, children }) => {
               setclientY(!top ?
                 ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1 : (e.nativeEvent.pageY)
                 :
-                ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1 : (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
+                (((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) - top) >= (height)) ? 1 : (e.nativeEvent.pageY - top)
               );
             }, 700)
 
-            setTimeout(() => { setrootOpacity(1) }, 200);
+            setTimeout(() => { setrootOpacity(1) }, 0);
             setTimeout(() => { setchange(!change) }, 300);
+            setTimeout(() => { int.current && clearInterval(int.current) }, 1000);
             setTimeout(() => { int.current && clearInterval(int.current) }, 3000);
             setdropdownValue(value);
           }
         }
       }}
 
-      onPressOut={(e) => {
+      onPress={(e) => {
         if (Platform.OS === 'web') {
           int.current && clearInterval(int.current)
           int2.current && clearInterval(int.current)
@@ -71,14 +72,14 @@ const Dropdown = ({ top, value, root, children }) => {
             setclientY(!top ?
               ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1 : (e.nativeEvent.pageY)
               :
-              ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1 : (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
+              (((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) - top) >= (height)) ? 1 : (e.nativeEvent.pageY - top)
             );
             int.current = setInterval(() => {
               setclientX(((refDropdown.current?.nativeEvent?.layout?.width + e.nativeEvent.pageX + 20) >= (width)) ? 1 : (e.nativeEvent.pageX));
               setclientY(!top ?
                 ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1 : (e.nativeEvent.pageY)
                 :
-                ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1 : (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
+                (((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) - top) >= (height)) ? 1 : (e.nativeEvent.pageY - top)
               );
             }, 200)
 
@@ -87,12 +88,13 @@ const Dropdown = ({ top, value, root, children }) => {
               setclientY(!top ?
                 ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) >= (height)) ? 1 : (e.nativeEvent.pageY)
                 :
-                ((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20 - e.nativeEvent.pageY - e.nativeEvent.locationY - top) >= (height)) ? 1 : (e.nativeEvent.pageY - e.nativeEvent.locationY - top)
+                (((refDropdown.current?.nativeEvent?.layout?.height + e.nativeEvent.pageY + 20) - top) >= (height)) ? 1 : (e.nativeEvent.pageY - top)
               );
             }, 700)
 
-            setTimeout(() => { setrootOpacity(1) }, 200);
+            setTimeout(() => { setrootOpacity(1) }, 0);
             setTimeout(() => { setchange(!change) }, 300);
+            setTimeout(() => { int.current && clearInterval(int.current) }, 1000);
             setTimeout(() => { int.current && clearInterval(int.current) }, 3000);
             setdropdownValue(value);
           }

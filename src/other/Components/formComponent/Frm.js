@@ -73,12 +73,11 @@ export default function ({ changePress, setscrollEnabled, textId, $input, initia
           {plackTextTop && <Py fw='100' style={[styles.textinput, { marginTop: 5 }, (multiline && !initialHeight) && { marginVertical: 5 }]} >{p}</Py>}
           <Animated.View style={[styles.animatedBorder, getBlur && !yub && { borderWidth: 1.2, borderColor: iterPlt, transform: [{ translateX: fadeAnim }] }, (multiline && !initialHeight) && { height: '101%', minHeight: '101%', marginTop: -3 }]} >
             <Input
-              // onChange={()=>{ setState($input.id(textId).value)}}
               onLayout={() => { }}
               onStartShouldSetResponder={() => setscrollEnabled(true)} onStartShouldSetResponderCapture={() => setscrollEnabled(true)}
               $input={$input}
               textId={textId}
-              textContentType={textContentType}
+              // textContentType={textContentType}
               autoComplete={autoComplete}
               keyboardType={keyboardType}
               icon={icon}
@@ -87,6 +86,7 @@ export default function ({ changePress, setscrollEnabled, textId, $input, initia
               placeholder={p2 ? p2 : p}
               value={inputState}
               onChangeText={(text) => { (!state.length && setState(text)); setinputState(text); ((int) && clearInterval(int)); int = setTimeout(() => { setState(text) }, 3000); }}
+              // onEndEditing={()=>{((int) && clearInterval(int)); ((inputState !== state) && setState(inputState))}}
               onBlur={() => { ((int) && clearInterval(int)); ((inputState !== state) && setState(inputState)); set_focus(false); setTimeout(() => { setBlur(true); !yub && fadeOut() }, 500); }}
               style={[styles.input, (multiline && !initialHeight) && { height: 115, minHeight: 115 }]}
               iconPress={iconPress}
