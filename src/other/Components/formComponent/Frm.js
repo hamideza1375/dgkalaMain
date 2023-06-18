@@ -5,7 +5,7 @@ import Swiper from '../components/Swiper'
 import { Py } from "../Html";
 
 let int
-export default function ({ changePress, setscrollEnabled, textId, $input, initialHeight, iconSize, w, plackTextTop, autoFocus = false, multiline = false, m_icon, iconPress, secureTextEntry, icon, textContentType, autoComplete = 'off', keyboardType = 'default', p, p2, newObj, iconLeft, iconRight, setBlur, getBlur, state, setState, styles, yub }) {
+export default function ({ showActivity, changePress, setscrollEnabled, textId, $input, initialHeight, iconSize, w, plackTextTop, autoFocus = false, multiline = false, m_icon, iconPress, secureTextEntry, icon, textContentType, autoComplete = 'off', keyboardType = 'default', p, p2, newObj, iconLeft, iconRight, setBlur, getBlur, state, setState, styles, yub }) {
 
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -43,16 +43,19 @@ export default function ({ changePress, setscrollEnabled, textId, $input, initia
 
   const [inputState, setinputState] = useState('')
   const [change, setchange] = useState(false)
-  const [inputChange, setinputChange] = useState(false)
+  const [changeInput, setchangeInput] = useState(false)
 
-  useEffect(() => { (inputState.length && (inputState !== state)) && setState(inputState) }, [changePress])
+  
+  useEffect(() => {if (!showActivity) { if (!state) setinputState('')}}, [showActivity])
+
+  // useEffect(() => { (inputState.length && (inputState !== state)) && setState(inputState) }, [changePress])
 
   useEffect(() => { !inputState.length && setinputState(String(state)) }, [change])
 
   useEffect(() => {
     setTimeout(() => { !inputState.length && setchange(true) }, 700);
     setTimeout(() => { !inputState.length && setchange(false) }, 1400);
-    setTimeout(() => { setinputChange(true) }, 5000);
+    setTimeout(() => {!changeInput && setchangeInput(true)}, 7000)
   }, [])
 
 
@@ -85,7 +88,7 @@ export default function ({ changePress, setscrollEnabled, textId, $input, initia
               m_icon={m_icon}
               placeholder={p2 ? p2 : p}
               value={inputState}
-              onChangeText={(text) => { (!state.length && setState(text)); setinputState(text); ((int) && clearInterval(int)); int = setTimeout(() => { setState(text) }, 3000); }}
+              onChangeText={(text) => { ((!state.length && !changeInput) && setState(text)); setinputState(text); ((int) && clearInterval(int)); int = setTimeout(() => { setState(text) }, 3000); }}
               // onEndEditing={()=>{((int) && clearInterval(int)); ((inputState !== state) && setState(inputState))}}
               onBlur={() => { ((int) && clearInterval(int)); ((inputState !== state) && setState(inputState)); set_focus(false); setTimeout(() => { setBlur(true); !yub && fadeOut() }, 500); }}
               style={[styles.input, (multiline && !initialHeight) && { height: 115, minHeight: 115 }]}
@@ -93,7 +96,7 @@ export default function ({ changePress, setscrollEnabled, textId, $input, initia
               secureTextEntry={secureTextEntry}
               autoFocus={autoFocus}
               onFocus={() => { set_focus(true) }}
-              multiline={(!_focus && Platform.OS === 'android' ) ? true : multiline}
+              multiline={(!_focus && Platform.OS === 'android') ? true : multiline}
             />
           </Animated.View>
           {getBlur && !yub && <Py style={[styles.textinput, { color: 'red', fontSize: 10, fontWeight: '100' }]} >

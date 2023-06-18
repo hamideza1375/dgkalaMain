@@ -556,6 +556,7 @@ if(city){
 
           {f &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='fullnameInput'
             $input={$input}
@@ -578,6 +579,7 @@ if(city){
 
           {e &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='emailInput'
             $input={$input}
@@ -602,6 +604,7 @@ if(city){
 
           {ph &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='phoneInput'
             $input={$input}
@@ -627,6 +630,7 @@ if(city){
 
           {phore &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='phoneOrEmailInput'
             $input={$input}
@@ -649,6 +653,7 @@ if(city){
 
           {op &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='oldPasswordInput'
             $input={$input}
@@ -672,6 +677,7 @@ if(city){
 
           {p &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='passwordInput'
             $input={$input}
@@ -698,6 +704,7 @@ if(city){
 
           {cp &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='confirmPasswordInput'
             $input={$input}
@@ -726,6 +733,7 @@ if(city){
 
           {$address &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='addressInput'
             $input={$input}
@@ -750,6 +758,7 @@ if(city){
 
           {postal &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='postalCodeInput'
             $input={$input}
@@ -778,6 +787,7 @@ if(city){
           <Row w='100%' jc='space-around' >
             {$plaque &&
               <Frm 
+              showActivity={showActivity} 
               changePress={changePress}
               textId='plaqueInput'
             $input={$input}
@@ -799,6 +809,7 @@ if(city){
 
             {$unit &&
               <Frm 
+              showActivity={showActivity} 
               changePress={changePress}
               textId='unitInput'
             $input={$input}
@@ -824,6 +835,7 @@ if(city){
 
           {t &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='titleInput'
             $input={$input}
@@ -845,6 +857,7 @@ if(city){
 
           {pr &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='priceInput'
             $input={$input}
@@ -868,6 +881,7 @@ if(city){
 
           {$code &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress} setscrollEnabled={setscrollEnabled}
               $input={$input}
               textId='inputCodeId'
@@ -895,6 +909,7 @@ if(city){
 
           {in1 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='newAdminPhoneInput'
             $input={$input}
@@ -918,6 +933,7 @@ if(city){
 
           {in2 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='businessInput'
             $input={$input}
@@ -939,6 +955,7 @@ if(city){
 
           {in3 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='ramInput'
             $input={$input}
@@ -962,6 +979,7 @@ if(city){
 
           {in4 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='cpuCoreInput'
             $input={$input}
@@ -984,6 +1002,7 @@ if(city){
 
           {in5 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='cameraInput'
             $input={$input}
@@ -1007,6 +1026,7 @@ if(city){
 
           {in6 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='storageInput'
             $input={$input}
@@ -1030,6 +1050,7 @@ if(city){
 
           {in7 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='warantyInput'
             $input={$input}
@@ -1052,6 +1073,7 @@ if(city){
           {/* 
           {in8 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress} setscrollEnabled={setscrollEnabled}
               autoComplete="off"
               m_icon="color-lens"
@@ -1071,6 +1093,7 @@ if(city){
 
           {in9 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='displayInput'
             $input={$input}
@@ -1093,6 +1116,7 @@ if(city){
 
           {in10 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='systemInput'
             $input={$input}
@@ -1114,6 +1138,7 @@ if(city){
 
           {in11 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='batryInput'
             $input={$input}
@@ -1136,6 +1161,7 @@ if(city){
 
           {in12 &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='networkInput'
             $input={$input}
@@ -1374,6 +1400,7 @@ if(city){
 
           {i &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='infoInput'
             $input={$input}
@@ -1397,6 +1424,7 @@ if(city){
 
           {m &&
             <Frm 
+            showActivity={showActivity} 
             changePress={changePress}
             textId='messageInput'
             $input={$input}
@@ -1497,6 +1525,7 @@ if(city){
           {offer &&
             <>
               <Frm 
+              showActivity={showActivity} 
               changePress={changePress} setscrollEnabled={setscrollEnabled}
                 plackTextTop={plackTextTop}
                 m_icon="timer"
@@ -1512,6 +1541,7 @@ if(city){
               />
 
               <Frm 
+              showActivity={showActivity} 
               changePress={changePress} setscrollEnabled={setscrollEnabled}
                 plackTextTop={plackTextTop}
                 m_icon="money-off"

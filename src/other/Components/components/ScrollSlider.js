@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { FlatList, Platform } from 'react-native'
-import { useFocusEffect, useRoute } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import s from './style.module.scss';
 import { Loading, Column } from '../Html';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNetInfo } from '@react-native-community/netinfo';
 
 
-var das = [], old = 0, time = 2000
+var das = [], old = 0, time = 3000
 
 function ScrollSlider(p) {
   const { cacheId, data, renderItem, h, style, ccStyle } = p
@@ -18,9 +18,18 @@ function ScrollSlider(p) {
   const count = useRef({ count: 1 })
   const interval = useRef({ interval: null })
 
+
+  useEffect(() => {
+    setTimeout(() => {
+      try { ref.current?.scrollToIndex({ index: 1, animated: true }); }
+      catch (err) { }
+    }, 1000);
+  }, [])
+
+
   const open = () => {
     if (scroll2) {
-      try { ref.current?.scrollToIndex({ index: count.current.count }); }
+      try { ref.current?.scrollToIndex({ index: count.current.count, animated: true }); }
       catch (err) { }
       count.current.count = count.current.count + 2
       old = count.current.count
@@ -30,7 +39,7 @@ function ScrollSlider(p) {
   const open2 = () => {
     if (parseInt(count.current.count) >= old + 1 || parseInt(count.current.count) <= old - 1) {
       old = (parseInt(count.current.count))
-      try { ref.current?.scrollToIndex({ index: parseInt(count.current.count) }); }
+      try { ref.current?.scrollToIndex({ index: parseInt(count.current.count), animated: true }); }
       catch (err) { }
     }
   };
@@ -98,7 +107,7 @@ function ScrollSlider(p) {
         {(data.length || (cacheData.length > 1)) ?
           <FlatList
             getItemLayout={(data, index) => ({ length: (160 + 10), offset: (160 + 10) * index, index })}
-            initialNumToRender={4}
+            // initialNumToRender={4}
             showsHorizontalScrollIndicator={false}
             dir='ltr'
             ref={ref}
@@ -106,7 +115,7 @@ function ScrollSlider(p) {
             {...p}
             renderItem={renderItem}
             contentContainerStyle={[{ flexGrow: 1, direction: 'rtl' }, ccStyle]}
-            onLayout={(e) => { let int = setInterval(sum, time); function sum() { if (scroll2 && !(count.current.count >= data.length)) { if (time < 3) time += 500; open() } else clearInterval(int) } interval.current.interval = int }}
+            onLayout={(e) => { let int = setInterval(sum, time); function sum() { if (scroll2 && !(count.current.count >= data.length)) { open() } else clearInterval(int) } interval.current.interval = int }}
             // scrollEventThrottle={0}
             // alwaysBounceHorizontal={false}
             // alwaysBounceVertical={false}
