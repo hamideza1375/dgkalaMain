@@ -164,8 +164,8 @@ export function allChildren({ client, user, admin }) {
         if ((location.href === location.origin) || (location.href === location.origin + '/')) {history.back(); history.back()}
         else return
       }
-      _useEffect(() => { if (Platform.OS === 'web' /* && window.matchMedia('(display-mode:standalone)').matches */) { if (props.route.name === 'Home') history.pushState({}, '/home'/* location.href */) }}, [])
-      _useEffect(() => { if (Platform.OS === 'web' /* && window.matchMedia('(display-mode:standalone)').matches */) window.addEventListener('popstate', b); return () => { if (Platform.OS === 'web') { num = 0, a = 0; window.removeEventListener('popstate', b); } } }, [])
+      _useEffect(() => { if (Platform.OS === 'web' && window.matchMedia('(display-mode:standalone)').matches) { if (props.route.name === 'Home') history.pushState({}, '/home'/* location.href */) }}, [])
+      _useEffect(() => { if (Platform.OS === 'web' && window.matchMedia('(display-mode:standalone)').matches) window.addEventListener('popstate', b); return () => { if (Platform.OS === 'web') { num = 0, a = 0; window.removeEventListener('popstate', b); } } }, [])
 
       _useEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'ProductBasket') && (!token)) props.navigation.navigate('User', { screen: 'Login', params: { payment: 'true' } }); })}, [])
       _useEffect(() => { client.setshownDropdown(false); }, [])
@@ -188,7 +188,7 @@ export function allChildren({ client, user, admin }) {
       }, [])
       useLayoutEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
       if (show) return <Layout _key={key} {...props} {...user}>{user.showActivity && <Loading setshowActivity={user.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...user} {...userReducer(props)} /></Layout>
-      else return <SplashScreen {...client} />
+      else return <SplashScreen {...user} />
     }
   })
   this.adminChildren = (Component, key) => ({
@@ -204,7 +204,7 @@ export function allChildren({ client, user, admin }) {
       }, [])
       useLayoutEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
       if (show) return <Layout _key={key} {...props} {...admin}>{admin.showActivity && <Loading setshowActivity={admin.setshowActivity} pos='absolute' top={15} time={900000} />}<Component {...props} {...admin} {...adminReducer(props)} /></Layout>
-      else return <SplashScreen {...client} />
+      else return <SplashScreen {...admin} />
     }
   })
 

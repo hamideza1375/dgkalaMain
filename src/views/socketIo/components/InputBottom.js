@@ -49,7 +49,7 @@ export default function InputBottom(p) {
       const imageName = `${(new Date().getTime() + Math.random() * 1000000).toString()}.${fileType}`;
       await imageChat({ uri: res, imageName })
       sendMessage('image', imageName);
-      p.setshownDropdown && p.setshownDropdown(false);
+      
     })
   }
 
@@ -61,7 +61,7 @@ export default function InputBottom(p) {
       const videoName = `${(new Date().getTime() + Math.random() * 1000000).toString()}.${fileType}`;
       await videoChat({ uri: res, videoName })
       sendMessage('video', videoName);
-      p.setshownDropdown && p.setshownDropdown(false);
+      
     })
   }
 
@@ -73,7 +73,7 @@ export default function InputBottom(p) {
       const audioName = `${(new Date().getTime() + Math.random() * 1000000).toString()}.${fileType}`;
       await audioChat({ uri: res, audioName })
       sendMessage('audio', audioName);
-      p.setshownDropdown && p.setshownDropdown(false);
+      
     })
   }
 
