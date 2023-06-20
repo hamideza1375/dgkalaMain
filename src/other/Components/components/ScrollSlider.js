@@ -21,14 +21,14 @@ function ScrollSlider(p) {
 
   useEffect(() => {
     setTimeout(() => {
-      try { ref.current?.scrollToIndex({ index: 1, animated: true }); }
+      try { data.length && ref.current?.scrollToIndex({ index: 0, animated: true }); }
       catch (err) { }
     }, 1000);
   }, [])
 
 
   const open = () => {
-    if (scroll2) {
+    if (scroll2 && data.length) {
       try { ref.current?.scrollToIndex({ index: count.current.count, animated: true }); }
       catch (err) { }
       count.current.count = count.current.count + 2
@@ -37,7 +37,7 @@ function ScrollSlider(p) {
   };
 
   const open2 = () => {
-    if (parseInt(count.current.count) >= old + 1 || parseInt(count.current.count) <= old - 1) {
+    if ((parseInt(count.current.count) >= old + 1 || parseInt(count.current.count) <= old - 1) && data.length) {
       old = (parseInt(count.current.count))
       try { ref.current?.scrollToIndex({ index: parseInt(count.current.count), animated: true }); }
       catch (err) { }
@@ -45,8 +45,8 @@ function ScrollSlider(p) {
   };
 
 
-  if (count.current.count + 1 >= data.length) { clearInterval(interval.current.interval) }
-  if (!scroll2) { clearInterval(interval.current.interval) }
+  if (count.current.count + 1 >= data.length) { interval.current && clearInterval(interval.current.interval) }
+  if (!scroll2) { interval.current && clearInterval(interval.current.interval) }
 
 
   useFocusEffect(useCallback(() => {
@@ -54,12 +54,12 @@ function ScrollSlider(p) {
     if (Platform.OS === 'web')
       window.addEventListener('resize', (event) => {
         setscroll2(false);
-        clearInterval(interval.current.interval)
+        interval.current && clearInterval(interval.current.interval)
       });
 
     return () => {
       setscroll2(false);
-      clearInterval(interval.current.interval)
+      interval.current && clearInterval(interval.current.interval)
     }
   }, []))
 

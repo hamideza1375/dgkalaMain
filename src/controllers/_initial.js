@@ -89,7 +89,7 @@ export const _initController = (p) => {
 
 
   useEffect(() => { (!p.splash && netInfo.isConnected) && p.setchangeRefresh(!p.changeRefresh) }, [netInfo])
-  
+
 
 
   useLayoutEffect(() => { p.$input.set('a', 'a') }, [])
@@ -101,7 +101,7 @@ export const _initController = (p) => {
   // useEffect(() => {
   //   Dimensions.addEventListener('change', ({ window: { width, height } }) => { p.setwidth(width); p.setheight(height) })
   // }, [])
-  
+
 
 
   useLayoutEffect(() => {
@@ -146,6 +146,16 @@ export function allChildren({ client, user, admin }) {
     }, 150);
   }, [netInfo])
 
+  const b = () => {
+    if ((location.href === (location.origin + '/home')) || (location.href === (location.origin)) || (location.href === (location.origin + '/'))) { num++; setTimeout(() => { num = 0 }, 1000) };
+    if (num === 1) { (a > 0) && client.toast.show('', 'برای خروج دوبار کلیک کنید', 1000); setTimeout(() => { num = 0 }, 1000); }
+    if (num >= 2) { { history.go(-(history.length - 1)); history.back() } return }
+    if ((location.href === location.origin) || (location.href === location.origin + '/')) { history.go(-(history.length - 1)); history.back() }
+    else return
+  }
+
+  _useEffect(() => { if (Platform.OS === 'web') { if (location.href === location.origin + '/' || location.href === location.origin + '/home') history.pushState({}, '/home'/* location.href */) } }, [])
+  _useEffect(() => { if (Platform.OS === 'web') window.addEventListener('popstate', b); return () => { if (Platform.OS === 'web') { num = 0; window.removeEventListener('popstate', b); } } }, [])
 
 
   const _client = ({ navigation, route }) => new clientController({ ...client, navigation, route })
@@ -157,17 +167,12 @@ export function allChildren({ client, user, admin }) {
   this.clientChildren = (Component, key) => ({
     children: (props) => {
 
-      const b = () => {
-        if ((location.href === (location.origin + '/home')) || (location.href === (location.origin)) || (location.href === (location.origin + '/')) ) num++;
-        if (num === 1) { client.toast.show('', 'برای خروج دوبار کلیک کنید', 2000); setTimeout(() => { num = 0 }, 2000); }
-        if (num >= 2) { history.back(); history.back(); }
-        if ((location.href === location.origin) || (location.href === location.origin + '/')) {history.back(); history.back()}
-        else return
-      }
-      _useEffect(() => { if (Platform.OS === 'web' && window.matchMedia('(display-mode:standalone)').matches) { if (props.route.name === 'Home') history.pushState({}, '/home'/* location.href */) }}, [])
-      _useEffect(() => { if (Platform.OS === 'web' && window.matchMedia('(display-mode:standalone)').matches) window.addEventListener('popstate', b); return () => { if (Platform.OS === 'web') { num = 0, a = 0; window.removeEventListener('popstate', b); } } }, [])
+      _useEffect(() => {
+        a = 0
+        if ((location.href === location.origin + '/') || (location.href === location.origin + '/home') || props.route.name === 'Home' ) setTimeout(() => {a++}, 200);
+      },[])
 
-      _useEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'ProductBasket') && (!token)) props.navigation.navigate('User', { screen: 'Login', params: { payment: 'true' } }); })}, [])
+      _useEffect(() => { AsyncStorage.getItem("token").then((token) => { if ((props.route.name === 'SetAddressForm' || props.route.name === 'SetAddressInTehran' || props.route.name === 'ProductBasket') && (!token)) props.navigation.navigate('User', { screen: 'Login', params: { payment: 'true' } }); }) }, [])
       _useEffect(() => { client.setshownDropdown(false); }, [])
       useLayoutEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
       useLayoutEffect(() => { if (props.route.name === 'Home' && props.route.params.key !== 'home') return props.navigation.navigate('NotFound') })

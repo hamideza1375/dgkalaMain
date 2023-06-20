@@ -261,7 +261,7 @@ const Mobile = () => {
               </Tab.Navigator>
             }</Tab.Screen>
 
-            <Tab.Screen name="NotFound" options={{ title: '404', headerShown: false, tabBarStyle: { display: 'none' }, tabBarButton: () => null }} {...clientChildren(_404)} />
+            <BottomTab.Screen name="NotFound" options={{ title: '404', headerShown: false, tabBarStyle: { display: 'none' }, tabBarButton: () => null }} {...clientChildren(_404)} />
           </BottomTab.Navigator >
         </Column>
       </contextStates.Provider>

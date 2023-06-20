@@ -90,7 +90,7 @@ function Slider({ style, onClick, data }) {
       plus = true;
       minus = false
       setbadgeActive(0)
-      clearInterval(interval)
+      interval && clearInterval(interval)
     }
   }, []))
 
