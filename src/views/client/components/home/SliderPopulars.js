@@ -26,7 +26,6 @@ const SliderPopulars = (p) => {
         </Column>
         <Column class={s.p_offerGlass2} t={0}></Column>
         <Column class={s.p_offerGlass} t={0}></Column>
-        {p.populars ?
           <ScrollSlider
             cacheId='sliderPopulars'
             style={[{ height: 300, minHeight: 300 }]}
@@ -38,9 +37,6 @@ const SliderPopulars = (p) => {
               </Column>
             )}
           />
-          :
-          <></>
-        }
         <Press fd='row' onClick={() => p.navigation.navigate('ProductsPopulars')} pos='absolute' b={10} l={10} z={2}><Py color='#fff' >نمایش بیشتر </Py><P mt={1} mr={2} color='#fff' >↩</P></Press>
       </Column>
     </>

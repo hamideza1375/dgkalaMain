@@ -7,7 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNetInfo } from '@react-native-community/netinfo';
 
 
-var das = [], old = 0, time = 3000
+var das = [],das2 = [], old = 0, time = 2500, int1, int2
+
+let sc = true
 
 function ScrollSlider(p) {
   const { cacheId, data, renderItem, h, style, ccStyle } = p
@@ -20,28 +22,32 @@ function ScrollSlider(p) {
 
 
   useEffect(() => {
-    setTimeout(() => {
-      try { data.length && ref.current?.scrollToIndex({ index: 0, animated: true }); }
+    try { data.length && ref.current?.scrollToIndex({ index: 0, animated: true }); }
+    catch (err) { }
+        setTimeout(() => {
+      try { data.length > 1 && ref.current?.scrollToIndex({ index: 1, animated: true }); count.current.count = count.current.count + 1 }
       catch (err) { }
-    }, 1000);
+    }, 800);
   }, [])
 
 
   const open = () => {
-    if (scroll2 && data.length) {
-      try { ref.current?.scrollToIndex({ index: count.current.count, animated: true }); }
+    if (scroll2 && sc ) {
+      try { (data.length || cacheData.length) && ref.current?.scrollToIndex({ index: count.current.count, animated: true }); }
       catch (err) { }
-      count.current.count = count.current.count + 2
+      count.current.count = count.current.count + 1
       old = count.current.count
     }
   };
 
   const open2 = () => {
-    if ((parseInt(count.current.count) >= old + 1 || parseInt(count.current.count) <= old - 1) && data.length) {
+    sc = false
+    if ((parseInt(count.current.count) >= old + 1 || parseInt(count.current.count) <= old - 1) && (data.length || cacheData.length)) {
       old = (parseInt(count.current.count))
       try { ref.current?.scrollToIndex({ index: parseInt(count.current.count), animated: true }); }
       catch (err) { }
     }
+    setscroll2(false)
   };
 
 
@@ -87,11 +93,10 @@ function ScrollSlider(p) {
       style={{ cursor: 'grab' }}
       class={s.selectNone}
       onMouseUp={(e) => { setscroll2(false); setTimeout(() => { das = [] }, 195); }}
-      onMoveShouldSetResponder={() => { if (data.length > 5) setscroll2(false); else setTimeout(() => { setscroll2(false) }, 2500); }}
-      onTouchMove={() => { if (data.length > 5) setscroll2(false); else setTimeout(() => { setscroll2(false) }, 2500); }} >
+      onMoveShouldSetResponder={(e) => {  das2.push(e.nativeEvent.pageY); if(das2.length > 5 ) setscroll2(false)}}
+      onTouchMove={(e) => { das2.push(e.nativeEvent.pageY); if(das2.length > 3 ) setTimeout(() => {setscroll2(false)}, 2500);}} >
       <Column
         onMoveShouldSetResponder={(e) => {
-          if (data.length > 5) setscroll2(false); else setTimeout(() => { setscroll2(false) }, 2500);
           if (Platform.OS === 'web')
             if (navigator?.userAgent?.match('Mobile') != 'Mobile') {
               das.push(e.nativeEvent.pageX)
@@ -115,7 +120,7 @@ function ScrollSlider(p) {
             {...p}
             renderItem={renderItem}
             contentContainerStyle={[{ flexGrow: 1, direction: 'rtl' }, ccStyle]}
-            onLayout={(e) => { let int = setInterval(sum, time); function sum() { if (scroll2 && !(count.current.count >= data.length)) { open() } else clearInterval(int) } interval.current.interval = int }}
+            onLayout={(e) => { let int = setInterval(sum, time); function sum() { if (scroll2 && (count.current.count < data.length ? data.length : cacheData.length)) { open() } else clearInterval(int) } interval.current.interval = int }}
             // scrollEventThrottle={0}
             // alwaysBounceHorizontal={false}
             // alwaysBounceVertical={false}

@@ -26,10 +26,8 @@ const SliderOffers = (p) => {
             <P mr={15} fs={15} color='#444' > %تخفیف ها</P>
             <LinearGradient nativeStart={{ x: 1.5, y: 1.5 }} webStart={{ x: 7 }} colors={['#f5f', '#505']} style={{ width: '50%', height: 1, flexGrow: 1, marginHorizontal: 25 }} ></LinearGradient>
           </Column>
-
-          {p.offers.length ?
             <ScrollSlider
-              cacheId='slideroffers'
+              cacheId='sliderOffers1'
               style={{ height: 300, minHeight: 300 }}
               ccStyle={{ height: 300, minHeight: 300, justifyContent: 'center' }}
               data={p.offers}
@@ -38,9 +36,7 @@ const SliderOffers = (p) => {
                   <CardItem item={item} spacePrice={spacePrice} offers w={170} onClick={() => { p.navigation.navigate('SingleProduct', { id: item._id }) }} />
                 </Column>
               )}
-            /> :
-            <></>
-          }
+            /> 
         </Column>
         <Press fd='row' onClick={() => p.navigation.navigate('ProductsOffers')} pos='absolute' b={10} l={10} z={2}><Py color='#fff' >نمایش بیشتر </Py><P mt={1} mr={2} color='#fff' >↩</P></Press>
       </Column>
