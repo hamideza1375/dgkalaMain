@@ -41,12 +41,12 @@ function ScrollSlider(p) {
   };
 
   const open2 = () => {
-    sc = false
     if ((parseInt(count.current.count) >= old + 1 || parseInt(count.current.count) <= old - 1) && (data.length || cacheData.length)) {
       old = (parseInt(count.current.count))
       try { ref.current?.scrollToIndex({ index: parseInt(count.current.count), animated: true }); }
       catch (err) { }
     }
+    sc = false
     setscroll2(false)
   };
 
@@ -93,7 +93,7 @@ function ScrollSlider(p) {
       style={{ cursor: 'grab' }}
       class={s.selectNone}
       onMouseUp={(e) => { setscroll2(false); setTimeout(() => { das = [] }, 195); }}
-      onMoveShouldSetResponder={(e) => {  das2.push(e.nativeEvent.pageY); if(das2.length > 5 ) setscroll2(false)}}
+      onMoveShouldSetResponder={(e) => {  das2.push(e.nativeEvent.pageY); if(das2.length > 4 ) setscroll2(false)}}
       onTouchMove={(e) => { das2.push(e.nativeEvent.pageY); if(das2.length > 3 ) setTimeout(() => {setscroll2(false)}, 2500);}} >
       <Column
         onMoveShouldSetResponder={(e) => {

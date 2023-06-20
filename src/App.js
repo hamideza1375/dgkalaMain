@@ -445,7 +445,7 @@ else {
         deferredInstall = ev;
       })
     }, [])
-    const installStatus = async () => {
+    const installStatus = async (e) => {
       let cancelInstalled = await AsyncStorage.getItem('cancelInstalled')
       if (cancelInstalled < 1 && deferredInstall) {
         deferredInstall.prompt();
