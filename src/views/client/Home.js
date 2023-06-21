@@ -16,7 +16,7 @@ function Home(p) {
 
   return (
     <Column f={1} >
-      <ScrollView onMoveShouldSetResponder={() => { setTimeout(() => { setenableScroll(true) }, 0); }} scrollEnabled={(Platform.OS === 'web') ? ((navigator?.userAgent?.match('Mobile') == 'Mobile' && !window.matchMedia('(display-mode:standalone)').matches) ? enableScroll : true) : true} >
+      <ScrollView onMoveShouldSetResponder={() => { setTimeout(() => { setenableScroll(true) }, 0); }} /* scrollEnabled={(Platform.OS === 'web') ? ((navigator?.userAgent?.match('Mobile') == 'Mobile' && !window.matchMedia('(display-mode:standalone)').matches) ? enableScroll : true) : true} */ >
         <Column>
           <Slider data={p.slider} {...p} onClick={() => { p.navigation.navigate('ProductsOffers') }} />
         </Column>

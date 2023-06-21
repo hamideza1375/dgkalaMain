@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNetInfo } from '@react-native-community/netinfo';
 
 
-var das = [],das2 = [], old = 0, time = 2500, int1, int2
+var das = [], das2 = [], das3 = [], old = 0, time = 2500
 
 let sc = true
 
@@ -16,24 +16,21 @@ function ScrollSlider(p) {
   const ref = useRef()
   const [scroll2, setscroll2] = useState(true)
   const [cacheData, setcacheData] = useState([])
+  const [change, setchange] = useState(false)
 
   const count = useRef({ count: 1 })
   const interval = useRef({ interval: null })
 
-
   useEffect(() => {
-    try { data.length && ref.current?.scrollToIndex({ index: 0, animated: true }); }
+    try { ((data.length > 1) || (cacheData.length > 1)) && ref.current?.scrollToIndex({ index: 1 }); }
     catch (err) { }
-        setTimeout(() => {
-      try { data.length > 1 && ref.current?.scrollToIndex({ index: 1, animated: true }); count.current.count = count.current.count + 1 }
-      catch (err) { }
-    }, 800);
-  }, [])
+  }, [change])
 
+  useEffect(() => { setchange(true); setTimeout(() => { setchange(false) }, 700); }, [])
 
   const open = () => {
-    if (scroll2 && sc ) {
-      try { (data.length || cacheData.length) && ref.current?.scrollToIndex({ index: count.current.count, animated: true }); }
+    if (scroll2 && sc) {
+      try { (data.length || (cacheData.length > 1)) && ref.current?.scrollToIndex({ index: count.current.count, animated: true }); }
       catch (err) { }
       count.current.count = count.current.count + 1
       old = count.current.count
@@ -41,7 +38,7 @@ function ScrollSlider(p) {
   };
 
   const open2 = () => {
-    if ((parseInt(count.current.count) >= old + 1 || parseInt(count.current.count) <= old - 1) && (data.length || cacheData.length)) {
+    if ((parseInt(count.current.count) >= old + 1 || parseInt(count.current.count) <= old - 1) && (data.length || (cacheData.length > 1))) {
       old = (parseInt(count.current.count))
       try { ref.current?.scrollToIndex({ index: parseInt(count.current.count), animated: true }); }
       catch (err) { }
@@ -93,8 +90,8 @@ function ScrollSlider(p) {
       style={{ cursor: 'grab' }}
       class={s.selectNone}
       onMouseUp={(e) => { setscroll2(false); setTimeout(() => { das = [] }, 195); }}
-      onMoveShouldSetResponder={(e) => {  das2.push(e.nativeEvent.pageY); if(das2.length > 4 ) setscroll2(false)}}
-      onTouchMove={(e) => { das2.push(e.nativeEvent.pageY); if(das2.length > 3 ) setTimeout(() => {setscroll2(false)}, 2500);}} >
+      onTouchStart={(e) => { das2.push(e.nativeEvent.pageX); }}
+      onMoveShouldSetResponder={(e) => { das2.push(e.nativeEvent.pageX); if (Platform.OS !== 'web') { if (das2.length > 2) setscroll2(false) } else { if (das2.length > 4) setscroll2(false) } }}>
       <Column
         onMoveShouldSetResponder={(e) => {
           if (Platform.OS === 'web')
@@ -111,8 +108,10 @@ function ScrollSlider(p) {
       >
         {(data.length || (cacheData.length > 1)) ?
           <FlatList
+
             getItemLayout={(data, index) => ({ length: (160 + 10), offset: (160 + 10) * index, index })}
             // initialNumToRender={4}
+            // initialScrollIndex={0}
             showsHorizontalScrollIndicator={false}
             dir='ltr'
             ref={ref}
