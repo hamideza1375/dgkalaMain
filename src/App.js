@@ -335,6 +335,7 @@ const linking = {
     screens: {
 
       Client: {
+        initialRouteName:'Home',
         screens: {
           Home: '/:key',
           ProductsOffers: '/productsoffers',
@@ -347,6 +348,7 @@ const linking = {
       },
 
       BeforePayment: {
+        initialRouteName:'ProductBasket',
         screens: {
           ProductBasket: '/productbasket',
           SetAddressForm: '/setaddressform',
@@ -385,6 +387,7 @@ const linking = {
       },
 
       Admin: {
+        initialRouteName:'PanelAdmin',
         screens: {
           PanelAdmin: '/paneladmin',
           AdminTicketBox: '/adminTicketBox',

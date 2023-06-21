@@ -64,7 +64,7 @@ function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, s
         <Span bgcolor={bgcolor} style={[styles.containHead]}>
           {(src) && <Press onClick={() => navigation.navigate('Client', { screen: 'Home' })} mr={7} ><Img bgcolor='transparent' w={55} h={54} mt={-1} br={4} src={src} /></Press>}
           {(iconSrc) && <Press ph={5} mh={5} onClick={() => { navigation.navigate('Client', { screen: 'Home' }) }
-          // {(iconSrc) && <Press ph={5} mh={5} onClick={() => { navigation.dispatch(StackActions.replace('Client')); }
+            // {(iconSrc) && <Press ph={5} mh={5} onClick={() => { navigation.dispatch(StackActions.replace('Client')); }
           } mr={7} ><Icon size={24} style={[styles.iconHome, { marginTop: 2 }]} name={iconSrc} /></Press>}
 
           {icon && icon !== 'arrow-left' ? <Icon size={24} style={[styles.iconHome, { marginTop: 3 }]} name={icon} onPress={() => { iconPress(); p.setshownDropdown(false) }} />
@@ -77,79 +77,82 @@ function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, s
 
 
           {!title ?
-            <Input
-            inputMode='text'
-            // textContentType={'none'}
-            autoComplete={'off'}
-              value={textSearch} onChangeText={text => {
-                settextSearch(text.toLowerCase());
-                p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } })
-                startTransition(() => {
-                  setTimeout(() => {
-                    if (text?.length < 1 && !home) searcher(text?.toLowerCase())
-                  }, 100)
-                })
-              }}
-              onSubmitEditing={!home ? () => { searcher(textSearch.toLowerCase()); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) } : () => { }}
-              iconPress={() => { !home && searcher(textSearch.toLowerCase()) }}
-              dropdown={
-                ((home || product) && (textSearch) && (!table)) ?
-                  <Dropdown2
-                    displayFlex
-                    $input={p.$input}
-                    textId='dropdownDrawer'
-                    show={p.showDropdownFilter}
-                    setshow={p.setshowDropdownFilter}
-                    iconFalse
-                  >
+            <form style={{ display: 'flex', width: '100%', height: '100%' }} autocomplete="off">
+              <Input
+                inputMode='text'
+                // textContentType={'none'}
+                autoComplete={'off'}
+                value={textSearch} onChangeText={text => {
+                  settextSearch(text.toLowerCase());
+                  p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } })
+                  startTransition(() => {
+                    setTimeout(() => {
+                      if (text?.length < 1 && !home) searcher(text?.toLowerCase())
+                    }, 100)
+                  })
+                }}
+                onSubmitEditing={!home ? () => { searcher(textSearch.toLowerCase()); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) } : () => { }}
+                iconPress={() => { !home && searcher(textSearch.toLowerCase()) }}
+                dropdown={
+                  ((home || product) && (textSearch) && (!table)) ?
+                    <Dropdown2
+                      displayFlex
+                      $input={p.$input}
+                      textId='dropdownDrawer'
+                      show={p.showDropdownFilter}
+                      setshow={p.setshowDropdownFilter}
+                      iconFalse
+                    >
 
-                    {
-                      textSearch ? newSearchArray.map((item, index) => (
-                        <Column minw={200} key={index}>
-                          {!brand ?
+                      {
+                        textSearch ? newSearchArray.map((item, index) => (
+                          <Column minw={200} key={index}>
+                            {!brand ?
 
-                            ((item.title?.length && item.title.includes(textSearch) && newSearchArray.filter(f => f.title?.includes(textSearch)).length <= 10) || (item.phone?.includes(textSearch) && newSearchArray.filter(f => f.phone?.includes(textSearch)).length <= 10) ?
-                              <Press ai='center' fd='row' onClick={() => {
-                                Keyboard.dismiss();
-                                setTimeout(() => {
-                                  navigation.navigate('SingleProduct', { id: item._id })
-                                }, 100)
-                                  ; settextSearch(''); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } })
-                              }} jc='space-between' style={{ padding: 5, borderBottomWidth: newSearchArray.length - 1 !== index ? 1 : 0, borderColor: 'silver' }} >
-                                <P fs={12} ml={15} >{item.title}</P >
-                                {item.imageUrl1 ? <Img br={4} w={45} h={45} src={{ uri: `${localhost}/upload/childItem/${item.imageUrl1}` }} /> : <></>}
-                              </Press>
+                              ((item.title?.length && item.title.includes(textSearch) && newSearchArray.filter(f => f.title?.includes(textSearch)).length <= 10) || (item.phone?.includes(textSearch) && newSearchArray.filter(f => f.phone?.includes(textSearch)).length <= 10) ?
+                                <Press ai='center' fd='row' onClick={() => {
+                                  Keyboard.dismiss();
+                                  setTimeout(() => {
+                                    navigation.navigate('SingleProduct', { id: item._id })
+                                  }, 100)
+                                    ; settextSearch(''); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } })
+                                }} jc='space-between' style={{ padding: 5, borderBottomWidth: newSearchArray.length - 1 !== index ? 1 : 0, borderColor: 'silver' }} >
+                                  <P fs={12} ml={15} >{item.title}</P >
+                                  {item.imageUrl1 ? <Img br={4} w={45} h={45} src={{ uri: `${localhost}/upload/childItem/${item.imageUrl1}` }} /> : <></>}
+                                </Press>
+                                :
+                                <></>)
+
                               :
-                              <></>)
 
-                            :
+                              ((item.brand?.length && item.brand.includes(textSearch) && newSearchArray.filter(f => f.brand?.includes(textSearch)).length <= 10) || (item.phone?.includes(textSearch) && newSearchArray.filter(f => f.phone?.includes(textSearch)).length <= 10) ?
+                                <Press ai='center' fd='row' onClick={() => {
+                                  Keyboard.dismiss();
+                                  setTimeout(() => {
+                                    navigation.navigate('SingleProduct', { id: item._id })
+                                  }, 100)
+                                    ; settextSearch(''); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } })
+                                }} jc='space-between' style={{ padding: 5, borderBottomWidth: newSearchArray.length - 1 !== index ? 1 : 0, borderColor: 'silver' }} >
+                                  <P fs={12} ml={15} >{item.brand}</P >
+                                  {item.imageUrl1 ? <Img br={4} w={45} h={45} src={{ uri: `${localhost}/upload/childItem/${item.imageUrl1}` }} /> : <></>}
+                                </Press>
+                                :
+                                <></>)
+                            }
+                          </Column>
+                        ))
+                          :
+                          <></>
+                      }
+                    </Dropdown2>
+                    :
+                    false
+                }
+                $input={p.$input} textId='inputSearch' onFocus={() => { p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } }) }} icon="search" iconSize={16} pColor={'#777'} border={[1, '#ccc']} autoCapitalize='none' autoCorrect={false} spellCheck={true} placeholder="جستجو" mh={8} h={'95%'} mt={4} dr='rtl' fg={1} style={{ minWidth: 120, width: 120 }} >
 
-                            ((item.brand?.length && item.brand.includes(textSearch) && newSearchArray.filter(f => f.brand?.includes(textSearch)).length <= 10) || (item.phone?.includes(textSearch) && newSearchArray.filter(f => f.phone?.includes(textSearch)).length <= 10) ?
-                              <Press ai='center' fd='row' onClick={() => {
-                                Keyboard.dismiss();
-                                setTimeout(() => {
-                                  navigation.navigate('SingleProduct', { id: item._id })
-                                }, 100)
-                                  ; settextSearch(''); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } })
-                              }} jc='space-between' style={{ padding: 5, borderBottomWidth: newSearchArray.length - 1 !== index ? 1 : 0, borderColor: 'silver' }} >
-                                <P fs={12} ml={15} >{item.brand}</P >
-                                {item.imageUrl1 ? <Img br={4} w={45} h={45} src={{ uri: `${localhost}/upload/childItem/${item.imageUrl1}` }} /> : <></>}
-                              </Press>
-                              :
-                              <></>)
-                          }
-                        </Column>
-                      ))
-                        :
-                        <></>
-                    }
-                  </Dropdown2>
-                  :
-                  false
-              }
-              $input={p.$input} textId='inputSearch' onFocus={() => { p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } }) }} icon="search" iconSize={16} pColor={'#777'} border={[1, '#ccc']} autoCapitalize='none' autoCorrect={false} spellCheck={true} placeholder="جستجو" mh={8} h={'95%'} mt={4} dr='rtl' fg={1} style={{ minWidth: 120, width: 120 }} >
-
-            </Input> :
+              </Input>
+            </form>
+            :
             <Column h={'100%'} fg={1} ai='center' jc='center' style={{ minWidth: 120, width: 120 }} >
               <Py fs={17} mt={5} color='#000a' >{title}</Py>
             </Column>

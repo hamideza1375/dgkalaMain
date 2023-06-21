@@ -45,19 +45,18 @@ export default function ({ showActivity, changePress, setscrollEnabled, textId, 
   const [change, setchange] = useState(false)
   const [changeInput, setchangeInput] = useState(false)
 
-  
-  useEffect(() => {if (!showActivity) { if (!state) setinputState('')}}, [showActivity])
 
-  // useEffect(() => { (inputState.length && (inputState !== state)) && setState(inputState) }, [changePress])
+  useEffect(() => { (inputState.length && (inputState !== state)) && setState(inputState) }, [changePress])
+
+  useEffect(() => { if (!showActivity) { setTimeout(() => {if (!state) setinputState('')}, 700); } }, [showActivity])
 
   useEffect(() => { !inputState.length && setinputState(String(state)) }, [change])
 
   useEffect(() => {
     setTimeout(() => { !inputState.length && setchange(true) }, 700);
     setTimeout(() => { !inputState.length && setchange(false) }, 1400);
-    setTimeout(() => {!changeInput && setchangeInput(true)}, 7000)
+    setTimeout(() => { setchangeInput(true) }, 10000)
   }, [])
-
 
 
   const [_focus, set_focus] = useState(false)
