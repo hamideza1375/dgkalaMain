@@ -2,7 +2,6 @@ import React, { memo, useEffect } from 'react'
 import { BackHandler, Platform } from 'react-native'
 import { Column, Form, P, Press } from '../../other/Components/Html'
 import _useEffect from '../../controllers/_initial'
-import { myhost } from '../../other/utils/axios/axios'
 
 const GetCode = memo((p) => {
 
@@ -13,7 +12,7 @@ const GetCode = memo((p) => {
   _useEffect(() => {
     if (!p.getCodeView) {
       if (Platform.OS !== 'web') { p.navigation.dispatch(p.navigation.navigate('Client', { screen: 'Home' })) }
-      else { location.replace(myhost) /* location.pathname = '/'  */}
+      else { location.replace(location.origin + '/') /* location.pathname = '/'  */}
     }
 
   }, [])

@@ -6,13 +6,12 @@ import _Alert from '../other/utils/alert';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { imagePicker } from '../other/utils/imagePicer';
-import { localhost, myhost } from '../other/utils/axios/axios';
+import { localhost } from '../other/utils/axios/axios';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import { create } from '../other/utils/notification';
 import { truncate } from '../other/utils/truncate';
 import { timerThreeMinut } from '../other/utils/timerThreeMinuts';
 import { useEffect } from 'react';
-import { Platform } from 'react-native';
 import reload from '../other/utils/reload';
 
 

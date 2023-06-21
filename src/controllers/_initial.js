@@ -13,7 +13,6 @@ import { Column, Img, Loading } from '../other/Components/Html';
 import { idValidator } from '../other/utils/idValidator';
 import { useNetInfo } from "@react-native-community/netinfo";
 import ToastProvider from '../other/utils/toast';
-import { myhost } from '../other/utils/axios/axios';
 
 let num = 0, a = 0
 

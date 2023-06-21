@@ -29,7 +29,7 @@ const SingleProduct = (p) => {
               :
               <M_icon color='#ccc' size={17} name='bookmark-border' onClick={() => savedProduct()} />
             }
-            <Icon color='#ccc' name='share-alt' size={17} onClick={async () => { share(`http://localhost:3000/singleitem/${p.route.params.id}`, 'دیجیکالا') }} />
+            <Icon color='#ccc' name='share-alt' size={17} onClick={async () => { share(location.href, 'دیجیکالا') }} />
             {p.navigation.canGoBack()?<Icon color='#ccc' name='arrow-left' size={17} onClick={ () => { p.navigation.goBack() }} />:<></>}
           </Row>
         </Row>
