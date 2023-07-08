@@ -131,9 +131,9 @@ export default function App(props) {
         <div ref={_timer} className="timer" >
           <div />
           <div style={{width,height:32, backgroundColor:'rgb(124, 123, 123)'}} ></div>
-          <span ref={spanTimer} aria-label="timer"  >00:00</span>
+          <span style={{marginLeft:-8}} ref={spanTimer} aria-label="timer" >00:00</span>
         </div>
-        <button data-icon={audio.current?.duration ? seconder(audio.current.duration) : null} />
+        <button style={{fontSize:10}} children={audio.current?.duration ? seconder(audio.current.duration) : null} />
         <button ref={_rwd} className="rwd" data-icon="≪" aria-label="rewind" />
         <button ref={_fwd} className="fwd" data-icon="≫" aria-label="fast forward" />
       </div>
