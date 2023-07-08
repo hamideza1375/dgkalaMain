@@ -1,9 +1,9 @@
-import notifee, { AndroidStyle } from '@notifee/react-native';
+import notifee, { AndroidImportance, AndroidStyle } from '@notifee/react-native';
 
 let id = ''
 
 export const create = async (title, body, icon, notificationId, onClick) => {
-  const channelId = await notifee.createChannel({ id: 'default', name: 'Default Channel', });
+  const channelId = await notifee.createChannel({ id: 'default', name: 'Default Channel', importance: AndroidImportance.HIGH });
   await notifee.requestPermission();
 
   id = Math.random().toString()

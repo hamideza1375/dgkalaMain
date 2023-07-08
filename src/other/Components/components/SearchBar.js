@@ -1,12 +1,12 @@
-import React, { startTransition, useEffect, useState, useTransition } from 'react'
-import { Keyboard, StyleSheet } from 'react-native';
+import React, { startTransition, useState } from 'react'
+import { Keyboard, Platform, StyleSheet } from 'react-native';
 import { A_icon, Column, ContainerTab, Drawer2, Dropdown2, Icon, Img, Input, M_icon, P, Press, Py, Span } from '../Html'
 import { context } from '../../../context/_context'
 import { useNavigation } from '@react-navigation/native';
 import { localhost } from '../../utils/axios/axios';
 import _useEffect from '../../../controllers/_initial';
-import { StackActions } from '@react-navigation/native';
 
+const Form = (props) => Platform.OS !== 'web' ? <>{props.children}</> : <form {...props}>{props.children}</form>
 
 
 function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, setshowDrawer, row, array, setarray, icon, m_icon, a_icon, src, iconPress, sort, bgcolor, title, brand, product, address, home, newSearchArray }) {
@@ -56,6 +56,7 @@ function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, s
   }
 
 
+
   return (
 
     <Column f={1} >
@@ -77,7 +78,7 @@ function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, s
 
 
           {!title ?
-            <form style={{ display: 'flex', width: '100%', height: '100%' }} autocomplete="off">
+            <Form style={{ display: 'flex', width: '100%', height: '100%' }} autoComplete="off">
               <Input
                 inputMode='text'
                 // textContentType={'none'}
@@ -151,7 +152,7 @@ function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, s
                 $input={p.$input} textId='inputSearch' onFocus={() => { p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } }) }} icon="search" iconSize={16} pColor={'#777'} border={[1, '#ccc']} autoCapitalize='none' autoCorrect={false} spellCheck={true} placeholder="جستجو" mh={8} h={'95%'} mt={4} dr='rtl' fg={1} style={{ minWidth: 120, width: 120 }} >
 
               </Input>
-            </form>
+            </Form>
             :
             <Column h={'100%'} fg={1} ai='center' jc='center' style={{ minWidth: 120, width: 120 }} >
               <Py fs={17} mt={5} color='#000a' >{title}</Py>

@@ -2,8 +2,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, FlatList, Platform, Animated, SafeAreaView, BackHandler } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import { A_icon, Badge, Column, Img, Modal, P, Press, Row } from '../../other/Components/Html';
-import Video from '../../other/Components/other/Video';
-import Audio from '../../other/Components/other/Audio';
+// import Video from '../../other/Components/other/Video';
+// import Audio from '../../other/Components/other/Audio';
+import Audio from '../../other/Components/other/media/audio/Audio';
+import Video from '../../other/Components/other/media/video/Video';
+
 import InputBottom from './components/InputBottom';
 import SocketIOClient from 'socket.io-client';
 import { localhost } from '../../other/utils/axios/axios';
@@ -360,7 +363,7 @@ const AdminSocketIo = (p) => {
                           <Img src={{ uri: `${localhost}/upload/socket/${item.uri}` }} w={'90%'} h={300} as='center' br={4} style={{ resizeMode: 'stretch' }} />
                         </Press>
                         :
-                        <Column w='100%' h={100} ai='flex-end' jc='center' >
+                        <Column w='100%' h={100} ai='center' jc='center' >
                           <Audio source={{ uri: `${localhost}/upload/socket/${item.uri}` }} style={{ width: '90%', alignItems: 'center' }} />
                         </Column>
                   }
