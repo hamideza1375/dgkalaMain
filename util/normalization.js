@@ -1,50 +1,14 @@
-const normalization = (array) => {
-  const object = {}
-  array.forEach((item) => (object[item.id] = item))
-  return object
-}
 
+const data = [
+  { _id: '1', title: '1', imageUrl: 'p1.png' },
+  { _id: '2', title: '2', imageUrl: 'e.png' },
+  { _id: '3', title: '3', imageUrl: '7.png' },
+  { _id: '4', title: '4', imageUrl: 'e.png' },
+]
 
-let array = normalization([{ id: 'id1', name: 'u1' }, { id: 'id2', name: 'u2' }, { id: 'id3', name: 'u3' }])
-
- array['id1'].name = 'newName'
- delete array['id2']
-
- array = Object.values(array)
-
- console.log(array);
-
-
-
-
-
-// const normalization = (array) => {
-//   const object = {}
-//   array.forEach((item) => (object[item.id] = item))
-//   return object
-// }
-
-
-// const array = [{ id: 'id1', name: 'u1' }, { id: 'id2', name: 'u2' }, { id: 'id3', name: 'u3' }]
-  
-//  const newDate = normalization(array)
-
-//  newDate['id1'].name = 'newName'
-//  delete newDate['id2']
-
-//  console.log(Object.values(newDate));
-
- 
-
-
-
-// const a = new Map([{id:1, name:'u1'}, {id:2, name:'u2'}, {id:3, name:'u3'}])
-
-// const user = [{id:1, name:'u1'}, {id:2, name:'u2'}, {id:3, name:'u3'}]
-
-
-// user.map((item)=>(
-//   a.set(item.id, item)
-// ))
-
-// console.log(a);
+useEffect(() => {
+  let normalization = new normalizationState(data)
+  // normalization.remove('1')
+  normalization.find('3').title = '333'
+  console.log(normalization.value)
+}, [])

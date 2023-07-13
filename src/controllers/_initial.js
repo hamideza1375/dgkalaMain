@@ -194,8 +194,8 @@ export function allChildren({ client, user, admin }) {
         AsyncStorage.getItem("token").then((token) => {
           const _user = token ? jwtDecode(token) : {}
           user.settokenValue(_user);
-          if (props.route.params?.active === 'no' && (_user?.fullname)) return props.navigation.replace('Profile')
-          if (!props.route.params?.active && (!_user?.fullname)) return props.navigation.replace('Login')
+          if (props.route.params?.active === 'no' && (_user?.fullname)) return props.navigation.navigate('Profile')
+          if (!props.route.params?.active && (!_user?.fullname)) return props.navigation.navigate('Login')
         })
       }, [])
       useLayoutEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })
@@ -209,9 +209,9 @@ export function allChildren({ client, user, admin }) {
       _useEffect(() => {
         AsyncStorage.getItem("token").then((token) => {
           const user = token ? jwtDecode(token) : {}
-          if (!token) return props.navigation.replace('User', { screen: 'Login' })
+          if (!token) return props.navigation.navigate('User', { screen: 'Login' })
           admin.settokenValue(user);
-          if (!user?.isAdmin) return props.navigation.replace('Client', { screen: 'Home' })
+          if (!user?.isAdmin) return props.navigation.navigate('Client', { screen: 'Home' })
         })
       }, [])
       useLayoutEffect(() => { if (props.route.params?.id && !idValidator(props.route.params.id)) return props.navigation.navigate('NotFound') })

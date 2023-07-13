@@ -1,6 +1,6 @@
 import Axios from 'axios'
-export const localhost = "http://192.168.38.240:4000"
-// export const localhost = "http://127.0.0.1:4000"
+// export const localhost = "http://192.168.38.240:4000"
+export const localhost = "http://127.0.0.1:4000"
 Axios.defaults.headers.post["Content-Type"] = "application/json"
 
 function _axios() {

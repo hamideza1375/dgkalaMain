@@ -48,13 +48,15 @@ export default function ({ showActivity, changePress, setscrollEnabled, textId, 
 
   useEffect(() => { (inputState.length && (inputState !== state)) && setState(inputState) }, [changePress])
 
-  useEffect(() => { if (!showActivity) { setTimeout(() => {if (!state) setinputState('')}, 700); } }, [showActivity])
+  useEffect(() => { if (!showActivity) { setTimeout(() => {if (!state) setinputState('')}, 1000); } }, [showActivity])
+  useEffect(() => { if (!showActivity) { setTimeout(() => {if (!state) setinputState('')}, 3000); } }, [showActivity])
 
   useEffect(() => { !inputState.length && setinputState(String(state)) }, [change])
 
   useEffect(() => {
-    setTimeout(() => { !inputState.length && setchange(true) }, 700);
-    setTimeout(() => { !inputState.length && setchange(false) }, 1400);
+    setTimeout(() => { !inputState.length && setchange(true) }, 1000);
+    setTimeout(() => { !inputState.length && setchange(true) }, 2500);
+    setTimeout(() => { !inputState.length && setchange(false) }, 5000);
     setTimeout(() => { setchangeInput(true) }, 10000)
   }, [])
 
