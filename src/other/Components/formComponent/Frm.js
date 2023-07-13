@@ -44,12 +44,13 @@ export default function ({ showActivity, changePress, setscrollEnabled, textId, 
   const [inputState, setinputState] = useState('')
   const [change, setchange] = useState(false)
   const [changeInput, setchangeInput] = useState(false)
+  const [pageStart, setpageStart] = useState(false)
 
 
   useEffect(() => { (inputState.length && (inputState !== state)) && setState(inputState) }, [changePress])
 
   useEffect(() => { if (!showActivity) { setTimeout(() => {if (!state) setinputState('')}, 1000); } }, [showActivity])
-  useEffect(() => { if (!showActivity) { setTimeout(() => {if (!state) setinputState('')}, 3000); } }, [showActivity])
+  useEffect(() => { if (!showActivity && pageStart) { setTimeout(() => {if (!state) {setinputState('')}; setpageStart(true)}, 3000); } }, [showActivity])
 
   useEffect(() => { !inputState.length && setinputState(String(state)) }, [change])
 

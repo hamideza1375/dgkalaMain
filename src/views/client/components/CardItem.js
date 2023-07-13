@@ -11,7 +11,7 @@ const CardItem = ({ onClick, item, spacePrice, h = 240, w , style, sh = { r: 6, 
   useEffect(() => {
     if (item.offerTime?.exp > new Date().getTime()) {
       seconder(item.offerTime?.exp, ({ days, hours, minutes, seconds }) => (
-        setdt(days + ': ' + hours + ':' + minutes + ':' + seconds)
+        setdt(((days * 24) + hours) + ':' + minutes + ':' + seconds)
       ))
     }
   }, [])

@@ -25,9 +25,9 @@ function Slider({ style, onClick, data }) {
     setTimeout(() => {
       if (ref.current) { ref.current.scrollTo({ x: width * count, y: 0, animated: true }); setbadgeActive(count) }
       if (count === 0) { plus = true; minus = false }
-      if (count === 5) { minus = true; plus = false }
+      else if (count === 5) { minus = true; plus = false }
       if (minus) { count = count - 1 }
-      if (plus) { count += 1 }
+      else if (plus) { count += 1 }
     }, 2000);
   }, [])
 
@@ -36,9 +36,9 @@ function Slider({ style, onClick, data }) {
   const open = () => {
     if (ref.current) { ref.current.scrollTo({ x: width * count, y: 0, animated: true }); setbadgeActive(count) }
     if (count === 0) { plus = true; minus = false }
-    if (count === 5) { minus = true; plus = false }
+    else if (count === 5) { minus = true; plus = false }
     if (minus) { count = count - 1 }
-    if (plus) { count += 1 }
+    else if (plus) { count += 1 }
   };
 
   const right = () => {

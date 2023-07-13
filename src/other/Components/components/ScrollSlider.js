@@ -11,7 +11,7 @@ var das = [], das2 = [], das3 = [], old = 0, time = 2500
 
 let sc = true
 
-function ScrollSlider(p) {
+function _ScrollSlider(p) {
   const { cacheId, data, renderItem, h, style, ccStyle } = p
   const ref = useRef()
   const [scroll2, setscroll2] = useState(true)
@@ -30,7 +30,7 @@ function ScrollSlider(p) {
 
   const open = () => {
     if (scroll2 && sc) {
-      try { (data.length || (cacheData.length > 1)) && ref.current?.scrollToIndex({ index: count.current.count, animated: true }); }
+      try { ref.current?.scrollToIndex({ index: count.current.count, animated: true }); }
       catch (err) { }
       count.current.count = count.current.count + 1
       old = count.current.count
@@ -134,6 +134,13 @@ function ScrollSlider(p) {
       </Column>
     </Column>
   )
+}
+
+
+const ScrollSlider = (p) => {
+
+  if (p.data?.length) return <_ScrollSlider {...p} />
+  else return <Column />
 }
 
 export default ScrollSlider
