@@ -444,6 +444,7 @@ const FilterListDrawer = (p) => {
               ))
               // p.setshowDrawer(false)
               p.setarray(filterArray);
+              filterArray.length < 1 && p.toast.warning('محصولی با این مشخصات پیدا نشد')
             }}
           >انجام شد</Button>
         </Column>

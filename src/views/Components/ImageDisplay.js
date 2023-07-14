@@ -1,20 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import _useEffect from '../../controllers/_initial'
 import { Card2, Img, Press, Column } from '../../other/Components/Html'
 
 const ImageDisplay = (p) => {
   let imageMap = []
-   imageMap = [p.logoUrl, p.logoUrl, p.logoUrl, p.logoUrl]
+  imageMap = [p.logoUrl, p.logoUrl, p.logoUrl, p.logoUrl]
+
+  const [_item, set_item] = useState('')
+
+  useEffect(() => {
+    p.$?.id(imageMap[0])?.setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })
+    p.$?.id(imageMap[1])?.setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })
+    p.$?.id(imageMap[2])?.setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })
+    p.$?.id(imageMap[3])?.setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })
+    if (_item) {
+      p.$?.id(_item)?.setNativeProps({ style: { borderWidth: 1, borderColor: 'aqua' } })
+      p.$?.id('img').$({ src: `${localhost}/upload/slider/${_item}` })
+    }
+    else {
+      p.$?.id(imageMap[0])?.setNativeProps({ style: { borderWidth: 1, borderColor: 'aqua' } })
+      p.$?.id('img').$({ src: `${localhost}/upload/slider/${imageMap[0]}` })
+    }
+  }, [p.singleItem])
 
   _useEffect(() => {
-    p.$?.id(imageMap[0])?.setNativeProps({ style: { borderWidth: 1, borderColor: 'aqua' } })
-  }, [p.singleItem])
-  
-  _useEffect(() => {
-    return()=>{
-    p.$.id(imageMap[1])?.setNativeProps({ style: { borderWidth: 0 } })
-    p.$.id(imageMap[2])?.setNativeProps({ style: { borderWidth: 0 } })
-    p.$.id(imageMap[3])?.setNativeProps({ style: { borderWidth: 0 } })
+    return () => {
+      p.$?.id(imageMap[0])?.setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })
+      p.$?.id(imageMap[1])?.setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })
+      p.$?.id(imageMap[2])?.setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })
+      p.$?.id(imageMap[3])?.setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })
     }
   }, [])
 
@@ -37,9 +51,9 @@ const ImageDisplay = (p) => {
                 imageMap.forEach(img => (item !== img && p.$.id(img).setNativeProps({ style: { borderWidth: 0, borderColor: 'white' } })))
                 p.$.id(item).setNativeProps({ style: { borderWidth: 1, borderColor: 'aqua' } });
                 p.$.id('img').$({ src: item })
-
+                set_item(item)
               }}   >
-               {item? <Img f={1} m={4} br={4} style={{ resizeMode: 'stretch' }} src={item} /> : <></> }
+                {item ? <Img f={1} m={4} br={4} style={{ resizeMode: 'stretch' }} src={item} /> : <></>}
               </Press>
             ))}
 
