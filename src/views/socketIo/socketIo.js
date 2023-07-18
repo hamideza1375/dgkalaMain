@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, FlatList, Platform, Animated, SafeAreaView, BackHandler } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native';
 import { A_icon, Badge, Column, Img, Modal, P, Press, Row } from '../../other/Components/Html';
-// import Video from '../../other/Components/other/Video';
+import Video from '../../other/Components/other/Video';
 // import Audio from '../../other/Components/other/Audio';
 import Audio from '../../other/Components/other/media/audio/Audio';
-import Video from '../../other/Components/other/media/video/Video';
+// import Video from '../../other/Components/other/media/video/Video';
 
 import InputBottom from './components/InputBottom';
 import SocketIOClient from 'socket.io-client';
