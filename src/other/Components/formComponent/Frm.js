@@ -97,7 +97,7 @@ export default function ({ showActivity, changePress, setscrollEnabled, textId, 
               iconPress={iconPress}
               secureTextEntry={secureTextEntry}
               autoFocus={autoFocus}
-              onFocus={() => { set_focus(true) }}
+              onFocus={() => { set_focus(true); if((inputState) && (inputState !== state)) setState(inputState) }}
               multiline={(!_focus && Platform.OS === 'android') ? true : multiline}
             />
           </Animated.View>
