@@ -7,7 +7,7 @@ const ImageDisplay = (p) => {
   let imageMap = []
    imageMap = [p.singleItem.imageUrl1, p.singleItem.imageUrl2, p.singleItem.imageUrl3, p.singleItem.imageUrl4]
 
-  _useEffect(() => {
+  useEffect(() => {
     p.$?.id(imageMap[0])?.setNativeProps({ style: { borderWidth: 1, borderColor: 'aqua' } })
   }, [p.singleItem])
   
