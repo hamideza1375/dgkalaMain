@@ -4,7 +4,7 @@ import { Icon, Img, Py, Column, Row, Pfa, P } from '../../../../other/Components
 import { localhost } from '../../../../other/utils/axios/axios'
 
 const topCol = {flexDirection: 'row-reverse', width:'98%', alignItems: 'flex-end',}
-const relation ={justifyContent: 'slex-end', flexDirection: 'column',}
+const relation ={justifyContent: 'slex-end'}
 const Footer = () => {
   return (
     <Column fd='row' p={10} bgcolor='#0d1e2d' fw='wrap' jc='flex-end'>
@@ -41,7 +41,7 @@ const Footer = () => {
             <P minw={35} color='white'>ایمیل: </P><Pfa minw={125} f={1} color='white' >email@email.com</Pfa>
           </Row>
 
-          <Row mt={8} ai='center' >
+          <Row mt={8} mb={4} ai='center' >
             <P color='white'>تماس: </P><Pfa color='white'>  090999999</Pfa>
           </Row>
 

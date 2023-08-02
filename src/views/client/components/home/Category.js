@@ -1,15 +1,9 @@
-import React, { memo, useEffect, useReducer } from 'react'
+import React, { memo } from 'react'
 import { Column, Img, P, Press, ScrollSlider } from '../../../../other/Components/Html'
 import LinearGradient from '../../../../other/Components/other/LinearGradient'
 import { localhost } from '../../../../other/utils/axios/axios'
-import { reducerGetCategory } from '../../../../reducers/reducers'
-import { actionGetCategory } from '../../../../actions/actions'
 
 const Category = (p) => {
-  // const [category, dispatch] = useReducer(reducerGetCategory, []);
-  // useEffect(() => {
-  //   actionGetCategory(dispatch, "GETCATEGORY")
-  // }, [])
   p._client.getCategory()
 
   return (

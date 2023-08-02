@@ -1,14 +1,3 @@
-export const reducerGetCategory = (state, action) => {
-  switch (action.type) {
-    case "GETCATEGORY":
-      return action.payload
-      case "UNMOUNTCATEGORY":
-        return []
-    default:
-      return state;
-  }
-};
-
 
 export const reducerChart = (state, action) => {
   switch (action.type) {

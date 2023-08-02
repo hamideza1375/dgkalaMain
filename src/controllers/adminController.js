@@ -64,10 +64,10 @@ export function adminController(p) {
               try {
                 const _curentSeller = [...curentSeller]
                 const findIndex = curentSeller.findIndex(s => s._id === id)
-                if(findIndex === -1) throw new Error()
+                if (findIndex === -1) throw new Error()
                 _curentSeller[findIndex].available = data.value
                 return _curentSeller
-              } catch (error) {}
+              } catch (error) { }
             })
           }
         }
@@ -124,7 +124,7 @@ export function adminController(p) {
     try {
       const _category = [...p.category]
       const index = p.category.findIndex(c => c._id === p.route.params.id)
-      if (index === -1 ) throw new Error()
+      if (index === -1) throw new Error()
       _category[index].title = data.value.title
       _category[index].imageUrl = data.value.imageUrl
       p.setcategory(_category)
@@ -557,10 +557,10 @@ export function adminController(p) {
               try {
                 const _allAddres = [...allAddres]
                 const index = _allAddres.findIndex(a => a._id === id)
-                if(index === -1) throw new Error()
+                if (index === -1) throw new Error()
                 _allAddres[index].queueSend = data.value
                 return _allAddres
-              } catch (error) {}
+              } catch (error) { }
             })
           }
         }
@@ -632,21 +632,25 @@ export function adminController(p) {
 
 
   //! DataForChart
-  // this.getDataForChart = async () => {
-  //   useEffect(() => {
-  //     // !p.usersLength &&
-  //     (async () => {
-  //       const { data } = await getDataForChart()
-  //       p.setaddress7DeyForChart(data.getAddress7DeyForChart)
-  //       setTimeout(() => {
-  //         p.setusersLength(data.getUsersLength)
-  //         p.setusers7DeyForChart(data.getUsers7DeyForChart)
-  //       }, 1000);
-  //       setTimeout(() => {p.setaddress1YearsForChart(data.getAddress1YearsForChart)}, 2000);
-
-  //     })()
-  //   }, [])
-  // }
+  this.getDataForChart = async (type) => {
+    useEffect(() => {
+      (async () => {
+        const { data: { value } } = await getDataForChart(type)
+        switch (type) {
+          case 'address7DeyForChart':
+            p.setaddress7DeyForChart(value)
+            break;
+          case 'users7DeyForChart': {
+            p.setusers7DeyForChart(value.users7DeyForChart)
+            p.setusersLength(value.usersLength)
+          } break;
+          case 'address1YearsForChart':
+            p.setaddress1YearsForChart(value)
+            break;
+        }
+      })()
+    }, [])
+  }
   //! DataForChart
 
 

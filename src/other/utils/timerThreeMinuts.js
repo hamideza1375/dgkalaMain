@@ -1,10 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import seconder from "./seconder"
-
+let int
 export const timerThreeMinut = async (settwoMinut, call = () => { }) => {
+  int && clearInterval(int)
   const localDate = await AsyncStorage.getItem('localDate')
   const oldDate = localDate && localDate > new Date().getTime() ? JSON.parse(localDate) : new Date().getTime() + (1000 * 60 * 3)
   seconder(new Date(oldDate), async ({ days, hours, minutes, seconds, interval }) => {
+   int = interval
     call(interval)
     settwoMinut(minutes + ':' + seconds)
     if ((!minutes && !seconds) || (minutes <= 0 && seconds <= 0)) setTimeout(() => { settwoMinut(0) }, 2000);

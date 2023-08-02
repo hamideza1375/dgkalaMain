@@ -8,8 +8,8 @@ import _useEffect from '../../../controllers/_initial';
 
 const Form = (props) => Platform.OS !== 'web' ? <>{props.children}</> : <form {...props}>{props.children}</form>
 
-
-function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, setshowDrawer, row, array, setarray, icon, m_icon, a_icon, src, iconPress, sort, bgcolor, title, brand, product, address, home, newSearchArray }) {
+let int
+function SearchInput({ onChange, iconSrc, table, iconBack, children, drawer, showDrawer, setshowDrawer, row, array, setarray, icon, m_icon, a_icon, src, iconPress, sort, bgcolor, title, brand, product, address, home, newSearchArray }) {
 
   const navigation = useNavigation()
 
@@ -81,9 +81,16 @@ function SearchInput({ iconSrc, table, iconBack, children, drawer, showDrawer, s
             <Form style={{ display: 'flex', width: '100%', height: '100%' }} autoComplete="off">
               <Input
                 inputMode='text'
-                // textContentType={'none'}
                 autoComplete={'off'}
                 value={textSearch} onChangeText={text => {
+
+                  if (onChange) {
+                    int && clearInterval(int)
+                    int = setTimeout(() => {
+                      onChange(text)
+                    }, 500);
+                  }
+
                   settextSearch(text.toLowerCase());
                   p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } })
                   startTransition(() => {

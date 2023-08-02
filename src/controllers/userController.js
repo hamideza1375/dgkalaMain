@@ -16,46 +16,31 @@ import reload from '../other/utils/reload';
 
 
 export function userController(p) {
-
-  this.deleteTimerThreeMinut = async () => {
+  
+  this.startTimerThreeMinut = async () => {
     await AsyncStorage.removeItem('localDate')
+    timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
   }
-
-
+  
 
   this.getNewCode = async () => {
     p.setshowActivity(true)
     await getNewCode(p.route.params?.newCode)
-    this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
+    this.startTimerThreeMinut()
   }
 
 
-  this.loadPageTimer = () => {
-    _useEffect(() => {
-      // p.timerInterwal.current && clearInterval(p.timerInterwal.current)
-        (async () => {
-          const localDate = await AsyncStorage.getItem('localDate')
-          if (localDate > new Date().getTime()) {
-            timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
-          } else p.settwoMinut(0)
-        })()
-      return () => { p.settwoMinut(0); p.setcode(''); p.timerInterwal.current && clearInterval(p.timerInterwal.current) }
-    }, [])
-  }
 
   // ! Register
   this.getCodeForRegister = async () => {
     await getCodeForRegister({ fullname: p.fullname, phoneOrEmail: p.phoneOrEmail, password: p.password })
-    this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
+    this.startTimerThreeMinut()
     p.navigation.replace('GetCode', { register: 'true' })
   }
 
 
   this.verifycodeRegister = async () => {
     await verifycodeRegister({ code: p.code })
-    this.deleteTimerThreeMinut()
     p.navigation.navigate('Login')
   }
   // ! Register
@@ -67,8 +52,7 @@ export function userController(p) {
     await AsyncStorage.removeItem("several")
     await AsyncStorage.removeItem('getMinutes')
     if (!data?.value) {
-      this.deleteTimerThreeMinut()
-      timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
+      this.startTimerThreeMinut()
       p.navigation.replace('GetCode', { login: 'true' })
     }
     else {
@@ -94,7 +78,6 @@ export function userController(p) {
     p.setphoneOrEmail('')
     p.setpassword('')
     p.setcaptcha('')
-    this.deleteTimerThreeMinut()
     if (p.route.params?.payment)  p.navigation.navigate('BeforePayment', { screen: 'ProductBasket' });
     else p.navigation.dispatch(StackActions.replace('Profile'))
   }
@@ -104,8 +87,7 @@ export function userController(p) {
   //! changePassword
   this.getCodeForgetPass = async () => {
     await getCodeForgetPass(p.route.params?.newCode, { phoneOrEmail: p.phoneOrEmail })
-    this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
+    this.startTimerThreeMinut()
     p.setphoneOrEmail('')
     p.navigation.replace('GetCode', { forgetPass: 'true', newCode: 'true' })
   }
@@ -113,7 +95,6 @@ export function userController(p) {
 
   this.verifycodeForgetPass = async () => {
     await verifycodeForgetPass({ code: p.code })
-    this.deleteTimerThreeMinut()
     p.setcode('')
     p.navigation.dispatch(StackActions.replace('ResetPass'))
   }
@@ -160,8 +141,7 @@ export function userController(p) {
 
   this.resetSpecification = async () => {
     await resetSpecification({ fullname: p.fullname, phoneOrEmail: p.phoneOrEmail, oldPassword: p.oldPassword, password: p.password })
-    this.deleteTimerThreeMinut()
-    timerThreeMinut(p.settwoMinut, (interval) => p.timerInterwal.current = interval)
+    this.startTimerThreeMinut()
     p.setfullname('')
     p.setphoneOrEmail('')
     p.setpassword('')
@@ -177,7 +157,6 @@ export function userController(p) {
     axios.defaults.headers.common["Authorization"] = data.value;
     const user = jwtDecode(data.value);
     p.settokenValue(user);
-    this.deleteTimerThreeMinut()
     p.setcode('')
     p.navigation.dispatch(StackActions.replace('Profile'))
   }

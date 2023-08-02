@@ -481,15 +481,26 @@ let App = () => {
   const toast = new Toast(allState.client)
   var toastNetworkError = () => { toast.error('خطا ی شبکه', 'اتصال اینترنتتان را برسی کنید') }
 
+  function fallbackRender({ error, resetErrorBoundary }) {
+    return (
+      <>
+        <Column onLayout={() => { toast.error('خطا', 'مشکلی پیش آمد'); }} style={{ width: '70%', marginTop: 20, padding: 12, display: 'flex', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1 }} >
+          <P style={{ fontFamily: 'IRANSansWeb', fontWeight: 'bold' }} >اتفاق غیر منتظره ای رخ داد</P>
+          <Press onClick={resetErrorBoundary} style={{ marginTop: 15, width: 95, height: 37, borderWidth: 1, borderRadius: 4, borderColor: '#08e', justifyContent: 'center', alignItems: 'center' }} >
+            <P style={{ fontFamily: 'IRANSansWeb', color: '#08e', fontSize: 12 }} >بارگذاری مجدد</P>
+          </Press>
+          {netInfo.isConnected === false ? <P fs={13} mt={12} color='red' style={{ fontFamily: 'IRANSansWeb' }} >اتصال اینترنتتان را چک کنید</P> : <></>}
+        </Column>
+        <ToastProvider {...allState.init} />
+      </>
+    );
+  }
+
+
   return (
-    splash ? <ErrorBoundary fallback={
-      <Column style={{ width: '70%', marginTop: 20, padding: 12, display: 'flex', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1 }} >
-        <P style={{ fontFamily: 'IRANSansWeb', fontWeight: 'bold' }} >اتفاق غیر منتظره ای رخ داد</P>
-        <Press onClick={reload} style={{ marginTop: 15, width: 95, height: 37, borderWidth: 1, borderRadius: 4, borderColor: '#08e', justifyContent: 'center', alignItems: 'center' }} >
-          <P style={{ fontFamily: 'IRANSansWeb', color: '#08e', fontSize: 12 }} >بارگذاری مجدد</P>
-        </Press>
-        {netInfo.isConnected === false ? <P fs={13} mt={12} color='red' style={{ fontFamily: 'IRANSansWeb' }} >اتصال اینترنتتان را چک کنید</P> : <></>}
-      </Column>} >
+    splash ? <ErrorBoundary
+      onError={(error) => { console.log(error) }}
+      fallbackRender={fallbackRender} >
       <_App />
     </ErrorBoundary>
       :

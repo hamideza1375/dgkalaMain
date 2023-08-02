@@ -32,6 +32,7 @@ const Form = ({
   sizeY = 1,
   top = 10,
   flexDirection,
+  row,
   $codeAutoFocus,
 
   fIconLeft, fIconRight, eIconLeft, eIconRight, pIconLeft, pIconRight, cpIconLeft, cpIconRight,
@@ -497,7 +498,7 @@ if(city){
     <ScrollView onMoveShouldSetResponder={setScroll} scrollEnabled={Platform.OS !== 'web' ? scrollEnabled : true} contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]} style={[{ backgroundColor: bgcolor, borderRadius: 3, marginTop: mt }, Platform.OS === 'web' ? webStyle : nativeStyle]} >
 
       <View style={[styles.viewContainer, { paddingTop: top }, style]} >
-        <View style={[{ transform: [{ scaleY: sizeY }], padding: 10, paddingBottom: pb, paddingTop: pt }, flexDirection === 'row' && Platform.OS === 'web' ? { flexDirection: 'row', flexWrap: 'wrap' } : {}]}>
+        <View style={[{ transform: [{ scaleY: sizeY }], padding: 10, paddingBottom: pb, paddingTop: pt }, (flexDirection === 'row' || row) && Platform.OS === 'web' ? { flexDirection: 'row', flexWrap: 'wrap' } : {}]}>
 
 
           {city &&

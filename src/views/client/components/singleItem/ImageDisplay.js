@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import _useEffect from '../../../../controllers/_initial'
 import { Card2, Img, Press, Column } from '../../../../other/Components/Html'
 import { localhost } from '../../../../other/utils/axios/axios'

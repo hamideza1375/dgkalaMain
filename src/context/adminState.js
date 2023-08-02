@@ -18,7 +18,17 @@ export function admin() {
   const [newSearchSellerArray, setnewSearchSellerArray] = useState([])
   const [newSearchAddressArray, setnewSearchAddressArray] = useState([])
 
+  const [address7DeyForChart, setaddress7DeyForChart] = useState([])
+  const [address1YearsForChart, setaddress1YearsForChart] = useState([])
+  const [users7DeyForChart, setusers7DeyForChart] = useState([])
+  const [usersLength, setusersLength] = useState([])
+
   this.admin = {
+    address7DeyForChart, setaddress7DeyForChart,
+    address1YearsForChart, setaddress1YearsForChart,
+    users7DeyForChart, setusers7DeyForChart,
+    usersLength, setusersLength,
+
     newSearchAddressArray, setnewSearchAddressArray,
     newSearchSellerArray, setnewSearchSellerArray,
     allQuitsSeller, setallQuitsSeller,
