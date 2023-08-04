@@ -91,7 +91,6 @@ export const _initController = (p) => {
 
 
 
-  useLayoutEffect(() => { p.$input.set('a', 'a') }, [])
   useLayoutEffect(() => {
     /* show === true && */ setTimeout(() => { if (show === true) { p.setSplash(false); p.setshowActivity(false) } }, 200)
     // show === false && p.setSplash(true);

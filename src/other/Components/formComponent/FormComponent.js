@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { View, TextInput, Platform } from 'react-native';
 import _icon from 'react-native-vector-icons/dist/FontAwesome5';
 import Micon from 'react-native-vector-icons/dist/MaterialIcons';
+import { context } from '../../../context/_context';
 
 
 
@@ -16,8 +17,9 @@ export const Textarea = React.forwardRef((props, ref) => {
 
 
 export const Input = React.forwardRef((props, ref) => {
-  const { onPressIn, dropdown, onFocus, $input, textId, fg, f, ta, dr = 'rtl', as, fs = 13, p, pt, pb, pl, pr, pv, ph, h = 50, w, m, mt, mb, ml, mr, mv, mh, color = '#222', bgcolor = '#fff', border = [.3], pColor = '#999', } = props;
+  const { onPressIn, dropdown, onFocus, id, fg, f, ta, dr = 'rtl', as, fs = 13, p, pt, pb, pl, pr, pv, ph, h = 50, w, m, mt, mb, ml, mr, mv, mh, color = '#222', bgcolor = '#fff', border = [.3], pColor = '#999', } = props;
 
+  const { $input, set$input } = context()
 
   return (
     <View
@@ -34,19 +36,20 @@ export const Input = React.forwardRef((props, ref) => {
         {dropdown}
       </View>
       <TextInput
-      onPressIn={onPressIn}
+        onPressIn={onPressIn}
         onFocus={onFocus}
         ref={(e) => {
-
-          if (e && $input) {
-            $input?.set(textId, e);
-
-            const getId = (id) => { return $input.get(id); };
-            if($input.get(textId)) $input.id = getId;
-
-            const setNativeProps = (val) => { e.setNativeProps(val) };
-            e.$ = setNativeProps
-
+          if (e) {
+            if(id && !$input.get(id))
+            set$input(($input) => {
+              const $inp = new Map($input)
+              $inp.set(id, e);
+              const getId = (id) => { return $inp.get(id); };
+              if ($inp.get(id)) $inp.id = getId;
+              const setNativeProps = (val) => { e.setNativeProps(val?.text ? val : { style: val }) };
+              e.$ = setNativeProps
+              return $inp
+            })
           }
         }
         }

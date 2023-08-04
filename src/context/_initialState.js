@@ -43,7 +43,7 @@ export function initial() {
   const [rand, setRand] = useState(parseInt(Math.random() * 9000 + 1000));
   const [showActivity, setshowActivity] = useState(false);
   const [$, set$] = useState()
-  const [$input] = useState(new Map())
+  const [$input, set$input] = useState(new Map())
   const refInput = useRef()
   const [clientX, setclientX] = useState(0)
   const [clientY, setclientY] = useState(0)
@@ -177,7 +177,7 @@ export function initial() {
     message, setmessage,
     captcha, setcaptcha,
     refInput,
-    $input,
+    $input, set$input,
     $, set$,
     showActivity, setshowActivity,
     rand, setRand,

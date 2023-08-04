@@ -1,15 +1,17 @@
 import React from 'react'
-import { Badge, Button, Card2, Column, Icon, P, Pfa, Press, Row, Span } from '../../../../other/Components/Html'
-import spacePrice from '../../../../other/utils/spacePrice'
-import _useEffect from '../../../../controllers/_initial';
-import convertColor from '../../../../other/utils/convertColor'
+import { Badge, Button, Card2, Column, Icon, P, Pfa, Press, Row, Span } from '../../other/Components/Html'
+import spacePrice from '../../other/utils/spacePrice'
+import _useEffect from '../../controllers/_initial';
+import convertColor from '../../other/utils/convertColor'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Description = (p) => {
 
-  // p._client.setColor()
-  p._client.getSingleSeller()
+  _useEffect(() => {
+   p.setsingleItem({id:'1', title:'1', price:100000, color:[{color:'red', value:2}, {color:'blue', value:2}], offerValue:10, offerTime:{exp:Date.now() + 100 * 1000 * 60 * 60 * 24, value:100}})
+  }, [])
+  
 
 
   let price = 0
@@ -21,16 +23,6 @@ const Description = (p) => {
   const setAsyncStorage = async (productBasket) => {
     await AsyncStorage.setItem('productBasket', JSON.stringify(productBasket))
   }
-
-
-  _useEffect(() => {
-    p.singleItem.title && p.setcolor((color) => {
-      const c = { ...color }
-      c[p.route.params?.id] = color[p.route.params?.id] ? color[p.route.params?.id] : p.singleItem.color[0]?.color
-      return c
-    })
-  }, [p.singleItem, p.changeRefresh])
-
 
 
   _useEffect(() => {
@@ -55,7 +47,6 @@ const Description = (p) => {
       p.toast.warning('خطا', 'محصول مورد نظر موجود نمیباشد')
   }
 
-  
   const plus = () => {
     (p.singleItem.availableCount && p.productBasket[p.route.params.id].number < p.singleItem.availableCount) &&
       p.setproductBasket(addNumber => {
@@ -65,7 +56,6 @@ const Description = (p) => {
         return obj
       })
   }
-
 
   const minus = () => {
     p.productBasket[p.route.params.id]?.number &&

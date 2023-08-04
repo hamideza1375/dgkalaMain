@@ -92,21 +92,20 @@ function SearchInput({ onChange, iconSrc, table, iconBack, children, drawer, sho
                   }
 
                   settextSearch(text.toLowerCase());
-                  p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } })
+                  p.$input.id('dropdownDrawer')?.$({  display: 'flex', transform: [{ scale: 1 }] })
                   startTransition(() => {
                     setTimeout(() => {
                       if (text?.length < 1 && !home) searcher(text?.toLowerCase())
                     }, 100)
                   })
                 }}
-                onSubmitEditing={!home ? () => { searcher(textSearch.toLowerCase()); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } }) } : () => { }}
+                onSubmitEditing={!home ? () => { searcher(textSearch.toLowerCase()); p.$input.id('dropdownDrawer')?.$({  display: 'flex', transform: [{ scale: 0 }] }) } : () => { }}
                 iconPress={() => { !home && searcher(textSearch.toLowerCase()) }}
                 dropdown={
                   ((home || product) && (textSearch) && (!table)) ?
                     <Dropdown2
                       displayFlex
-                      $input={p.$input}
-                      textId='dropdownDrawer'
+                      id='dropdownDrawer'
                       show={p.showDropdownFilter}
                       setshow={p.setshowDropdownFilter}
                       iconFalse
@@ -123,7 +122,7 @@ function SearchInput({ onChange, iconSrc, table, iconBack, children, drawer, sho
                                   setTimeout(() => {
                                     navigation.navigate('SingleProduct', { id: item._id })
                                   }, 100)
-                                    ; settextSearch(''); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } })
+                                    ; settextSearch(''); p.$input.id('dropdownDrawer')?.$({  display: 'flex', transform: [{ scale: 0 }] })
                                 }} jc='space-between' style={{ padding: 5, borderBottomWidth: newSearchArray.length - 1 !== index ? 1 : 0, borderColor: 'silver' }} >
                                   <P fs={12} ml={15} >{item.title}</P >
                                   {item.imageUrl1 ? <Img br={4} w={45} h={45} src={{ uri: `${localhost}/upload/childItem/${item.imageUrl1}` }} /> : <></>}
@@ -139,7 +138,7 @@ function SearchInput({ onChange, iconSrc, table, iconBack, children, drawer, sho
                                   setTimeout(() => {
                                     navigation.navigate('SingleProduct', { id: item._id })
                                   }, 100)
-                                    ; settextSearch(''); p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 0 }] } })
+                                    ; settextSearch(''); p.$input.id('dropdownDrawer')?.$({  display: 'flex', transform: [{ scale: 0 }] })
                                 }} jc='space-between' style={{ padding: 5, borderBottomWidth: newSearchArray.length - 1 !== index ? 1 : 0, borderColor: 'silver' }} >
                                   <P fs={12} ml={15} >{item.brand}</P >
                                   {item.imageUrl1 ? <Img br={4} w={45} h={45} src={{ uri: `${localhost}/upload/childItem/${item.imageUrl1}` }} /> : <></>}
@@ -156,7 +155,7 @@ function SearchInput({ onChange, iconSrc, table, iconBack, children, drawer, sho
                     :
                     false
                 }
-                $input={p.$input} textId='inputSearch' onFocus={() => { p.$input.get('dropdownDrawer')?.current?.setNativeProps({ style: { display: 'flex', transform: [{ scale: 1 }] } }) }} icon="search" iconSize={16} pColor={'#777'} border={[1, '#ccc']} autoCapitalize='none' autoCorrect={false} spellCheck={true} placeholder="جستجو" mh={8} h={'95%'} mt={4} dr='rtl' fg={1} style={{ minWidth: 120, width: 120 }} >
+                id='inputSearch' onFocus={() => { p.$input.id('dropdownDrawer')?.$({ display: 'flex', transform: [{ scale: 1 }] }) }} icon="search" iconSize={16} pColor={'#777'} border={[1, '#ccc']} autoCapitalize='none' autoCorrect={false} spellCheck={true} placeholder="جستجو" mh={8} h={'95%'} mt={4} dr='rtl' fg={1} style={{ minWidth: 120, width: 120 }} >
 
               </Input>
             </Form>

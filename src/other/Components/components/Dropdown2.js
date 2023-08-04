@@ -3,8 +3,9 @@ import { Pressable, View } from "react-native";
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import A_icon from 'react-native-vector-icons/dist/AntDesign';
 import M_icon from 'react-native-vector-icons/dist/MaterialIcons';
+import { context } from "../../../context/_context";
 
-const Dropdown = ({bodyStyle,displayFlex,$input,textId,h, child, border = [.5, 'silver'], show, setshow, children, icon, a_icon, m_icon, color = '#aaa', showBgcolor = '#fff', style, iconFalse, top, onClick }) => {
+const Dropdown = ({bodyStyle,displayFlex,id,h, child, border = [.5, 'silver'], show, setshow, children, icon, a_icon, m_icon, color = '#aaa', showBgcolor = '#fff', style, iconFalse, top, onClick }) => {
 
   const ref = useRef()
 
@@ -13,7 +14,7 @@ const Dropdown = ({bodyStyle,displayFlex,$input,textId,h, child, border = [.5, '
   }, [show])
 
 
-
+const {$input, set$input} = context()
 
   return (
     <View style={{zIndex:10}} >
@@ -44,7 +45,20 @@ const Dropdown = ({bodyStyle,displayFlex,$input,textId,h, child, border = [.5, '
 
       <Pressable
         ref={ref}
-        onLayout={()=>{$input?.set(textId, ref);}}
+        onLayout={()=>{
+          if (ref) {
+            if(id && !$input.get(id))
+            set$input(($input) => {
+              const $inp = new Map($input)
+              $inp.set(id, ref);
+              const getId = (id) => { return $inp.get(id); };
+              if ($inp.get(id)) $inp.id = getId;
+              const setNativeProps = (val) => { ref.current?.setNativeProps({style:val}) };
+              ref.$ = setNativeProps
+              return $inp
+            })
+          }
+        }}
         style={[{
 
           alignSelf: 'center', borderWidth: border[0], borderColor: border[1], borderRadius: 3,zIndex:11, padding: 3, position: 'absolute',
